@@ -1,6 +1,6 @@
 ---
 title: Phase A - Refactor & Foundation (behaviour-neutral)
-status: RATIFIED by Petros (board) 2026-06-10 - pending Stergios final review; dispatch on his sign-off
+status: RATIFIED by Petros (board) 2026-06-10 - Stergios sign-off + DISPATCHED 2026-06-10; IN PROGRESS (execution started at WS A1)
 date: 2026-06-09
 owner: Stergios & Alexandros
 reviewers:
@@ -130,7 +130,10 @@ is not a net.
 
 - **God-classes dominate:** `SceneManager.cs` ~2,506 lines (two parallel `if (step is X)` ladders; every step type
   implemented twice - `RunXxx` + `RunXxxGroup`, ~1,000 duplicated, NOT bit-identical lines); `ScenarioGraphWindow.cs`
-  ~4,962 lines / 6 types; `ScenarioEditor.cs` ~1,480 lines / 11 drawers; `ContentDeliverySpawner.cs` ~1,180 lines.
+  ~4,962 lines / 6 types *(census freeze 2026-06-10, re-verified at review: now 5,878 lines / **10 named types** -
+  the 2026-06-08 "6" undercounted (omitted `PendingNoteEdit` + `PortMeta`); commit `448301b` added `EditableNote` +
+  `GroupBox`; all ride the WS A6 split)*; `ScenarioEditor.cs` ~1,480 lines / 11 drawers (now 1,492);
+  `ContentDeliverySpawner.cs` ~1,180 lines.
 - **The data model is disciplined where it matters:** `Scenario.cs` correctly uses `[SerializeReference]`,
   `[FormerlySerializedAs]`, `[Serializable]`, and the load-bearing `OnValidate` no-null-strip + `isCompiling` guard.
   **This contract must not be touched in Phase A.**
@@ -156,6 +159,7 @@ is not a net.
 | High | `Runtime/ContentDelivery/...` | string-reflection dispatch + `FindObjectsOfType` in runtime code (IL2CPP-fragile, per-frame) | No | **Phase D** (`ISceneRunnerControl` swap) |
 | High | `Tests/Editor/*` | no Scenario/serialization/GUID/API tests at all | Yes | **WS A3** (first) |
 | Med | `ScenarioGraphWindow.cs` | `[SerializeReference]` list mutations guarded only by `Undo.RecordObject` | No | after Phase A |
+| Med | `ScenarioGraphWindow.cs` `DuplicateStep` | *(census freeze 2026-06-10)* Duplicate of a `GroupStep` drops/corrupts nested children - `JsonUtility` does not support `[SerializeReference]`. Pre-existing, predates `448301b`. Verify in-editor: duplicate a populated GroupStep, observe result | No | after Phase A (fix = `EditorJsonUtility` or manual deep copy - behaviour change) |
 | Med | `ScenarioEditor.cs:220-231` | ungated "Remove null entry" can permanently destroy a still-valid step | No | after Phase A (elevated) |
 | Med | `AddressablesAdapterResolver.cs:23-33` | vendor `HealthOnAddressablesAdapter` inside the generic toolkit | No | Phase D (document now) |
 | Med | `Editor/Core.Editor` layering | naive `AddressablesBuilderWindow` move = circular asmdef ref | No | Phase D (constraint recorded) |
@@ -178,7 +182,7 @@ execution paths.** So the admission test is **static + additive (all EditMode)**
 
 | Proof | What it asserts | Mode |
 |---|---|---|
-| **Proof A - Scenario graph integrity** *(primary net)* | per lab fixture, the `[SerializeReference]` step graph is intact: (i) refs resolve - no nulled/Missing refs, no null step in any list; (ii) every routing guid (`nextGuid`, `correctNextGuid`/`wrongNextGuid`, `outcomes[].nextGuid`, `defaultNextGuid`, `specificStepGuid`, `multiConditionBranches[].nextGuid`, `childRequirements[].guid`) is `""` or points to an existing step guid, recursing into `GroupStep.steps`; (iii) every `UnityEvent` persistent listener keeps a live target + non-empty method | EditMode, read-only, real labs |
+| **Proof A - Scenario graph integrity** *(primary net)* | per lab fixture, the `[SerializeReference]` step graph is intact: (i) refs resolve - no nulled/Missing refs, no null step in any list; (ii) every routing guid (`nextGuid`, `correctNextGuid`/`wrongNextGuid`, `passedNextGuid`/`failedNextGuid` *(QuizResultsStep - added at census freeze 2026-06-10)*, `outcomes[].nextGuid`, `defaultNextGuid`, `specificStepGuid`, `multiConditionBranches[].nextGuid`, `childRequirements[].guid`) is `""` or points to an existing step guid, recursing into `GroupStep.steps`; (iii) every `UnityEvent` persistent listener keeps a live target + non-empty method | EditMode, read-only, real labs |
 | **Proof B - Public-API additions-only** | reflected public surface over `Pitech.XR.*` may only GAIN members; **extended** to assert the Core.Editor `FullName` literals still resolve | EditMode, reflection |
 | **Proof C - Serialized & GUID integrity** | every MonoScript `.meta` GUID unchanged + open->save serialized-diff zero (scene object AND prefab-instance-with-override) | EditMode, serialized-diff |
 
@@ -225,14 +229,25 @@ menu-root unification touches reflected `ExecuteMenuItem` callers, the splits mo
 and the deletes must be proven caller-free - none of which is safe to start blind.
 
 **Steps (progress tracking):**
-- [ ] Step 1: Confirm Appendix A is current vs the live source - spot-check GUIDs/line anchors (e.g. `SceneManager`
+- [x] Step 1: Confirm Appendix A is current vs the live source - spot-check GUIDs/line anchors (e.g. `SceneManager`
       MonoScript GUID `2d431a49d183e9c428369f7f758f75cd`); flag any surface added/removed since 2026-06-08.
-- [ ] Step 2: Freeze the census as the disposition reference WS A2..A7 execute against.
-- [ ] Step 3: Mark the 3-5 labs that become the WS A3 fixture corpus (criteria in Appendix I.3).
-- [ ] Step 4: Cross-check delete/relocate calls against §3 resolved decisions (`ScenarioEditorUtil` = delete;
-      `AddressablesBuilderWindow` relocation = Phase D, NOT here).
+      *(Done 2026-06-10: GUID pin EXACT; 30+ anchors verified exact; drift + new surfaces recorded in the census-freeze
+      addenda (§0, Appendix A tables, (F) addendum, Appendix B) - headline: `448301b` grew the graph window to
+      5,878 lines / 10 named types (original census undercounted at 6); `QuizStep`/`QuizResultsStep` were absent from
+      the census; 5th Greek comment found at SceneManager:1533 (plain UTF-8, translate-only); `EditorSkipFromGraph`
+      anchor was stale at authoring (1588 -> 1523). Re-verified by the 2026-06-10 adversarial review - 3 factual
+      corrections applied, see the review log row.)*
+- [x] Step 2: Freeze the census as the disposition reference WS A2..A7 execute against. *(Frozen 2026-06-10 - all
+      corrections inlined as dated census-freeze notes; the tables now match live source.)*
+- [x] Step 3: Mark the 3-5 labs that become the WS A3 fixture corpus (criteria in Appendix I.3). *(Done 2026-06-10 -
+      5 labs marked + the not-in-any-real-lab gap list; see the I.3 addendum table.)*
+- [x] Step 4: Cross-check delete/relocate calls against §3 resolved decisions (`ScenarioEditorUtil` = delete;
+      `AddressablesBuilderWindow` relocation = Phase D, NOT here). *(Done 2026-06-10: `ScenarioEditorUtil` zero-caller
+      verified (grep, package-wide); the rejected EnsureStableGuids alternative is NOT implemented anywhere; the dead
+      `SceneManager.EvalCompare` (:1168) is distinct from the two live `ConditionsEvaluator.EvalCompare` call sites
+      (:1042/:2226); `LaunchContextProviders.cs` = 266-byte empty placeholder; `AddressablesBuilderWindow` untouched.)*
 
-**Acceptance:** every WS A2..A7 edit maps to a census row; fixture candidates identified.
+**Acceptance:** every WS A2..A7 edit maps to a census row; fixture candidates identified. **MET 2026-06-10.**
 **Gate:** none - this is the map.
 
 ---
@@ -333,11 +348,14 @@ committed; golden-trace harness passes on its one seed fixture.
 hidden behind whitespace churn.
 
 **Steps (progress tracking):**
-- [ ] Step 1: Translate the four Greek comments in `SceneManager.cs` (~1367/1429/1439/2478); normalize the `#else`
-      input-branch indentation (token stream unchanged).
+- [ ] Step 1: Translate the **five** Greek comments in `SceneManager.cs` (1367/1429/1439/**1533**/2478 - census freeze
+      2026-06-10, corrected at review: all five are plain valid UTF-8 Greek, translate-only, NO encoding repair needed;
+      the real mojibake remains the `U+FFFD` pair in `DevkitWidgets.cs`, Step 3); normalize the
+      `#else` input-branch indentation (token stream unchanged).
 - [ ] Step 2: Translate Greek comments + the Greek `[Tooltip]` in `SelectionLists.cs`; Greek comments in
-      `SceneManagerEditor.cs`. *(Tooltips are not serialized into assets - neutral. Greek HELP-BOX strings in
-      `SelectionListsEditor` are user-visible -> after Phase A, excluded here.)*
+      `SceneManagerEditor.cs`; *(census freeze 2026-06-10)* the four Greek comments in `ScenarioGraphWindow.cs`
+      (2129/3345/3351/3799 - same comment-translation nature, behaviour-neutral). *(Tooltips are not serialized into
+      assets - neutral. Greek HELP-BOX strings in `SelectionListsEditor` are user-visible -> after Phase A, excluded here.)*
 - [ ] Step 3: Fix the two `U+FFFD` mojibake comments in `DevkitWidgets.cs`; re-indent the broken object-initializer braces.
 - [ ] Step 4: Reformat all 12 asmdef files to one style (4-space) + consistent field set.
 - [ ] Step 5: Fix `AddressablesBuilderWindow` `OnEnable` brace/indentation.
@@ -355,7 +373,7 @@ hidden behind whitespace churn.
 **Steps (progress tracking):**
 - [ ] Step 1: Delete `SceneManager.EvalCompare` (1168-1182) - zero callers; both live sites use
       `ConditionsEvaluator.EvalCompare`.
-- [ ] Step 2: Delete the unreachable `"defaultNextGuid"` ternary (`ScenarioEditor.cs:1041`) + the unused `Styles.Primary`.
+- [ ] Step 2: Delete the unreachable `"defaultNextGuid"` ternary (`ScenarioEditor.cs:1050` - was :1041 pre-`448301b`) + the unused `Styles.Primary`.
 - [ ] Step 3: Delete empty `LaunchContextProviders.cs` + `.meta`.
 - [ ] Step 4: Delete the dead `DevkitWidgets` cluster (StatusChips/StatusBar/StatusRibbon/StatusHeader/ProgressBar/
       ProgressBarPro/Kpi/Tile + `DevBlocksWindow.SmallButton`) after a zero-reference sweep; remove duplicate comment
@@ -495,14 +513,14 @@ namespace Pitech.XR.Core
 | `AddressablesRemoteUrlRewriter` save/restore of global transform | after Phase A | confirmed bug, but fixing it changes observable behaviour | capture prior func on install, chain, restore (not null) on uninstall; regression test; route via bridge/host owner |
 | `package.json` `dependencies` block + versionDefines fix + Unity 6000.0 floor-bump | Phase D, post-launch (ONE cutover) | changes UPM resolution in consumers | TMP/ugui hard; Addressables required (§3); with/without-`PITECH_*` compile test; spec §28.6 |
 | `RunXxx`/`RunXxxGroup` unification -> `IStepRunner` registry | Phase D | variants not bit-identical; fails Proof A by construction | proven byte-equal against the completed golden trace first |
-| Editor undo-correctness (`RegisterCompleteObjectUndo`; `SerializedObject` routing; gate the ungated null-delete) | after Phase A | changes undo-stack / prefab-override behaviour | the ungated null-delete is ELEVATED - can lose shipped-lab data |
+| Editor undo-correctness (`RegisterCompleteObjectUndo`; `SerializedObject` routing; gate the ungated null-delete; *(added 2026-06-10)* `Undo.undoRedoPerformed` -> graph reload hook - undo of a node resize leaves stale visuals until Refresh) | after Phase A | changes undo-stack / prefab-override behaviour | the ungated null-delete is ELEVATED - can lose shipped-lab data |
 | 7-way route-schema table; shared per-step drawers; `JsonUtility` deep-copy fidelity | after Phase A | variants diverge today | lock with fixture round-trips (Proof C) before merging |
 | Runtime reflection/`Find` removal (Interactables + ContentDelivery) | Phase D | changes discovery/timing/caching | via `ISceneRunnerControl`; cache VR/Meta determination |
 | Core.Editor layering inversion + `AddressablesBuilderWindow` relocation | Phase D | naive move = circular asmdef ref | first extract editor-UI primitives to a lower assembly |
 | HealthOn adapter de-coupling | Phase D | changes resolution for labs on the implicit fallback | gate behind a config migration setting `adapterTypeName` |
 | Stray root prefab relocation | Phase D | referenced by GUID `a0032abe...` | carry `.meta`; prove Proof C |
 | `link.xml` narrowing | Phase D | size optimization, safe today | enumerate every reflection-instantiated Step type first |
-| Saved graph "section shapes" + custom branch names | first item after Phase A | serialized fields -> fails Proof C | editor-only serialized field via the `Scenario.GraphNote` `#if UNITY_EDITOR` pattern |
+| Saved graph "section shapes" + custom branch names | first item after Phase A | serialized fields -> fails Proof C | editor-only serialized field via the `Scenario.GraphNote` `#if UNITY_EDITOR` pattern. *(2026-06-10: "section shapes" LANDED early - `448301b`'s `GraphGroup` boxes, already in the compliant pattern; saved per-node display name + manual node size (a 448301b feature this row never listed) also landed, reconciled into the `StepGraphDisplay` side-table. REMAINING deferred scope: custom names on label-less branch EDGES only - node header names are NOT that feature.)* |
 
 ---
 
@@ -602,6 +620,9 @@ events/facts/lifecycle hooks (behaviour).
 
 | Date | WS | Event | By |
 |---|---|---|---|
+| 2026-06-10 | A1 | **WS A1 re-reviewed** (unity-csharp skill, 29-agent adversarial workflow; every finding double-verified). 3 factual census corrections applied: (1) SceneManager:1533 is plain UTF-8 Greek, NOT mojibake (the "mojibake" came from a console decoding artifact during the survey - WS A4 Step 1 + the A1 row corrected); (2) graph window = **10 named types**, not 8 (original census's 6 omitted `PendingNoteEdit`+`PortMeta`) - §0 + (A) row corrected so WS A6 plans the full split set; (3) `QuizResultsStep` routes via `passedNextGuid`/`failedNextGuid` - (F) addendum + §1/I.0 Proof A enumerations corrected, with the "derive routing fields generically by `*NextGuid` suffix" requirement added. I.3 hardened: the synthetic fixture is now MANDATORY at A3 Step 7 (no silent demotion of the ratified SpecificChild shape); prefab sweep added (199 VR prefabs: zero step content - labs ship as Addressable SCENES; package stray prefab = only serialized ConditionsStep anywhere); recovery-copy caveat added. Code follow-ups landed into the staged fix: inspector-side `RemoveStepAt` now prunes side-table entries via new `Scenario.RemoveStepGraphDisplayRecursive` (the graph window uses it too); `CollectStepGuids` re-indented to 4-space. New pre-existing defect logged (§0 table): GroupStep duplicate drops nested children (`JsonUtility` vs `[SerializeReference]`) - after Phase A. Deferred-table rows annotated (section-shapes half landed; `undoRedoPerformed` hook added to the undo-hardening row). One deliberate delta vs `448301b` recorded: resize/auto-size undo now records BEFORE mutation (448301b recorded after - inert undo); editor-only, hours-old feature. | unity-csharp review (Claude) |
+| 2026-06-10 | A1 | **WS A1 CLOSED** (started + closed same day). Census spot-checked vs live source: SceneManager GUID pin + 20+ anchors EXACT; drift recorded inline as dated census-freeze notes (graph window 5,878 lines / 10 named types post-`448301b` (count corrected at review); MenuItem :148; StepEditWindow :5203; ternary :1050; spawner `Restart` :1173; window `StepIndex` read :1916; SceneManager `EditorSkipFromGraph` :1523 - census anchor was stale at authoring, file unchanged since 2026-04-09). New surfaces flagged: `QuizStep`/`QuizResultsStep` (own files, keep - (F) addendum), `EditableNote`/`GroupBox` (ride the A6 split), `GraphGroup`/`StepGraphDisplay` (Scenario editor-only nested). 5th Greek comment found (SceneManager:1533; plain UTF-8 - the initial "mojibake" label was a console artifact, corrected at review) + 4 untracked graph-window Greek comments joined WS A4. Fixture corpus MARKED (I.3 addendum): Pharmacy / Delirium / Loimokseis / Loimokseis_Old_1 / Delirium Stats Test; NOT-in-any-real-lab gaps listed (ConditionsStep, SpecificChild/`specificStepGuid`, `allowedWrong>0`, `defaultNextGuid`) - synthesize at A3 Step 7; AR labs not on this machine (re-survey when accessible). §3 cross-check clean. | Claude (Stergios dispatch) |
+| 2026-06-10 | - | **Phase A DISPATCHED** (Stergios sign-off). Pre-dispatch reconciliation of commit `448301b` ("minor changes, scenariograph", Alexandros): its two runtime-serialized `Step` fields (`graphSize`/`displayName`) hit the §H trap "editor-only serialized display fields (fails Proof C)" + the deferred-table row ("first item after Phase A"); converted to the prescribed editor-only side-table (`Scenario.StepGraphDisplay`, guid-keyed, `#if UNITY_EDITOR` - the `GraphNote` pattern) BEFORE any Proof C fixture exists, so baselines never absorb the violation. Features behave the same (resize / custom header name / duplicate carries entries onto fresh guids / deletes prune them - graph window + inspector) with ONE deliberate delta: resize/auto-size undo now records BEFORE mutation (`448301b` recorded after, so its undo was inert) - editor-only, hours-old feature. The commit's group boxes + note tethers already complied. Heads-up: `graphSize`/`displayName` values saved between 448301b (14:41) and the fix drop silently on next load (feature was hours old). `Step` is back to `guid`+`graphPos` exactly as pre-448301b. | Stergios dispatch (Claude) |
 | 2026-06-10 | A3 | Stergios review: restored 3 refinements lost in the merge - I.0 Proof A regains the generic ObjectReference walk (Missing-ref, no per-type list) + object-reference map + rich event fingerprint (stable identity/`m_CallState`/`m_Mode`/args, not just type); I.0 regains the "scene-severed / committed-prefab-only inputs" paragraph that justifies the scene-less local DevKit gate; I.6 reverted to "operate on a COPY, never reserialize the committed fixture in place" (the merge's `ForceReserializeAssets(P)` would dirty the tree / mutate the asset on failure). | Stergios review (Claude) |
 | 2026-06-10 | - | Lettered sequence A..I locked (numbered phases retired); AR+VR confirmed Unity 6 (no upgrade prerequisite); Director foresight note on WS A8; completion discipline added | Claude (board) |
 | 2026-06-09 | - | Plan merged into single source of truth ("P1" retired into Phase A); filed as PROPOSED (since RATIFIED 2026-06-10) | Claude (board) |
@@ -645,9 +666,11 @@ Pure EditMode, read-only, runs against real lab prefabs. File: `Tests/Editor/Sce
 For each lab asset: load it, get the `Scenario`, walk `steps` recursively (into `GroupStep.steps`) collecting all step
 `guid`s, then assert:
 - **Invariants (no baseline):** no `null` entry in any `[SerializeReference]` `steps` list; every step `guid`
-  non-empty + unique; every routing guid (`nextGuid` | `correctNextGuid`/`wrongNextGuid` | `outcomes[].nextGuid` |
+  non-empty + unique; every routing guid (`nextGuid` | `correctNextGuid`/`wrongNextGuid` |
+  `passedNextGuid`/`failedNextGuid` *(QuizResultsStep)* | `outcomes[].nextGuid` |
   `defaultNextGuid` + `multiConditionBranches[].nextGuid` | `specificStepGuid` | `childRequirements[].guid`) is `""`
-  or a member of the collected set; every `UnityEvent` (`Choice.onSelected`, `MiniQuizChoice.onSelected`,
+  or a member of the collected set - safest: derive the set generically by the `*NextGuid` suffix over the same
+  `SerializedObject` walk, so a future step type's routing field can never be silently missed; every `UnityEvent` (`Choice.onSelected`, `MiniQuizChoice.onSelected`,
   `SelectionStep.onCorrect`/`onWrong`, `EventStep.onEnter`) has, per persistent listener, a non-null target + non-empty
   method name.
 - **No *Missing* object reference anywhere in a step (the generic invariant - NO per-type list).** Walk the
@@ -751,6 +774,40 @@ Fixtures are read statically in Phase A - they do NOT have to run. Minimum (3-5)
 `miniquiz_selection` (incl. "count met / zero correct / within `allowedWrong` -> CORRECT") and `conditions_component`.
 Phase D (runnable, for the golden trace): one per remaining step Kind, all 6 `GroupStep.CompleteWhen` modes, plus
 `question_debounce` vs `question_group_firstclick` to pin the divergence before Phase D unifies it.
+
+> **WS A1 Step 3 - corpus MARKED (census freeze 2026-06-10, from the HealthOn VR clone; 15 step-bearing scenes
+> surveyed).** Real-lab coverage mapped to the shapes above:
+>
+> | Fixture | Source lab (HealthOn VR) | Covers |
+> |---|---|---|
+> | `linear_timeline_cuecards_event` | `Pharmacy.unity` | the ONLY CueCards lab (x20) + Timeline x6 + Event x2 + Question x7; 50 explicit `nextGuid` routes |
+> | `branching_question` (+ miniquiz) | `Delirium.unity` | Question x8 + **MiniQuiz x2 with `outcomes[].nextGuid` routing** (the only outcomes user, with `Deliriumold`) + Timeline x10 + Event x19 |
+> | `group_multibranch_inserts` | `Loimokseis.unity` | GroupStep x2 with **`multiConditionBranches` x2** + `childRequirements` x6 (the only multi-branch group LAB - the `0 (2)`/`0 (3)`.unity recovery copies of it also match, 2 of the 15 surveyed scenes) + Insert x23 |
+> | `selection_correct_wrong` | `Loimokseis_Old_1.unity` | SelectionStep x4 with **`correctNextGuid`/`wrongNextGuid` x4 - the ONLY correct/wrong-routing lab** |
+> | `quiz_group_stats` | `Delirium Stats Test.unity` | the only serialized `QuizStep`+`QuizResultsStep` instances + GroupStep + stats wiring (test scene, fine for static reads) |
+>
+> **Not present in ANY real VR lab** - and therefore **ONE synthetic fixture is MANDATORY at WS A3 Step 7** (it
+> completes Proof A's non-vacuous coverage of every ratified routing family; an unexercised invariant is not a net):
+> a `GroupStep` in SpecificChild mode with non-empty `specificStepGuid` (the originally planned
+> `group_specificchild_question` shape - no real-lab source exists; `group_multibranch_inserts` joins it as the
+> real-data group fixture, it does not replace the ratified shape), a `ConditionsStep` (zero uses anywhere in VR
+> scenes), a SelectionStep with `allowedWrong > 0` (all four real ones use 0), and a non-empty `defaultNextGuid` -
+> one combined synthetic prefab covers all four.
+>
+> **Prefab sweep (review 2026-06-10, closes the scenes-only survey gap):** all 199 `.prefab` files under the
+> HealthOn VR `Assets/` carry ZERO scenario-step content and ZERO `Scenario`/`SceneManager` MonoScript-GUID
+> references - every lab exists ONLY as a scene, shipped as an **Addressable scene** (e.g. `lab_delirium` ->
+> `lab/delirium/scene/main` = `Delirium.unity`), not a spawned prefab. Consequences: (1) the 5-lab marking stands,
+> no prefab adds or duplicates coverage; (2) the gap list above is STRENGTHENED (verified across scenes AND prefabs);
+> (3) the prefab-hosted nested-`[SerializeReference]` shape that Proof C's prefab-instance-with-override variant
+> exercises has NO real-lab source either - the `Export Lab as Test Fixture` tool (which exports to prefabs) + the
+> mandatory synthetic fixture cover it; (4) the package-root stray `--- SCENE MANAGERS ---.prefab` is the only
+> committed prefab-hosted step graph anywhere and holds the ONLY serialized `ConditionsStep` instance (3 outcomes,
+> all routed) - useful as a static-read input, but it is a template, not a lab, and its Phase D relocation
+> disposition is unchanged.
+>
+> **Caveat:** HealthOn AR labs are not present on this machine (workspace path-mismatch note) - corpus chosen from the
+> VR clone only; re-survey AR when accessible.
 
 ### I.4 Golden-trace JSON schema (v1) - *Phase D-prep (seed only)*
 ```json
@@ -858,8 +915,8 @@ callers in `DocsPage.cs`; Meta's `GameObject/Interaction SDK/Add Grab Interactio
 | Surface | file:line | Disposition (WS) |
 |---|---|---|
 | DevkitHubWindow `[MenuItem("Pi tech/DevKit")]` | `Editor/Core.Editor/Hub/DevkitHubWindow.cs:27` | **rename** -> "DevKit Hub" home; tiles + repair tools + Evaluate Changes + Add-Scenario; DocsPage caller tracks (A2) |
-| ScenarioGraphWindow `[MenuItem("Pi tech/Scenario Graph")]` | `Editor/Scenario.Editor/ScenarioGraphWindow.cs:147` | **split** 6 types + namespace wrap; Hub tile; DocsPage callers 42/77 (A6, A2) |
-| StepEditWindow (no MenuItem) | `Editor/Scenario.Editor/ScenarioGraphWindow.cs:4287` | **split** (A6) |
+| ScenarioGraphWindow `[MenuItem("Pi tech/Scenario Graph")]` | `Editor/Scenario.Editor/ScenarioGraphWindow.cs:148` | **split** 10 named types (census said 6: undercount - `PendingNoteEdit` + `PortMeta` omitted; `EditableNote` + `GroupBox` added by `448301b`) + namespace wrap; Hub tile; DocsPage callers 42/77 (A6, A2) |
+| StepEditWindow (no MenuItem) | `Editor/Scenario.Editor/ScenarioGraphWindow.cs:5203` | **split** (A6) |
 | DevBlocksWindow `[MenuItem("Pi tech/Dev Blocks")]` | `Editor/Core.Editor/Tools/DevBlocksWindow.cs:41` | **keep** + Hub tile; DocsPage caller 151; dead widgets pruned (A5, A2) |
 | AddressablesBuilderWindow `[MenuItem("Pi tech/Addressables Builder")]` | `Editor/Core.Editor/Tools/AddressablesBuilderWindow.cs:59` | **keep** + Hub tile; relocation = Phase D (A2) |
 | SceneCategoriesWindow `[MenuItem("Pi tech/Scene/...")]` | `Editor/Core.Editor/Tools/SceneCategoriesWindow.cs:16` | **rename** (strip `0x85`) + Hub tile (A4, A2) |
@@ -945,6 +1002,19 @@ for "Add Scenario to Scene") · SceneCategoriesService · SceneManagerService ·
 | ConditionsStep (+ ConditionsEvaluator - prime A3 unit-test target) | 341 | `Steps/ConditionsStep.cs` |
 | GroupStep (+ CompleteWhen/ChildRequirement/MultiConditionBranch) | 410 | `Steps/GroupStep.cs` |
 
+> **Census freeze addendum (2026-06-10):** two Step subclasses live OUTSIDE `Scenario.cs` and were absent from the
+> census tables: **`QuizStep`** (`Runtime/Scenario/QuizStep.cs:8`) + **`QuizResultsStep`**
+> (`Runtime/Scenario/QuizResultsStep.cs:12`). Disposition: **keep** (already one-type-per-file, namespace
+> `Pitech.XR.Scenario`, no move needed -> no `.meta`/GUID risk). Routing guids *(corrected at review 2026-06-10)*:
+> `QuizStep` routes via `nextGuid`/`correctNextGuid`/`wrongNextGuid`; `QuizResultsStep` via
+> **`nextGuid`/`passedNextGuid`/`failedNextGuid`**. **WS A3 requirement:** Proof A's routing-guid enumeration must
+> include `passedNextGuid`/`failedNextGuid` - safest is deriving routing fields generically (the `*NextGuid` suffix +
+> the generic `SerializedObject` walk), never from a hardcoded census list. The Phase D "one per step Kind" corpus
+> must include both types. All (F) line anchors
+> above re-verified EXACT against live source 2026-06-10 (the `448301b` Step-field additions were reverted to a
+> side-table - see the Status log - restoring the original anchors). `Scenario`'s editor-only nested types are now
+> `GraphNote` + `GraphGroup` (448301b) + `StepGraphDisplay` (the 448301b reconciliation).
+
 **Disposition summary:** keep ~28 · rename ~16 · move 3 (ORG-03) · split ~13 · delete 3 (`ScenarioEditorUtil`, empty
 `LaunchContextProviders.cs`, dead `EvalCompare`) · defer 2+ (HealthOn adapter; window relocation; undo-correctness;
 runtime reflection removal).
@@ -962,12 +1032,15 @@ after-launch plan).
   bridges `ActivateSelectionList(int)` / `ActivateSelectionListByName(string)` / `CompleteSelection()` /
   `RetrySelection()` from Timeline signals/UnityEvents.
 - **ContentDelivery** resolves the manager by `GetType().FullName=="Pitech.XR.Scenario.SceneManager"`
-  (`ContentDeliverySpawner.cs:1134`) and **string-reflects** `autoStart` (1151/1158) + `Restart` (1172) - member
+  (`ContentDeliverySpawner.cs:1134`) and **string-reflects** `autoStart` (1151/1158) + `Restart` (1173) - member
   renames silently break the spawn flow.
-- **Editor** - `ScenarioGraphWindow` calls `EditorSkipFromGraph(guid, branchIndex)` (1588) + reads `StepIndex` (1857);
-  `SceneManagerEditor` reflects `scenario`(367)/`StepIndex`(467)/`Restart`(505).
-- **Lab prefabs** reference the component by **MonoScript GUID `2d431a49d183e9c428369f7f758f75cd`** and rely on
-  `FormerlySerializedAs` on `defaultQuiz`/`quizPanel`/`quizResultsPanel`.
+- **Editor** - `ScenarioGraphWindow` calls `EditorSkipFromGraph(guid, branchIndex)` (SceneManager.cs:1523; the census's
+  1588 was a stale anchor - file unchanged since 2026-04-09) + reads `StepIndex` (window :1916, was :1857 pre-`448301b`);
+  `SceneManagerEditor` reflects `scenario`(367)/`StepIndex`(467)/`Restart`(505) - all three verified exact 2026-06-10.
+- **Lab scenes** (and the package's stray root prefab) reference the component by **MonoScript GUID
+  `2d431a49d183e9c428369f7f758f75cd`** and rely on `FormerlySerializedAs` on
+  `defaultQuiz`/`quizPanel`/`quizResultsPanel`. *(Prefab sweep 2026-06-10: zero VR lab prefabs carry
+  Scenario/SceneManager - labs ship as Addressable scenes; AR unverified from this machine.)*
 
 **Load-bearing semantics (verbatim):** the `FallbackGuid '' == linear-next` contract (1000-1004); the exact `Run()`
 type-dispatch order + branchGuid-assignment pattern; `StepIndex` semantics (`{get;private set;}`, `-1` idle/finished,
