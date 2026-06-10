@@ -15,6 +15,8 @@ namespace Pitech.XR.Scenario
     {
         public string guid;          // used by the graph to connect steps
         public Vector2 graphPos;     // node position in the graph
+        public Vector2 graphSize = Vector2.zero;  // user-set node size in the graph; zero => auto-size
+        public string displayName = "";  // optional custom name shown in the header next to the type ("NN. Kind  name")
         protected Step() { guid = Guid.NewGuid().ToString(); }
         public abstract string Kind { get; }
     }
@@ -584,10 +586,27 @@ namespace Pitech.XR.Scenario
             public string guid;
             public Rect rect = new Rect(80, 80, 240, 160);
             [TextArea] public string text = "Note…";
+            // When set, the note is tethered to the step node with this guid:
+            // it follows the node when moved and draws a connector line to it.
+            public string attachedStepGuid = "";
+            public Vector2 attachOffset;   // note position relative to the attached node
         }
 
         [SerializeField] List<GraphNote> graphNotes = new();
         public List<GraphNote> GraphNotes => graphNotes;
+
+        // Editor-only visual organizing groups (purely cosmetic; no effect on flow/runtime).
+        // Unrelated to GroupStep, which is a runtime construct.
+        [Serializable]
+        public sealed class GraphGroup
+        {
+            public string guid;
+            public string title = "Group";
+            public Rect rect = new Rect(60, 60, 340, 260);
+        }
+
+        [SerializeField] List<GraphGroup> graphGroups = new();
+        public List<GraphGroup> GraphGroups => graphGroups;
 #endif
 
         void OnValidate()

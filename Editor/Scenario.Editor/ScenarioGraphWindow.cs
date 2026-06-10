@@ -28,7 +28,8 @@ public class ScenarioGraphWindow : EditorWindow
     string authoringScenarioGameObjectName;
     ScenarioGraphView view;
     readonly Dictionary<string, StepNode> nodes = new();
-    readonly Dictionary<string, StickyNote> notes = new();
+    readonly Dictionary<string, EditableNote> notes = new();
+    readonly Dictionary<string, GroupBox> groups = new();
     readonly HashSet<StepNode> movedNodesSinceMouseDown = new HashSet<StepNode>();
     // Keep node expanded/collapsed state stable across Refresh/Load (do not collapse nodes on refresh).
     // Keyed by Step.guid. Not serialized into the Scenario asset.
@@ -275,6 +276,7 @@ public class ScenarioGraphWindow : EditorWindow
         view.ClearGraph();
         nodes.Clear();
         notes.Clear();
+        groups.Clear();
         if (!scenario || scenario.steps == null)
         {
             _isLoading = false;
@@ -500,6 +502,16 @@ public class ScenarioGraphWindow : EditorWindow
             foreach (var n in scenario.GraphNotes)
                 AddOrUpdateNoteElement(n);
         }
+
+        // Visual organizing groups (editor-only) — drawn behind the nodes.
+        if (scenario != null && scenario.GraphGroups != null)
+        {
+            foreach (var g in scenario.GraphGroups)
+                AddOrUpdateGroupElement(g);
+        }
+
+        // After layout settles, place attached notes relative to their nodes and draw connectors.
+        view.schedule.Execute(() => ReflowAttachedNotes()).ExecuteLater(60);
 #endif
 
         // Restore view transform (pan/zoom) after graph rebuild.
@@ -514,6 +526,7 @@ public class ScenarioGraphWindow : EditorWindow
             // positions
             if (change.movedElements != null)
             {
+                bool anyNodeMoved = false;
                 foreach (var el in change.movedElements)
                     {
                     if (el is not StepNode sn) continue;
@@ -521,8 +534,13 @@ public class ScenarioGraphWindow : EditorWindow
                         sn.step.graphPos = sn.GetPosition().position;
                         Dirty(scenario, "Move Node");
 
+                        // Drag any notes attached to this node along with it.
+                        RepositionAttachedNotes(sn);
+                        anyNodeMoved = true;
+
                     movedNodesSinceMouseDown.Add(sn);
                 }
+                if (anyNodeMoved) view?.RefreshTethers();
                     }
 
             // edges created/removed
@@ -1509,6 +1527,10 @@ public class ScenarioGraphWindow : EditorWindow
                 FitGroupToChildren(gs, node);
                 h = Mathf.Max(h, node.GetPosition().height);
             }
+            else if (node.UserSized)
+            {
+                w = node.step.graphSize.x; // GetHeight() already returns graphSize.y
+            }
             else if (node.IsExpanded)
             {
                 w = ExpandedWidthFor(node.step);
@@ -1559,6 +1581,9 @@ public class ScenarioGraphWindow : EditorWindow
         _isLoading = false;
         EditorUtility.SetDirty(scenario);
         EditorSceneManager.MarkSceneDirty(scenario.gameObject.scene);
+
+        // Nodes were repositioned by the layout — drag attached notes along and redraw connectors.
+        view?.schedule.Execute(() => ReflowAttachedNotes()).ExecuteLater(60);
 
         view?.FrameAll();
     }
@@ -1917,7 +1942,7 @@ public class ScenarioGraphWindow : EditorWindow
         }
     }
 
-    // Extra safety: some StickyNote edits don't fire FocusOut/ValueChanged reliably in GraphView.
+    // Extra safety: some note edits may not fire ValueChanged reliably in GraphView.
     // Poll the note contents and persist if changed (throttled by the debounce map above).
     void SyncNoteContentsFallback()
     {
@@ -1935,7 +1960,7 @@ public class ScenarioGraphWindow : EditorWindow
             if (data == null) continue;
 
             // If the UI shows different text and nothing is queued, queue it.
-            string uiText = note.contents ?? "";
+            string uiText = note.Field?.value ?? "";
             if (data.text != uiText && !_pendingNoteEdits.ContainsKey(guid))
             {
                 _pendingNoteEdits[guid] = new PendingNoteEdit
@@ -2107,6 +2132,7 @@ public class ScenarioGraphWindow : EditorWindow
         evt.menu.AppendAction("Add/Conditions", _ => CreateStep(typeof(ConditionsStep)));
         evt.menu.AppendSeparator();
         evt.menu.AppendAction("Add/Note", _ => CreateNote());
+        evt.menu.AppendAction("Add/Group Box", _ => CreateGroupBox());
     }
 
     void CreateNote()
@@ -2127,6 +2153,45 @@ public class ScenarioGraphWindow : EditorWindow
 #endif
     }
 
+    void CreateGroupBox()
+    {
+#if UNITY_EDITOR
+        if (!scenario) return;
+
+        Dirty(scenario, "Add Group Box");
+
+        // If step nodes are selected, wrap them with padding; otherwise drop a default box at the cursor.
+        Rect rect;
+        const float pad = 28f;
+        var selected = view.selection.OfType<StepNode>().ToList();
+        if (selected.Count > 0)
+        {
+            var b = selected[0].GetPosition();
+            float xMin = b.xMin, yMin = b.yMin, xMax = b.xMax, yMax = b.yMax;
+            foreach (var sn in selected)
+            {
+                var r = sn.GetPosition();
+                xMin = Mathf.Min(xMin, r.xMin); yMin = Mathf.Min(yMin, r.yMin);
+                xMax = Mathf.Max(xMax, r.xMax); yMax = Mathf.Max(yMax, r.yMax);
+            }
+            rect = new Rect(xMin - pad, yMin - pad - 26f, (xMax - xMin) + pad * 2f, (yMax - yMin) + pad * 2f + 26f);
+        }
+        else
+        {
+            rect = new Rect(mouseWorld, new Vector2(340, 260));
+        }
+
+        var g = new Scenario.GraphGroup
+        {
+            guid = Guid.NewGuid().ToString(),
+            title = "Group",
+            rect = rect
+        };
+        scenario.GraphGroups.Add(g);
+        AddOrUpdateGroupElement(g);
+#endif
+    }
+
 #if UNITY_EDITOR
     void AddOrUpdateNoteElement(Scenario.GraphNote n)
     {
@@ -2134,78 +2199,50 @@ public class ScenarioGraphWindow : EditorWindow
 
         if (!notes.TryGetValue(n.guid, out var note) || note == null)
         {
-            note = new StickyNote
-            {
-                title = "NOTE",
-                contents = n.text
-            };
-            note.SetPosition(n.rect);
+            // Custom note (replaces Unity's StickyNote, whose Content field cannot be focused/edited
+            // when created by script on Unity 6000.3.x/6000.4.x — see issue UUM-133754).
+            note = new EditableNote();
             note.userData = n.guid;
+            note.SetPosition(n.rect);
+            note.Field.SetValueWithoutNotify(n.text);
             view.AddElement(note);
             notes[n.guid] = note;
 
-            // Styling: smaller contents font + tiny NOTE label top-right.
-            try
+            // Save note text reliably (debounced).
+            note.Field.RegisterValueChangedCallback(e =>
             {
-                var titleLabel = note.Q<Label>("title");
-                if (titleLabel != null)
+                if (_isLoading || scenario == null) return;
+                if (note.userData is not string ng || string.IsNullOrEmpty(ng)) return;
+                _pendingNoteEdits[ng] = new PendingNoteEdit
                 {
-                    titleLabel.style.fontSize = 9;
-                    titleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
-                    // subtle label, not shouting
-                    titleLabel.style.color = new Color(0f, 0f, 0f, 0.35f);
-                    titleLabel.style.unityTextAlign = TextAnchor.UpperRight;
-                }
-
-            var tf = note.Q<TextField>();
-                if (tf != null)
-                {
-                    tf.style.fontSize = 10;
-                    tf.style.color = new Color(0f, 0f, 0f, 0.85f);
-
-                // Save note text reliably (debounced), not only on focus-out.
-                tf.RegisterValueChangedCallback(e =>
-                {
-                    if (_isLoading || scenario == null) return;
-                    if (note.userData is not string ng || string.IsNullOrEmpty(ng)) return;
-                    _pendingNoteEdits[ng] = new PendingNoteEdit
-                    {
-                        text = e.newValue ?? "",
-                        dueTime = EditorApplication.timeSinceStartup + 0.25
-                    };
-                });
-                }
-            }
-            catch { /* best-effort UI styling; Unity versions vary */ }
-
-            note.RegisterCallback<GeometryChangedEvent>(_ =>
-            {
-                // Keep rect in sync
-                if (_isLoading) return;
-                var guid = note.userData as string;
-                var data = scenario.GraphNotes.FirstOrDefault(x => x.guid == guid);
-                if (data == null) return;
-                data.rect = note.GetPosition();
-                Dirty(scenario, "Move Note");
+                    text = e.newValue ?? "",
+                    dueTime = EditorApplication.timeSinceStartup + 0.25
+                };
             });
 
-            // Text edit callback (StickyNote doesn't expose a direct event, so poll on focus-out)
-            note.RegisterCallback<FocusOutEvent>(_ =>
+            // Keep rect (position + size) in sync when moved or resized.
+            note.RegisterCallback<GeometryChangedEvent>(_ =>
             {
                 if (_isLoading) return;
                 var guid = note.userData as string;
                 var data = scenario.GraphNotes.FirstOrDefault(x => x.guid == guid);
                 if (data == null) return;
-                if (data.text != note.contents)
+                var r = note.GetPosition();
+                if (data.rect != r)
                 {
-                    data.text = note.contents;
-                    Dirty(scenario, "Edit Note");
+                    data.rect = r;
+                    // If this note is attached, keep its offset in sync when the user drags the note itself.
+                    if (!string.IsNullOrEmpty(data.attachedStepGuid)
+                        && nodes.TryGetValue(data.attachedStepGuid, out var anchorNode) && anchorNode != null)
+                        data.attachOffset = r.position - anchorNode.GetPosition().position;
+                    Dirty(scenario, "Move Note");
                 }
+                view?.RefreshTethers();
             });
         }
         else
         {
-            note.contents = n.text;
+            note.Field.SetValueWithoutNotify(n.text);
             note.SetPosition(n.rect);
         }
     }
@@ -2223,6 +2260,615 @@ public class ScenarioGraphWindow : EditorWindow
         if (notes.TryGetValue(guid, out var note) && note != null)
             view.RemoveElement(note);
         notes.Remove(guid);
+        view?.RefreshTethers();
+    }
+
+    // ---- Attached (anchored) notes -------------------------------------------------
+
+    // Create a note already tethered to the given step, placed up-and-right of its node.
+    public void AddAttachedNote(Step target)
+    {
+#if UNITY_EDITOR
+        if (!scenario || target == null) return;
+        Dirty(scenario, "Add Note");
+
+        Vector2 nodePos = target.graphPos;
+        if (nodes.TryGetValue(target.guid, out var nEl) && nEl != null)
+            nodePos = nEl.GetPosition().position;
+
+        var offset = new Vector2(240f, -40f);
+        var n = new Scenario.GraphNote
+        {
+            guid = Guid.NewGuid().ToString(),
+            rect = new Rect(nodePos + offset, new Vector2(220, 130)),
+            text = "Note…",
+            attachedStepGuid = target.guid,
+            attachOffset = offset
+        };
+        scenario.GraphNotes.Add(n);
+        AddOrUpdateNoteElement(n);
+        view?.RefreshTethers();
+#endif
+    }
+
+    public bool IsNoteAttached(string noteGuid)
+    {
+#if UNITY_EDITOR
+        var n = scenario?.GraphNotes?.FirstOrDefault(x => x != null && x.guid == noteGuid);
+        return n != null && !string.IsNullOrEmpty(n.attachedStepGuid);
+#else
+        return false;
+#endif
+    }
+
+    public void DetachNote(string noteGuid)
+    {
+#if UNITY_EDITOR
+        var n = scenario?.GraphNotes?.FirstOrDefault(x => x != null && x.guid == noteGuid);
+        if (n == null || string.IsNullOrEmpty(n.attachedStepGuid)) return;
+        Dirty(scenario, "Detach Note");
+        n.attachedStepGuid = "";
+        view?.RefreshTethers();
+#endif
+    }
+
+    // Attach the note to the closest (non-nested) step node by center distance.
+    public void AttachNoteToNearest(string noteGuid)
+    {
+#if UNITY_EDITOR
+        if (scenario?.GraphNotes == null) return;
+        var n = scenario.GraphNotes.FirstOrDefault(x => x != null && x.guid == noteGuid);
+        if (n == null || !notes.TryGetValue(noteGuid, out var noteEl) || noteEl == null) return;
+
+        Vector2 nc = noteEl.GetPosition().center;
+        StepNode best = null; float bestD = float.MaxValue;
+        foreach (var kv in nodes)
+        {
+            var node = kv.Value;
+            if (node == null || node.IsNested || node.step == null) continue;
+            float d = (node.GetPosition().center - nc).sqrMagnitude;
+            if (d < bestD) { bestD = d; best = node; }
+        }
+        if (best == null) return;
+
+        Dirty(scenario, "Attach Note");
+        n.attachedStepGuid = best.step.guid;
+        n.attachOffset = noteEl.GetPosition().position - best.GetPosition().position;
+        view?.RefreshTethers();
+#endif
+    }
+
+    // Move all notes attached to this node so they keep their offset from it.
+    void RepositionAttachedNotes(StepNode node)
+    {
+#if UNITY_EDITOR
+        if (node == null || node.step == null || scenario?.GraphNotes == null) return;
+        Vector2 nodePos = node.GetPosition().position;
+        foreach (var n in scenario.GraphNotes)
+        {
+            if (n == null || n.attachedStepGuid != node.step.guid) continue;
+            if (!notes.TryGetValue(n.guid, out var noteEl) || noteEl == null) continue;
+            // If the user is dragging the note itself, don't fight them.
+            if (view != null && view.selection.Contains(noteEl)) continue;
+
+            var r = noteEl.GetPosition();
+            Vector2 newPos = nodePos + n.attachOffset;
+            if ((r.position - newPos).sqrMagnitude > 0.01f)
+            {
+                noteEl.SetPosition(new Rect(newPos, r.size));
+                n.rect = noteEl.GetPosition();
+            }
+        }
+#endif
+    }
+
+    // Re-place every attached note relative to its node (after Load / Rearrange) and redraw tethers.
+    void ReflowAttachedNotes()
+    {
+#if UNITY_EDITOR
+        foreach (var kv in nodes)
+            if (kv.Value != null && !kv.Value.IsNested)
+                RepositionAttachedNotes(kv.Value);
+        view?.RefreshTethers();
+#endif
+    }
+
+    // Provide note→node line segments (in content coordinates) for the view's tether layer.
+    public void CollectTethers(List<(Vector2 a, Vector2 b)> outSegs)
+    {
+#if UNITY_EDITOR
+        if (outSegs == null || scenario?.GraphNotes == null) return;
+        foreach (var n in scenario.GraphNotes)
+        {
+            if (n == null || string.IsNullOrEmpty(n.attachedStepGuid)) continue;
+            if (!notes.TryGetValue(n.guid, out var noteEl) || noteEl == null) continue;
+            if (!nodes.TryGetValue(n.attachedStepGuid, out var nodeEl) || nodeEl == null) continue;
+            outSegs.Add((noteEl.layout.center, nodeEl.layout.center));
+        }
+#endif
+    }
+
+    // Custom, always-editable note element. Replaces Unity's StickyNote because its Content field
+    // cannot be focused/edited when created by script on Unity 6000.3.x/6000.4.x (issue UUM-133754).
+    sealed class EditableNote : GraphElement
+    {
+        public readonly TextField Field;
+        readonly VisualElement _resizeHandle;
+        Rect _rect = new Rect(0, 0, 240, 160);
+
+        public EditableNote()
+        {
+            capabilities |= Capabilities.Movable | Capabilities.Selectable | Capabilities.Deletable;
+
+            style.position = Position.Absolute;
+            style.backgroundColor = new Color(0.96f, 0.86f, 0.36f);
+            style.borderTopLeftRadius = 4;
+            style.borderTopRightRadius = 4;
+            style.borderBottomLeftRadius = 4;
+            style.borderBottomRightRadius = 4;
+            style.minWidth = 140;
+            style.minHeight = 70;
+            style.paddingLeft = 5;
+            style.paddingRight = 5;
+            style.paddingTop = 4;
+            style.paddingBottom = 4;
+
+            // Title bar doubles as the drag handle (it doesn't capture clicks like the text area does).
+            var titleBar = new Label("NOTE")
+            {
+                pickingMode = PickingMode.Ignore
+            };
+            titleBar.style.fontSize = 9;
+            titleBar.style.unityFontStyleAndWeight = FontStyle.Bold;
+            titleBar.style.color = new Color(0f, 0f, 0f, 0.45f);
+            titleBar.style.unityTextAlign = TextAnchor.UpperLeft;
+            titleBar.style.marginBottom = 2;
+            Add(titleBar);
+
+            Field = new TextField { multiline = true };
+            Field.style.flexGrow = 1;
+            Field.style.fontSize = 11;
+            Field.style.whiteSpace = WhiteSpace.Normal;
+            Field.style.color = new Color(0f, 0f, 0f, 0.85f);
+            var input = Field.Q(className: "unity-text-input");
+            if (input != null)
+            {
+                input.style.backgroundColor = new Color(1f, 1f, 1f, 0.25f);
+                input.style.color = new Color(0f, 0f, 0f, 0.9f);
+            }
+            Add(Field);
+
+            // Bottom-right drag-to-resize handle.
+            _resizeHandle = new VisualElement();
+            _resizeHandle.style.position = Position.Absolute;
+            _resizeHandle.style.right = 0;
+            _resizeHandle.style.bottom = 0;
+            _resizeHandle.style.width = 14;
+            _resizeHandle.style.height = 14;
+            _resizeHandle.style.backgroundColor = new Color(0f, 0f, 0f, 0.25f);
+            _resizeHandle.style.borderTopLeftRadius = 4;
+            Add(_resizeHandle);
+            SetupResize();
+        }
+
+        public override Rect GetPosition() => _rect;
+
+        public override void SetPosition(Rect r)
+        {
+            _rect = r;
+            style.left = r.x;
+            style.top = r.y;
+            style.width = r.width;
+            style.height = r.height;
+        }
+
+        void SetupResize()
+        {
+            bool resizing = false;
+            Vector2 startMouse = default;
+            Vector2 startSize = default;
+
+            _resizeHandle.RegisterCallback<MouseDownEvent>(e =>
+            {
+                if (e.button != 0) return;
+                resizing = true;
+                startMouse = e.mousePosition;
+                startSize = new Vector2(_rect.width, _rect.height);
+                _resizeHandle.CaptureMouse();
+                e.StopPropagation();
+            });
+            _resizeHandle.RegisterCallback<MouseMoveEvent>(e =>
+            {
+                if (!resizing) return;
+                var delta = e.mousePosition - startMouse;
+                float w = Mathf.Max(140f, startSize.x + delta.x);
+                float h = Mathf.Max(70f, startSize.y + delta.y);
+                SetPosition(new Rect(_rect.x, _rect.y, w, h));
+                e.StopPropagation();
+            });
+            _resizeHandle.RegisterCallback<MouseUpEvent>(e =>
+            {
+                if (!resizing) return;
+                resizing = false;
+                _resizeHandle.ReleaseMouse();
+                e.StopPropagation();
+            });
+        }
+    }
+
+    void AddOrUpdateGroupElement(Scenario.GraphGroup g)
+    {
+        if (g == null || string.IsNullOrEmpty(g.guid) || view == null) return;
+
+        if (!groups.TryGetValue(g.guid, out var box) || box == null)
+        {
+            box = new GroupBox();
+            box.userData = g.guid;
+            box.SetPosition(g.rect);
+            box.Title = g.title;
+
+            // Provide current step nodes so the box can move the ones inside it.
+            box.NodesProvider = () => nodes.Values.ToList();
+
+            box.PersistRect = () =>
+            {
+                if (_isLoading || scenario == null) return;
+                var data = scenario.GraphGroups.FirstOrDefault(x => x != null && x.guid == g.guid);
+                if (data == null) return;
+                data.rect = box.GetPosition();
+                Dirty(scenario, "Edit Group Box");
+            };
+            box.PersistTitle = t =>
+            {
+                if (_isLoading || scenario == null) return;
+                var data = scenario.GraphGroups.FirstOrDefault(x => x != null && x.guid == g.guid);
+                if (data == null) return;
+                data.title = t ?? "";
+                Dirty(scenario, "Rename Group Box");
+            };
+            box.PersistChildren = () =>
+            {
+                if (_isLoading || scenario == null) return;
+                Dirty(scenario, "Move Group Box");
+            };
+            box.OnDeleteRequested = () => RequestDeleteGroupBox(g.guid);
+
+            view.AddElement(box);
+            box.SendToBack(); // keep behind nodes/edges
+            groups[g.guid] = box;
+        }
+        else
+        {
+            box.Title = g.title;
+            box.SetPosition(g.rect);
+        }
+    }
+
+    void DeleteGroupByGuid(string guid)
+    {
+        if (!scenario || scenario.GraphGroups == null || string.IsNullOrEmpty(guid)) return;
+
+        int idx = scenario.GraphGroups.FindIndex(x => x != null && x.guid == guid);
+        if (idx < 0) return;
+
+        Dirty(scenario, "Delete Group Box");
+        scenario.GraphGroups.RemoveAt(idx);
+
+        if (groups.TryGetValue(guid, out var box) && box != null)
+            view.RemoveElement(box);
+        groups.Remove(guid);
+    }
+
+    // Step nodes whose center currently sits inside the given rect.
+    List<StepNode> StepNodesInsideRect(Rect r)
+    {
+        var list = new List<StepNode>();
+        foreach (var n in nodes.Values)
+            if (n != null && r.Contains(n.GetPosition().center))
+                list.Add(n);
+        return list;
+    }
+
+    // ✕ button / menu entry: ask whether to delete the box only or the box + contained steps.
+    void RequestDeleteGroupBox(string guid)
+    {
+        if (!scenario || string.IsNullOrEmpty(guid)) return;
+
+        List<StepNode> members = groups.TryGetValue(guid, out var box) && box != null
+            ? StepNodesInsideRect(box.GetPosition())
+            : new List<StepNode>();
+
+        if (members.Count == 0)
+        {
+            // Nothing inside → just remove the box (no need to ask).
+            DeleteGroupByGuid(guid);
+            return;
+        }
+
+        int choice = EditorUtility.DisplayDialogComplex(
+            "Delete Group Box",
+            $"This group contains {members.Count} step(s).\n\nDelete the group box only, or also delete the steps inside it?",
+            "Group only",     // 0
+            "Cancel",         // 1
+            "Group + items"); // 2
+
+        if (choice == 1) return;                       // Cancel
+        if (choice == 0) { DeleteGroupByGuid(guid); return; } // Group only
+
+        DeleteGroupAndItems(guid);                     // Group + items
+    }
+
+    // Menu entry "Delete Group + items": confirm first (this one isn't preceded by the ✕ dialog).
+    void ConfirmDeleteGroupAndItems(string guid)
+    {
+        var members = groups.TryGetValue(guid, out var box) && box != null
+            ? StepNodesInsideRect(box.GetPosition())
+            : new List<StepNode>();
+
+        if (members.Count > 0 && !EditorUtility.DisplayDialog(
+                "Delete Group + Items",
+                $"Delete the group box and the {members.Count} step(s) inside it?\n\nThis changes your scenario.",
+                "Delete",
+                "Cancel"))
+            return;
+
+        DeleteGroupAndItems(guid);
+    }
+
+    void DeleteGroupAndItems(string guid)
+    {
+        if (!scenario || scenario.steps == null || string.IsNullOrEmpty(guid)) return;
+
+        var members = groups.TryGetValue(guid, out var box) && box != null
+            ? StepNodesInsideRect(box.GetPosition())
+            : new List<StepNode>();
+
+        DeleteGroupByGuid(guid);
+
+        // Remove from the end so earlier indices stay valid.
+        var indices = members
+            .Where(sn => sn?.step != null)
+            .Select(sn => scenario.steps.IndexOf(sn.step))
+            .Where(i => i >= 0)
+            .Distinct()
+            .OrderByDescending(i => i)
+            .ToList();
+
+        foreach (var idx in indices)
+            RemoveStepAtScenarioListIndex(idx);
+
+        ScheduleGraphReloadAfterScenarioMutation();
+    }
+
+    // Purely visual organizing box. Movable (drags contained nodes with it) + resizable + renamable.
+    // Completely separate from GroupStep; no effect on scenario flow or runtime.
+    sealed class GroupBox : GraphElement
+    {
+        readonly VisualElement _titleBar;
+        readonly TextField _titleField;
+        readonly VisualElement _resizeHandle;
+        readonly UIEButton _deleteButton;
+        Rect _rect = new Rect(0, 0, 340, 260);
+
+        public Func<List<StepNode>> NodesProvider;
+        public Action PersistRect;
+        public Action<string> PersistTitle;
+        public Action PersistChildren;
+        public Action OnDeleteRequested;
+
+        public string Title
+        {
+            get => _titleField.value;
+            set { _titleField.SetValueWithoutNotify(value ?? ""); }
+        }
+
+        public GroupBox()
+        {
+            capabilities |= Capabilities.Selectable | Capabilities.Deletable;
+            // Pickable so the title bar (rename/delete/move) and resize handle work. The box is drawn
+            // behind the nodes, so node clicks still pass to the nodes; only clicks on the box's empty
+            // interior are captured by the box.
+            pickingMode = PickingMode.Position;
+
+            style.position = Position.Absolute;
+            style.backgroundColor = new Color(0.16f, 0.55f, 0.55f, 0.18f);
+            style.borderTopLeftRadius = 6;
+            style.borderTopRightRadius = 6;
+            style.borderBottomLeftRadius = 6;
+            style.borderBottomRightRadius = 6;
+            var border = new Color(0.20f, 0.66f, 0.66f, 0.65f);
+            style.borderTopColor = border;
+            style.borderBottomColor = border;
+            style.borderLeftColor = border;
+            style.borderRightColor = border;
+            style.borderTopWidth = 1;
+            style.borderBottomWidth = 1;
+            style.borderLeftWidth = 1;
+            style.borderRightWidth = 1;
+            style.minWidth = 120;
+            style.minHeight = 80;
+
+            // Title bar = always-editable name field + delete button.
+            _titleBar = new VisualElement();
+            _titleBar.style.height = 26;
+            _titleBar.style.backgroundColor = new Color(0.16f, 0.55f, 0.55f, 0.55f);
+            _titleBar.style.borderTopLeftRadius = 6;
+            _titleBar.style.borderTopRightRadius = 6;
+            _titleBar.style.paddingLeft = 6;
+            _titleBar.style.paddingRight = 4;
+            _titleBar.style.flexDirection = FlexDirection.Row;
+            _titleBar.style.alignItems = Align.Center;
+            Add(_titleBar);
+
+            // Click straight into this to rename (same approach as the notes, which work reliably).
+            _titleField = new TextField { isDelayed = false };
+            _titleField.style.flexGrow = 1;
+            _titleField.style.fontSize = 12;
+            _titleField.style.unityFontStyleAndWeight = FontStyle.Bold;
+            var ti = _titleField.Q(className: "unity-text-input");
+            if (ti != null)
+            {
+                ti.style.backgroundColor = Color.clear;
+                ti.style.color = Color.white;
+                ti.style.unityFontStyleAndWeight = FontStyle.Bold;
+            }
+            _titleField.RegisterValueChangedCallback(e => PersistTitle?.Invoke(e.newValue ?? ""));
+            _titleBar.Add(_titleField);
+
+            _deleteButton = new UIEButton(() => OnDeleteRequested?.Invoke()) { text = "✕" };
+            _deleteButton.tooltip = "Delete group box";
+            _deleteButton.style.width = 18;
+            _deleteButton.style.height = 18;
+            _deleteButton.style.marginLeft = 4;
+            _deleteButton.style.marginRight = 0;
+            _deleteButton.style.paddingLeft = 0;
+            _deleteButton.style.paddingRight = 0;
+            _deleteButton.style.unityTextAlign = TextAnchor.MiddleCenter;
+            _titleBar.Add(_deleteButton);
+
+            // Resize handle.
+            _resizeHandle = new VisualElement();
+            _resizeHandle.style.position = Position.Absolute;
+            _resizeHandle.style.right = 0;
+            _resizeHandle.style.bottom = 0;
+            _resizeHandle.style.width = 16;
+            _resizeHandle.style.height = 16;
+            _resizeHandle.style.backgroundColor = new Color(1f, 1f, 1f, 0.25f);
+            _resizeHandle.style.borderTopLeftRadius = 5;
+            Add(_resizeHandle);
+
+            SetupDrag();
+            SetupResize();
+        }
+
+        public override Rect GetPosition() => _rect;
+
+        public override void SetPosition(Rect r)
+        {
+            _rect = r;
+            style.left = r.x;
+            style.top = r.y;
+            style.width = r.width;
+            style.height = r.height;
+        }
+
+        // Context-menu convenience: focus the (already visible) name field for editing.
+        public void BeginRename()
+        {
+            _titleField.Focus();
+            _titleField.SelectAll();
+        }
+
+        Vector2 ContentMouse(Vector2 panelMouse)
+            => parent != null ? (Vector2)parent.WorldToLocal(panelMouse) : panelMouse;
+
+        bool IsInteractiveChild(IEventHandler target)
+        {
+            if (!(target is VisualElement ve)) return false;
+            if (ve == _resizeHandle) return true;
+            // Title bar (name field + delete button) handles its own input.
+            return ve == _titleBar || ve.GetFirstAncestorOfType<TextField>() == _titleField || ReferenceEquals(ve, _deleteButton);
+        }
+
+        // Move the box by dragging its body/frame (not the title field, button, or resize handle).
+        void SetupDrag()
+        {
+            bool dragging = false;
+            Vector2 startMouse = default;
+            Vector2 startPos = default;
+            List<(StepNode node, Vector2 start)> members = null;
+
+            RegisterCallback<MouseDownEvent>(e =>
+            {
+                if (e.button != 0) return;
+                if (IsInteractiveChild(e.target)) return;
+
+                dragging = true;
+                startMouse = ContentMouse(e.mousePosition);
+                startPos = _rect.position;
+
+                // Capture step nodes currently inside the box so they move along.
+                members = new List<(StepNode, Vector2)>();
+                var all = NodesProvider?.Invoke();
+                if (all != null)
+                {
+                    foreach (var n in all)
+                    {
+                        if (n == null) continue;
+                        var nr = n.GetPosition();
+                        if (_rect.Contains(nr.center))
+                            members.Add((n, nr.position));
+                    }
+                }
+
+                this.CaptureMouse();
+                e.StopPropagation();
+            });
+            RegisterCallback<MouseMoveEvent>(e =>
+            {
+                if (!dragging) return;
+                var delta = ContentMouse(e.mousePosition) - startMouse;
+                SetPosition(new Rect(startPos + delta, new Vector2(_rect.width, _rect.height)));
+                if (members != null)
+                {
+                    foreach (var (node, start) in members)
+                    {
+                        if (node == null) continue;
+                        var r = node.GetPosition();
+                        node.SetPositionSilent(new Rect(start + delta, r.size));
+                    }
+                }
+                e.StopPropagation();
+            });
+            RegisterCallback<MouseUpEvent>(e =>
+            {
+                if (!dragging) return;
+                dragging = false;
+                this.ReleaseMouse();
+                if (members != null)
+                {
+                    foreach (var (node, _) in members)
+                        if (node != null) node.step.graphPos = node.GetPosition().position;
+                }
+                PersistRect?.Invoke();
+                PersistChildren?.Invoke();
+                e.StopPropagation();
+            });
+        }
+
+        void SetupResize()
+        {
+            bool resizing = false;
+            Vector2 startMouse = default;
+            Vector2 startSize = default;
+
+            _resizeHandle.RegisterCallback<MouseDownEvent>(e =>
+            {
+                if (e.button != 0) return;
+                resizing = true;
+                startMouse = ContentMouse(e.mousePosition);
+                startSize = new Vector2(_rect.width, _rect.height);
+                _resizeHandle.CaptureMouse();
+                e.StopPropagation();
+            });
+            _resizeHandle.RegisterCallback<MouseMoveEvent>(e =>
+            {
+                if (!resizing) return;
+                var delta = ContentMouse(e.mousePosition) - startMouse;
+                float w = Mathf.Max(120f, startSize.x + delta.x);
+                float h = Mathf.Max(80f, startSize.y + delta.y);
+                SetPosition(new Rect(_rect.x, _rect.y, w, h));
+                e.StopPropagation();
+            });
+            _resizeHandle.RegisterCallback<MouseUpEvent>(e =>
+            {
+                if (!resizing) return;
+                resizing = false;
+                _resizeHandle.ReleaseMouse();
+                PersistRect?.Invoke();
+                e.StopPropagation();
+            });
+        }
     }
 #endif
 
@@ -2241,6 +2887,8 @@ public class ScenarioGraphWindow : EditorWindow
     class ScenarioGraphView : GraphView
     {
         readonly ScenarioGraphWindow _graphWindow;
+        VisualElement _tetherLayer;
+        readonly List<(Vector2 a, Vector2 b)> _tetherSegs = new();
 
         public Action<ContextualMenuPopulateEvent> OnContextAdd;
         public Action<Vector2> OnMouseWorld;
@@ -2260,6 +2908,18 @@ public class ScenarioGraphWindow : EditorWindow
             this.AddManipulator(new RectangleSelector());
             Insert(0, new GridBackground() { name = "grid" });
             this.Q("grid")?.StretchToParentSize();
+
+            // Overlay (in content space, behind nodes) that draws connector lines from attached notes to their nodes.
+            _tetherLayer = new VisualElement { name = "note-tethers", pickingMode = PickingMode.Ignore };
+            _tetherLayer.style.position = Position.Absolute;
+            _tetherLayer.style.left = 0;
+            _tetherLayer.style.top = 0;
+            _tetherLayer.style.right = 0;
+            _tetherLayer.style.bottom = 0;
+            _tetherLayer.style.overflow = Overflow.Visible;
+            _tetherLayer.generateVisualContent = OnGenerateTethers;
+            contentViewContainer.Add(_tetherLayer);
+            _tetherLayer.SendToBack();
             RegisterCallback<MouseMoveEvent>(e =>
             {
                 var p = contentViewContainer.WorldToLocal(e.mousePosition);
@@ -2278,6 +2938,36 @@ public class ScenarioGraphWindow : EditorWindow
             deleteSelection = HandleGraphDeleteSelection;
         }
 
+        // Recompute the attached-note connector segments and repaint the overlay.
+        public void RefreshTethers()
+        {
+            _tetherSegs.Clear();
+            _graphWindow?.CollectTethers(_tetherSegs);
+            _tetherLayer?.MarkDirtyRepaint();
+        }
+
+        void OnGenerateTethers(MeshGenerationContext ctx)
+        {
+            if (_tetherSegs.Count == 0) return;
+            var color = new Color(0.85f, 0.70f, 0.20f, 0.70f); // amber, matches the note color
+            const float half = 1.5f;
+            foreach (var (a, b) in _tetherSegs)
+            {
+                Vector2 dir = b - a;
+                if (dir.sqrMagnitude < 1e-4f) continue;
+                dir.Normalize();
+                Vector2 nrm = new Vector2(-dir.y, dir.x) * half;
+
+                var mesh = ctx.Allocate(4, 6);
+                mesh.SetNextVertex(new Vertex { position = a + nrm, tint = color });
+                mesh.SetNextVertex(new Vertex { position = a - nrm, tint = color });
+                mesh.SetNextVertex(new Vertex { position = b - nrm, tint = color });
+                mesh.SetNextVertex(new Vertex { position = b + nrm, tint = color });
+                mesh.SetNextIndex(0); mesh.SetNextIndex(1); mesh.SetNextIndex(2);
+                mesh.SetNextIndex(0); mesh.SetNextIndex(2); mesh.SetNextIndex(3);
+            }
+        }
+
         void HandleGraphDeleteSelection(string operationName, AskUser askUser)
         {
             var stepNodes = selection.OfType<StepNode>().Where(n => n != null).ToList();
@@ -2286,6 +2976,16 @@ public class ScenarioGraphWindow : EditorWindow
                 _graphWindow?.RequestDeleteSelectedStepNodes(stepNodes);
                 return;
             }
+
+#if UNITY_EDITOR
+            var groupEls = selection.OfType<GroupBox>().Where(g => g != null).ToList();
+            if (groupEls.Count > 0)
+            {
+                foreach (var ge in groupEls)
+                    if (ge.userData is string gg) _graphWindow?.DeleteGroupByGuid(gg);
+                return;
+            }
+#endif
 
             DeleteSelectionOperation(operationName, askUser);
         }
@@ -2322,15 +3022,32 @@ public class ScenarioGraphWindow : EditorWindow
                 return;
             }
 
-            // Right-click on a note → allow delete
+            // Right-click on a note (or inside its text area) → allow delete
 #if UNITY_EDITOR
-            if (evt.target is StickyNote sn && sn.userData is string guid)
+            var noteEl = (evt.target as VisualElement)?.GetFirstAncestorOfType<EditableNote>();
+            if (noteEl != null && noteEl.userData is string guid)
             {
+                bool attached = _graphWindow != null && _graphWindow.IsNoteAttached(guid);
+                if (attached)
+                    evt.menu.AppendAction("Detach Note", _ => _graphWindow?.DetachNote(guid));
+                else
+                    evt.menu.AppendAction("Attach Note to Nearest Node", _ => _graphWindow?.AttachNoteToNearest(guid));
+
                 evt.menu.AppendAction("Delete Note", _ =>
                 {
                     var win = EditorWindow.focusedWindow as ScenarioGraphWindow;
                     win?.DeleteNoteByGuid(guid);
                 });
+                return;
+            }
+
+            // Right-click on a visual group box → rename / delete
+            var groupEl = evt.target as GroupBox ?? (evt.target as VisualElement)?.GetFirstAncestorOfType<GroupBox>();
+            if (groupEl != null && groupEl.userData is string gguid)
+            {
+                evt.menu.AppendAction("Rename Group", _ => groupEl.BeginRename());
+                evt.menu.AppendAction("Delete Group (keep items)", _ => _graphWindow?.DeleteGroupByGuid(gguid));
+                evt.menu.AppendAction("Delete Group + items", _ => _graphWindow?.ConfirmDeleteGroupAndItems(gguid));
                 return;
             }
 #endif
@@ -2517,6 +3234,13 @@ public class ScenarioGraphWindow : EditorWindow
         bool _resizeQueued;
         Label _groupSummaryLabel;
         UIEButton _groupFoldBtn;
+        VisualElement _resizeHandle;
+
+        // True once the user has manually resized this node (size persisted on the step).
+        // Group/nested nodes keep their automatic sizing.
+        public bool UserSized =>
+            !IsNested && step is not GroupStep && step != null
+            && step.graphSize.x > 1f && step.graphSize.y > 1f;
 
         public void SetExpanded(bool on)
         {
@@ -2524,6 +3248,10 @@ public class ScenarioGraphWindow : EditorWindow
             if (_foldout == null) return;
             _foldout.value = on;
         }
+
+        // Fixed header prefix: the number + type (e.g. "01. Question").
+        // The custom name lives in a separate, always-editable field in the header.
+        string TitlePrefix() => $"{index:00}. {step.Kind}";
 
         public StepNode(ScenarioGraphWindow ownerWindow, Scenario sc, Step s, int idx, ScenarioGraphView gv, Action rebuildLinks, Action<Step, int> onSkipRequest, Action<Step> onDeleteRequest, Action<Step> onDuplicateRequest, bool startExpanded, bool isNested = false, string parentGroupGuid = null)
         {
@@ -2534,14 +3262,26 @@ public class ScenarioGraphWindow : EditorWindow
             ParentGroupGuid = parentGroupGuid;
 
             // Force compact width for non-group steps (GraphView can impose a larger min-width by default).
+            // If the user has manually resized this node, honor that size instead.
             if (s is not GroupStep)
             {
-                style.minWidth = StepNodeWidth;
-                style.maxWidth = StepNodeWidth;
-                style.width = StepNodeWidth;
+                if (UserSized)
+                {
+                    style.minWidth = 120f;
+                    style.maxWidth = StyleKeyword.None;
+                    style.width = s.graphSize.x;
+                    style.minHeight = 80f;
+                    style.height = s.graphSize.y;
+                }
+                else
+                {
+                    style.minWidth = StepNodeWidth;
+                    style.maxWidth = StepNodeWidth;
+                    style.width = StepNodeWidth;
+                }
             }
 
-            title = $"{idx:00}. {s.Kind}";
+            title = TitlePrefix();
             var tbox = this.Q("title");
             var titleLabel = tbox?.Q<Label>();
 
@@ -2577,6 +3317,33 @@ public class ScenarioGraphWindow : EditorWindow
                     titleLabel.style.color = Color.black;
             }
 
+            // Always-editable custom name, shown in the header right after the type.
+            // Type away to name the node (e.g. "01. Question" + "testing path"); empty = type only.
+            if (tbox != null)
+            {
+                bool darkHeaderText = s is InsertStep || s is EventStep || s is ConditionsStep;
+                var headerName = new TextField { isDelayed = false, value = step.displayName ?? "" };
+                headerName.style.flexGrow = 1;
+                headerName.style.marginLeft = 6;
+                headerName.style.marginRight = 4;
+                headerName.style.fontSize = 12;
+                headerName.tooltip = "Custom name shown after the type. Leave empty for type only.";
+                var hi = headerName.Q(className: "unity-text-input");
+                if (hi != null)
+                {
+                    hi.style.backgroundColor = Color.clear;
+                    hi.style.color = darkHeaderText ? Color.black : Color.white;
+                }
+                headerName.RegisterValueChangedCallback(evt =>
+                {
+                    step.displayName = evt.newValue ?? "";
+                    Dirty(scenario, "Rename Step");
+                });
+                // Typing in the header must not drag the node or trigger double-click-to-edit.
+                headerName.RegisterCallback<MouseDownEvent>(e => e.StopPropagation());
+                tbox.Add(headerName);
+            }
+
             // In (nested steps do not participate in routing inside the main graph)
             if (!IsNested)
             {
@@ -2607,6 +3374,22 @@ public class ScenarioGraphWindow : EditorWindow
             editBtn.style.marginLeft = 6;
             titleContainer.Add(editBtn);
 
+            // Bottom-right drag handle to resize the node (non-group, non-nested only).
+            if (!IsNested && s is not GroupStep)
+            {
+                _resizeHandle = new VisualElement();
+                _resizeHandle.style.position = Position.Absolute;
+                _resizeHandle.style.right = 0;
+                _resizeHandle.style.bottom = 0;
+                _resizeHandle.style.width = 14;
+                _resizeHandle.style.height = 14;
+                _resizeHandle.style.backgroundColor = new Color(1f, 1f, 1f, 0.22f);
+                _resizeHandle.style.borderTopLeftRadius = 4;
+                _resizeHandle.tooltip = "Drag to resize · double-click to auto-size";
+                hierarchy.Add(_resizeHandle); // anchor to the node's full bounds, not the inner content container
+                SetupResize();
+            }
+
             if (s is GroupStep gs)
             {
                 _groupSummaryLabel = new Label();
@@ -2632,7 +3415,8 @@ public class ScenarioGraphWindow : EditorWindow
                 owner?.ScheduleResizeGroup(step is GroupStep gg ? gg.guid : null);
 
                 // Non-group nodes: resize immediately based on deterministic height calc.
-                if (step is not GroupStep)
+                // Skip when the user has manually sized the node — their size wins.
+                if (step is not GroupStep && !UserSized)
                 {
                     if (fold.value)
                     {
@@ -3611,6 +4395,17 @@ public class ScenarioGraphWindow : EditorWindow
                 deleteRequest?.Invoke(step);
             });
 
+            // Attach a sticky note to this node (follows it when moved, drawn with a connector line).
+            evt.menu.AppendAction("Add Attached Note", _ => owner?.AddAttachedNote(step));
+
+            // When several nodes are selected, offer to wrap the whole selection in a group box.
+            int selCount = graph?.selection?.OfType<StepNode>().Count() ?? 0;
+            if (selCount >= 2)
+            {
+                evt.menu.AppendSeparator();
+                evt.menu.AppendAction($"Group {selCount} Nodes in Box", _ => owner?.CreateGroupBox());
+            }
+
             // If you want, you can also add Disconnect all etc here
             // evt.menu.AppendAction("Disconnect all", _ => { ... });
         }
@@ -4151,7 +4946,7 @@ public class ScenarioGraphWindow : EditorWindow
             // Persist + relative handling is centralized in graphViewChanged to avoid double-Undo and ordering bugs.
             // When expanded, don't freeze height/width from GraphView drags; keep auto-height based on content.
             // GraphView passes a rect including the current size; applying it would make height fixed and clip later.
-            if (!IsNested && step is not GroupStep && _foldout != null && _foldout.value)
+            if (!IsNested && step is not GroupStep && _foldout != null && _foldout.value && !UserSized)
             {
                 style.left = newPos.xMin;
                 style.top = newPos.yMin;
@@ -4165,7 +4960,7 @@ public class ScenarioGraphWindow : EditorWindow
         public void SetPositionSilent(Rect newPos)
         {
             // Same rule as SetPosition: when expanded, keep auto-height (and fixed width) but move position silently.
-            if (!IsNested && step is not GroupStep && _foldout != null && _foldout.value)
+            if (!IsNested && step is not GroupStep && _foldout != null && _foldout.value && !UserSized)
             {
                 style.left = newPos.xMin;
                 style.top = newPos.yMin;
@@ -4185,6 +4980,7 @@ public class ScenarioGraphWindow : EditorWindow
         public float GetHeight()
         {
             if (IsNested) return 110f; // compact tile in container
+            if (UserSized) return step.graphSize.y; // honor manual resize
             bool expandedDetails = _foldout != null && _foldout.value;
             float collapsed = GetCollapsedHeight();
             if (!expandedDetails) return collapsed;
@@ -4239,6 +5035,7 @@ public class ScenarioGraphWindow : EditorWindow
 
         void ResizeToFitDetails()
         {
+            if (UserSized) return;
             if (_foldout == null || !_foldout.value) return;
             // With auto-height, we just ensure height is Auto and let UIElements measure actual content.
             if (step is GroupStep) return;
@@ -4248,6 +5045,7 @@ public class ScenarioGraphWindow : EditorWindow
 
         void QueueResizeToFitDetails()
         {
+            if (UserSized) return;
             if (_foldout == null || !_foldout.value) return;
             if (_resizeQueued) return;
             _resizeQueued = true;
@@ -4257,6 +5055,65 @@ public class ScenarioGraphWindow : EditorWindow
                 if (this == null) return;
                 ResizeToFitDetails();
             };
+        }
+
+        // Drag the bottom-right handle to resize; the size is persisted on the step.
+        // Double-click the handle to clear the manual size and return to auto-sizing.
+        void SetupResize()
+        {
+            bool resizing = false;
+            Vector2 startMouse = default;
+            Vector2 startSize = default;
+
+            _resizeHandle.RegisterCallback<MouseDownEvent>(e =>
+            {
+                if (e.button != 0) return;
+
+                // Double-click clears the manual size and rebuilds with auto-sizing.
+                if (e.clickCount == 2)
+                {
+                    step.graphSize = Vector2.zero;
+                    Dirty(scenario, "Auto-size Node");
+                    e.StopPropagation();
+                    owner?.Load(owner.scenario);
+                    return;
+                }
+
+                resizing = true;
+                startMouse = e.mousePosition;
+                startSize = new Vector2(resolvedStyle.width, resolvedStyle.height);
+                if (startSize.x < 1f || float.IsNaN(startSize.x)) startSize.x = layout.width;
+                if (startSize.y < 1f || float.IsNaN(startSize.y)) startSize.y = layout.height;
+
+                // Switch to explicit sizing so width/height take effect (override the fixed-width UX).
+                style.maxWidth = StyleKeyword.None;
+                style.minWidth = 120f;
+                style.minHeight = 80f;
+
+                _resizeHandle.CaptureMouse();
+                e.StopPropagation();
+            });
+
+            _resizeHandle.RegisterCallback<MouseMoveEvent>(e =>
+            {
+                if (!resizing) return;
+                var delta = e.mousePosition - startMouse;
+                float w = Mathf.Max(140f, startSize.x + delta.x);
+                float h = Mathf.Max(90f, startSize.y + delta.y);
+                style.width = w;
+                style.height = h;
+                step.graphSize = new Vector2(w, h);
+                e.StopPropagation();
+            });
+
+            _resizeHandle.RegisterCallback<MouseUpEvent>(e =>
+            {
+                if (!resizing) return;
+                resizing = false;
+                _resizeHandle.ReleaseMouse();
+                Dirty(scenario, "Resize Node");
+                e.StopPropagation();
+            });
         }
 
         // NOTE: We intentionally avoid manual expanded-height calculations.

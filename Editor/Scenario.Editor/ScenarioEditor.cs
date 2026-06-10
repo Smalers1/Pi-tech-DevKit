@@ -245,7 +245,8 @@ namespace Pitech.XR.Scenario.Editor
 
 
                 var header2 = new Rect(rect.x + 4, rect.y + 4, rect.width - 8, EditorGUIUtility.singleLineHeight);
-                DrawStepHeader(header2, index, kind);
+                string displayName = el.FindPropertyRelative("displayName")?.stringValue;
+                DrawStepHeader(header2, index, kind, displayName);
 
                 var body = new Rect(
                     rect.x + 4, header2.y + header2.height + 3,
@@ -266,13 +267,19 @@ namespace Pitech.XR.Scenario.Editor
             };
         }
 
-        void DrawStepHeader(Rect r, int index, string kind)
+        void DrawStepHeader(Rect r, int index, string kind, string displayName = null)
         {
             var left = new Rect(r.x, r.y, 50, r.height);
             EditorGUI.LabelField(left, $"{index:00}", Styles.Index);
 
             var badge = new Rect(left.xMax + 4, r.y + 1, 82, r.height - 2);
             Styles.DrawBadge(badge, kind);
+
+            if (!string.IsNullOrWhiteSpace(displayName))
+            {
+                var nameRect = new Rect(badge.xMax + 6, r.y, r.width - (badge.xMax - r.x) - 6, r.height);
+                EditorGUI.LabelField(nameRect, displayName, Styles.Bold);
+            }
         }
 
         void AddStep(Type t)
