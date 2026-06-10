@@ -1,0 +1,13 @@
+{
+    "name": "Pitech.XR.AgentSubstrate",
+    "rootNamespace": "Pitech.XR.AgentSubstrate",
+    "references": [
+        "Pitech.XR.Core"
+    ],
+    "autoReferenced": true,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

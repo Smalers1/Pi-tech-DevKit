@@ -1,0 +1,22 @@
+{
+    "name": "Pitech.XR.AgentSubstrate.Editor.Tests",
+    "rootNamespace": "Pitech.XR.AgentSubstrate.Editor.Tests",
+    "references": [
+        "Pitech.XR.AgentSubstrate"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false,
+    "optionalUnityReferences": [
+        "TestAssemblies"
+    ],
+    "testAssemblies": true
+}
