@@ -602,6 +602,7 @@ events/facts/lifecycle hooks (behaviour).
 
 | Date | WS | Event | By |
 |---|---|---|---|
+| 2026-06-10 | A3 | Stergios review: restored 3 refinements lost in the merge - I.0 Proof A regains the generic ObjectReference walk (Missing-ref, no per-type list) + object-reference map + rich event fingerprint (stable identity/`m_CallState`/`m_Mode`/args, not just type); I.0 regains the "scene-severed / committed-prefab-only inputs" paragraph that justifies the scene-less local DevKit gate; I.6 reverted to "operate on a COPY, never reserialize the committed fixture in place" (the merge's `ForceReserializeAssets(P)` would dirty the tree / mutate the asset on failure). | Stergios review (Claude) |
 | 2026-06-10 | - | Lettered sequence A..I locked (numbered phases retired); AR+VR confirmed Unity 6 (no upgrade prerequisite); Director foresight note on WS A8; completion discipline added | Claude (board) |
 | 2026-06-09 | - | Plan merged into single source of truth ("P1" retired into Phase A); filed as PROPOSED (since RATIFIED 2026-06-10) | Claude (board) |
 
@@ -649,9 +650,40 @@ For each lab asset: load it, get the `Scenario`, walk `steps` recursively (into 
   or a member of the collected set; every `UnityEvent` (`Choice.onSelected`, `MiniQuizChoice.onSelected`,
   `SelectionStep.onCorrect`/`onWrong`, `EventStep.onEnter`) has, per persistent listener, a non-null target + non-empty
   method name.
-- **Snapshot (per-lab baseline JSON):** ordered `[(guid, Kind, [outgoing guids])]` + per-event
-  `[(targetTypeName, method)]`; re-extract after a change and assert equal; regenerate only via an explicit `--regen`
-  reviewed as a deliberate change.
+- **No *Missing* object reference anywhere in a step (the generic invariant - NO per-type list).** Walk the
+  `Scenario`'s `SerializedObject` and visit every `SerializedPropertyType.ObjectReference` reached under the `steps`
+  array (`SerializedProperty.Next(enterChildren:true)`, descending into nested `[SerializeReference]` steps, lists and
+  arrays). This reaches `QuestionStep.panelRoot`/`panelAnimator`, every `Choice.button`,
+  `CueCardsStep.cards[]`/`nextButton`/`tapHint`/`extraObject`/`director`, `TimelineStep.director`, the
+  Selection/Conditions/MiniQuiz object fields, the `UnityEvent` call targets, **and any object field added to any step
+  in the future**. For each, assert it is not Missing:
+  `!(prop.objectReferenceValue == null && prop.objectReferenceInstanceIDValue != 0)` (a serialized `fileID`/GUID that no
+  longer resolves). A field left **cleanly null by design** (`fileID 0`) is allowed; only a *dangling* pointer fails.
+- **Snapshot (per-lab baseline JSON - catches a *dropped* or *silently rewired* step/reference/listener the invariants
+  would pass).** Both reference layers come from the **same single generic walk** above - no per-Step-type code:
+  - **Object-reference map** - for every `ObjectReference` under `steps`, record its **stable property path**
+    (e.g. `steps[3].choices[1].button`, `steps[5].panelRoot`) -> the target's **stable identity** (its hierarchy path
+    within the fixture, or its serialized `fileID`/GUID - **not** just its type), or `null`/`MISSING`. This is what
+    answers "are the Question's panel and choices intact?": it catches a silent rewire (panel swapped to a different
+    `RectTransform`; a choice repointed to another `Button`) and a dropped reference a byte-diff can miss after a
+    legitimate re-save - with a *human* message (`steps[3].choices[1].button was 'Panel/Btn_Yes', now MISSING`).
+  - **Event fingerprint (the typed superset for the call-target subset)** - per persistent call
+    (`m_PersistentCalls.m_Calls`), record: the target's **stable identity (path or `fileID`/GUID, NOT just type)**,
+    `m_MethodName`, `m_CallState`, `m_Mode`, and the serialized argument values
+    (`m_ObjectArgument`(+`m_ObjectArgumentAssemblyTypeName`)/`m_IntArgument`/`m_FloatArgument`/`m_StringArgument`/
+    `m_BoolArgument`). (Just `(targetTypeName, method)` is insufficient - it would miss a rewire to a different object
+    of the same type.)
+  Re-extract both maps after a change and assert equal. Regenerate only via an explicit `--regen`, reviewed as a
+  deliberate change.
+
+**What the comparison needs - and what it does *not*.** The baseline is captured **once**, at export, and committed
+beside the prefab (`Baseline/GraphSnapshots/<lab>.graph.json`). Every later run re-extracts from the **same committed
+fixture prefab under the new package code** and diffs against that committed baseline. **The source HealthOn scene is
+never needed again** - its only job was to birth the self-contained fixture (precisely why `Export Lab as Test
+Fixture` exists: it severs the scene dependency). The gate's inputs are exactly *committed prefab + committed baseline
++ new code* - nothing else. **This is what lets the scene-less DevKit project be a sufficient, self-contained gate**
+(it does not need the HealthOn scenes to run). Re-exporting from a live scene is a separate, deliberate `--regen`,
+done only when the *real lab content* changes - never to run the gate.
 
 ### I.1 Test assembly layout
 
@@ -746,13 +778,19 @@ preserve emission order; LF; trailing newline. Byte-compare against the committe
 3. Drive deterministically with the committed `driver` list via `EditorSkipFromGraph(stepGuid, branchIndex)`.
 4. Run until `StepIndex == -1` or a step cap; serialize per I.4; compare.
 
-### I.6 Serialized-diff method (Proof C)
-Per fixture prefab `P`: read bytes -> `AssetDatabase.ForceReserializeAssets(new[]{P})` (or load -> `SetDirty` ->
-`SaveAssets`) -> read again -> assert equal. If Unity normalizes formatting on first reserialize, capture the
-normalized text ONCE as the committed baseline. **Prefab-instance-with-override variant:** temp scene -> instantiate
-`P` -> set one override -> `PrefabUtility.RecordPrefabInstancePropertyModifications` -> save -> assert no dropped
-`steps`, no churned `managedReferences` ids, no changed `m_Script` GUID. Backstop:
-`git diff --exit-code -- Tests/Fixtures` after a ForceReserialize pass.
+### I.6 Serialized-diff method (Proof C) - operate on a COPY, never the committed fixture
+**Never reserialize the committed fixture in place** - it dirties the working tree, and a failed test would leave a
+mutated asset. Per fixture `P`: `AssetDatabase.CopyAsset(P, T)` into a temp folder (e.g. `Assets/_DevKitTestTmp/`);
+read `b0 = File.ReadAllText(P)` (committed bytes = the read-only pre-change baseline); reserialize **the copy**
+(`AssetDatabase.ForceReserializeAssets(new[]{T})`); `b1 = File.ReadAllText(T)`; `Assert.AreEqual(b0, b1)`; in
+`[TearDown]`, `AssetDatabase.DeleteAsset` the whole temp folder. **The committed fixture is never written.** If Unity
+normalizes formatting on a first reserialize, capture that normalized form **once** as the committed baseline and
+compare the copy to it. **Prefab-instance-with-override variant:** temp scene -> instantiate `P` -> set one override
+(e.g. `title`) -> `PrefabUtility.RecordPrefabInstancePropertyModifications` -> save the **temp scene** (NOT `P`) ->
+assert the `Scenario` block has no dropped `steps`, no churned `managedReferences` ids, no changed `m_Script` GUID ->
+delete the temp scene. **CI backstop (separate from the unit test, on a throwaway checkout only):** a
+`ForceReserializeAssets` pass over all fixtures + `git diff --exit-code -- Tests/Fixtures` - never inside a unit test,
+never on a dev's working tree.
 
 ### I.7 GUID-stability (`ScriptGuids.json`)
 Pins the MonoScript GUIDs of every type referenced by `m_Script` in prefabs/scenes: `Scenario`, `SceneManager`,
