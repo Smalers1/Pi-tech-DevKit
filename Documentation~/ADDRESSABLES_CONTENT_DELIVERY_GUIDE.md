@@ -1,17 +1,36 @@
 # Addressables Content Delivery Guide
 
-This guide covers the optional Addressables/CCD workflow in the Pi tech XR DevKit.
+This guide covers the Addressables/CCD workflow in the Pi tech XR DevKit.
+
+> ## LAUNCH MODE (2026-09-10 - read this first)
+>
+> For the Sep-10 launch, Addressables is **NOT optional** - it is part of the store-launch gate (launch Phase C
+> WS C4: UaaL Android embed + VR Shell + **Addressables content build** must be submitted by **end of August**;
+> see `plans/2026-06-09-phase-c-integration-and-ship.md`). Launch posture:
+>
+> - **Unity 6+ (6000.0)** is the baseline (spec `2026-04-23-devkit-1.0-target-architecture-design.md` §28.6) -
+>   Addressables **2.x**; with `CcdManager`, set `EnvironmentName` + `BucketId` + `Badge` **before any Addressables
+>   call**.
+> - **Addressables is a REQUIRED dependency** (Stergios decision 2026-06-08); the `package.json` `dependencies`
+>   declaration lands in the single after-Phase-A metadata cutover (§28.6). The "optional" framing below describes
+>   the pre-launch posture.
+> - **Acceptance for the launch build (WS C4):** content build produced + uploaded; cohort/badge pinning verified;
+>   a runtime smoke (lab loads via `ContentDeliverySpawner` from the remote path) on device passes; no placeholder
+>   binaries.
+> - **Known critical bug (do NOT fix during behaviour-neutral Phase A):** `AddressablesRemoteUrlRewriter` nulls the
+>   GLOBAL `InternalIdTransformFunc` on `Uninstall()`/`Clear()` - in UaaL this can break the host app's
+>   Addressables. The save/restore fix is the first item AFTER Phase A (Phase A doc, deferred table).
 
 ## Scope
 
 - Setup + Prefab Mapping + Validate + Build is the default flow.
 - Use the dedicated `Addressables Builder` window (not Guided Setup scene card).
-- Runtime integration is optional and isolated from `SceneManager`.
+- Runtime integration is isolated from `SceneManager`.
 
 ## Prerequisites
 
-- Unity 2022.3+
-- `com.unity.addressables`
+- Unity 6+ (6000.0) for the launch posture (historically 2022.3+)
+- `com.unity.addressables` (2.x on Unity 6)
 - Optional: `com.unity.services.ccd.management`
 
 ## 1) Open Builder Window
