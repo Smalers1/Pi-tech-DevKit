@@ -1529,7 +1529,7 @@ public class ScenarioGraphWindow : EditorWindow
             }
             else if (node.UserSized)
             {
-                w = node.step.graphSize.x; // GetHeight() already returns graphSize.y
+                w = node.UserSize.x; // GetHeight() already returns the manual height
             }
             else if (node.IsExpanded)
             {
@@ -1685,6 +1685,9 @@ public class ScenarioGraphWindow : EditorWindow
         Undo.RecordObject(scenario, "Delete Step");
         scenario.steps.RemoveAt(index);
         ClearReferencesToRemovedStepGuid(scenario, s.guid);
+
+        // Editor-only display overrides die with the step (incl. a group's nested steps).
+        scenario.RemoveStepGraphDisplayRecursive(s);
     }
 
     void ScheduleGraphReloadAfterScenarioMutation()
@@ -1776,11 +1779,28 @@ public class ScenarioGraphWindow : EditorWindow
             if (copy == null) return;
 
             JsonUtility.FromJsonOverwrite(json, copy);
+            // The editor-only display overrides (custom name / manual size) live in the scenario's
+            // side-table keyed by guid, so they no longer travel inside the step's own JSON.
+            // Map src guids -> regenerated guids pairwise (CollectStepGuids and RegenerateGuids
+            // walk the same recursion order) and copy the entries across.
+            var srcGuids = new List<string>();
+            CollectStepGuids(copy, srcGuids);   // copy still holds src's guids here
             RegenerateGuids(copy);
+            var newGuids = new List<string>();
+            CollectStepGuids(copy, newGuids);
             copy.graphPos = src.graphPos + new Vector2(40f, 40f);
 
             Undo.RecordObject(scenario, "Duplicate Step");
             scenario.steps.Insert(Mathf.Clamp(index + 1, 0, scenario.steps.Count), copy);
+            for (int gi = 0; gi < srcGuids.Count && gi < newGuids.Count; gi++)
+            {
+                var srcDisp = scenario.FindStepGraphDisplay(srcGuids[gi]);
+                if (srcDisp == null) continue;
+                var d = scenario.GetOrAddStepGraphDisplay(newGuids[gi]);
+                if (d == null) continue;
+                d.size = srcDisp.size;
+                d.displayName = srcDisp.displayName;
+            }
             Dirty(scenario, "Duplicate Step");
 
             EditorApplication.delayCall += () =>
@@ -1801,6 +1821,17 @@ public class ScenarioGraphWindow : EditorWindow
                     RegenerateGuids(st);
                 g.EnsureChildRequirements();
             }
+    }
+
+    // Same recursion order as RegenerateGuids - the pairwise guid mapping in DuplicateStep
+    // depends on that.
+    static void CollectStepGuids(Step step, List<string> into)
+    {
+        if (step == null || into == null) return;
+        into.Add(step.guid);
+        if (step is GroupStep g && g.steps != null)
+            foreach (var st in g.steps)
+                CollectStepGuids(st, into);
     }
 
     void Connect(Port src, string dstGuid)
@@ -3236,11 +3267,21 @@ public class ScenarioGraphWindow : EditorWindow
         UIEButton _groupFoldBtn;
         VisualElement _resizeHandle;
 
-        // True once the user has manually resized this node (size persisted on the step).
+        // Manual node size from the scenario's editor-only side-table (zero => auto-size).
+        public Vector2 UserSize =>
+            scenario != null ? (scenario.FindStepGraphDisplay(step?.guid)?.size ?? Vector2.zero) : Vector2.zero;
+
+        // True once the user has manually resized this node (size persisted in the side-table).
         // Group/nested nodes keep their automatic sizing.
-        public bool UserSized =>
-            !IsNested && step is not GroupStep && step != null
-            && step.graphSize.x > 1f && step.graphSize.y > 1f;
+        public bool UserSized
+        {
+            get
+            {
+                if (IsNested || step == null || step is GroupStep) return false;
+                var sz = UserSize;
+                return sz.x > 1f && sz.y > 1f;
+            }
+        }
 
         public void SetExpanded(bool on)
         {
@@ -3267,11 +3308,12 @@ public class ScenarioGraphWindow : EditorWindow
             {
                 if (UserSized)
                 {
+                    var us = UserSize;
                     style.minWidth = 120f;
                     style.maxWidth = StyleKeyword.None;
-                    style.width = s.graphSize.x;
+                    style.width = us.x;
                     style.minHeight = 80f;
-                    style.height = s.graphSize.y;
+                    style.height = us.y;
                 }
                 else
                 {
@@ -3322,7 +3364,7 @@ public class ScenarioGraphWindow : EditorWindow
             if (tbox != null)
             {
                 bool darkHeaderText = s is InsertStep || s is EventStep || s is ConditionsStep;
-                var headerName = new TextField { isDelayed = false, value = step.displayName ?? "" };
+                var headerName = new TextField { isDelayed = false, value = sc.FindStepGraphDisplay(s.guid)?.displayName ?? "" };
                 headerName.style.flexGrow = 1;
                 headerName.style.marginLeft = 6;
                 headerName.style.marginRight = 4;
@@ -3336,8 +3378,10 @@ public class ScenarioGraphWindow : EditorWindow
                 }
                 headerName.RegisterValueChangedCallback(evt =>
                 {
-                    step.displayName = evt.newValue ?? "";
                     Dirty(scenario, "Rename Step");
+                    var d = scenario.GetOrAddStepGraphDisplay(step.guid);
+                    if (d != null) d.displayName = evt.newValue ?? "";
+                    scenario.PruneStepGraphDisplay(step.guid);
                 });
                 // Typing in the header must not drag the node or trigger double-click-to-edit.
                 headerName.RegisterCallback<MouseDownEvent>(e => e.StopPropagation());
@@ -4980,7 +5024,7 @@ public class ScenarioGraphWindow : EditorWindow
         public float GetHeight()
         {
             if (IsNested) return 110f; // compact tile in container
-            if (UserSized) return step.graphSize.y; // honor manual resize
+            if (UserSized) return UserSize.y; // honor manual resize (editor-only side-table)
             bool expandedDetails = _foldout != null && _foldout.value;
             float collapsed = GetCollapsedHeight();
             if (!expandedDetails) return collapsed;
@@ -5057,13 +5101,14 @@ public class ScenarioGraphWindow : EditorWindow
             };
         }
 
-        // Drag the bottom-right handle to resize; the size is persisted on the step.
-        // Double-click the handle to clear the manual size and return to auto-sizing.
+        // Drag the bottom-right handle to resize; the size is persisted in the scenario's
+        // editor-only side-table. Double-click the handle to clear it and return to auto-sizing.
         void SetupResize()
         {
             bool resizing = false;
             Vector2 startMouse = default;
             Vector2 startSize = default;
+            Scenario.StepGraphDisplay sizeEntry = null;
 
             _resizeHandle.RegisterCallback<MouseDownEvent>(e =>
             {
@@ -5072,8 +5117,13 @@ public class ScenarioGraphWindow : EditorWindow
                 // Double-click clears the manual size and rebuilds with auto-sizing.
                 if (e.clickCount == 2)
                 {
-                    step.graphSize = Vector2.zero;
                     Dirty(scenario, "Auto-size Node");
+                    var d = scenario.FindStepGraphDisplay(step.guid);
+                    if (d != null)
+                    {
+                        d.size = Vector2.zero;
+                        scenario.PruneStepGraphDisplay(step.guid);
+                    }
                     e.StopPropagation();
                     owner?.Load(owner.scenario);
                     return;
@@ -5090,6 +5140,10 @@ public class ScenarioGraphWindow : EditorWindow
                 style.minWidth = 120f;
                 style.minHeight = 80f;
 
+                // Record BEFORE the drag mutates the entry so undo restores the pre-resize size.
+                Dirty(scenario, "Resize Node");
+                sizeEntry = scenario.GetOrAddStepGraphDisplay(step.guid);
+
                 _resizeHandle.CaptureMouse();
                 e.StopPropagation();
             });
@@ -5102,7 +5156,7 @@ public class ScenarioGraphWindow : EditorWindow
                 float h = Mathf.Max(90f, startSize.y + delta.y);
                 style.width = w;
                 style.height = h;
-                step.graphSize = new Vector2(w, h);
+                if (sizeEntry != null) sizeEntry.size = new Vector2(w, h);
                 e.StopPropagation();
             });
 
@@ -5111,7 +5165,9 @@ public class ScenarioGraphWindow : EditorWindow
                 if (!resizing) return;
                 resizing = false;
                 _resizeHandle.ReleaseMouse();
-                Dirty(scenario, "Resize Node");
+                // Click-without-drag leaves a default entry behind - drop it.
+                scenario.PruneStepGraphDisplay(step.guid);
+                sizeEntry = null;
                 e.StopPropagation();
             });
         }

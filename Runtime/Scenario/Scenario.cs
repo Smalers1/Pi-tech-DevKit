@@ -15,8 +15,6 @@ namespace Pitech.XR.Scenario
     {
         public string guid;          // used by the graph to connect steps
         public Vector2 graphPos;     // node position in the graph
-        public Vector2 graphSize = Vector2.zero;  // user-set node size in the graph; zero => auto-size
-        public string displayName = "";  // optional custom name shown in the header next to the type ("NN. Kind  name")
         protected Step() { guid = Guid.NewGuid().ToString(); }
         public abstract string Kind { get; }
     }
@@ -607,6 +605,62 @@ namespace Pitech.XR.Scenario
 
         [SerializeField] List<GraphGroup> graphGroups = new();
         public List<GraphGroup> GraphGroups => graphGroups;
+
+        // Editor-only per-step graph display overrides (manual node size + custom header name),
+        // keyed by Step.guid. Side-table on the Scenario (NOT fields on Step) so the runtime
+        // step serialization stays untouched; entries are pruned when they return to defaults.
+        [Serializable]
+        public sealed class StepGraphDisplay
+        {
+            public string stepGuid = "";
+            public Vector2 size = Vector2.zero;   // user-set node size; zero => auto-size
+            public string displayName = "";       // optional custom name shown next to the step type
+        }
+
+        [SerializeField] List<StepGraphDisplay> stepGraphDisplays = new();
+        public List<StepGraphDisplay> StepGraphDisplays => stepGraphDisplays;
+
+        public StepGraphDisplay FindStepGraphDisplay(string stepGuid)
+        {
+            if (string.IsNullOrEmpty(stepGuid)) return null;
+            return stepGraphDisplays.Find(d => d != null && d.stepGuid == stepGuid);
+        }
+
+        public StepGraphDisplay GetOrAddStepGraphDisplay(string stepGuid)
+        {
+            var d = FindStepGraphDisplay(stepGuid);
+            if (d == null && !string.IsNullOrEmpty(stepGuid))
+            {
+                d = new StepGraphDisplay { stepGuid = stepGuid };
+                stepGraphDisplays.Add(d);
+            }
+            return d;
+        }
+
+        // Drop the entry when it no longer overrides anything (keeps scene serialization minimal).
+        public void PruneStepGraphDisplay(string stepGuid)
+        {
+            var d = FindStepGraphDisplay(stepGuid);
+            if (d != null && d.size == Vector2.zero && string.IsNullOrEmpty(d.displayName))
+                stepGraphDisplays.Remove(d);
+        }
+
+        public void RemoveStepGraphDisplay(string stepGuid)
+        {
+            if (string.IsNullOrEmpty(stepGuid)) return;
+            stepGraphDisplays.RemoveAll(d => d == null || d.stepGuid == stepGuid);
+        }
+
+        // Remove entries for this step AND any nested GroupStep children - for editor delete
+        // paths (graph window + inspector), so overrides die with the step.
+        public void RemoveStepGraphDisplayRecursive(Step step)
+        {
+            if (step == null) return;
+            RemoveStepGraphDisplay(step.guid);
+            if (step is GroupStep g && g.steps != null)
+                foreach (var st in g.steps)
+                    RemoveStepGraphDisplayRecursive(st);
+        }
 #endif
 
         void OnValidate()

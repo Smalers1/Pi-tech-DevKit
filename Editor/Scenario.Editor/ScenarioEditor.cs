@@ -245,7 +245,9 @@ namespace Pitech.XR.Scenario.Editor
 
 
                 var header2 = new Rect(rect.x + 4, rect.y + 4, rect.width - 8, EditorGUIUtility.singleLineHeight);
-                string displayName = el.FindPropertyRelative("displayName")?.stringValue;
+                // Custom display name lives in the scenario's editor-only side-table, keyed by guid.
+                string stepGuid = el.FindPropertyRelative("guid")?.stringValue;
+                string displayName = (target as Runtime.Scenario)?.FindStepGraphDisplay(stepGuid)?.displayName;
                 DrawStepHeader(header2, index, kind, displayName);
 
                 var body = new Rect(
@@ -299,6 +301,13 @@ namespace Pitech.XR.Scenario.Editor
 
             Undo.RecordObject(target, "Remove Step");
 
+            // Capture the step before the delete so its editor-only display overrides
+            // (guid-keyed side-table on the Scenario) die with it - mirrors the graph window.
+            Runtime.Step removedStep = null;
+            var elBefore = stepsProp.GetArrayElementAtIndex(index);
+            if (elBefore != null && elBefore.propertyType == SerializedPropertyType.ManagedReference)
+                removedStep = elBefore.managedReferenceValue as Runtime.Step;
+
             stepsProp.DeleteArrayElementAtIndex(index);
 
             if (index < stepsProp.arraySize)
@@ -311,6 +320,13 @@ namespace Pitech.XR.Scenario.Editor
             }
 
             serializedObject.ApplyModifiedProperties();
+
+            if (removedStep != null && target is Runtime.Scenario sc)
+            {
+                sc.RemoveStepGraphDisplayRecursive(removedStep);
+                EditorUtility.SetDirty(sc);
+            }
+
             GUI.FocusControl(null);
         }
 
