@@ -1,15 +1,16 @@
 ---
 title: Phase B - Analytics, Localization & Vitals Foundation (first behaviour-additive)
-status: RATIFIED by Petros (board) 2026-06-10 - pending Stergios final review; dispatch on his sign-off
+status: RATIFIED by Petros (board) 2026-06-10 - pending Stergios final review; dispatch on his sign-off. WS B9 (multiplayer step-sync bridge) ADDED 2026-06-10 at Stergios review - pending Petros ratification of the addition
 date: 2026-06-09
 author: Claude (board)
-owner: Stergios & Alexandros (DevKit runtime + SDK + Localization + Vitals foundation) + Petros & Alex + Lovable (cloud ingest + portal / Web Portal)
+owner: Stergios & Alexandros (DevKit runtime + SDK + Localization + Vitals foundation + B9 step-sync bridge) + Petros & Alex + Lovable (cloud ingest + portal / Web Portal)
 phase: B
 gate: Phase A WS A3 net (EditMode equivalence harness + "DevKit > Evaluate Changes") must be green before any behaviour-additive change in this phase lands
 references:
   - 2026-06-09-devkit-launch-plan.md (umbrella / index)
   - 2026-06-09-phase-a-refactor-and-foundation.md (Phase A - the WS A3 net that gates every change here)
   - 2026-06-09-phase-c-integration-and-ship.md (Phase C - integrate + ship)
+  - 2026-06-10-phase-b-multiplayer-step-sync.md (WS B9 detail/rationale companion - guid-keyed step-sync bridge; the exact sync flow, the AR no-Fusion guarantee proof, the A/B/C/after-launch binding, the measured state-budget baseline)
   - _after-launch/2026-06-09-after-launch-plan.md (POST-LAUNCH Phases D..I + domain systems; AgentObservation / VICKY-observer + cloud-localization + vitals-digital-twin detail; consolidates the archived 2026-05-08-p2-behavior-roadmap.md)
   - ../specs/2026-04-23-devkit-1.0-target-architecture-design.md (architecture; §8 Layer 2 - Runtime: ScenarioRunner / LabConsoleRuntime; §28 domain & content systems addendum - §28.3 Localization, §28.4 Vitals, §28.5 AI-assisted authoring)
 companion: 2026-06-09-phase-a-refactor-and-foundation.md (the WS A3 net) + 2026-06-09-phase-c-integration-and-ship.md (ship)
@@ -30,18 +31,25 @@ companion: 2026-06-09-phase-a-refactor-and-foundation.md (the WS A3 net) + 2026-
 deterministic, end-to-end **analytics** path - a lab author marks which steps are tracked, the engine records
 time / errors / score per tracked step at runtime, those events reach the cloud, and an instructor sees a per-attempt
 readout in the web portal; (2) a **Localization module** relocated into DevKit that keys lab/analytics text and ships
-**Greek + English** via the build-baked pipeline (AR gets localization for the first time); and (3) a **Vitals
+**Greek + English** via the build-baked pipeline (AR gets localization for the first time); (3) a **Vitals
 FOUNDATION** - the typed `PatientVitals` component + 3D-binding model + `IAgentStateSource` seam, laid additively
-alongside the existing scattered logic. End-to-end green in one real test lab on both AR and VR is the analytics exit
-bar; Greek+English rendering and a typed vitals read into VICKY's state seam are the localization and vitals exit bars.
+alongside the existing scattered logic; and (4) a **multiplayer step-sync BRIDGE** (WS B9, added 2026-06-10) - synced
+steps publish guid-keyed completion FACTS from the runner's completion lifecycle onto the existing consumer-side
+`NetworkStateManager`, retiring the hand-typed `UIStateTrigger` switchboard wiring. End-to-end green in one real test
+lab on both AR and VR is the analytics exit bar; Greek+English rendering and a typed vitals read into VICKY's state
+seam are the localization and vitals exit bars; a two-client VR sync plus an AR/no-Fusion trace identical to the
+Phase A golden is the step-sync exit bar.
 
 **Architecture stance:** Behaviour-ADDITIVE, gated on the WS A3 net. Every addition rides the existing locked runner
 (a THIN additive emission hook, NOT runner extraction). Existing labs keep loading by GUID, unchanged. Localization and
 vitals are introduced ALONGSIDE the existing logic (build-baked localization; typed vitals foundation), never as a
-cutover. The full cloud-localization pipeline, vitals digital-twin, and AI-judging layer are POST-LAUNCH (§7, after-launch plan).
+cutover. Step-sync (B9) likewise rides the locked runner - a consumer-side bridge subscribed to B3's thin completion
+emission; no runner extraction, no DevKit public flow type (the `IScenarioFlowStore` graduation stays post-launch, §7).
+The full cloud-localization pipeline, vitals digital-twin, and AI-judging layer are POST-LAUNCH (§7, after-launch plan).
 
 **Spec reference:** `../specs/2026-04-23-devkit-1.0-target-architecture-design.md` - §8 (Layer 2 - Runtime: ScenarioRunner /
-LabConsoleRuntime), §28.3 (Localization - extend `ILocalizationService` into a cloud content pipeline; launch = keyed
+LabConsoleRuntime), §28.2 (Networking - the multiplayer step model; launch = WS B9's guid-keyed bridge, the
+`IScenarioFlowStore` graduation post-launch), §28.3 (Localization - extend `ILocalizationService` into a cloud content pipeline; launch = keyed
 Greek+English build-baked), §28.4 (Vitals - the patient digital twin; launch = typed foundation + `IAgentStateSource`
 seam), §28.5 (AI-assisted authoring - the JSON-first seam this analytics model already uses).
 
@@ -57,6 +65,7 @@ dispatch on Stergios' sign-off.
 - `lab -> JSON -> lab` round-trip survives "DevKit > Evaluate Changes" on a real lab.
 - The Localization module lives in DevKit; lab/analytics text is **keyed**; **Greek + English** render via the build-baked pipeline on AR + VR.
 - A typed `PatientVitals` component exists, drives at least one 3D binding additively, and exposes patient state through the `IAgentStateSource` seam.
+- Synced steps sync via the WS B9 bridge: guid-keyed completion facts, two-client VR green (AnyCompletes + late-join), AR / no-Fusion trace identical to the Phase A golden. (SLIP-ELIGIBLE - a slip is dispositioned in the log, never silently skipped.)
 - Every Phase B change passed "DevKit > Evaluate Changes" (Proofs A/B/C). No emoji / mojibake in shipped strings or tooltips.
 
 ---
@@ -73,21 +82,25 @@ dispatch on Stergios' sign-off.
 | B6 | `lab_scenarios` definition-publish (Lovable + Alexandros publish hook). **MANDATORY for every LAUNCH lab** - the portal readout cannot render structure without Flow A. (JSON import/round-trip stays optional for non-launch labs.) | B2 (JSON export exists) | §3, §4 |
 | B7 | Localization module into DevKit + key lab/analytics text + Greek+English (build-baked; AR gets localization; cloud pipeline deferred) | B1 (analytics text keys); WS A3 net green | spec §28.3 |
 | B8 | Vitals FOUNDATION (typed `PatientVitals` component + 3D-binding model + `IAgentStateSource` seam; additive; full digital-twin deferred). **SLIP-ELIGIBLE (Petros 2026-06-09): a strategic foundation, NOT a launch-DoD gate** - it never competes with B1-B6 or the store deadline; if the calendar tightens, B8 slips post-launch. | WS A3 net green | spec §28.4 |
+| B9 | Multiplayer step-sync bridge (guid-keyed completion facts on the existing consumer-side `NetworkStateManager`; retires hand-typed `UIStateTrigger` wiring from synced steps; AR / no-Fusion = compiled-out no-op). **SLIP-ELIGIBLE (Stergios 2026-06-10): quality + forward-alignment - the existing switchboard already works; never competes with B1-B6 or the store deadline.** | B3 Step 4 (completion emission); WS A3 net green | companion 2026-06-10-phase-b-multiplayer-step-sync.md; spec §28.2; workbench PROPOSAL §2.1/§2.3 (end state) |
 
 > **Lane note.** B1/B2/B3 + B7 + B8 are DevKit-repo work (Alexandros). B4/B5/B6 cloud + portal are **Lovable's lane**
 > (Web Portal repo). The DevKit workspace does not edit the Web Portal repo; it freezes the emit shape (B3) and the
-> definition-publish shape (B6 hook) and hands them across.
+> definition-publish shape (B6 hook) and hands them across. B9 is **VR-consumer-repo work (Stergios)** - the bridge +
+> guid-keyed listeners live beside `NetworkStateManager` in HealthOn VR; its only DevKit-side need is B3 Step 4's
+> completion emission (one raise, two consumers: the analytics emitter + the sync bridge).
 
 > **Parallelism.** Execution can parallelize once the WS A3 net is green: B1/B2 (DevKit runtime + serialized config) and
 > B4/B5/B6 (Lovable cloud + portal) are disjoint and run concurrently; B3 (SDK + transport + emission hook) is the seam
 > that joins them. B7 (Localization) and B8 (Vitals) are independent DevKit modules disjoint from the Scenario.cs /
-> SceneManager surface, so they run in PARALLEL with the analytics workstreams.
+> SceneManager surface, so they run in PARALLEL with the analytics workstreams. B9 (step-sync) is consumer-side and
+> disjoint from everything else; it joins once B3 Step 4's completion emission lands.
 
-> **WS tags + DRIs (Codex pass 2026-06-10).** Tags: **B1-B7 = LAUNCH_BLOCKER · B8 = POST_LAUNCH_IF_RISK.** A tagged
+> **WS tags + DRIs (Codex pass 2026-06-10).** Tags: **B1-B7 = LAUNCH_BLOCKER · B8 = POST_LAUNCH_IF_RISK · B9 = POST_LAUNCH_IF_RISK.** A tagged
 > slip is dispositioned in the Status & Progress Log - never silently skipped. DRIs (one mover per WS; backup in
 > parens; Stergios may rebalance at his review): B1 Stergios (Alexandros) · B2 Stergios (Alexandros) · B3 Alexandros
 > (Stergios - he owns the analytics-SDK plan-of-record) · B4 Lovable (Tony) · B5 Lovable · B6 Lovable + Alexandros
-> (the publish hook) · B7 Stergios (Alexandros) · B8 Alexandros (Stergios).
+> (the publish hook) · B7 Stergios (Alexandros) · B8 Alexandros (Stergios) · B9 Stergios (Alexandros).
 
 ---
 
@@ -520,6 +533,45 @@ convergence) is explicitly deferred to the after-launch plan.
 
 ---
 
+## WS B9 - Multiplayer step-sync bridge (guid-keyed completion facts)
+
+**Goal:** Replace the hand-wired "EventStep -> `UIStateTrigger.SetStateTrue("Step7Done")`" multiplayer step-sync
+pattern with a guid-keyed bridge that publishes step-completion FACTS from the runner's completion lifecycle onto the
+existing `NetworkStateManager` - and prove AR / no-Fusion labs run exactly as before. Launch-minimal: AnyCompletes
+semantics only; no DevKit public flow type; the `IScenarioFlowStore` / `flow.*` / typed-Fusion graduation stays
+after-launch (§7).
+
+> **Detail / rationale companion:** [2026-06-10-phase-b-multiplayer-step-sync.md](2026-06-10-phase-b-multiplayer-step-sync.md)
+> (the exact sync flow, the AR no-Fusion guarantee proof, the contract-vs-backend phase binding, the measured
+> state-budget baseline). Canonical checkbox tracking lives HERE; the companion is the why.
+
+**Scope / files:** VR-consumer-repo (Stergios) - `ScenarioFlowBridge` (`#if PITECH_HAS_FUSION`, beside
+`NetworkStateManager`) + guid-keyed evolution of `EventStateListener` / `TimelineStateListener`. DevKit side - NONE
+beyond riding WS B3 Step 4's completion emission (one raise, two consumers); no serialized `Step` change, no public
+flow type. Key: `key(guid) = "flow.step." + guid` (~42 chars, under the `NetworkString<_64>` cap), namespaced into the
+singleton switchboard's shared `Capacity(64)` budget (measured 2026-06-10: worst scene = 16 distinct states ->
+~48 headroom).
+
+**Steps (progress tracking):**
+- [ ] Step 1: Ride WS B3 Step 4's thin completion emission (one raise, two consumers: the analytics emitter + this bridge); if B3 wired it point-to-point to `AnalyticsApi.Emit`, generalize the raise onto `LabEventBus.StepCompleted(guid)` (additive, same gate).
+- [ ] Step 2: Implement `key(guid)` + `ScenarioFlowBridge` (consumer-side, Fusion-gated): per-scene synced-guid opt-in list; completion of a synced step -> `NetworkStateManager.SetStateTrue(key(guid))`. Fire-and-forget; local advance NEVER gates on the network.
+- [ ] Step 3: Evolve `EventStateListener` / `TimelineStateListener` to read `GetState(key(guid))` (keep the hand-typed `stateID` path as a compat shim during migration).
+- [ ] Step 4: Add the read-gate-forbidden validator (a step's advance condition may not read a shared fact - the structural AR-hang impossibility) + the state-budget validator (shared `Capacity(64)`: warn at 48, fail above 64 - overflow is a runtime on-device failure, never discover it there).
+- [ ] Step 5: Migrate one real VR lab off the `UIStateTrigger` wiring; verify two-client sync (AnyCompletes) + late-join (`GetState` already true on join).
+- [ ] Step 6: Build the same lab AR / no-Fusion; assert the trace is identical to the Phase A golden (the bridge is compiled out - the "exactly as before" proof).
+- [ ] Step 7: Run "DevKit > Evaluate Changes" - additive only; no shipped lab regressed.
+
+**Acceptance:** Synced steps publish guid-keyed facts from the completion lifecycle via the consumer-side bridge; peers
+react through guid-keyed listeners; AnyCompletes + free late-join green in a two-client VR lab; the AR / no-Fusion
+build is trace-identical to the Phase A golden; both validators live; no hand-typed state strings on synced steps; no
+DevKit public flow type. The contract is frozen for the after-launch graduation (the publish point = where
+`IScenarioFlowStore.CompleteStep(guid)` lands; the key = the `flow.*` namespace; AnyCompletes = the default) - the
+graduation swaps the backend, never the labs.
+
+**Gate:** B3 Step 4 (completion emission) present; WS A3 net green.
+
+---
+
 ## 5. Delivery-chain alignment (existing planned dates)
 
 This phase consolidates already-planned workstreams; the dates below are the existing plan-of-record, not new
@@ -535,6 +587,8 @@ estimates:
   Phase C WS C3 and the launch DoD.
 - **Localization module + Greek+English** (WS B7) + **Vitals foundation** (WS B8) run in parallel with the analytics
   lane (disjoint DevKit modules); content authoring of localization keys per lab is a Phase C item (WS C2).
+- **Step-sync bridge** (WS B9, Stergios) - undated / SLIP-ELIGIBLE; earliest start = B3 Step 4's completion emission
+  landed; the two-client VR proof + the AR no-Fusion equivalence assertion fold into the Phase C integration window.
 
 ---
 
@@ -621,6 +675,11 @@ archived `2026-05-08-p2-behavior-roadmap.md`.
 - **Multiplayer-into-DevKit + AI-assisted authoring command library.** The NetworkedStates -> `IScenarioFlowStore`
   backend + runner-fact-driven late-join (§28.2) and the DevKit Hub apply-command library + CLI/MCP bridge (§28.5) are
   after-launch (Part 2 (i) + (iv)). Phase B only relies on the JSON-first / keyed / typed seam those systems will ride.
+  **Reconciliation (2026-06-10): WS B9 lands only the launch-minimal bridge** - guid-keyed completion facts on the
+  existing consumer-side `NetworkStateManager`, no DevKit public flow type - so this deferred item stays after-launch
+  UNCHANGED. B9 freezes the contract (publish-from-completion-lifecycle, key = guid, AnyCompletes, local-advance-never-
+  gates); the graduation here swaps the backend (`IScenarioFlowStore` -> `flow.*` -> typed Fusion + Barrier + typed
+  late-join + §9.8 re-gating + switchboard retirement) under labs that are never re-authored.
 
 ---
 
@@ -653,6 +712,10 @@ change that cannot pass the net is not admitted to launch.
       build-baked pipeline on **both AR and VR** (AR gets localization for the first time). Cloud pipeline deferred.
 - [ ] **B8** Typed `PatientVitals` component + 3D-binding model drives at least one real binding additively; patient
       state reads through the `IAgentStateSource` seam. Full digital-twin deferred.
+- [ ] **B9** Synced steps publish guid-keyed completion facts from the runner lifecycle via the consumer-side bridge;
+      two-client VR green (AnyCompletes + late-join); AR / no-Fusion trace identical to the Phase A golden; read-gate +
+      state-budget validators live (warn 48 / fail 64); no DevKit public flow type. (SLIP-ELIGIBLE - a slip is
+      dispositioned in the log.)
 - [ ] **End-to-end** in ONE real test lab: author -> mark Actions -> run on **VR (Quest)** and **AR (mobile UaaL)** ->
       events ingest -> instructor sees the readout. **Green on both surfaces from the same JSON.**
 - [ ] **Net** every Phase B change passed "DevKit > Evaluate Changes."
@@ -667,10 +730,11 @@ build behind the store-submission gate. The umbrella is
 
 ## Plan self-review (coverage check)
 
-- [ ] Every WS (B1..B8) maps to a spec §/source: B1-B6 = §2-§5 + spec §8 (Runtime); B7 = spec §28.3 (Localization); B8 = spec §28.4 (Vitals); the JSON-first seam = spec §28.5.
+- [ ] Every WS (B1..B9) maps to a spec §/source: B1-B6 = §2-§5 + spec §8 (Runtime); B7 = spec §28.3 (Localization); B8 = spec §28.4 (Vitals); B9 = spec §28.2 (Networking; launch-minimal bridge - detail in the 2026-06-10 companion); the JSON-first seam = spec §28.5.
 - [ ] The deterministic-FIRST / AI-judging-deferred principle is preserved (§1, §7).
 - [ ] All current content carried forward: Action atom (§2.1), auto-errors (§2.2), per-action config (§2.3), scoring (§2.4), worked JSON (§2.5), JSON-projection (§3), two portal flows (§4), open model decisions (§6), deferred-post-launch list (§7).
 - [ ] Two new workstreams added: B7 (Localization into DevKit; Greek+English build-baked; cloud pipeline deferred) + B8 (Vitals foundation; typed `PatientVitals` + `IAgentStateSource` seam; full twin deferred). Each has checkbox Steps + Acceptance + Gate.
+- [ ] WS B9 added 2026-06-10 (Stergios review): launch-minimal step-sync bridge (consumer-side; rides B3 Step 4's emission; no DevKit public flow type); §7's Multiplayer-into-DevKit deferral reconciled (graduation stays after-launch unchanged); checkbox Steps + Acceptance + Gate present; existing B1-B8 content untouched.
 - [ ] The single gate is the Phase A **WS A3 net** (renamed from WS-0); WS A8 `ISceneRunnerControl` seam (renamed from WS-5) is B3's dependency; WS A2 reserved the Localization + Vitals module slots; WS A4 hygiene carries the no-emoji/mojibake rule.
 - [ ] `ControlOptionManager` + avatars are noted as out-of-scope VR scripts, NOT planned (per the §28.4 boundary).
 - [ ] Cross-links resolve: umbrella + sibling Phase A/C + the after-launch plan (`_after-launch/2026-06-09-after-launch-plan.md`) + the spec. Post-launch references point to the after-launch plan, citing the archived roadmap as its source.
@@ -682,7 +746,8 @@ build behind the store-submission gate. The umbrella is
 
 **Executors.** WS B1/B2/B3 + B7 + B8 = Alexandros (DevKit runtime + SDK + Localization + Vitals modules, DevKit repo).
 WS B4/B5/B6 = Lovable (cloud ingest + portal, Web Portal repo). The DevKit workspace does not edit the Web Portal repo;
-it freezes the emit shape (B3) and the definition-publish shape (B6 hook) and hands them across.
+it freezes the emit shape (B3) and the definition-publish shape (B6 hook) and hands them across. WS B9 = Stergios
+(VR-consumer-side bridge + guid-keyed listeners, HealthOn VR repo; rides B3's DevKit completion emission).
 
 **Ratification path.** Status = **RATIFIED by Petros 2026-06-10, pending Stergios sign-off**. This plan is board-staged and does not dispatch until the
 review chain clears: **Petros + Petros's Claude + LooPi** triage first, then **Heisenberg / Stergios** sign the
@@ -701,5 +766,6 @@ diff on disk; Petros reviews and pushes.
 
 | Date | WS | Event | By |
 |---|---|---|---|
+| 2026-06-10 | B9 | WS B9 added at Stergios review: launch-minimal multiplayer step-sync bridge (guid-keyed completion facts from the runner lifecycle onto the existing consumer-side NetworkStateManager; UIStateTrigger wiring retired from synced steps; AR/no-Fusion = compiled-out no-op; read-gate + state-budget validators, warn 48 / fail 64). SLIP-ELIGIBLE; rides B3 Step 4's emission (one raise, two consumers); §7's Multiplayer-into-DevKit graduation stays after-launch unchanged. Detail: 2026-06-10-phase-b-multiplayer-step-sync.md. Existing B1-B8 content untouched. Pending Petros ratification of the addition | Stergios (Claude) |
 | 2026-06-10 | - | Window compressed to Jul-01 -> ~Jul-15 DevKit-side (Petros); consent UI/state added as [HUMAN] WS B4 Step 4 (surfaces own the UI, DevKit reads state); B6 Step 1b ScenarioV1-lineage added; completion discipline added | Claude (board) |
 | 2026-06-09 | - | B6 marked MANDATORY for launch labs; B8 marked SLIP-ELIGIBLE (Petros); Lovable dated gates proposed (08-05 / 08-12 / 08-15); filed as PROPOSED (since RATIFIED 2026-06-10) | Claude (board) |
