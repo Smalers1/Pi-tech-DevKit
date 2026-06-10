@@ -100,11 +100,11 @@ namespace Pitech.XR.Core.Editor
                 }
             }
 
-            // ===== Reserved modules: Localization, Vitals (Step 7 -> Author tiles) =====
+            // ===== Reserved module: Vitals (Step 7 -> Author tile). Localization was promoted to
+            // its own top-level Hub page (see LocalizationPage), so it is no longer a tile here. =====
             {
                 var section = DevkitTheme.Section("Reserved modules");
                 var grid = DevkitWidgets.TileGrid();
-                grid.Add(ReservedTile("Localization", "Keyed Greek + English (build-baked). Reserved slot - logic lands Phase B WS B7 (spec §28.3)."));
                 grid.Add(ReservedTile("Vitals", "Typed vitals foundation. Reserved slot - logic lands Phase B WS B8 (spec §28.4)."));
                 section.Add(grid);
                 root.Add(section);
@@ -113,7 +113,9 @@ namespace Pitech.XR.Core.Editor
 
         static VisualElement CardManagersRoot(GuidedSetupService svc)
         {
-            var parent = svc.EnsureManagersRoot();
+            // Read-only on render: status must never create the root or dirty the scene. The
+            // "Create" button below performs the explicit creation. [observer-only cockpit]
+            var parent = svc.FindManagersRoot();
             bool ok = parent != null;
 
             var pills = DevkitWidgets.PillsRow(

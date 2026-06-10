@@ -17,7 +17,7 @@ namespace Pitech.XR.Scenario.Editor
     {
         const string MenuPath = "Pi tech/Tools/Fix Missing DevKit Script References on Selection";
 
-        [MenuItem(MenuPath, false, 502)]
+        [MenuItem(MenuPath, false, 20)]
         static void FixSelection()
         {
             if (Selection.gameObjects == null || Selection.gameObjects.Length == 0)
@@ -72,7 +72,7 @@ namespace Pitech.XR.Scenario.Editor
             }
         }
 
-        [MenuItem("Pi tech/Tools/Repair DevKit script GUIDs in selected prefab/scene asset (YAML only)", false, 503)]
+        [MenuItem("Pi tech/Tools/Repair DevKit script GUIDs in selected prefab/scene asset (YAML only)", false, 21)]
         static void FixSelectedAssetsYamlOnly()
         {
             int yamlFixes = 0;

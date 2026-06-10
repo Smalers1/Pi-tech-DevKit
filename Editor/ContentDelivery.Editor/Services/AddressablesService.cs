@@ -219,20 +219,31 @@ namespace Pitech.XR.ContentDelivery.Editor
             return result;
         }
 
-        public AddressablesModuleConfig EnsureConfigAsset(out bool created, out string assetPath)
+        /// <summary>
+        /// Read-only lookup of the project's AddressablesModuleConfig. Returns the existing asset
+        /// (and its path via <paramref name="assetPath"/>), or null if the project has none. Never
+        /// creates folders or assets and never saves - safe to call from UI render. Use
+        /// <see cref="EnsureConfigAsset"/> from an explicit user action (Setup) when creation is intended.
+        /// </summary>
+        public AddressablesModuleConfig TryFindConfigAsset(out string assetPath)
         {
-            created = false;
             assetPath = string.Empty;
             string[] guids = AssetDatabase.FindAssets("t:AddressablesModuleConfig");
             if (guids.Length > 0)
             {
                 assetPath = AssetDatabase.GUIDToAssetPath(guids[0]);
-                AddressablesModuleConfig existing =
-                    AssetDatabase.LoadAssetAtPath<AddressablesModuleConfig>(assetPath);
-                if (existing != null)
-                {
-                    return existing;
-                }
+                return AssetDatabase.LoadAssetAtPath<AddressablesModuleConfig>(assetPath);
+            }
+            return null;
+        }
+
+        public AddressablesModuleConfig EnsureConfigAsset(out bool created, out string assetPath)
+        {
+            created = false;
+            AddressablesModuleConfig existing = TryFindConfigAsset(out assetPath);
+            if (existing != null)
+            {
+                return existing;
             }
 
             EnsureFolder(SettingsFolder);

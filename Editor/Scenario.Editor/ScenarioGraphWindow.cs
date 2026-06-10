@@ -145,7 +145,7 @@ public class ScenarioGraphWindow : EditorWindow
 
     readonly Dictionary<string, PendingNoteEdit> _pendingNoteEdits = new Dictionary<string, PendingNoteEdit>();
 
-    [MenuItem("Pi tech/Scenario Graph")]
+    [MenuItem("Pi tech/Scenario Graph", false, 43)]
     public static void OpenWindow() => GetWindow<ScenarioGraphWindow>("Scenario Graph");
 
     public static void Open(Scenario sc)

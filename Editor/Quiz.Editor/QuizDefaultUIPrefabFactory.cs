@@ -7,7 +7,7 @@ namespace Pitech.XR.Editor.Quiz
     {
         const string DestFolder = "Assets/Pi tech/Default Quiz UI";
 
-        [MenuItem("Pi tech/Quiz/Copy Default Quiz UI Prefabs to Project (Editable)")]
+        [MenuItem("Pi tech/Quiz/Copy Default Quiz UI Prefabs to Project (Editable)", false, 42)]
         public static void CopyDefaultPrefabsToProject()
         {
             EnsureFolder(DestFolder);

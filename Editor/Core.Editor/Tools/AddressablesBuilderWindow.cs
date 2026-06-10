@@ -56,7 +56,7 @@ namespace Pitech.XR.Core.Editor
         private bool suppressPresetPopupCallback;
         private int selectedPresetIndex = -1;
 
-        [MenuItem("Pi tech/Addressables Builder")]
+        [MenuItem("Pi tech/Addressables Builder", false, 40)]
         public static void Open()
         {
             var window = GetWindow<AddressablesBuilderWindow>();

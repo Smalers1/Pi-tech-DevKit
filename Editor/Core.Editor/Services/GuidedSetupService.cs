@@ -1,5 +1,6 @@
 #if UNITY_EDITOR
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEditor.SceneManagement;
@@ -15,6 +16,11 @@ namespace Pitech.XR.Core.Editor
     internal sealed class GuidedSetupService
     {
         const string ManagersRootName = "--- SCENE MANAGERS ---";
+        static readonly Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();
+
+        readonly Dictionary<string, Component> firstSceneComponentByType = new Dictionary<string, Component>();
+        bool sceneComponentIndexBuilt;
+        int sceneComponentIndexSceneHandle;
 
         public Scene ActiveScene => SceneManager.GetActiveScene();
 
@@ -24,23 +30,41 @@ namespace Pitech.XR.Core.Editor
             return s.IsValid() && s.isLoaded;
         }
 
-        public Transform EnsureManagersRoot()
+        /// <summary>
+        /// Read-only lookup of the managers root. Returns the existing root's transform, or null
+        /// if the active scene has none (or no scene is loaded). Never creates a GameObject,
+        /// registers Undo, or marks the scene dirty - safe to call from UI render. Use
+        /// <see cref="EnsureManagersRoot"/> from an explicit user action when creation is intended.
+        /// </summary>
+        public Transform FindManagersRoot()
         {
             var s = ActiveScene;
             if (!s.IsValid() || !s.isLoaded) return null;
 
             var root = s.GetRootGameObjects().FirstOrDefault(g => g.name == ManagersRootName);
-            if (!root)
-            {
-                root = new GameObject(ManagersRootName);
-                Undo.RegisterCreatedObjectUndo(root, "Create Managers Root");
-                EditorSceneManager.MarkSceneDirty(s);
-            }
+            return root ? root.transform : null;
+        }
+
+        public Transform EnsureManagersRoot()
+        {
+            var s = ActiveScene;
+            if (!s.IsValid() || !s.isLoaded) return null;
+
+            var existing = FindManagersRoot();
+            if (existing) return existing;
+
+            var root = new GameObject(ManagersRootName);
+            Undo.RegisterCreatedObjectUndo(root, "Create Managers Root");
+            EditorSceneManager.MarkSceneDirty(s);
             return root.transform;
         }
 
         public static Type FindType(string fullName)
-            => AppDomain.CurrentDomain.GetAssemblies()
+        {
+            if (string.IsNullOrEmpty(fullName)) return null;
+            if (TypeCache.TryGetValue(fullName, out var cached)) return cached;
+
+            var found = AppDomain.CurrentDomain.GetAssemblies()
                 .SelectMany(a =>
                 {
                     try { return a.GetTypes(); }
@@ -48,19 +72,17 @@ namespace Pitech.XR.Core.Editor
                 })
                 .FirstOrDefault(t => t.FullName == fullName);
 
+            TypeCache[fullName] = found;
+            return found;
+        }
+
         public Component FindFirstInScene(string fullTypeName)
         {
-            var t = FindType(fullTypeName);
-            if (t == null) return null;
+            if (string.IsNullOrEmpty(fullTypeName)) return null;
 
-            // FindObjectsOfTypeAll is editor-safe and can find inactive objects.
-            var objs = Resources.FindObjectsOfTypeAll(t);
-            for (int i = 0; i < objs.Length; i++)
-            {
-                if (objs[i] is Component c && c.gameObject.scene == ActiveScene)
-                    return c;
-            }
-            return null;
+            EnsureSceneComponentIndex();
+            firstSceneComponentByType.TryGetValue(fullTypeName, out var component);
+            return component;
         }
 
         public Component CreateUnderManagersRoot(string fullTypeName, string goName, string undoName)
@@ -83,6 +105,7 @@ namespace Pitech.XR.Core.Editor
             Undo.RegisterCreatedObjectUndo(go, undoName);
             go.transform.SetParent(parent, false);
             var comp = go.AddComponent(t) as Component;
+            RememberSceneComponent(comp);
             EditorSceneManager.MarkSceneDirty(go.scene);
             Selection.activeObject = go;
             return comp;
@@ -107,6 +130,41 @@ namespace Pitech.XR.Core.Editor
 
             EditorUtility.SetDirty(targetComponent);
             EditorSceneManager.MarkSceneDirty(targetComponent.gameObject.scene);
+        }
+
+        void EnsureSceneComponentIndex()
+        {
+            var s = ActiveScene;
+            int sceneHandle = s.IsValid() ? s.handle : 0;
+            if (sceneComponentIndexBuilt && sceneComponentIndexSceneHandle == sceneHandle)
+                return;
+
+            sceneComponentIndexBuilt = true;
+            sceneComponentIndexSceneHandle = sceneHandle;
+            firstSceneComponentByType.Clear();
+
+            if (!s.IsValid() || !s.isLoaded) return;
+
+            var components = Resources.FindObjectsOfTypeAll<Component>();
+            for (int i = 0; i < components.Length; i++)
+            {
+                var component = components[i];
+                if (!component || !component.gameObject || component.gameObject.scene != s)
+                    continue;
+
+                RememberSceneComponent(component);
+            }
+        }
+
+        void RememberSceneComponent(Component component)
+        {
+            if (!component) return;
+
+            var fullName = component.GetType().FullName;
+            if (string.IsNullOrEmpty(fullName) || firstSceneComponentByType.ContainsKey(fullName))
+                return;
+
+            firstSceneComponentByType.Add(fullName, component);
         }
     }
 }

@@ -38,7 +38,7 @@ namespace Pitech.XR.Core.Editor
         // Cached data
         readonly List<DevBlockItem> _items = new();
 
-        [MenuItem("Pi tech/Dev Blocks")]
+        [MenuItem("Pi tech/Dev Blocks", false, 41)]
         public static void Open()
         {
             var w = GetWindow<DevBlocksWindow>();

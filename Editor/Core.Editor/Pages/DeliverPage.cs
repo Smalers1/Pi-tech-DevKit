@@ -97,10 +97,18 @@ namespace Pitech.XR.Core.Editor
                     }),
                     DevkitTheme.Secondary("Ping Module Config", () =>
                     {
-                        AddressablesModuleConfig config = setupService.EnsureConfigAsset(out _, out _);
+                        // Find-only: "Ping" locates an existing asset; it must not create one.
+                        AddressablesModuleConfig config = setupService.TryFindConfigAsset(out _);
                         if (config != null)
                         {
                             EditorGUIUtility.PingObject(config);
+                        }
+                        else
+                        {
+                            EditorUtility.DisplayDialog(
+                                "Addressables",
+                                "No AddressablesModuleConfig asset exists yet. Run Setup in the Addressables Builder to create one.",
+                                "OK");
                         }
                     })
                 ),
@@ -113,7 +121,10 @@ namespace Pitech.XR.Core.Editor
         // AddrSection/AddrButton helpers. Behaviour identical to the former SettingsPage.
         private void BuildAddressablesSettingsSection(VisualElement el)
         {
-            AddressablesModuleConfig config = addressablesService.EnsureConfigAsset(out _, out _);
+            // Read-only on render: never create the config asset/folders just to show the editor.
+            // Creation happens via Setup in the Addressables Builder, or by picking/creating one
+            // through the Module Config field below. [observer-only cockpit]
+            AddressablesModuleConfig config = addressablesService.TryFindConfigAsset(out _);
 
             addressablesConfigField = new ObjectField("Module Config")
             {

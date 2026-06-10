@@ -11,21 +11,27 @@ namespace Pitech.XR.Core.Editor
     {
         static DevkitHubWindow _instance;
 
-        enum PageKind { Setup, Author, Deliver, Maintain, Reference }
+        enum PageKind { Setup, Author, Localization, Deliver, Maintain, Reference }
 
         readonly Dictionary<PageKind, IDevkitPage> _pages = new()
         {
-            { PageKind.Setup,     new SetupPage() },
-            { PageKind.Author,    new AuthorPage() },
-            { PageKind.Deliver,   new DeliverPage() },
-            { PageKind.Maintain,  new MaintainPage() },
-            { PageKind.Reference, new ReferencePage() },
+            { PageKind.Setup,        new SetupPage() },
+            { PageKind.Author,       new AuthorPage() },
+            { PageKind.Localization, new LocalizationPage() },
+            { PageKind.Deliver,      new DeliverPage() },
+            { PageKind.Maintain,     new MaintainPage() },
+            { PageKind.Reference,    new ReferencePage() },
         };
 
         VisualElement _content;
         PageKind _current = PageKind.Setup;
 
-        [MenuItem("Pi tech/DevKit")]
+        // Pi tech menu layout (priority => sort order; a gap >= 11 draws a separator line):
+        //   group 1 (top): DevKit (0)
+        //   group 2:       Tools/* (20-21)              -- separator above
+        //   group 3:       the rest, alphabetical (40+) -- separator above
+        // WS A3's "Pi tech/Tools/Evaluate Changes" should slot at ~22 to stay in group 2.
+        [MenuItem("Pi tech/DevKit", false, 0)]
         public static void Open()
         {
             var w = GetWindow<DevkitHubWindow>();
@@ -86,6 +92,8 @@ namespace Pitech.XR.Core.Editor
             side.Add(NavButton("Setup", PageKind.Setup));
             side.Add(DevkitTheme.VSpace(6));
             side.Add(NavButton("Author", PageKind.Author));
+            side.Add(DevkitTheme.VSpace(6));
+            side.Add(NavButton("Localization", PageKind.Localization));
             side.Add(DevkitTheme.VSpace(6));
             side.Add(NavButton("Deliver", PageKind.Deliver));
             side.Add(DevkitTheme.VSpace(6));
