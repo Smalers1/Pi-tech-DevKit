@@ -5,9 +5,12 @@ using UnityEngine.UIElements;
 
 namespace Pitech.XR.Core.Editor
 {
-    public sealed class DocsPage : IDevkitPage
+    // Cockpit page: REFERENCE - read-only docs + environment info (WS A2 Step 4). The eight doc
+    // cards are moved verbatim from the former DocsPage; the DevKit info + Open Project Settings
+    // blocks are moved from the former SettingsPage.
+    public sealed class ReferencePage : IDevkitPage
     {
-        public string Title => "Docs";
+        public string Title => "Reference";
 
         public void BuildUI(VisualElement root)
         {
@@ -27,6 +30,25 @@ namespace Pitech.XR.Core.Editor
 
             section.Add(grid);
             root.Add(section);
+
+            // ===== DevKit info (moved from SettingsPage) =====
+            {
+                var info = DevkitTheme.Section("DevKit");
+                info.Add(DevkitTheme.Body($"Version: {DevkitContext.Version}"));
+                info.Add(DevkitTheme.Body($"Timeline present: {DevkitContext.HasTimeline}"));
+                info.Add(DevkitTheme.Body($"TextMeshPro present: {DevkitContext.HasTextMeshPro}"));
+                info.Add(DevkitTheme.Body($"Addressables present: {DevkitContext.HasAddressables}"));
+                info.Add(DevkitTheme.Body($"CCD package present: {DevkitContext.HasCcdManagement}"));
+                root.Add(info);
+            }
+
+            // ===== Project Settings (moved from SettingsPage) =====
+            {
+                var ps = DevkitTheme.Section("Project Settings");
+                ps.Add(DevkitWidgets.Actions(
+                    DevkitTheme.Secondary("Open Project Settings", () => SettingsService.OpenProjectSettings("Project"))));
+                root.Add(ps);
+            }
         }
 
         static VisualElement QuickStart()
@@ -132,7 +154,7 @@ namespace Pitech.XR.Core.Editor
                 ),
                 HowTo(
                     "Create a `QuizAsset` and add questions + answers.",
-                    "Use Guided Setup → Quiz → Install Quiz UI + Wire to add default UI panels.",
+                    "Use the DevKit Hub's Author page → Quiz → Install Quiz UI + Wire to add default UI panels.",
                     "Or manually assign `defaultQuiz`, `quizPanel`, and `quizResultsPanel` on the SceneManager.",
                     "In Scenario, add a `Quiz` step and pick a Question from the dropdown.",
                     "Use 'When Complete' to choose single Next or Correct/Wrong branching.",
@@ -167,10 +189,10 @@ namespace Pitech.XR.Core.Editor
                 "Addressables Content Delivery (optional)",
                 "Setup + Validate first, hidden Build for internal verification.",
                 DevkitWidgets.Actions(
-                    DevkitTheme.Secondary("Open Guided Setup", () => EditorApplication.ExecuteMenuItem("Pi tech/DevKit"))
+                    DevkitTheme.Secondary("Open DevKit Hub", () => EditorApplication.ExecuteMenuItem("Pi tech/DevKit"))
                 ),
                 HowTo(
-                    "In Guided Setup, open the Addressables / CCD card.",
+                    "On the DevKit Hub's Deliver page, open the Addressables / CCD card.",
                     "Run Setup (idempotent) to ensure config/settings/profile/group.",
                     "Run Validate to check duplicate keys, schema, and group mapping.",
                     "Enable hidden Build only for internal verification workflows.",
@@ -202,5 +224,3 @@ namespace Pitech.XR.Core.Editor
     }
 }
 #endif
-
-

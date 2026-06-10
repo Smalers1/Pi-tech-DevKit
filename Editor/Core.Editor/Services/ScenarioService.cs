@@ -26,6 +26,11 @@ namespace Pitech.XR.Core.Editor
             return root.transform;
         }
 
+        // Verb-named command (WS A2 Step 5 surface-type discipline: verbs for commands).
+        // Adds a Scenario GameObject under the managers root and selects it. Thin alias over
+        // CreateScenarioGameObject - behaviour identical, no duplication.
+        public void AddScenarioToScene() => CreateScenarioGameObject();
+
         public void CreateScenarioGameObject()
         {
             var t = AppDomain.CurrentDomain.GetAssemblies()

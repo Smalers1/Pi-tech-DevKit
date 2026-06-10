@@ -3,20 +3,18 @@ using UnityEditor;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Pitech.XR.ContentDelivery;
-using Pitech.XR.ContentDelivery.Editor;
-using Pitech.XR.Core.Editor;
 
 namespace Pitech.XR.Core.Editor
 {
-    /// <summary>
-    /// Wizard-like guided setup. Works in any open scene, keeps everything optional.
-    /// </summary>
-    public sealed class GuidedSetupPage : IDevkitPage
+    // Cockpit page: AUTHOR - scenario content authoring. Workspace launchers (Scenario Graph,
+    // Dev Blocks), the verb-named "Add Scenario to Scene" command, the scene-wiring wizard moved
+    // verbatim from the former GuidedSetupPage (minus the Addressables card, which re-homes to
+    // Deliver), and the reserved Localization/Vitals module tiles (WS A2 Step 4/5/7).
+    public sealed class AuthorPage : IDevkitPage
     {
-        public string Title => "Guided Setup";
+        public string Title => "Author";
 
-        // Runtime type names (reflection so Core.Editor stays decoupled)
+        // Runtime type names (reflection so Core.Editor stays decoupled) - verbatim from GuidedSetupPage.
         const string TSceneManager = "Pitech.XR.Scenario.SceneManager";
         const string TStatsUI = "Pitech.XR.Stats.StatsUIController";
         const string TStatsConfig = "Pitech.XR.Stats.StatsConfig";
@@ -27,49 +25,90 @@ namespace Pitech.XR.Core.Editor
 
         public void BuildUI(VisualElement root)
         {
-            var svc = new GuidedSetupService();
+            var scen = new ScenarioService();
 
-            // Header
-            var section = DevkitTheme.Section("Guided Setup");
-            section.Add(DevkitTheme.Body("A scene-agnostic setup wizard to get you productive fast. Everything is optional and safe to skip.", dim: true));
-            section.Add(DevkitTheme.VSpace(10));
-
-            if (!svc.HasActiveSceneLoaded())
+            // ===== Workspaces (launch tiles - the Hub launches windows, never re-implements) =====
             {
-                section.Add(DevkitWidgets.Card(
-                    "Open a scene",
-                    "Guided Setup needs an active scene. Open `Assets/Scenes/Testing` (or any scene) and come back.",
-                    DevkitWidgets.Actions(
-                        DevkitTheme.Primary("Open Testing scene", () =>
-                        {
-                            var path = "Assets/Scenes/Testing.unity";
-                            if (System.IO.File.Exists(path))
-                                UnityEditor.SceneManagement.EditorSceneManager.OpenScene(path);
-                            else
-                                EditorUtility.DisplayDialog("DevKit", "Could not find Assets/Scenes/Testing.unity in this project.", "OK");
-                        })
-                    )
-                ));
+                var section = DevkitTheme.Section("Workspaces");
+                section.Add(DevkitTheme.Body("Authoring workspaces. The Hub opens them; it never re-implements them.", dim: true));
+                section.Add(DevkitTheme.VSpace(8));
+                var grid = DevkitWidgets.TileGrid();
+                grid.Add(DevkitWidgets.Card(
+                    "Scenario Graph",
+                    "Node-based authoring with persisted GUID routing.",
+                    DevkitWidgets.Actions(DevkitTheme.Primary("Open Scenario Graph", scen.OpenGraph))));
+                grid.Add(DevkitWidgets.Card(
+                    "Dev Blocks",
+                    "Reusable prefab library for fast scene building.",
+                    DevkitWidgets.Actions(DevkitTheme.Primary("Open Dev Blocks", DevBlocksWindow.Open))));
+                section.Add(grid);
                 root.Add(section);
-                return;
             }
 
-            // Responsive grid of setup cards (wraps nicely, no clipping)
-            var grid = DevkitWidgets.TileGrid();
+            // ===== Commands =====
+            {
+                var section = DevkitTheme.Section("Commands");
+                var grid = DevkitWidgets.TileGrid();
+                grid.Add(DevkitWidgets.Card(
+                    "Add Scenario to Scene",
+                    "Create a Scenario GameObject under the '--- SCENE MANAGERS ---' root and select it.",
+                    DevkitWidgets.Actions(DevkitTheme.Primary("Add Scenario to Scene", scen.AddScenarioToScene))));
+                section.Add(grid);
+                root.Add(section);
+            }
 
-            // ========== Core wiring ==========
-            grid.Add(CardManagersRoot(svc));
-            grid.Add(CardSceneManager(svc));
+            // ===== Scene wiring wizard (verbatim from GuidedSetupPage; scene-guarded) =====
+            {
+                var svc = new GuidedSetupService();
+                var section = DevkitTheme.Section("Scene Wiring");
+                section.Add(DevkitTheme.Body("A scene-agnostic setup wizard to get you productive fast. Everything is optional and safe to skip.", dim: true));
+                section.Add(DevkitTheme.VSpace(10));
 
-            // ========== Optional modules ==========
-            grid.Add(CardStats(svc));
-            grid.Add(CardInteractables(svc));
-            grid.Add(CardQuiz(svc));
-            grid.Add(CardAddressables());
+                if (!svc.HasActiveSceneLoaded())
+                {
+                    section.Add(DevkitWidgets.Card(
+                        "Open a scene",
+                        "Scene wiring needs an active scene. Open `Assets/Scenes/Testing` (or any scene) and come back.",
+                        DevkitWidgets.Actions(
+                            DevkitTheme.Primary("Open Testing scene", () =>
+                            {
+                                var path = "Assets/Scenes/Testing.unity";
+                                if (System.IO.File.Exists(path))
+                                    UnityEditor.SceneManagement.EditorSceneManager.OpenScene(path);
+                                else
+                                    EditorUtility.DisplayDialog("DevKit", "Could not find Assets/Scenes/Testing.unity in this project.", "OK");
+                            })
+                        )
+                    ));
+                    root.Add(section);
+                }
+                else
+                {
+                    var grid = DevkitWidgets.TileGrid();
 
-            section.Add(grid);
+                    // Core wiring
+                    grid.Add(CardManagersRoot(svc));
+                    grid.Add(CardSceneManager(svc));
 
-            root.Add(section);
+                    // Optional modules
+                    grid.Add(CardStats(svc));
+                    grid.Add(CardInteractables(svc));
+                    grid.Add(CardQuiz(svc));
+
+                    section.Add(grid);
+                    root.Add(section);
+                }
+            }
+
+            // ===== Reserved modules: Localization, Vitals (Step 7 -> Author tiles) =====
+            {
+                var section = DevkitTheme.Section("Reserved modules");
+                var grid = DevkitWidgets.TileGrid();
+                grid.Add(ReservedTile("Localization", "Keyed Greek + English (build-baked). Reserved slot - logic lands Phase B WS B7 (spec §28.3)."));
+                grid.Add(ReservedTile("Vitals", "Typed vitals foundation. Reserved slot - logic lands Phase B WS B8 (spec §28.4)."));
+                section.Add(grid);
+                root.Add(section);
+            }
         }
 
         static VisualElement CardManagersRoot(GuidedSetupService svc)
@@ -252,7 +291,7 @@ namespace Pitech.XR.Core.Editor
             var body = new VisualElement();
             body.Add(pills);
             body.Add(DevkitTheme.VSpace(8));
-            body.Add(DevkitTheme.Body("Note: Quiz assets are project data. Each scene can choose its own quiz(s), so Guided Setup does not assign a QuizAsset automatically.", dim: true));
+            body.Add(DevkitTheme.Body("Note: Quiz assets are project data. Each scene can choose its own quiz(s), so this page does not assign a QuizAsset automatically.", dim: true));
 
             return DevkitWidgets.Card(
                 "Quiz (optional)",
@@ -291,53 +330,14 @@ namespace Pitech.XR.Core.Editor
             );
         }
 
-        static VisualElement CardAddressables()
-        {
-            bool hasAddr = ContentDeliveryCapability.HasAddressablesPackage;
-            bool hasCcd = ContentDeliveryCapability.HasCcdPackage;
-            var setupService = new AddressablesService();
-
-            var pills = DevkitWidgets.PillsRow(
-                (hasAddr ? DevkitWidgets.PillKind.Success : DevkitWidgets.PillKind.Warning, hasAddr ? "Addressables ready" : "Addressables missing"),
-                (hasCcd ? DevkitWidgets.PillKind.Success : DevkitWidgets.PillKind.Neutral, hasCcd ? "CCD package present" : "CCD optional"),
-                (DevkitWidgets.PillKind.Neutral, "Content delivery optional")
-            );
-
-            var body = new VisualElement();
-            body.Add(pills);
-            body.Add(DevkitTheme.VSpace(8));
-            body.Add(DevkitTheme.Body(
-                "Addressables/CCD publishing is handled in a dedicated builder window.\n" +
-                "Guided Setup stays focused on scene wiring.",
-                dim: true));
-            body.Add(DevkitTheme.VSpace(6));
-            body.Add(DevkitTheme.Body(
-                "Use Addressables Builder for Setup, Prefab mapping, Validate, and Build in one place.",
-                dim: true));
-
-            return DevkitWidgets.Card(
-                "Addressables / CCD (optional)",
-                "Use a dedicated builder window (separate from scene setup).",
-                DevkitWidgets.Actions(
-                    DevkitTheme.Primary("Open Addressables Builder", () =>
-                    {
-                        AddressablesBuilderWindow.Open();
-                    }),
-                    DevkitTheme.Secondary("Ping Module Config", () =>
-                    {
-                        AddressablesModuleConfig config = setupService.EnsureConfigAsset(out _, out _);
-                        if (config != null)
-                        {
-                            EditorGUIUtility.PingObject(config);
-                        }
-                    })
-                ),
-                body
-            );
-        }
-
+        // Reserved-module tile: announces a future module. No action, no behaviour (Phase A
+        // reserves the slot only). Body carries a Neutral "Reserved" pill.
+        static VisualElement ReservedTile(string title, string subtitle) =>
+            DevkitWidgets.Card(
+                title,
+                subtitle,
+                DevkitWidgets.Actions(),
+                DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Neutral, "Reserved")));
     }
 }
 #endif
-
-

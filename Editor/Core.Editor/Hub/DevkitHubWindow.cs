@@ -11,24 +11,25 @@ namespace Pitech.XR.Core.Editor
     {
         static DevkitHubWindow _instance;
 
-        enum PageKind { Dashboard, GuidedSetup, Docs, Settings }
+        enum PageKind { Setup, Author, Deliver, Maintain, Reference }
 
         readonly Dictionary<PageKind, IDevkitPage> _pages = new()
         {
-            { PageKind.Dashboard,  new DashboardPage() },
-            { PageKind.GuidedSetup,new GuidedSetupPage() },
-            { PageKind.Docs,       new DocsPage() },
-            { PageKind.Settings,   new SettingsPage() },
+            { PageKind.Setup,     new SetupPage() },
+            { PageKind.Author,    new AuthorPage() },
+            { PageKind.Deliver,   new DeliverPage() },
+            { PageKind.Maintain,  new MaintainPage() },
+            { PageKind.Reference, new ReferencePage() },
         };
 
         VisualElement _content;
-        PageKind _current = PageKind.Dashboard;
+        PageKind _current = PageKind.Setup;
 
         [MenuItem("Pi tech/DevKit")]
         public static void Open()
         {
             var w = GetWindow<DevkitHubWindow>();
-            w.titleContent = new GUIContent("Pi tech XR DevKit", DevkitContext.TitleIcon);
+            w.titleContent = new GUIContent("DevKit Hub", DevkitContext.TitleIcon);
             w.minSize = new Vector2(860, 520);
             w.Show();
         }
@@ -81,20 +82,22 @@ namespace Pitech.XR.Core.Editor
             side.Add(DevkitTheme.Divider());
             side.Add(DevkitTheme.VSpace(8));
 
-            // Nav buttons
-            side.Add(NavButton("Dashboard", PageKind.Dashboard));
+            // Nav buttons (task-first cockpit pages)
+            side.Add(NavButton("Setup", PageKind.Setup));
             side.Add(DevkitTheme.VSpace(6));
-            side.Add(NavButton("Guided Setup", PageKind.GuidedSetup));
+            side.Add(NavButton("Author", PageKind.Author));
             side.Add(DevkitTheme.VSpace(6));
-            side.Add(NavButton("Docs", PageKind.Docs));
+            side.Add(NavButton("Deliver", PageKind.Deliver));
             side.Add(DevkitTheme.VSpace(6));
-            side.Add(NavButton("Settings", PageKind.Settings));
+            side.Add(NavButton("Maintain", PageKind.Maintain));
+            side.Add(DevkitTheme.VSpace(6));
+            side.Add(NavButton("Reference", PageKind.Reference));
 
             // Top bar
             var top = DevkitTheme.Row();
             top.style.paddingLeft = 12; top.style.paddingRight = 12;
             top.style.paddingTop = 8; top.style.paddingBottom = 8;
-            var hdr = new Label($"Pi tech XR DevKit {DevkitContext.Version}")
+            var hdr = new Label($"DevKit Hub {DevkitContext.Version}")
             {
                 style = { color = DevkitTheme.Text, unityFontStyleAndWeight = FontStyle.Bold }
             };

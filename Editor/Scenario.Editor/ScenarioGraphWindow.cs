@@ -3294,6 +3294,29 @@ public class ScenarioGraphWindow : EditorWindow
         // The custom name lives in a separate, always-editable field in the header.
         string TitlePrefix() => $"{index:00}. {step.Kind}";
 
+        // Derived, DISPLAY-ONLY node summary (computed from Kind + key params; never stored,
+        // never mutates the step or the editor-only side-table). Appended to the node title for
+        // at-a-glance readability. GroupStep carries its own _groupSummaryLabel, so it returns "".
+        static string NodeSummary(Step s)
+        {
+            switch (s)
+            {
+                case QuestionStep q:    return q.choices != null ? $"  ·  {q.choices.Count} choice(s)" : "";
+                case MiniQuizStep mq:   return $"  ·  {(mq.questions?.Count ?? 0)} Q, {(mq.outcomes?.Count ?? 0)} outcome(s)";
+                case ConditionsStep c:  return c.outcomes != null ? $"  ·  {c.outcomes.Count} outcome(s)" : "";
+                case SelectionStep se:  return !string.IsNullOrEmpty(se.listKey) ? $"  ·  list '{se.listKey}'"
+                                               : se.listIndex >= 0 ? $"  ·  list #{se.listIndex}" : "";
+                case CueCardsStep cc:   return cc.cards != null ? $"  ·  {cc.cards.Length} card(s)" : "";
+                case TimelineStep tl:   return tl.director != null ? $"  ·  {tl.director.name}" : "";
+                default:                return "";
+            }
+        }
+
+        // NOTE on Step 6 "structural colouring by GroupStep membership": nested steps are NOT
+        // GraphView nodes (see the file-top note) - they render as tiles via BuildNestedTile, which
+        // already gives each tile a per-Kind accent (GetStepAccent) inside the group container, so
+        // membership reads structurally. No separate nested-node tint is needed or reachable here.
+
         public StepNode(ScenarioGraphWindow ownerWindow, Scenario sc, Step s, int idx, ScenarioGraphView gv, Action rebuildLinks, Action<Step, int> onSkipRequest, Action<Step> onDeleteRequest, Action<Step> onDuplicateRequest, bool startExpanded, bool isNested = false, string parentGroupGuid = null)
         {
             owner = ownerWindow;
@@ -3323,7 +3346,7 @@ public class ScenarioGraphWindow : EditorWindow
                 }
             }
 
-            title = TitlePrefix();
+            title = TitlePrefix() + NodeSummary(s);
             var tbox = this.Q("title");
             var titleLabel = tbox?.Q<Label>();
 
@@ -4718,7 +4741,12 @@ public class ScenarioGraphWindow : EditorWindow
             {
                 for (int c = 0; c < count; c++)
                 {
-                    var p = MakePort(Direction.Output, Port.Capacity.Single, $"Choice {c}", c);
+                    // Display-only label: Choice has no text field, so prefer the linked Button's
+                    // name; fall back to the index. The routing key is PortMeta.choiceIndex (= c),
+                    // NOT the label - relabelling never changes which nextGuid a drag writes.
+                    var ch = q.choices[c];
+                    string label = ch != null && ch.button != null ? ch.button.name : $"Choice {c}";
+                    var p = MakePort(Direction.Output, Port.Capacity.Single, label, c);
                     outChoices.Add(p);
                     outputContainer.Add(p);
                 }

@@ -1,13 +1,17 @@
-﻿#if UNITY_EDITOR
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace Pitech.XR.Core.Editor
 {
-    public sealed class DashboardPage : IDevkitPage
+    // Cockpit page: SETUP - project scaffolding, scene/project health, and workspace launchers.
+    // The System Status + Project Setup blocks are moved verbatim from the former DashboardPage
+    // (WS A2 Step 4 re-home). Adds the Scene Categories launch tile (Step 4) and the reserved
+    // Networking module tile (Step 7 -> Setup).
+    public sealed class SetupPage : IDevkitPage
     {
-        public string Title => "Dashboard";
+        public string Title => "Setup";
 
         public void BuildUI(VisualElement root)
         {
@@ -132,7 +136,44 @@ namespace Pitech.XR.Core.Editor
                 section.Add(grid);
                 root.Add(section);
             }
+
+            // ===== Workspaces (launch tiles - the Hub launches windows, never re-implements) =====
+            {
+                var section = DevkitTheme.Section("Workspaces");
+                section.Add(DevkitTheme.Body("Scene-organising workspaces. The Hub opens them; it never re-implements them.", dim: true));
+                section.Add(DevkitTheme.VSpace(8));
+                var grid = DevkitWidgets.TileGrid();
+                grid.Add(DevkitWidgets.Card(
+                    "Scene Categories",
+                    "Define and organise the scene-category anchors used to parent Dev Blocks and managers.",
+                    DevkitWidgets.Actions(
+                        DevkitTheme.Primary("Open Scene Categories", SceneCategoriesWindow.Open)
+                    )
+                ));
+                section.Add(grid);
+                root.Add(section);
+            }
+
+            // ===== Reserved module: Networking (Step 7 -> Setup tile) =====
+            {
+                var section = DevkitTheme.Section("Reserved modules");
+                var grid = DevkitWidgets.TileGrid();
+                grid.Add(ReservedTile(
+                    "Networking (Make Multiplayer)",
+                    "Multiplayer step-sync. Reserved slot - logic lands after launch (spec §28.2)."));
+                section.Add(grid);
+                root.Add(section);
+            }
         }
+
+        // Reserved-module tile: announces a future module. No action, no behaviour (Phase A
+        // reserves the slot only). Body carries a Neutral "Reserved" pill.
+        static VisualElement ReservedTile(string title, string subtitle) =>
+            DevkitWidgets.Card(
+                title,
+                subtitle,
+                DevkitWidgets.Actions(),
+                DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Neutral, "Reserved")));
     }
 }
 #endif
