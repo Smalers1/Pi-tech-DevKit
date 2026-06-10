@@ -1,0 +1,22 @@
+{
+    "name": "Pitech.XR.Localization",
+    "rootNamespace": "Pitech.XR.Localization",
+    "references": [
+        "Pitech.XR.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.localization",
+            "expression": "",
+            "define": "PITECH_HAS_LOCALIZATION"
+        }
+    ],
+    "noEngineReferences": false
+}

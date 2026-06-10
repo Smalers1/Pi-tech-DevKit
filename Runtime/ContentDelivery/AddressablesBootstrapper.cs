@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pitech.XR.ContentDelivery
 {
-    [AddComponentMenu("Pi tech XR/Content Delivery/Addressables Bootstrapper")]
+    [AddComponentMenu("Pi tech/Content Delivery/Addressables Bootstrapper")]
     public sealed class AddressablesBootstrapper : MonoBehaviour
     {
         [Header("Config")]

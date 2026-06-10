@@ -6,7 +6,7 @@ namespace Pitech.XR.ContentDelivery
     /// <summary>
     /// Optional bridge entry point for local-first attempt reconciliation.
     /// </summary>
-    [AddComponentMenu("Pi tech XR/Content Delivery/Attempt Reconciliation Bridge")]
+    [AddComponentMenu("Pi tech/Content Delivery/Attempt Reconciliation Bridge")]
     public sealed class AttemptReconciliationBridge : MonoBehaviour
     {
         public bool logReconciliation;

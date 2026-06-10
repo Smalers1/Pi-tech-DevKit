@@ -31,7 +31,7 @@ namespace Pitech.XR.ContentDelivery
     /// <summary>
     /// Emits normalized launch lifecycle payloads as JSON for bridge consumers.
     /// </summary>
-    [AddComponentMenu("Pi tech XR/Content Delivery/Launch Context Reporter")]
+    [AddComponentMenu("Pi tech/Content Delivery/Launch Context Reporter")]
     public sealed class LaunchContextReporter : MonoBehaviour
     {
         [Tooltip("JSON payload callback for bridge handlers.")]

@@ -30,7 +30,7 @@ namespace Pitech.XR.ContentDelivery
         ExternalLaunchContext = 1,
     }
 
-    [AddComponentMenu("Pi tech XR/Content Delivery/Content Delivery Spawner")]
+    [AddComponentMenu("Pi tech/Content Delivery/Content Delivery Spawner")]
     public sealed class ContentDeliverySpawner : MonoBehaviour
     {
         [Header("Content Source")]

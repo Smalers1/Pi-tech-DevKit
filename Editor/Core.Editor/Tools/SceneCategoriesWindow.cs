@@ -13,7 +13,7 @@ namespace Pitech.XR.Core.Editor
         TextField _custom;
         SceneCategoriesService _svc;
 
-        [MenuItem("Pi tech/Scene/Create Scene Categories…")]
+        [MenuItem("Pi tech/Scene/Create Scene Categories")]
         public static void Open() => GetWindow<SceneCategoriesWindow>("Scene Categories").Show();
 
         void OnEnable()

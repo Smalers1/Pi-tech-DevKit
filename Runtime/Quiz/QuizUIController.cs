@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Pitech.XR.Quiz
 {
-    [AddComponentMenu("Pi tech XR/Quiz/Quiz UI Controller")]
+    [AddComponentMenu("Pi tech/Quiz/Quiz UI Controller")]
     public sealed class QuizUIController : MonoBehaviour
     {
         public enum SubmitMode

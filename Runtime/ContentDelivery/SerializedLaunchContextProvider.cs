@@ -5,7 +5,7 @@ namespace Pitech.XR.ContentDelivery
     /// <summary>
     /// Simple provider for Unity-only menu launch scenarios.
     /// </summary>
-    [AddComponentMenu("Pi tech XR/Content Delivery/Serialized Launch Context Provider")]
+    [AddComponentMenu("Pi tech/Content Delivery/Serialized Launch Context Provider")]
     public sealed class SerializedLaunchContextProvider : MonoBehaviour, ILaunchContextProvider
     {
         public LaunchSource source = LaunchSource.UnityMenu;

@@ -10,7 +10,7 @@ namespace Pitech.XR.ContentDelivery
     /// before LaunchContextReporter.Start() looks for it.
     /// </summary>
     [DefaultExecutionOrder(-200)]
-    [AddComponentMenu("Pi tech XR/Analytics/Telemetry Auto Wirer")]
+    [AddComponentMenu("Pi tech/Analytics/Telemetry Auto Wirer")]
     public sealed class TelemetryAutoWirer : MonoBehaviour
     {
         [Tooltip("Device type stamped in attempt payloads (e.g. 'ar', 'vr').")]

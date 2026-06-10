@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Pitech.XR.Quiz
 {
-    [AddComponentMenu("Pi tech XR/Quiz/Quiz Results UI Controller")]
+    [AddComponentMenu("Pi tech/Quiz/Quiz Results UI Controller")]
     public sealed class QuizResultsUIController : MonoBehaviour
     {
         [Header("UI")]

@@ -15,7 +15,7 @@ namespace Pitech.XR.Interactables
     /// SelectablesManager.MetaSelect via Meta Event Wrappers.
     /// </summary>
     [RequireComponent(typeof(Collider))]
-    [AddComponentMenu("Pi tech XR/Scenario/Selectable Target")]
+    [AddComponentMenu("Pi tech/Interactables/Selectable Target")]
     public class SelectableTarget : MonoBehaviour, IPointerDownHandler
     {
         [Tooltip("Manager notified on pointer down. Auto-wired by SelectablesManager; also falls back to an ancestor SelectablesManager.")]

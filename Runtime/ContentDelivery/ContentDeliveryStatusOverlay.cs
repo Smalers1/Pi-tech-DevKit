@@ -11,7 +11,7 @@ namespace Pitech.XR.ContentDelivery
     /// Bind this to your own Canvas/UI objects (TMP texts, buttons, slider/images).
     /// No UI is drawn from code.
     /// </summary>
-    [AddComponentMenu("Pi tech XR/Content Delivery/Content Delivery Status Overlay")]
+    [AddComponentMenu("Pi tech/Content Delivery/Content Delivery Status Overlay")]
     public sealed class ContentDeliveryStatusOverlay : MonoBehaviour
     {
         [Serializable]

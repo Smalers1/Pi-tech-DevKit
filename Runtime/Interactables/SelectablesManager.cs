@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 namespace Pitech.XR.Interactables
 {
-    [AddComponentMenu("Pi tech XR/Scenario/Selectables Manager (Meta VR Ready + AR Safe)")]
+    [AddComponentMenu("Pi tech/Interactables/Selectables Manager (Meta VR Ready + AR Safe)")]
     public class SelectablesManager : MonoBehaviour
     {
         [Serializable]
@@ -324,7 +324,7 @@ namespace Pitech.XR.Interactables
         }
 
         // ============ Optional helper to bind from Meta wrapper ============
-        [AddComponentMenu("Pi tech XR/Scenario/Meta Select Relay (optional)")]
+        [AddComponentMenu("Pi tech/Interactables/Meta Select Relay (optional)")]
         public class MetaSelectRelay : MonoBehaviour
         {
             public SelectablesManager manager;

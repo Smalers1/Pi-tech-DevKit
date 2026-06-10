@@ -1,0 +1,16 @@
+{
+    "name": "Pitech.XR.Analytics",
+    "rootNamespace": "Pitech.XR.Analytics",
+    "references": [
+        "Pitech.XR.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

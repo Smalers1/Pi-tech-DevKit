@@ -78,7 +78,7 @@ namespace Pitech.XR.Interactables
         }
     }
 
-    [AddComponentMenu("Pi tech XR/Interactables/Selection Lists (Controller)")]
+    [AddComponentMenu("Pi tech/Interactables/Selection Lists (Controller)")]
     public class SelectionLists : MonoBehaviour
     {
         [Header("Catalog")]

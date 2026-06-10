@@ -77,7 +77,7 @@ namespace Pitech.XR.ContentDelivery
         public RuntimeTelemetryStepEventPayload[] step_events = new RuntimeTelemetryStepEventPayload[0];
     }
 
-    [AddComponentMenu("Pi tech XR/Analytics/Runtime Telemetry Adapter")]
+    [AddComponentMenu("Pi tech/Analytics/Runtime Telemetry Adapter")]
     public sealed class RuntimeTelemetryAdapter : MonoBehaviour
     {
         private const float DownloadProgressEmitIntervalSeconds = 0.5f;

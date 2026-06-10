@@ -17,7 +17,7 @@ using UnityEngine.InputSystem;
 
 namespace Pitech.XR.Scenario
 {
-    [AddComponentMenu("Pi tech XR/Scenario/Scene Manager")]
+    [AddComponentMenu("Pi tech/Scenario/Scene Manager")]
     public class SceneManager : MonoBehaviour
     {
         [Header("Scenario")]

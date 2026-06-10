@@ -1,0 +1,22 @@
+{
+    "name": "Pitech.XR.Networking",
+    "rootNamespace": "Pitech.XR.Networking",
+    "references": [
+        "Pitech.XR.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.exitgames.photon.fusion",
+            "expression": "",
+            "define": "PITECH_HAS_FUSION"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,16 @@
+{
+    "name": "Pitech.XR.Vitals",
+    "rootNamespace": "Pitech.XR.Vitals",
+    "references": [
+        "Pitech.XR.Core"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

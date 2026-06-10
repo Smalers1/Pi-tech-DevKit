@@ -8,7 +8,7 @@ namespace Pitech.XR.ContentDelivery
     /// Optional receiver for RN/UaaL bridge payload handoff.
     /// Native bridge code can call ReceiveLaunchContextJson.
     /// </summary>
-    [AddComponentMenu("Pi tech XR/Content Delivery/Bridge Launch Context Receiver")]
+    [AddComponentMenu("Pi tech/Content Delivery/Bridge Launch Context Receiver")]
     public sealed class BridgeLaunchContextReceiver : MonoBehaviour
     {
         [Serializable]
