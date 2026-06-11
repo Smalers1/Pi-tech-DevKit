@@ -1,10 +1,27 @@
 {
-  "name": "Pitech.XR.Core.Editor",
-  "rootNamespace": "Pitech.XR.Core.Editor",
-  "references": [
-    "Pitech.XR.Core",
-    "Pitech.XR.ContentDelivery",
-    "Pitech.XR.ContentDelivery.Editor"
-  ],
-  "includePlatforms": [ "Editor" ]
+    "name": "Pitech.XR.Core.Editor",
+    "rootNamespace": "Pitech.XR.Core.Editor",
+    "references": [
+        "Pitech.XR.Core",
+        "Pitech.XR.ContentDelivery",
+        "Pitech.XR.ContentDelivery.Editor",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.test-framework",
+            "expression": "1.0.0",
+            "define": "PITECH_HAS_TESTFRAMEWORK"
+        }
+    ],
+    "noEngineReferences": false
 }

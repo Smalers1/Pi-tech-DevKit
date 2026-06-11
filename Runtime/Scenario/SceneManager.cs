@@ -18,7 +18,7 @@ using UnityEngine.InputSystem;
 namespace Pitech.XR.Scenario
 {
     [AddComponentMenu("Pi tech/Scenario/Scene Manager")]
-    public class SceneManager : MonoBehaviour
+    public class SceneManager : MonoBehaviour, Pitech.XR.Core.ISceneRunnerControl
     {
         [Header("Scenario")]
         [Tooltip("Required for step flow. For Addressable lab prefabs, assign on the prefab asset (CCD bundle), not only in a scene instance.")]
@@ -59,6 +59,14 @@ namespace Pitech.XR.Scenario
 
         /// Current step index while running. -1 when idle or finished
         public int StepIndex { get; private set; } = -1;
+
+        // --- ISceneRunnerControl (WS A8): behaviour-neutral typed seam. Forwards to existing members;
+        // no field renamed, nothing made non-public, behaviour identical. Restart() (below) already
+        // satisfies the interface's Restart(). ---
+        /// <summary>Forwards <see cref="StepIndex"/> for the <see cref="Pitech.XR.Core.ISceneRunnerControl"/> seam.</summary>
+        public int CurrentStepIndex => StepIndex;
+        /// <summary>Forwards <see cref="autoStart"/> for the <see cref="Pitech.XR.Core.ISceneRunnerControl"/> seam.</summary>
+        public bool AutoStart { get => autoStart; set => autoStart = value; }
 
         Coroutine _run;
         sealed class StepRunContext
@@ -1364,7 +1372,7 @@ namespace Pitech.XR.Scenario
         static bool AnyPointerDown()
         {
 #if ENABLE_INPUT_SYSTEM
-            // Αν δεν υπάρχουν pointer devices (VR-only), θεωρούμε ότι "δεν πατιέται τίποτα"
+            // If there are no pointer devices (VR-only), treat it as "nothing is pressed".
             bool hasMouse = Mouse.current != null;
             bool hasTouch = Touchscreen.current != null;
 
@@ -1380,17 +1388,17 @@ namespace Pitech.XR.Scenario
             }
             return false;
 #else
-    if (UnityEngine.Input.GetMouseButton(0)) return true;
+            if (UnityEngine.Input.GetMouseButton(0)) return true;
 
-    for (int i = 0; i < UnityEngine.Input.touchCount; i++)
-    {
-        var ph = UnityEngine.Input.GetTouch(i).phase;
-        if (ph == UnityEngine.TouchPhase.Began ||
-            ph == UnityEngine.TouchPhase.Moved ||
-            ph == UnityEngine.TouchPhase.Stationary)
-            return true;
-    }
-    return false;
+            for (int i = 0; i < UnityEngine.Input.touchCount; i++)
+            {
+                var ph = UnityEngine.Input.GetTouch(i).phase;
+                if (ph == UnityEngine.TouchPhase.Began ||
+                    ph == UnityEngine.TouchPhase.Moved ||
+                    ph == UnityEngine.TouchPhase.Stationary)
+                    return true;
+            }
+            return false;
 #endif
         }
 
@@ -1412,21 +1420,21 @@ namespace Pitech.XR.Scenario
             }
             return false;
 #else
-    if (UnityEngine.Input.GetMouseButtonDown(0)) return true;
+            if (UnityEngine.Input.GetMouseButtonDown(0)) return true;
 
-    for (int i = 0; i < UnityEngine.Input.touchCount; i++)
-    {
-        if (UnityEngine.Input.GetTouch(i).phase == UnityEngine.TouchPhase.Began)
-            return true;
-    }
-    return false;
+            for (int i = 0; i < UnityEngine.Input.touchCount; i++)
+            {
+                if (UnityEngine.Input.GetTouch(i).phase == UnityEngine.TouchPhase.Began)
+                    return true;
+            }
+            return false;
 #endif
         }
 
         static System.Collections.IEnumerator WaitForPointerRelease()
         {
 #if ENABLE_INPUT_SYSTEM
-            // Σε VR (χωρίς mouse/touch), μην περιμένεις τίποτα — επέστρεψε άμεσα.
+            // In VR (no mouse/touch), do not wait for anything - return immediately.
             if (Mouse.current == null && Touchscreen.current == null)
                 yield break;
 #endif
@@ -1436,7 +1444,7 @@ namespace Pitech.XR.Scenario
         static System.Collections.IEnumerator WaitForCleanClick()
         {
 #if ENABLE_INPUT_SYSTEM
-            // Σε VR (χωρίς mouse/touch), δεν μπορεί να υπάρξει "clean click" -> μην μπλοκάρεις.
+            // In VR (no mouse/touch), a "clean click" can never happen -> do not block.
             if (Mouse.current == null && Touchscreen.current == null)
                 yield break;
 #endif
@@ -1530,7 +1538,7 @@ namespace Pitech.XR.Scenario
             var current = scenario.steps[StepIndex];
             if (current == null || current.guid != stepGuid) return;
 
-            // Linear-ish steps: just mark skip, RunX θα το διαβάσει
+            // Linear-ish steps: just mark skip, RunX will read it
             if (current is TimelineStep ||
                 current is CueCardsStep ||
                 current is InsertStep ||
@@ -2475,7 +2483,7 @@ namespace Pitech.XR.Scenario
         {
             if (!a || !b) return false;
 
-            // Ακριβής έλεγχος overlap, ουσιαστικά σαν OnTriggerEnter αλλά με polling
+            // Exact overlap check - essentially OnTriggerEnter but with polling
             return Physics.ComputePenetration(
                 a, a.transform.position, a.transform.rotation,
                 b, b.transform.position, b.transform.rotation,

@@ -1,0 +1,151 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6713412273179123492
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7971903185612969213}
+  - component: {fileID: 5855372917821860950}
+  m_Layer: 0
+  m_Name: synthetic_routing_families
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7971903185612969213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6713412273179123492}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5855372917821860950
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6713412273179123492}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ac8609ffa1765b4487f1b8ec195e70c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Pitech.XR.Scenario::Pitech.XR.Scenario.Scenario
+  title: Main Scenario
+  steps:
+  - rid: 5790947672888180805
+  - rid: 5790947672888180806
+  - rid: 5790947672888180807
+  - rid: 5790947672888180808
+  graphNotes: []
+  graphGroups: []
+  stepGraphDisplays: []
+  references:
+    version: 2
+    RefIds:
+    - rid: 5790947672888180805
+      type: {class: ConditionsStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
+      data:
+        guid: 24abbff2-cb7c-46e3-b7d3-5f69c05d0439
+        graphPos: {x: 0, y: 0}
+        valueSource: 1
+        statKey: Health
+        source: {fileID: 0}
+        memberName: 
+        listFieldName: 
+        listEntryLabel: 
+        listLabelFieldName: label
+        listValueFieldName: count
+        outcomes:
+        - label: low
+          compareOp: 0
+          compareValue: 50
+          nextGuid: 8e06086e-9e8c-4e23-99fd-8de4938aa904
+    - rid: 5790947672888180806
+      type: {class: SelectionStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
+      data:
+        guid: 8e06086e-9e8c-4e23-99fd-8de4938aa904
+        graphPos: {x: 0, y: 0}
+        lists: {fileID: 0}
+        listKey: 
+        listIndex: -1
+        resetOnEnter: 1
+        completion: 0
+        submitButton: {fileID: 0}
+        requiredSelections: 2
+        requireExactCount: 0
+        allowedWrong: 1
+        timeoutSeconds: 0
+        correctNextGuid: ac503c40-48da-406a-8cd4-830484a6d1bd
+        wrongNextGuid: 
+        panelRoot: {fileID: 0}
+        panelAnimator: {fileID: 0}
+        showTrigger: Show
+        hideTrigger: Hide
+        hint: {fileID: 0}
+        onCorrect:
+          m_PersistentCalls:
+            m_Calls: []
+        onWrong:
+          m_PersistentCalls:
+            m_Calls: []
+        onCorrectEffects: []
+        onWrongEffects: []
+    - rid: 5790947672888180807
+      type: {class: MiniQuizStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
+      data:
+        guid: ac503c40-48da-406a-8cd4-830484a6d1bd
+        graphPos: {x: 0, y: 0}
+        panelRoot: {fileID: 0}
+        panelAnimator: {fileID: 0}
+        showTrigger: Show
+        hideTrigger: Hide
+        questions: []
+        completion: 0
+        submitButton: {fileID: 0}
+        lockQuestionAfterAnswer: 1
+        outcomes:
+        - label: all
+          minCorrect: 1
+          maxCorrect: -1
+          nextGuid: 
+        defaultNextGuid: 03133205-5c4a-40d0-a790-55194125282b
+    - rid: 5790947672888180808
+      type: {class: GroupStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
+      data:
+        guid: 03133205-5c4a-40d0-a790-55194125282b
+        graphPos: {x: 0, y: 0}
+        steps:
+        - rid: 5790947672888180809
+        completeWhen: 2
+        requiredCount: 1
+        specificStepGuid: d05e3631-6544-48c6-9888-cce8ca5ccb07
+        stopOthersOnComplete: 1
+        childRequirements:
+        - guid: d05e3631-6544-48c6-9888-cce8ca5ccb07
+          required: 1
+        multiConditionBranches: []
+        nextGuid: 
+    - rid: 5790947672888180809
+      type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
+      data:
+        guid: d05e3631-6544-48c6-9888-cce8ca5ccb07
+        graphPos: {x: 0, y: 0}
+        onEnter:
+          m_PersistentCalls:
+            m_Calls: []
+        waitSeconds: 0
+        nextGuid: 

@@ -1,0 +1,29 @@
+# EditorConfig — https://editorconfig.org
+# Encodes the Phase A house style: 4-space indent, LF, UTF-8 (Stergios 2026-06-08; Petros 2026-06-09).
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.cs]
+indent_size = 4
+csharp_new_line_before_open_brace = all
+
+[*.{json,asmdef,asmref}]
+indent_size = 4
+
+[*.{yml,yaml}]
+indent_size = 2
+
+[*.md]
+trim_trailing_whitespace = false
+
+# Unity-generated text assets: leave their formatting to Unity (do not trim / re-end them).
+[*.{meta,unity,prefab,asset,mat,anim,controller}]
+trim_trailing_whitespace = false
+insert_final_newline = false

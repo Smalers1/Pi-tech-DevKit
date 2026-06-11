@@ -5,15 +5,17 @@ using UnityEngine.UIElements;
 namespace Pitech.XR.Core.Editor
 {
     // Cockpit page: MAINTAIN - the gate + repair/diagnose tools (WS A2 Step 4). Surfaces
-    // "Evaluate Changes" (ships with WS A3 - until then the tile informs gracefully), the two
-    // in-place DevKit script-repair tools, and the recommended-settings health fix.
+    // "Evaluate Changes" (LIVE since WS A3 - opens the EditMode-net verdict window), the
+    // fixture-export tools, the two in-place DevKit script-repair tools, and the
+    // recommended-settings health fix.
     public sealed class MaintainPage : IDevkitPage
     {
         // Repair-tool menu paths - verbatim from DevKitFixMissingScriptRefs (Scenario.Editor).
         const string FixMissingRefsMenu = "Pi tech/Tools/Fix Missing DevKit Script References on Selection";
         const string RepairGuidsMenu = "Pi tech/Tools/Repair DevKit script GUIDs in selected prefab/scene asset (YAML only)";
-        // WS A3 ships this menu item; until then ExecuteMenuItem returns false and we inform the user.
-        const string EvaluateChangesMenu = "Pi tech/Tools/Evaluate Changes";
+        // Fixture menu paths - verbatim from ExportLabAsTestFixture (Scenario.Editor).
+        const string ExportFixtureMenu = "Pi tech/Tools/Export Lab as Test Fixture";
+        const string SyntheticFixtureMenu = "Pi tech/Tools/Generate Synthetic Scenario Fixture";
 
         public string Title => "Maintain";
 
@@ -25,18 +27,47 @@ namespace Pitech.XR.Core.Editor
                 section.Add(DevkitTheme.Body("Run the EditMode safety net and get a plain-language verdict before you push.", dim: true));
                 section.Add(DevkitTheme.VSpace(8));
                 var grid = DevkitWidgets.TileGrid();
+#if PITECH_HAS_TESTFRAMEWORK
                 grid.Add(DevkitWidgets.Card(
                     "Evaluate Changes",
                     "Run the DevKit equivalence proofs (graph integrity, public API, serialized GUIDs) and report pass/fail.",
-                    DevkitWidgets.Actions(DevkitTheme.Primary("Run Evaluate Changes", () =>
+                    DevkitWidgets.Actions(DevkitTheme.Primary("Run Evaluate Changes", EvaluateChanges.Open)),
+                    DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Neutral, "Runs the EditMode net"))));
+#else
+                grid.Add(DevkitWidgets.Card(
+                    "Evaluate Changes",
+                    "Requires the Unity Test Framework package (com.unity.test-framework). Install it via the Package Manager to enable the gate.",
+                    DevkitWidgets.Actions(),
+                    DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Neutral, "Test Framework not installed"))));
+#endif
+                section.Add(grid);
+                root.Add(section);
+            }
+
+            // ===== Fixture export (feeds the Proof A/C corpus) =====
+            {
+                var section = DevkitTheme.Section("Test Fixtures");
+                section.Add(DevkitTheme.Body("Run the export in the LAB project (HealthOn VR, DevKit on a local file: reference) right before testing - fixtures land directly in the package for the gate project to test against.", dim: true));
+                section.Add(DevkitTheme.VSpace(8));
+                var grid = DevkitWidgets.TileGrid();
+
+                grid.Add(DevkitWidgets.Card(
+                    "Export Lab as Fixture",
+                    "Capture the WHOLE open lab scene as one self-contained fixture prefab + its Proof A baseline. Refuses on graph violations, so a broken lab can never poison the corpus.",
+                    DevkitWidgets.Actions(DevkitTheme.Primary("Export Open Scene", () =>
                     {
-                        if (!EditorApplication.ExecuteMenuItem(EvaluateChangesMenu))
-                            EditorUtility.DisplayDialog(
-                                "Evaluate Changes",
-                                "Evaluate Changes ships with WS A3 (the EditMode safety net). It is not available yet.",
-                                "OK");
+                        EditorApplication.ExecuteMenuItem(ExportFixtureMenu);
                     })),
-                    DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Neutral, "Arrives with WS A3"))));
+                    DevkitTheme.Body("Open the lab scene (saved, no pending edits) first.", dim: true)));
+
+                grid.Add(DevkitWidgets.Card(
+                    "Generate Synthetic Fixture",
+                    "Create the mandatory synthetic fixture covering the routing families absent from real labs (ConditionsStep, SpecificChild, allowedWrong>0, defaultNextGuid).",
+                    DevkitWidgets.Actions(DevkitTheme.Secondary("Generate", () =>
+                    {
+                        EditorApplication.ExecuteMenuItem(SyntheticFixtureMenu);
+                    }))));
+
                 section.Add(grid);
                 root.Add(section);
             }

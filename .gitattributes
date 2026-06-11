@@ -1,0 +1,41 @@
+# Line-ending policy — Phase A decision: 4-space + LF (Stergios 2026-06-08; Petros 2026-06-09).
+#
+# NOTE: adding this file does NOT rewrite existing files. The initial `git add --renormalize .` to LF is a
+# SEPARATE, deliberate commit (WS A7 Step 3). Until that runs, a CRLF working tree will still show
+# "CRLF will be replaced by LF" warnings — expected and harmless. (Seeing the OPPOSITE direction,
+# LF-to-CRLF, would mean these attributes are NOT in effect.)
+
+* text=auto eol=lf
+
+# Source + Unity text assets — explicit LF so diffs/merges work and Proof C byte-compares are deterministic.
+*.cs         text eol=lf diff=csharp
+*.meta       text eol=lf
+*.unity      text eol=lf
+*.prefab     text eol=lf
+*.asset      text eol=lf
+*.mat        text eol=lf
+*.anim       text eol=lf
+*.controller text eol=lf
+*.asmdef     text eol=lf
+*.asmref     text eol=lf
+*.json       text eol=lf
+*.md         text eol=lf
+*.shader     text eol=lf
+*.uxml       text eol=lf
+*.uss        text eol=lf
+*.xml        text eol=lf
+
+# Binary assets — never normalize.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.tga  binary
+*.psd  binary
+*.fbx  binary
+*.wav  binary
+*.mp3  binary
+*.ogg  binary
+*.dll  binary
+*.so   binary
+*.a    binary

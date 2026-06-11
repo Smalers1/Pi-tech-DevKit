@@ -1,0 +1,52 @@
+{
+    "entries": [
+        {
+            "type": "Pitech.XR.ContentDelivery.ContentDeliverySpawner",
+            "guid": "6499dc156b641dc42bf665f590ebc41a"
+        },
+        {
+            "type": "Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay",
+            "guid": "cdb0618f734696f45ad4c60af22c34ee"
+        },
+        {
+            "type": "Pitech.XR.Interactables.SelectableTarget",
+            "guid": "9d9dfc94a60b94b4594d8d5ba0ce655f"
+        },
+        {
+            "type": "Pitech.XR.Interactables.SelectablesManager",
+            "guid": "52491d3f911f50541bfaa1197878f9be"
+        },
+        {
+            "type": "Pitech.XR.Interactables.SelectionLists",
+            "guid": "8bb61c04a513ca84198c33913f1108e2"
+        },
+        {
+            "type": "Pitech.XR.Quiz.QuizAsset",
+            "guid": "4b2e7b4b8b154c2cb0b3b2b9d3c9a1e2"
+        },
+        {
+            "type": "Pitech.XR.Quiz.QuizResultsUIController",
+            "guid": "d9b9e28d68f3b794ca09939e4c022a47"
+        },
+        {
+            "type": "Pitech.XR.Quiz.QuizUIController",
+            "guid": "6f7a1a8d1c4b4f3a9c7e2f4b9d1a3f2c"
+        },
+        {
+            "type": "Pitech.XR.Scenario.Scenario",
+            "guid": "3ac8609ffa1765b4487f1b8ec195e70c"
+        },
+        {
+            "type": "Pitech.XR.Scenario.SceneManager",
+            "guid": "2d431a49d183e9c428369f7f758f75cd"
+        },
+        {
+            "type": "Pitech.XR.Stats.StatsConfig",
+            "guid": "d9c1074d3241f3b42b1672584f10dbaa"
+        },
+        {
+            "type": "Pitech.XR.Stats.StatsUIController",
+            "guid": "42aac299eefb5f7469897989c2a7f1da"
+        }
+    ]
+}

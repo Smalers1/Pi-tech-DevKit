@@ -211,19 +211,19 @@ namespace Pitech.XR.Core.Editor
             return r;
         }
 
-        // --- ADD: �Ribbon� status bar with chips + thick progress + caption ---
+        // --- ADD: "Ribbon" status bar with chips + thick progress + caption ---
         public static VisualElement StatusRibbon(VisualElement chips, float progress01, string caption)
         {
             var wrap = new VisualElement
             {
                 style =
-        {
-            backgroundColor = new Color(0.13f,0.16f,0.20f,1),
-            borderTopLeftRadius = 18, borderTopRightRadius = 18,
-            borderBottomLeftRadius = 18, borderBottomRightRadius = 18,
-            paddingLeft = 14, paddingRight = 14, paddingTop = 12, paddingBottom = 12,
-            marginBottom = 10
-        }
+                {
+                    backgroundColor = new Color(0.13f,0.16f,0.20f,1),
+                    borderTopLeftRadius = 18, borderTopRightRadius = 18,
+                    borderBottomLeftRadius = 18, borderBottomRightRadius = 18,
+                    paddingLeft = 14, paddingRight = 14, paddingTop = 12, paddingBottom = 12,
+                    marginBottom = 10
+                }
             };
 
             wrap.Add(chips);
@@ -233,23 +233,23 @@ namespace Pitech.XR.Core.Editor
             var track = new VisualElement
             {
                 style =
-        {
-            backgroundColor = new Color(0.12f,0.14f,0.18f,1),
-            height = 14,
-            borderTopLeftRadius = 999, borderTopRightRadius = 999,
-            borderBottomLeftRadius = 999, borderBottomRightRadius = 999
-        }
+                {
+                    backgroundColor = new Color(0.12f,0.14f,0.18f,1),
+                    height = 14,
+                    borderTopLeftRadius = 999, borderTopRightRadius = 999,
+                    borderBottomLeftRadius = 999, borderBottomRightRadius = 999
+                }
             };
             var fill = new VisualElement
             {
                 style =
-        {
-            backgroundColor = Accent,
-            height = 14,
-            width = Length.Percent(Mathf.Clamp01(progress01) * 100f),
-            borderTopLeftRadius = 999, borderTopRightRadius = 999,
-            borderBottomLeftRadius = 999, borderBottomRightRadius = 999
-        }
+                {
+                    backgroundColor = Accent,
+                    height = 14,
+                    width = Length.Percent(Mathf.Clamp01(progress01) * 100f),
+                    borderTopLeftRadius = 999, borderTopRightRadius = 999,
+                    borderBottomLeftRadius = 999, borderBottomRightRadius = 999
+                }
             };
             track.Add(fill);
             wrap.Add(track);
@@ -268,24 +268,24 @@ namespace Pitech.XR.Core.Editor
             var card = new VisualElement
             {
                 style =
-        {
-            backgroundColor = DevkitTheme.Panel2,
-            // Slightly sharper than big "bubbly" rounding
-            borderTopLeftRadius = 12, borderTopRightRadius = 12,
-            borderBottomLeftRadius = 12, borderBottomRightRadius = 12,
-            paddingLeft = 14, paddingRight = 14, paddingTop = 12, paddingBottom = 12,
-            marginRight = 10, marginBottom = 10,
-            // Faux �depth�: thin outline darker than bg
-            borderBottomWidth = 1, borderTopWidth = 1, borderLeftWidth = 1, borderRightWidth = 1,
-            borderBottomColor = new Color(0.10f,0.12f,0.16f,1),
-            borderTopColor    = new Color(0.10f,0.12f,0.16f,1),
-            borderLeftColor   = new Color(0.10f,0.12f,0.16f,1),
-            borderRightColor  = new Color(0.10f,0.12f,0.16f,1),
-            // Responsive layout
-            flexBasis = Length.Percent(50),
-            flexGrow = 1,
-            minWidth = 360
-        }
+                {
+                    backgroundColor = DevkitTheme.Panel2,
+                    // Slightly sharper than big "bubbly" rounding
+                    borderTopLeftRadius = 12, borderTopRightRadius = 12,
+                    borderBottomLeftRadius = 12, borderBottomRightRadius = 12,
+                    paddingLeft = 14, paddingRight = 14, paddingTop = 12, paddingBottom = 12,
+                    marginRight = 10, marginBottom = 10,
+                    // Faux "depth": thin outline darker than bg
+                    borderBottomWidth = 1, borderTopWidth = 1, borderLeftWidth = 1, borderRightWidth = 1,
+                    borderBottomColor = new Color(0.10f,0.12f,0.16f,1),
+                    borderTopColor    = new Color(0.10f,0.12f,0.16f,1),
+                    borderLeftColor   = new Color(0.10f,0.12f,0.16f,1),
+                    borderRightColor  = new Color(0.10f,0.12f,0.16f,1),
+                    // Responsive layout
+                    flexBasis = Length.Percent(50),
+                    flexGrow = 1,
+                    minWidth = 360
+                }
             };
 
             var head = DevkitTheme.Row();

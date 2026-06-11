@@ -1,0 +1,1212 @@
+Pitech.XR.AgentSubstrate.Observation.AgentObservationAttribute :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationAttribute :: ctor(String, String)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationAttribute :: field String jsonValue
+Pitech.XR.AgentSubstrate.Observation.AgentObservationAttribute :: field String key
+Pitech.XR.AgentSubstrate.Observation.AgentObservationAttribute :: static method AgentObservationAttribute OfBool(String, Boolean)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationAttribute :: static method AgentObservationAttribute OfDouble(String, Double)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationAttribute :: static method AgentObservationAttribute OfLong(String, Int64)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationAttribute :: static method AgentObservationAttribute OfNull(String)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationAttribute :: static method AgentObservationAttribute OfString(String, String)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEmitter :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEmitter :: method AgentObservationV1Envelope BuildEnvelope(AgentStateSnapshot)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEmitter :: method AgentObservationV1Envelope Emit(AgentStateSnapshot)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEmitter :: method Void Configure(IConsentGate, IAgentStateSource, IAgentObservationTransport)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEmitter :: property IReadOnlyList<String> EnabledSurfaces { get; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEmitter :: property Int32 QueueCapacity { get; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEmitter :: property String EndpointUrl { get; set; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEmitter :: property String Surface { get; set; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEngineV1 :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEngineV1 :: field String name
+Pitech.XR.AgentSubstrate.Observation.AgentObservationEngineV1 :: field String version
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorCodeV1 :: static field String AuthRequired
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorCodeV1 :: static field String ConsentNotGranted
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorCodeV1 :: static field String MethodNotAllowed
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorCodeV1 :: static field String NotImplemented
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorCodeV1 :: static field String SchemaInvalid
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorCodeV1 :: static field String SurfaceNotPermitted
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorCodeV1 :: static field String TenantNotBound
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorV1 :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorV1 :: field String error
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorV1 :: field String message
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorV1 :: field String seeAlso
+Pitech.XR.AgentSubstrate.Observation.AgentObservationErrorV1 :: field String version
+Pitech.XR.AgentSubstrate.Observation.AgentObservationHttpClient :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationHttpClient :: method Void Configure(IAgentObservationAuthProvider)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationHttpClient :: method Void Send(AgentObservationV1Envelope, String)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationHttpClient :: property AgentObservationQueue Queue { get; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationHttpClient :: property Int32 QueueCapacity { get; set; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationHttpClient :: property String EndpointUrl { get; set; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationHttpClient :: static method Boolean TryConsumeRetryBudget(Int32)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationKindV1 :: static field String LabStepObserved
+Pitech.XR.AgentSubstrate.Observation.AgentObservationKindV1 :: static field String SceneStateSnapshot
+Pitech.XR.AgentSubstrate.Observation.AgentObservationKindV1 :: static field String UserInteractionObserved
+Pitech.XR.AgentSubstrate.Observation.AgentObservationLogLevel :: field Int32 value__
+Pitech.XR.AgentSubstrate.Observation.AgentObservationLogLevel :: static field AgentObservationLogLevel Error
+Pitech.XR.AgentSubstrate.Observation.AgentObservationLogLevel :: static field AgentObservationLogLevel None
+Pitech.XR.AgentSubstrate.Observation.AgentObservationLogLevel :: static field AgentObservationLogLevel Verbose
+Pitech.XR.AgentSubstrate.Observation.AgentObservationLogLevel :: static field AgentObservationLogLevel Warning
+Pitech.XR.AgentSubstrate.Observation.AgentObservationOutboundItem :: ctor(AgentObservationV1Envelope, String)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationOutboundItem :: field AgentObservationV1Envelope Envelope
+Pitech.XR.AgentSubstrate.Observation.AgentObservationOutboundItem :: field String Surface
+Pitech.XR.AgentSubstrate.Observation.AgentObservationQueue :: ctor(Int32)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationQueue :: method Boolean TryDequeue(AgentObservationOutboundItem&)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationQueue :: method Void Enqueue(AgentObservationOutboundItem)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationQueue :: property Int32 Capacity { get; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationQueue :: property Int32 Count { get; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationQueue :: property Int32 TotalDropped { get; }
+Pitech.XR.AgentSubstrate.Observation.AgentObservationRenderedStateV1 :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationRenderedStateV1 :: field String text
+Pitech.XR.AgentSubstrate.Observation.AgentObservationRenderedStateV1 :: field String transcript
+Pitech.XR.AgentSubstrate.Observation.AgentObservationResponseClassifier :: static method AgentObservationResponseDisposition Classify(Int64, String)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationResponseClassifier :: static method Void Apply(AgentObservationResponseDisposition)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationResponseDisposition :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationResponseDisposition :: field AgentObservationLogLevel LogLevel
+Pitech.XR.AgentSubstrate.Observation.AgentObservationResponseDisposition :: field Boolean ShouldRetry
+Pitech.XR.AgentSubstrate.Observation.AgentObservationResponseDisposition :: field String ErrorCode
+Pitech.XR.AgentSubstrate.Observation.AgentObservationResponseDisposition :: field String LogMessage
+Pitech.XR.AgentSubstrate.Observation.AgentObservationRetryPolicy :: static field Int32 MaxBackoffSeconds
+Pitech.XR.AgentSubstrate.Observation.AgentObservationRetryPolicy :: static field Int32 MaxRetries
+Pitech.XR.AgentSubstrate.Observation.AgentObservationRetryPolicy :: static method Int32 DelaySeconds(Int32)
+Pitech.XR.AgentSubstrate.Observation.AgentObservationSemanticStateV1 :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationSemanticStateV1 :: field List<AgentObservationAttribute> attributes
+Pitech.XR.AgentSubstrate.Observation.AgentObservationSemanticStateV1 :: field String summary
+Pitech.XR.AgentSubstrate.Observation.AgentObservationSurfaceV1 :: static field String Ar
+Pitech.XR.AgentSubstrate.Observation.AgentObservationSurfaceV1 :: static field String Vr
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field AgentObservationEngineV1 engine
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field AgentObservationRenderedStateV1 renderedState
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field AgentObservationSemanticStateV1 semanticState
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field String attemptId
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field String kind
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field String labId
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field String labVersionId
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field String observationId
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field String observedAt
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field String sessionId
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field String surface
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1 :: field String version
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1Envelope :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1Envelope :: field List<AgentObservationV1> observations
+Pitech.XR.AgentSubstrate.Observation.AgentObservationV1Envelope :: field String version
+Pitech.XR.AgentSubstrate.Observation.AgentStateSnapshot :: ctor()
+Pitech.XR.AgentSubstrate.Observation.AgentStateSnapshot :: field AgentObservationRenderedStateV1 RenderedState
+Pitech.XR.AgentSubstrate.Observation.AgentStateSnapshot :: field AgentObservationSemanticStateV1 SemanticState
+Pitech.XR.AgentSubstrate.Observation.AgentStateSnapshot :: field String AttemptId
+Pitech.XR.AgentSubstrate.Observation.AgentStateSnapshot :: field String Kind
+Pitech.XR.AgentSubstrate.Observation.AgentStateSnapshot :: field String LabId
+Pitech.XR.AgentSubstrate.Observation.AgentStateSnapshot :: field String LabVersionId
+Pitech.XR.AgentSubstrate.Observation.AgentStateSnapshot :: field String SessionId
+Pitech.XR.AgentSubstrate.Observation.DenyAllConsentGate :: ctor()
+Pitech.XR.AgentSubstrate.Observation.DenyAllConsentGate :: method Boolean IsConsentGranted()
+Pitech.XR.AgentSubstrate.Observation.IAgentObservationAuthProvider :: method String GetAccessToken()
+Pitech.XR.AgentSubstrate.Observation.IAgentObservationTransport :: method Void Send(AgentObservationV1Envelope, String)
+Pitech.XR.AgentSubstrate.Observation.IAgentStateSource :: event Action<AgentStateSnapshot> ObservationReady
+Pitech.XR.AgentSubstrate.Observation.IAgentStateSource :: method AgentStateSnapshot GetCurrentState()
+Pitech.XR.AgentSubstrate.Observation.IConsentGate :: method Boolean IsConsentGranted()
+Pitech.XR.ContentDelivery.AddressablesBootstrapper :: ctor()
+Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field AddressablesModuleConfig config
+Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field Boolean deferSceneManagerAutoStart
+Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field Boolean restartSceneManagerAfterContext
+Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field LaunchSource defaultLaunchSource
+Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field MonoBehaviour sceneManager
+Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field String internalLabId
+Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field String internalResolvedVersionId
+Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field String internalRuntimeUrl
+Pitech.XR.ContentDelivery.AddressablesBuildCatalog :: ctor()
+Pitech.XR.ContentDelivery.AddressablesBuildCatalog :: field List<AddressablesBuildPreset> presets
+Pitech.XR.ContentDelivery.AddressablesBuildPreset :: ctor()
+Pitech.XR.ContentDelivery.AddressablesBuildPreset :: field GameObject prefab
+Pitech.XR.ContentDelivery.AddressablesBuildPreset :: field SceneAsset sceneAsset
+Pitech.XR.ContentDelivery.AddressablesBuildPreset :: field String ccdBucketId
+Pitech.XR.ContentDelivery.AddressablesBuildPreset :: field String displayName
+Pitech.XR.ContentDelivery.AddressablesBuildPreset :: field String labId
+Pitech.XR.ContentDelivery.AddressablesBuildPreset :: field String labVersionId
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: ctor()
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field Boolean allowOfflineCacheLaunch
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field Boolean allowOlderCachedSameLab
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field Boolean enableHiddenBuildAction
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field Boolean networkRequiredIfCacheMiss
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field Boolean rewriteRemoteBundleUrls
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field CatalogMode catalogMode
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field ContentDeliveryEnvironment environment
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field ContentDeliveryProvider provider
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String adapterTypeName
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String ccdRemoteLoadPathTemplate
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String groupNameTemplate
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String localReportsFolder
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String localWorkspaceRoot
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String playerVersionOverride
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String profileName
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String remoteCatalogBaseUrl
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String remoteCatalogUrlTemplate
+Pitech.XR.ContentDelivery.AddressablesModuleConfig :: field String remoteLoadPathTemplate
+Pitech.XR.ContentDelivery.AddressablesRemoteUrlRewriter :: property Boolean IsInstalled { get; }
+Pitech.XR.ContentDelivery.AddressablesRemoteUrlRewriter :: property String CurrentReleaseBase { get; }
+Pitech.XR.ContentDelivery.AddressablesRemoteUrlRewriter :: static method Boolean TryParseCcdUrl(String, String&, String&, String&)
+Pitech.XR.ContentDelivery.AddressablesRemoteUrlRewriter :: static method String RewriteUrl(String, String, String)
+Pitech.XR.ContentDelivery.AddressablesRemoteUrlRewriter :: static method Void ApplyFrom(LaunchContext)
+Pitech.XR.ContentDelivery.AddressablesRemoteUrlRewriter :: static method Void Clear()
+Pitech.XR.ContentDelivery.AttemptIdentity :: ctor()
+Pitech.XR.ContentDelivery.AttemptIdentity :: field Boolean isLocalOnly
+Pitech.XR.ContentDelivery.AttemptIdentity :: field Boolean isReconciled
+Pitech.XR.ContentDelivery.AttemptIdentity :: field String attemptId
+Pitech.XR.ContentDelivery.AttemptIdentity :: field String canonicalAttemptId
+Pitech.XR.ContentDelivery.AttemptIdentity :: field String createdAt
+Pitech.XR.ContentDelivery.AttemptIdentity :: field String idempotencyKey
+Pitech.XR.ContentDelivery.AttemptIdentity :: field String launchRequestId
+Pitech.XR.ContentDelivery.AttemptIdentity :: field String reconciledAt
+Pitech.XR.ContentDelivery.AttemptIdentityManager :: static method AttemptIdentity CreateLocalFirst(String)
+Pitech.XR.ContentDelivery.AttemptIdentityManager :: static method Boolean TryGet(String, AttemptIdentity&)
+Pitech.XR.ContentDelivery.AttemptIdentityManager :: static method Boolean TryReconcile(String, String)
+Pitech.XR.ContentDelivery.AttemptReconciliationBridge :: ctor()
+Pitech.XR.ContentDelivery.AttemptReconciliationBridge :: field Boolean logReconciliation
+Pitech.XR.ContentDelivery.AttemptReconciliationBridge :: method Boolean ReconcileAttempt(String, String)
+Pitech.XR.ContentDelivery.BridgeLaunchContextReceiver :: ctor()
+Pitech.XR.ContentDelivery.BridgeLaunchContextReceiver :: method Void ReceiveLaunchContextJson(String)
+Pitech.XR.ContentDelivery.CatalogMode :: field Int32 value__
+Pitech.XR.ContentDelivery.CatalogMode :: static field CatalogMode Local
+Pitech.XR.ContentDelivery.CatalogMode :: static field CatalogMode Remote
+Pitech.XR.ContentDelivery.ContentDeliveryEnvironment :: field Int32 value__
+Pitech.XR.ContentDelivery.ContentDeliveryEnvironment :: static field ContentDeliveryEnvironment Development
+Pitech.XR.ContentDelivery.ContentDeliveryEnvironment :: static field ContentDeliveryEnvironment Production
+Pitech.XR.ContentDelivery.ContentDeliveryEnvironment :: static field ContentDeliveryEnvironment Staging
+Pitech.XR.ContentDelivery.ContentDeliveryProvider :: field Int32 value__
+Pitech.XR.ContentDelivery.ContentDeliveryProvider :: static field ContentDeliveryProvider CCD
+Pitech.XR.ContentDelivery.ContentDeliveryProvider :: static field ContentDeliveryProvider Custom
+Pitech.XR.ContentDelivery.ContentDeliveryProvider :: static field ContentDeliveryProvider None
+Pitech.XR.ContentDelivery.ContentDeliveryRuntimeService :: ctor(AddressablesModuleConfig)
+Pitech.XR.ContentDelivery.ContentDeliveryRuntimeService :: event Action<LaunchContext> OnLaunchContextResolved
+Pitech.XR.ContentDelivery.ContentDeliveryRuntimeService :: method Boolean TryGetCurrentContext(LaunchContext&)
+Pitech.XR.ContentDelivery.ContentDeliveryRuntimeService :: method Boolean TryReconcileAttempt(String, String)
+Pitech.XR.ContentDelivery.ContentDeliveryRuntimeService :: method Void Initialize()
+Pitech.XR.ContentDelivery.ContentDeliveryRuntimeService :: method Void SetLaunchContext(LaunchContext)
+Pitech.XR.ContentDelivery.ContentDeliveryRuntimeService :: method Void Shutdown()
+Pitech.XR.ContentDelivery.ContentDeliveryRuntimeService :: property Boolean IsReady { get; }
+Pitech.XR.ContentDelivery.ContentDeliveryRuntimeService :: property LaunchContext CurrentContext { get; }
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: ctor()
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Boolean autoCreateOverlayIfMissing
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Boolean deferSceneManagerUntilSpawn
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Boolean fallbackToManualInternalMetadata
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Boolean hideStatusOverlayAfterSpawn
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Boolean loadOnSceneStart
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Boolean promptBeforeDownload
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Boolean replaceExistingChildren
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Boolean restartSceneManagerAfterSpawn
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Boolean showRuntimeDialogs
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field ContentDeliveryStatusOverlay statusOverlay
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field ContentSourceMode contentSource
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field GameObject prefabAsset
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Int32 maxRetryAttempts
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field MonoBehaviour internalMetadataProvider
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field MonoBehaviour sceneManager
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field OnlineMetadataSource onlineMetadataSource
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field RuntimeTelemetryAdapter analyticsAdapter
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field String addressKey
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field String labId
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field String resolvedVersionId
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field String runtimeCatalogUrl
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: field Transform spawnParent
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: method Void ClearSpawnedContent()
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: method Void SetManualOnlineMetadata(String, String)
+Pitech.XR.ContentDelivery.ContentDeliverySpawner :: method Void SpawnNow()
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: ctor()
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field Boolean clearTextsOnHide
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field Boolean hideRootWhenHidden
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field Boolean visibleOnStart
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field Boolean warnIfBindingsMissing
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field Button primaryButton
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field Button secondaryButton
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field GameObject progressContainer
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field GameObject promptContainer
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field GameObject root
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field Image progressFillImage
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field RuntimeUiOverride runtimeUiOverride
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field Slider progressSlider
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field TMP_Text messageText
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field TMP_Text primaryButtonLabelText
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field TMP_Text progressText
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field TMP_Text secondaryButtonLabelText
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: field TMP_Text titleText
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: method IEnumerator WaitForChoice(String, String, String, String, Action<Int32>)
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: method Void Hide()
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: method Void ShowProgress(String, String, Single, String)
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: method Void ShowStatus(String, String)
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: nested type RuntimeUiOverride
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay :: property Boolean IsVisible { get; }
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: ctor()
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String cancelButton
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String checkingMessage
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String checkingTitle
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String contentReadyMessage
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String contentReadyTitle
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String downloadButton
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String downloadFailedErrorTemplate
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String downloadingMessage
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String downloadingTitle
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String issueTitle
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String launchFailedMessage
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String launchFailedTitle
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String loadFailedErrorTemplate
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String loadingMessage
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String loadingTitle
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String networkRequiredMessage
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String newContentTitle
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String remoteCatalogErrorTemplate
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String retryButton
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String updateAvailableMessageTemplate
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String updateAvailableWithVersionMessageTemplate
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String updateCheckErrorTemplate
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String useCachedButton
+Pitech.XR.ContentDelivery.ContentDeliveryStatusOverlay+RuntimeUiOverride :: field String useLocalButton
+Pitech.XR.ContentDelivery.ContentSourceMode :: field Int32 value__
+Pitech.XR.ContentDelivery.ContentSourceMode :: static field ContentSourceMode AutoOnlineWithLocalFallback
+Pitech.XR.ContentDelivery.ContentSourceMode :: static field ContentSourceMode LocalOnly
+Pitech.XR.ContentDelivery.ContentSourceMode :: static field ContentSourceMode OnlineOnly
+Pitech.XR.ContentDelivery.DefaultAddressablesConventionAdapter :: ctor()
+Pitech.XR.ContentDelivery.DefaultAddressablesConventionAdapter :: method Boolean TryParseLabId(String, String&)
+Pitech.XR.ContentDelivery.DefaultAddressablesConventionAdapter :: method String BuildGroupName(AddressablesModuleConfig, String)
+Pitech.XR.ContentDelivery.DefaultAddressablesConventionAdapter :: method Void ApplyReportConventions(PublishTransactionReportData)
+Pitech.XR.ContentDelivery.DefaultAddressablesConventionAdapter :: property String AdapterId { get; }
+Pitech.XR.ContentDelivery.Editor.AddressablesAdapterResolver :: static method IAddressablesConventionAdapter Resolve(AddressablesModuleConfig)
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: ctor()
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field Boolean dryRun
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field Boolean success
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field Int64 bundleSizeBytes
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field List<String> notes
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field String catalogHash
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field String contentHash
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field String internalBuildPath
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field String outputPath
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field String summary
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildResult :: field String uploadPath
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildService :: ctor()
+Pitech.XR.ContentDelivery.Editor.AddressablesBuildService :: method AddressablesBuildResult Build(AddressablesModuleConfig, Boolean, String)
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkFolderResult :: ctor()
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkFolderResult :: field Boolean dryRun
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkFolderResult :: field Boolean success
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkFolderResult :: field Int32 changedEntries
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkFolderResult :: field Int32 consideredAssets
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkFolderResult :: field List<String> preview
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkFolderResult :: field String folderPath
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkFolderResult :: field String groupName
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkFolderResult :: field String summary
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkPrefabResult :: ctor()
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkPrefabResult :: field Boolean createdRemoteGroup
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkPrefabResult :: field Boolean dryRun
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkPrefabResult :: field Boolean success
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkPrefabResult :: field String addressKey
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkPrefabResult :: field String groupName
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkPrefabResult :: field String prefabAssetPath
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkPrefabResult :: field String prefabGuid
+Pitech.XR.ContentDelivery.Editor.AddressablesMarkPrefabResult :: field String summary
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: ctor()
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method AddressablesMarkFolderResult MarkFolderAddressable(String, String, Boolean)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method AddressablesMarkPrefabResult MarkPrefabAddressable(AddressablesModuleConfig, String, GameObject, Boolean)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method AddressablesMarkPrefabResult MarkSceneAddressable(AddressablesModuleConfig, String, SceneAsset, Boolean)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method AddressablesModuleConfig EnsureConfigAsset(Boolean&, String&)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method AddressablesModuleConfig TryFindConfigAsset(String&)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method AddressablesSetupResult EnsureInitialized(String, String, String)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method Boolean EnsureDefineSymbol(String)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method Boolean HasInitializedAddressablesSettings()
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method Boolean IsPrefabMapped(AddressablesModuleConfig, String, GameObject, String&, String&)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method Boolean IsSceneMapped(AddressablesModuleConfig, String, SceneAsset, String&, String&)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: method Int32 CleanOtherLabGroups(AddressablesModuleConfig, String)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: static method String BuildCcdRemoteLoadPath(AddressablesModuleConfig, String, String, String)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: static method String BuildLocalLabVersionRoot(AddressablesModuleConfig, String, String, String)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: static method String ComputeAddressKey(String)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: static method String ComputeSceneAddressKey(String)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: static method String NormalizeVersionSegment(String)
+Pitech.XR.ContentDelivery.Editor.AddressablesService :: static method String ResolveCcdRemoteLoadPathTemplate(AddressablesModuleConfig)
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: ctor()
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field Boolean createdConfigAsset
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field Boolean createdProfile
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field Boolean createdRemoteGroup
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field Boolean createdSettingsAsset
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field Boolean success
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field List<String> notes
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field String capabilitySummary
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field String configAssetPath
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field String profileName
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field String remoteGroupName
+Pitech.XR.ContentDelivery.Editor.AddressablesSetupResult :: field String summary
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationResult :: ctor()
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationResult :: field Boolean success
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationResult :: field Int32 errorCount
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationResult :: field Int32 warningCount
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationResult :: field List<PublishCheckEntry> checks
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationResult :: field String expectedGroupName
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationResult :: field String profileName
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationResult :: field String summary
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationResult :: method Void Add(PublishCheckEntry)
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationService :: ctor()
+Pitech.XR.ContentDelivery.Editor.AddressablesValidationService :: method AddressablesValidationResult Validate(AddressablesModuleConfig, String)
+Pitech.XR.ContentDelivery.Editor.ContentDeliveryCapability :: property Boolean HasAddressablesPackage { get; }
+Pitech.XR.ContentDelivery.Editor.ContentDeliveryCapability :: property Boolean HasCcdPackage { get; }
+Pitech.XR.ContentDelivery.Editor.ContentDeliveryCapability :: static method Boolean HasCompilationDefine(String)
+Pitech.XR.ContentDelivery.Editor.ContentDeliveryCapability :: static method String GetCapabilitySummary()
+Pitech.XR.ContentDelivery.Editor.ContentDeliverySpawnerEditor :: ctor()
+Pitech.XR.ContentDelivery.Editor.ContentDeliverySpawnerEditor :: method Void OnInspectorGUI()
+Pitech.XR.ContentDelivery.Editor.HealthOnAddressablesAdapter :: ctor()
+Pitech.XR.ContentDelivery.Editor.HealthOnAddressablesAdapter :: method Boolean TryParseLabId(String, String&)
+Pitech.XR.ContentDelivery.Editor.HealthOnAddressablesAdapter :: method String BuildGroupName(AddressablesModuleConfig, String)
+Pitech.XR.ContentDelivery.Editor.HealthOnAddressablesAdapter :: method Void ApplyReportConventions(PublishTransactionReportData)
+Pitech.XR.ContentDelivery.Editor.HealthOnAddressablesAdapter :: property String AdapterId { get; }
+Pitech.XR.ContentDelivery.Editor.PublishReportService :: ctor()
+Pitech.XR.ContentDelivery.Editor.PublishReportService :: method PublishReportWriteResult Save(PublishTransactionReportData, AddressablesModuleConfig)
+Pitech.XR.ContentDelivery.Editor.PublishReportService :: method PublishTransactionReportData CreateDraft(AddressablesModuleConfig, String, String, String, String)
+Pitech.XR.ContentDelivery.Editor.PublishReportService :: method Void ApplyBuildResult(PublishTransactionReportData, AddressablesBuildResult, String)
+Pitech.XR.ContentDelivery.Editor.PublishReportService :: method Void ApplyBuildStart(PublishTransactionReportData, String)
+Pitech.XR.ContentDelivery.Editor.PublishReportService :: method Void ApplyValidation(PublishTransactionReportData, AddressablesValidationResult, String)
+Pitech.XR.ContentDelivery.Editor.PublishReportWriteResult :: ctor()
+Pitech.XR.ContentDelivery.Editor.PublishReportWriteResult :: field Boolean success
+Pitech.XR.ContentDelivery.Editor.PublishReportWriteResult :: field String jsonPath
+Pitech.XR.ContentDelivery.Editor.PublishReportWriteResult :: field String summary
+Pitech.XR.ContentDelivery.IAddressablesConventionAdapter :: method Boolean TryParseLabId(String, String&)
+Pitech.XR.ContentDelivery.IAddressablesConventionAdapter :: method String BuildGroupName(AddressablesModuleConfig, String)
+Pitech.XR.ContentDelivery.IAddressablesConventionAdapter :: method Void ApplyReportConventions(PublishTransactionReportData)
+Pitech.XR.ContentDelivery.IAddressablesConventionAdapter :: property String AdapterId { get; }
+Pitech.XR.ContentDelivery.IContentDeliveryMetadataProvider :: method Boolean TryResolveLabMetadata(String, String&, String&)
+Pitech.XR.ContentDelivery.IContentDeliveryService :: event Action<LaunchContext> OnLaunchContextResolved
+Pitech.XR.ContentDelivery.IContentDeliveryService :: method Boolean TryGetCurrentContext(LaunchContext&)
+Pitech.XR.ContentDelivery.IContentDeliveryService :: method Boolean TryReconcileAttempt(String, String)
+Pitech.XR.ContentDelivery.IContentDeliveryService :: method Void SetLaunchContext(LaunchContext)
+Pitech.XR.ContentDelivery.IContentDeliveryService :: property Boolean IsReady { get; }
+Pitech.XR.ContentDelivery.IContentDeliveryService :: property LaunchContext CurrentContext { get; }
+Pitech.XR.ContentDelivery.ILaunchContextProvider :: method Boolean TryBuildLaunchContext(AddressablesModuleConfig, LaunchContext&)
+Pitech.XR.ContentDelivery.LaunchContext :: ctor()
+Pitech.XR.ContentDelivery.LaunchContext :: field Boolean allowOfflineCacheLaunch
+Pitech.XR.ContentDelivery.LaunchContext :: field Boolean allowOlderCachedSameLab
+Pitech.XR.ContentDelivery.LaunchContext :: field Boolean launchedFromCache
+Pitech.XR.ContentDelivery.LaunchContext :: field Boolean networkRequiredIfCacheMiss
+Pitech.XR.ContentDelivery.LaunchContext :: field LaunchSource source
+Pitech.XR.ContentDelivery.LaunchContext :: field String addressKey
+Pitech.XR.ContentDelivery.LaunchContext :: field String attemptId
+Pitech.XR.ContentDelivery.LaunchContext :: field String contractVersion
+Pitech.XR.ContentDelivery.LaunchContext :: field String idempotencyKey
+Pitech.XR.ContentDelivery.LaunchContext :: field String labId
+Pitech.XR.ContentDelivery.LaunchContext :: field String launchRequestId
+Pitech.XR.ContentDelivery.LaunchContext :: field String requestedAt
+Pitech.XR.ContentDelivery.LaunchContext :: field String resolvedVersionId
+Pitech.XR.ContentDelivery.LaunchContext :: field String runtimeUrl
+Pitech.XR.ContentDelivery.LaunchContextFactory :: static method LaunchContext CreateDirectContext(AddressablesModuleConfig)
+Pitech.XR.ContentDelivery.LaunchContextFactory :: static method LaunchContext CreateUnityMenuContext(String, String, String, AddressablesModuleConfig)
+Pitech.XR.ContentDelivery.LaunchContextRegistry :: static method Boolean TryConsumeExternalContext(LaunchContext&)
+Pitech.XR.ContentDelivery.LaunchContextRegistry :: static method Void SetExternalContext(LaunchContext)
+Pitech.XR.ContentDelivery.LaunchContextReporter :: ctor()
+Pitech.XR.ContentDelivery.LaunchContextReporter :: field Boolean logPayloads
+Pitech.XR.ContentDelivery.LaunchContextReporter :: field RuntimeTelemetryAdapter telemetryAdapter
+Pitech.XR.ContentDelivery.LaunchContextReporter :: field UnityEvent<String> onLifecycleJson
+Pitech.XR.ContentDelivery.LaunchContextReporter :: method Void EmitExperienceAbandoned(Single)
+Pitech.XR.ContentDelivery.LaunchLifecyclePayload :: ctor()
+Pitech.XR.ContentDelivery.LaunchLifecyclePayload :: field LaunchResolvedData data
+Pitech.XR.ContentDelivery.LaunchLifecyclePayload :: field String attempt_id
+Pitech.XR.ContentDelivery.LaunchLifecyclePayload :: field String contractVersion
+Pitech.XR.ContentDelivery.LaunchLifecyclePayload :: field String event
+Pitech.XR.ContentDelivery.LaunchLifecyclePayload :: field String idempotency_key
+Pitech.XR.ContentDelivery.LaunchLifecyclePayload :: field String launchRequestId
+Pitech.XR.ContentDelivery.LaunchLifecyclePayload :: field String timestamp
+Pitech.XR.ContentDelivery.LaunchResolvedData :: ctor()
+Pitech.XR.ContentDelivery.LaunchResolvedData :: field Int64 durationMs
+Pitech.XR.ContentDelivery.LaunchResolvedData :: field Single sessionDurationSeconds
+Pitech.XR.ContentDelivery.LaunchResolvedData :: field String addressKey
+Pitech.XR.ContentDelivery.LaunchResolvedData :: field String labId
+Pitech.XR.ContentDelivery.LaunchResolvedData :: field String resolvedVersionId
+Pitech.XR.ContentDelivery.LaunchResolvedData :: field String runtimeUrl
+Pitech.XR.ContentDelivery.LaunchSource :: field Int32 value__
+Pitech.XR.ContentDelivery.LaunchSource :: static field LaunchSource Direct
+Pitech.XR.ContentDelivery.LaunchSource :: static field LaunchSource ReactNativeBridge
+Pitech.XR.ContentDelivery.LaunchSource :: static field LaunchSource UnityMenu
+Pitech.XR.ContentDelivery.OnlineMetadataSource :: field Int32 value__
+Pitech.XR.ContentDelivery.OnlineMetadataSource :: static field OnlineMetadataSource ExternalLaunchContext
+Pitech.XR.ContentDelivery.OnlineMetadataSource :: static field OnlineMetadataSource InternalUnity
+Pitech.XR.ContentDelivery.PublishActorInfo :: ctor()
+Pitech.XR.ContentDelivery.PublishActorInfo :: field String devkitVersion
+Pitech.XR.ContentDelivery.PublishActorInfo :: field String editorVersion
+Pitech.XR.ContentDelivery.PublishActorInfo :: field String machineId
+Pitech.XR.ContentDelivery.PublishActorInfo :: field String userId
+Pitech.XR.ContentDelivery.PublishAddressablesInfo :: ctor()
+Pitech.XR.ContentDelivery.PublishAddressablesInfo :: field String addressKey
+Pitech.XR.ContentDelivery.PublishAddressablesInfo :: field String buildTarget
+Pitech.XR.ContentDelivery.PublishAddressablesInfo :: field String catalogMode
+Pitech.XR.ContentDelivery.PublishAddressablesInfo :: field String groupName
+Pitech.XR.ContentDelivery.PublishAddressablesInfo :: field String groupPolicy
+Pitech.XR.ContentDelivery.PublishAddressablesInfo :: field String profileName
+Pitech.XR.ContentDelivery.PublishAddressablesInfo :: field String remoteLoadPathTemplate
+Pitech.XR.ContentDelivery.PublishArtifactsInfo :: ctor()
+Pitech.XR.ContentDelivery.PublishArtifactsInfo :: field Int64 bundleSizeBytes
+Pitech.XR.ContentDelivery.PublishArtifactsInfo :: field String buildOutputPath
+Pitech.XR.ContentDelivery.PublishArtifactsInfo :: field String catalogHash
+Pitech.XR.ContentDelivery.PublishArtifactsInfo :: field String contentHash
+Pitech.XR.ContentDelivery.PublishArtifactsInfo :: field String reportJsonPath
+Pitech.XR.ContentDelivery.PublishCcdInfo :: ctor()
+Pitech.XR.ContentDelivery.PublishCcdInfo :: field String badge
+Pitech.XR.ContentDelivery.PublishCcdInfo :: field String bucketId
+Pitech.XR.ContentDelivery.PublishCcdInfo :: field String entryUrl
+Pitech.XR.ContentDelivery.PublishCcdInfo :: field String environment
+Pitech.XR.ContentDelivery.PublishCcdInfo :: field String projectId
+Pitech.XR.ContentDelivery.PublishCcdInfo :: field String provider
+Pitech.XR.ContentDelivery.PublishCcdInfo :: field String releaseId
+Pitech.XR.ContentDelivery.PublishCheckEntry :: ctor()
+Pitech.XR.ContentDelivery.PublishCheckEntry :: field Boolean passed
+Pitech.XR.ContentDelivery.PublishCheckEntry :: field String code
+Pitech.XR.ContentDelivery.PublishCheckEntry :: field String fixHint
+Pitech.XR.ContentDelivery.PublishCheckEntry :: field String message
+Pitech.XR.ContentDelivery.PublishCheckEntry :: field String scope
+Pitech.XR.ContentDelivery.PublishCheckEntry :: field String severity
+Pitech.XR.ContentDelivery.PublishCheckSeverity :: static field String Error
+Pitech.XR.ContentDelivery.PublishCheckSeverity :: static field String Info
+Pitech.XR.ContentDelivery.PublishCheckSeverity :: static field String Warning
+Pitech.XR.ContentDelivery.PublishErrorEntry :: ctor()
+Pitech.XR.ContentDelivery.PublishErrorEntry :: field Boolean retryable
+Pitech.XR.ContentDelivery.PublishErrorEntry :: field Boolean terminal
+Pitech.XR.ContentDelivery.PublishErrorEntry :: field String code
+Pitech.XR.ContentDelivery.PublishErrorEntry :: field String details
+Pitech.XR.ContentDelivery.PublishErrorEntry :: field String message
+Pitech.XR.ContentDelivery.PublishErrorEntry :: field String phase
+Pitech.XR.ContentDelivery.PublishLabInfo :: ctor()
+Pitech.XR.ContentDelivery.PublishLabInfo :: field String labId
+Pitech.XR.ContentDelivery.PublishLabInfo :: field String labVersionId
+Pitech.XR.ContentDelivery.PublishLabInfo :: field String scenarioSchemaVersion
+Pitech.XR.ContentDelivery.PublishLabInfo :: field String tenantId
+Pitech.XR.ContentDelivery.PublishLabInfo :: field String versionNumber
+Pitech.XR.ContentDelivery.PublishRuntimePolicyInfo :: ctor()
+Pitech.XR.ContentDelivery.PublishRuntimePolicyInfo :: field Boolean allowOfflineCacheLaunch
+Pitech.XR.ContentDelivery.PublishRuntimePolicyInfo :: field Boolean allowOlderCachedSameLab
+Pitech.XR.ContentDelivery.PublishRuntimePolicyInfo :: field Boolean networkRequiredIfCacheMiss
+Pitech.XR.ContentDelivery.PublishStateHistoryEntry :: ctor()
+Pitech.XR.ContentDelivery.PublishStateHistoryEntry :: field String actor
+Pitech.XR.ContentDelivery.PublishStateHistoryEntry :: field String at
+Pitech.XR.ContentDelivery.PublishStateHistoryEntry :: field String fromState
+Pitech.XR.ContentDelivery.PublishStateHistoryEntry :: field String reason
+Pitech.XR.ContentDelivery.PublishStateHistoryEntry :: field String toState
+Pitech.XR.ContentDelivery.PublishTransactionFactory :: static method PublishTransactionReportData CreateDraft(String, String)
+Pitech.XR.ContentDelivery.PublishTransactionIdempotency :: static method String BuildKey(String, String, String, String)
+Pitech.XR.ContentDelivery.PublishTransactionIdempotency :: static method String ComputeContentFingerprint(String)
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: ctor()
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field List<PublishCheckEntry> checks
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field List<PublishErrorEntry> errors
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field List<PublishStateHistoryEntry> stateHistory
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field PublishActorInfo actor
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field PublishAddressablesInfo addressables
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field PublishArtifactsInfo artifacts
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field PublishCcdInfo ccd
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field PublishLabInfo lab
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field PublishRuntimePolicyInfo runtimePolicy
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field String createdAt
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field String idempotencyKey
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field String schemaVersion
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field String source
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field String state
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field String transactionId
+Pitech.XR.ContentDelivery.PublishTransactionReportData :: field String updatedAt
+Pitech.XR.ContentDelivery.PublishTransactionSchema :: static field String Version
+Pitech.XR.ContentDelivery.PublishTransactionSource :: static field String GuidedSetup
+Pitech.XR.ContentDelivery.PublishTransactionSource :: static field String HiddenBuild
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String ActivateRequested
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Activated
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String BuildRequested
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Building
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Built
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Cancelled
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Draft
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String FailedRetryable
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String FailedTerminal
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String IngestRequested
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Ingested
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Ingesting
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String PublishRequested
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Published
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Publishing
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Validated
+Pitech.XR.ContentDelivery.PublishTransactionState :: static field String Validating
+Pitech.XR.ContentDelivery.PublishTransactionStateMachine :: static method Boolean CanTransition(String, String)
+Pitech.XR.ContentDelivery.PublishTransactionStateMachine :: static method Boolean TryTransition(PublishTransactionReportData, String, String, String)
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: ctor()
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field Boolean autoEmitCompletedOnScenarioFinish
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field Boolean autoFlushStepEvents
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field Boolean autoTrackScenarioSteps
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field Boolean emitAbandonedOnDestroy
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field Boolean logPayloads
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field Int32 maxStepEventsPerBatch
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field MonoBehaviour scenarioRunner
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field Single stepFlushIntervalSeconds
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field String deviceType
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field String scenarioConfigHash
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field String scenarioId
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field String scenarioSchemaVersion
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: field UnityEvent<String> onTelemetryBatchJson
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void EmitAttemptAbandoned(Single)
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void EmitAttemptCompleted()
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void EmitAttemptFailed(String)
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void FlushStepEvents()
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void TrackDownloadProgress(Int64, Int64)
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void TrackError(String, String, Boolean)
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void TrackHintUsed(String, String)
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void TrackInteraction(String, String, String, String)
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void TrackReset(String, String)
+Pitech.XR.ContentDelivery.RuntimeTelemetryAdapter :: method Void TrackStepCompleted(String, String)
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: ctor()
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field Boolean is_offline_submission
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field Int32 critical_error_count
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field Int32 duration_seconds
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field Int32 hints_used
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field Int32 resets_used
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field RuntimeTelemetryAttemptSessionData session_data
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String attempt_id
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String completed_at
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String completion_status
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String device_type
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String idempotency_key
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String lab_id
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String lab_version_id
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String launchRequestId
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String scenario_config_hash
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String scenario_id
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String scenario_schema_version
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptPayload :: field String started_at
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptSessionData :: ctor()
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptSessionData :: field Int32 critical_error_count
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptSessionData :: field Int32 hints_used
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptSessionData :: field Int32 resets_used
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptSessionData :: field String completion_reason
+Pitech.XR.ContentDelivery.RuntimeTelemetryAttemptSessionData :: field String source
+Pitech.XR.ContentDelivery.RuntimeTelemetryBatchPayload :: ctor()
+Pitech.XR.ContentDelivery.RuntimeTelemetryBatchPayload :: field RuntimeTelemetryAttemptPayload[] attempts
+Pitech.XR.ContentDelivery.RuntimeTelemetryBatchPayload :: field RuntimeTelemetryStepEventPayload[] step_events
+Pitech.XR.ContentDelivery.RuntimeTelemetryBatchPayload :: field String contractVersion
+Pitech.XR.ContentDelivery.RuntimeTelemetryEventData :: ctor()
+Pitech.XR.ContentDelivery.RuntimeTelemetryEventData :: field Boolean critical
+Pitech.XR.ContentDelivery.RuntimeTelemetryEventData :: field Int64 downloaded_bytes
+Pitech.XR.ContentDelivery.RuntimeTelemetryEventData :: field Int64 total_bytes
+Pitech.XR.ContentDelivery.RuntimeTelemetryEventData :: field Single progress_percent
+Pitech.XR.ContentDelivery.RuntimeTelemetryEventData :: field String action
+Pitech.XR.ContentDelivery.RuntimeTelemetryEventData :: field String detail
+Pitech.XR.ContentDelivery.RuntimeTelemetryEventData :: field String step_guid
+Pitech.XR.ContentDelivery.RuntimeTelemetryEventData :: field String step_type
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: ctor()
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: field Int32 sequence_number
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: field RuntimeTelemetryEventData event_data
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: field String attempt_id
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: field String attempt_idempotency_key
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: field String client_timestamp
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: field String event_type
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: field String idempotency_key
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: field String lab_id
+Pitech.XR.ContentDelivery.RuntimeTelemetryStepEventPayload :: field String launchRequestId
+Pitech.XR.ContentDelivery.SerializedLaunchContextProvider :: ctor()
+Pitech.XR.ContentDelivery.SerializedLaunchContextProvider :: field LaunchSource source
+Pitech.XR.ContentDelivery.SerializedLaunchContextProvider :: field String addressKey
+Pitech.XR.ContentDelivery.SerializedLaunchContextProvider :: field String labId
+Pitech.XR.ContentDelivery.SerializedLaunchContextProvider :: field String resolvedVersionId
+Pitech.XR.ContentDelivery.SerializedLaunchContextProvider :: field String runtimeUrl
+Pitech.XR.ContentDelivery.SerializedLaunchContextProvider :: method Boolean TryBuildLaunchContext(AddressablesModuleConfig, LaunchContext&)
+Pitech.XR.ContentDelivery.TelemetryAutoWirer :: ctor()
+Pitech.XR.ContentDelivery.TelemetryAutoWirer :: field Boolean emitAbandonedOnDestroy
+Pitech.XR.ContentDelivery.TelemetryAutoWirer :: field Boolean logPayloads
+Pitech.XR.ContentDelivery.TelemetryAutoWirer :: field String deviceType
+Pitech.XR.ContentDelivery.Timestamp :: static method String UtcNowIso8601()
+Pitech.XR.Core.Editor.AddressablesBuilderWindow :: ctor()
+Pitech.XR.Core.Editor.AddressablesBuilderWindow :: static method Void Open()
+Pitech.XR.Core.Editor.AuthorPage :: ctor()
+Pitech.XR.Core.Editor.AuthorPage :: method Void BuildUI(VisualElement)
+Pitech.XR.Core.Editor.AuthorPage :: property String Title { get; }
+Pitech.XR.Core.Editor.DeliverPage :: ctor()
+Pitech.XR.Core.Editor.DeliverPage :: method Void BuildUI(VisualElement)
+Pitech.XR.Core.Editor.DeliverPage :: property String Title { get; }
+Pitech.XR.Core.Editor.DevBlockItem :: ctor()
+Pitech.XR.Core.Editor.DevBlockItem :: field GameObject prefab
+Pitech.XR.Core.Editor.DevBlockItem :: field List<String> suggestedManagerComponentTypes
+Pitech.XR.Core.Editor.DevBlockItem :: field List<String> tags
+Pitech.XR.Core.Editor.DevBlockItem :: field String category
+Pitech.XR.Core.Editor.DevBlockItem :: field String description
+Pitech.XR.Core.Editor.DevBlockItem :: field String displayName
+Pitech.XR.Core.Editor.DevBlockItem :: property Boolean HasPrefab { get; }
+Pitech.XR.Core.Editor.DevBlockItem :: property IEnumerable<String> TagsSafe { get; }
+Pitech.XR.Core.Editor.DevBlockItem :: property String EffectiveName { get; }
+Pitech.XR.Core.Editor.DevBlocksWindow :: ctor()
+Pitech.XR.Core.Editor.DevBlocksWindow :: static method Void Open()
+Pitech.XR.Core.Editor.DevKitChecks :: static field String[] CoveredAssemblies
+Pitech.XR.Core.Editor.DevKitChecks :: static method String Summarize(DevKitGateResult)
+Pitech.XR.Core.Editor.DevKitChecks :: static method Void RunAll()
+Pitech.XR.Core.Editor.DevKitChecks :: static method Void RunEditModeGate(Action<DevKitGateResult>)
+Pitech.XR.Core.Editor.DevKitGateResult :: ctor()
+Pitech.XR.Core.Editor.DevKitGateResult :: field Int32 failed
+Pitech.XR.Core.Editor.DevKitGateResult :: field Int32 inconclusive
+Pitech.XR.Core.Editor.DevKitGateResult :: field Int32 passed
+Pitech.XR.Core.Editor.DevKitGateResult :: field Int32 skipped
+Pitech.XR.Core.Editor.DevKitGateResult :: field List<String> failures
+Pitech.XR.Core.Editor.DevKitGateResult :: field List<String> inconclusiveNames
+Pitech.XR.Core.Editor.DevKitGateResult :: property Boolean Green { get; }
+Pitech.XR.Core.Editor.DevKitGateResult :: property Boolean RanNothing { get; }
+Pitech.XR.Core.Editor.DevKitGateResult :: property Int32 Total { get; }
+Pitech.XR.Core.Editor.DevkitHubWindow :: ctor()
+Pitech.XR.Core.Editor.DevkitHubWindow :: static method Void Open()
+Pitech.XR.Core.Editor.DevkitHubWindow :: static method Void TryRefresh()
+Pitech.XR.Core.Editor.EvaluateChanges :: ctor()
+Pitech.XR.Core.Editor.EvaluateChanges :: static method Void Open()
+Pitech.XR.Core.Editor.IDevkitPage :: method Void BuildUI(VisualElement)
+Pitech.XR.Core.Editor.IDevkitPage :: property String Title { get; }
+Pitech.XR.Core.Editor.LocalizationPage :: ctor()
+Pitech.XR.Core.Editor.LocalizationPage :: method Void BuildUI(VisualElement)
+Pitech.XR.Core.Editor.LocalizationPage :: property String Title { get; }
+Pitech.XR.Core.Editor.MaintainPage :: ctor()
+Pitech.XR.Core.Editor.MaintainPage :: method Void BuildUI(VisualElement)
+Pitech.XR.Core.Editor.MaintainPage :: property String Title { get; }
+Pitech.XR.Core.Editor.QuizService :: ctor()
+Pitech.XR.Core.Editor.QuizService :: method Object CreateAsset()
+Pitech.XR.Core.Editor.QuizService :: method Void AddQuizToScene()
+Pitech.XR.Core.Editor.ReferencePage :: ctor()
+Pitech.XR.Core.Editor.ReferencePage :: method Void BuildUI(VisualElement)
+Pitech.XR.Core.Editor.ReferencePage :: property String Title { get; }
+Pitech.XR.Core.Editor.SceneCategoriesWindow :: ctor()
+Pitech.XR.Core.Editor.SceneCategoriesWindow :: static method Void Open()
+Pitech.XR.Core.Editor.SetupPage :: ctor()
+Pitech.XR.Core.Editor.SetupPage :: method Void BuildUI(VisualElement)
+Pitech.XR.Core.Editor.SetupPage :: property String Title { get; }
+Pitech.XR.Core.ISceneRunnerControl :: method Void Restart()
+Pitech.XR.Core.ISceneRunnerControl :: property Boolean AutoStart { get; set; }
+Pitech.XR.Core.ISceneRunnerControl :: property Int32 CurrentStepIndex { get; }
+Pitech.XR.Core.IXRService :: method Void Initialize()
+Pitech.XR.Core.IXRService :: method Void Shutdown()
+Pitech.XR.Core.ScenarioFactKeys :: static field String CompletedAtTickSuffix
+Pitech.XR.Core.ScenarioFactKeys :: static field String CompletedBySuffix
+Pitech.XR.Core.ScenarioFactKeys :: static field String DoneSuffix
+Pitech.XR.Core.ScenarioFactKeys :: static field String FlowStepKeyPrefix
+Pitech.XR.Core.ScenarioFactKeys :: static field String OutcomeSuffix
+Pitech.XR.Core.ScenarioFactKeys :: static field String StepCompleted
+Pitech.XR.Core.ScenarioFactKeys :: static field String StepKeyPrefix
+Pitech.XR.Core.ScenarioFactKeys :: static method String FlowStep(String)
+Pitech.XR.Core.ScenarioFactKeys :: static method String StepCompletedAtTick(String)
+Pitech.XR.Core.ScenarioFactKeys :: static method String StepCompletedBy(String)
+Pitech.XR.Core.ScenarioFactKeys :: static method String StepDone(String)
+Pitech.XR.Core.ScenarioFactKeys :: static method String StepOutcome(String)
+Pitech.XR.Core.XRServices :: static method Boolean TryGet(T&)
+Pitech.XR.Core.XRServices :: static method T Get()
+Pitech.XR.Core.XRServices :: static method Void InitializeAll()
+Pitech.XR.Core.XRServices :: static method Void Register(T)
+Pitech.XR.Core.XRServices :: static method Void ShutdownAll()
+Pitech.XR.Editor.Quiz.QuizDefaultUIPrefabFactory :: static method Void CopyDefaultPrefabsToProject()
+Pitech.XR.Interactables.Editor.MakeGrabbableWindow :: ctor()
+Pitech.XR.Interactables.Editor.MakeGrabbableWindow :: static method Void Open(GameObject)
+Pitech.XR.Interactables.Editor.SelectionListsEditor :: ctor()
+Pitech.XR.Interactables.Editor.SelectionListsEditor :: method Void OnInspectorGUI()
+Pitech.XR.Interactables.SelectableTarget :: ctor()
+Pitech.XR.Interactables.SelectableTarget :: field SelectablesManager manager
+Pitech.XR.Interactables.SelectableTarget :: method Void OnPointerDown(PointerEventData)
+Pitech.XR.Interactables.SelectablesManager :: ctor()
+Pitech.XR.Interactables.SelectablesManager :: event Action SelectionChanged
+Pitech.XR.Interactables.SelectablesManager :: field Boolean autoCollectInChildren
+Pitech.XR.Interactables.SelectablesManager :: field Boolean forceDesktopOnMobile
+Pitech.XR.Interactables.SelectablesManager :: field Boolean pickingEnabled
+Pitech.XR.Interactables.SelectablesManager :: field Boolean tintSelected
+Pitech.XR.Interactables.SelectablesManager :: field Boolean useEmission
+Pitech.XR.Interactables.SelectablesManager :: field Boolean xrIsVrOnlyIfMetaPresent
+Pitech.XR.Interactables.SelectablesManager :: field Color tintColor
+Pitech.XR.Interactables.SelectablesManager :: field LayerMask selectableLayers
+Pitech.XR.Interactables.SelectablesManager :: field List<Entry> items
+Pitech.XR.Interactables.SelectablesManager :: field PlatformMode mode
+Pitech.XR.Interactables.SelectablesManager :: field Transform collectRoot
+Pitech.XR.Interactables.SelectablesManager :: method Void ClearAll(Boolean)
+Pitech.XR.Interactables.SelectablesManager :: method Void CollectFromChildren()
+Pitech.XR.Interactables.SelectablesManager :: method Void HandlePointerDown(Collider)
+Pitech.XR.Interactables.SelectablesManager :: method Void MetaSelect(GameObject)
+Pitech.XR.Interactables.SelectablesManager :: method Void MetaSelectCollider(Collider)
+Pitech.XR.Interactables.SelectablesManager :: method Void MetaUnselect(GameObject)
+Pitech.XR.Interactables.SelectablesManager :: method Void SetAll(Boolean)
+Pitech.XR.Interactables.SelectablesManager :: method Void Toggle(Collider)
+Pitech.XR.Interactables.SelectablesManager :: method Void Toggle(Int32)
+Pitech.XR.Interactables.SelectablesManager :: nested type Entry
+Pitech.XR.Interactables.SelectablesManager :: nested type MetaSelectRelay
+Pitech.XR.Interactables.SelectablesManager :: nested type PlatformMode
+Pitech.XR.Interactables.SelectablesManager :: property IReadOnlyCollection<Int32> SelectedIds { get; }
+Pitech.XR.Interactables.SelectablesManager+Entry :: ctor()
+Pitech.XR.Interactables.SelectablesManager+Entry :: field Collider collider
+Pitech.XR.Interactables.SelectablesManager+Entry :: field GameObject highlight
+Pitech.XR.Interactables.SelectablesManager+MetaSelectRelay :: ctor()
+Pitech.XR.Interactables.SelectablesManager+MetaSelectRelay :: field SelectablesManager manager
+Pitech.XR.Interactables.SelectablesManager+MetaSelectRelay :: method Void CallSelect()
+Pitech.XR.Interactables.SelectablesManager+MetaSelectRelay :: method Void CallUnselect()
+Pitech.XR.Interactables.SelectablesManager+PlatformMode :: field Int32 value__
+Pitech.XR.Interactables.SelectablesManager+PlatformMode :: static field PlatformMode Auto
+Pitech.XR.Interactables.SelectablesManager+PlatformMode :: static field PlatformMode ForceDesktop
+Pitech.XR.Interactables.SelectablesManager+PlatformMode :: static field PlatformMode ForceVRMeta
+Pitech.XR.Interactables.SelectionList :: ctor()
+Pitech.XR.Interactables.SelectionList :: field Animator buttonAnimator
+Pitech.XR.Interactables.SelectionList :: field Boolean hasGraphic
+Pitech.XR.Interactables.SelectionList :: field Boolean isCompleted
+Pitech.XR.Interactables.SelectionList :: field Button cachedButton
+Pitech.XR.Interactables.SelectionList :: field Color originalColor
+Pitech.XR.Interactables.SelectionList :: field GameObject buttonRoot
+Pitech.XR.Interactables.SelectionList :: field GameObject infoPanel
+Pitech.XR.Interactables.SelectionList :: field Graphic cachedGraphic
+Pitech.XR.Interactables.SelectionList :: field List<Collider> correct
+Pitech.XR.Interactables.SelectionList :: field String name
+Pitech.XR.Interactables.SelectionList :: field String triggerComeForward
+Pitech.XR.Interactables.SelectionList :: field String triggerCompleted
+Pitech.XR.Interactables.SelectionList :: field String triggerGoBack
+Pitech.XR.Interactables.SelectionList :: field TMP_Text title
+Pitech.XR.Interactables.SelectionList :: method Boolean IsCorrect(Int32)
+Pitech.XR.Interactables.SelectionList :: method Void CacheButtonGraphic()
+Pitech.XR.Interactables.SelectionList :: method Void EnsureCache()
+Pitech.XR.Interactables.SelectionList :: method Void Fire(String)
+Pitech.XR.Interactables.SelectionList :: method Void RefreshLabel()
+Pitech.XR.Interactables.SelectionList :: property Int32 CorrectCount { get; }
+Pitech.XR.Interactables.SelectionLists :: ctor()
+Pitech.XR.Interactables.SelectionLists :: event Action OnSelectionChanged
+Pitech.XR.Interactables.SelectionLists :: field Boolean useButtonColors
+Pitech.XR.Interactables.SelectionLists :: field Button completeButton
+Pitech.XR.Interactables.SelectionLists :: field Button infoButton
+Pitech.XR.Interactables.SelectionLists :: field Button retryButton
+Pitech.XR.Interactables.SelectionLists :: field Color buttonCompletedColor
+Pitech.XR.Interactables.SelectionLists :: field Color buttonNormalColor
+Pitech.XR.Interactables.SelectionLists :: field Color buttonSelectedColor
+Pitech.XR.Interactables.SelectionLists :: field List<SelectionList> lists
+Pitech.XR.Interactables.SelectionLists :: field SelectablesManager selectables
+Pitech.XR.Interactables.SelectionLists :: field String textCorrect
+Pitech.XR.Interactables.SelectionLists :: field String textPrompt
+Pitech.XR.Interactables.SelectionLists :: field String textRetry
+Pitech.XR.Interactables.SelectionLists :: field String textStart
+Pitech.XR.Interactables.SelectionLists :: field String textWrong
+Pitech.XR.Interactables.SelectionLists :: field TMP_Text feedback
+Pitech.XR.Interactables.SelectionLists :: method Evaluation EvaluateActive()
+Pitech.XR.Interactables.SelectionLists :: method Int32 ShowList(Int32, Boolean)
+Pitech.XR.Interactables.SelectionLists :: method Int32 ShowList(String, Boolean)
+Pitech.XR.Interactables.SelectionLists :: method Void ActivateList(Int32)
+Pitech.XR.Interactables.SelectionLists :: method Void ActivateListByName(String)
+Pitech.XR.Interactables.SelectionLists :: method Void CompleteActive()
+Pitech.XR.Interactables.SelectionLists :: method Void HideAllInfoPanels()
+Pitech.XR.Interactables.SelectionLists :: method Void NotifySelectionChanged()
+Pitech.XR.Interactables.SelectionLists :: method Void ResetActive()
+Pitech.XR.Interactables.SelectionLists :: method Void RetryActive()
+Pitech.XR.Interactables.SelectionLists :: method Void ShowActiveInfo()
+Pitech.XR.Interactables.SelectionLists :: nested type Evaluation
+Pitech.XR.Interactables.SelectionLists :: property Int32 ActiveIndex { get; }
+Pitech.XR.Interactables.SelectionLists :: property Int32 ActiveTotalCorrect { get; }
+Pitech.XR.Interactables.SelectionLists :: property Int32 Count { get; }
+Pitech.XR.Interactables.SelectionLists+Evaluation :: field Boolean allCorrectSelected
+Pitech.XR.Interactables.SelectionLists+Evaluation :: field Int32 selectedCorrect
+Pitech.XR.Interactables.SelectionLists+Evaluation :: field Int32 selectedTotal
+Pitech.XR.Interactables.SelectionLists+Evaluation :: field Int32 selectedWrong
+Pitech.XR.Interactables.SelectionLists+Evaluation :: field Int32 totalCorrect
+Pitech.XR.Quiz.Editor.QuizAssetEditor :: ctor()
+Pitech.XR.Quiz.Editor.QuizAssetEditor :: method Void OnInspectorGUI()
+Pitech.XR.Quiz.QuizAsset :: ctor()
+Pitech.XR.Quiz.QuizAsset :: field Boolean showCorrectImmediately
+Pitech.XR.Quiz.QuizAsset :: field Boolean showSummaryAtEnd
+Pitech.XR.Quiz.QuizAsset :: field List<Question> questions
+Pitech.XR.Quiz.QuizAsset :: field Single passThresholdPercent
+Pitech.XR.Quiz.QuizAsset :: method Question FindQuestion(String)
+Pitech.XR.Quiz.QuizAsset :: nested type Answer
+Pitech.XR.Quiz.QuizAsset :: nested type Question
+Pitech.XR.Quiz.QuizAsset :: nested type QuestionType
+Pitech.XR.Quiz.QuizAsset+Answer :: ctor()
+Pitech.XR.Quiz.QuizAsset+Answer :: field Boolean isCorrect
+Pitech.XR.Quiz.QuizAsset+Answer :: field String explanation
+Pitech.XR.Quiz.QuizAsset+Answer :: field String text
+Pitech.XR.Quiz.QuizAsset+Question :: ctor()
+Pitech.XR.Quiz.QuizAsset+Question :: field Boolean allowPartialCredit
+Pitech.XR.Quiz.QuizAsset+Question :: field List<Answer> answers
+Pitech.XR.Quiz.QuizAsset+Question :: field QuestionType type
+Pitech.XR.Quiz.QuizAsset+Question :: field Single points
+Pitech.XR.Quiz.QuizAsset+Question :: field String id
+Pitech.XR.Quiz.QuizAsset+Question :: field String prompt
+Pitech.XR.Quiz.QuizAsset+QuestionType :: field Int32 value__
+Pitech.XR.Quiz.QuizAsset+QuestionType :: static field QuestionType MultipleChoice
+Pitech.XR.Quiz.QuizAsset+QuestionType :: static field QuestionType SingleChoice
+Pitech.XR.Quiz.QuizResultsUIController :: ctor()
+Pitech.XR.Quiz.QuizResultsUIController :: field Button continueButton
+Pitech.XR.Quiz.QuizResultsUIController :: field CanvasGroup canvasGroup
+Pitech.XR.Quiz.QuizResultsUIController :: field TMP_Text detailText
+Pitech.XR.Quiz.QuizResultsUIController :: field TMP_Text scoreText
+Pitech.XR.Quiz.QuizResultsUIController :: field TMP_Text titleText
+Pitech.XR.Quiz.QuizResultsUIController :: method Void Hide()
+Pitech.XR.Quiz.QuizResultsUIController :: method Void Show(QuizAsset, QuizResult, Action)
+Pitech.XR.Quiz.QuizSession :: ctor(QuizAsset)
+Pitech.XR.Quiz.QuizSession :: event Action<QuestionResult> OnQuestionAnswered
+Pitech.XR.Quiz.QuizSession :: event Action<QuizResult> OnQuizCompleted
+Pitech.XR.Quiz.QuizSession :: method QuestionResult AnswerQuestion(Question, IList<Int32>)
+Pitech.XR.Quiz.QuizSession :: method QuizResult BuildSummary(Boolean)
+Pitech.XR.Quiz.QuizSession :: method Void SetAsset(QuizAsset)
+Pitech.XR.Quiz.QuizSession :: nested type QuestionResult
+Pitech.XR.Quiz.QuizSession :: nested type QuizResult
+Pitech.XR.Quiz.QuizSession :: property QuizAsset Asset { get; }
+Pitech.XR.Quiz.QuizSession+QuestionResult :: ctor()
+Pitech.XR.Quiz.QuizSession+QuestionResult :: field Boolean isCorrect
+Pitech.XR.Quiz.QuizSession+QuestionResult :: field List<Int32> selected
+Pitech.XR.Quiz.QuizSession+QuestionResult :: field Single maxScore
+Pitech.XR.Quiz.QuizSession+QuestionResult :: field Single score
+Pitech.XR.Quiz.QuizSession+QuestionResult :: field String questionId
+Pitech.XR.Quiz.QuizSession+QuizResult :: ctor()
+Pitech.XR.Quiz.QuizSession+QuizResult :: field Boolean passed
+Pitech.XR.Quiz.QuizSession+QuizResult :: field Int32 answeredCount
+Pitech.XR.Quiz.QuizSession+QuizResult :: field Int32 correctCount
+Pitech.XR.Quiz.QuizSession+QuizResult :: field Int32 wrongCount
+Pitech.XR.Quiz.QuizSession+QuizResult :: field Single maxScore
+Pitech.XR.Quiz.QuizSession+QuizResult :: field Single totalScore
+Pitech.XR.Quiz.QuizUIController :: ctor()
+Pitech.XR.Quiz.QuizUIController :: field Button answerButtonPrefab
+Pitech.XR.Quiz.QuizUIController :: field Button continueButton
+Pitech.XR.Quiz.QuizUIController :: field Button submitButton
+Pitech.XR.Quiz.QuizUIController :: field CanvasGroup canvasGroup
+Pitech.XR.Quiz.QuizUIController :: field TMP_Text explanationText
+Pitech.XR.Quiz.QuizUIController :: field TMP_Text feedbackText
+Pitech.XR.Quiz.QuizUIController :: field TMP_Text promptText
+Pitech.XR.Quiz.QuizUIController :: field Transform answersRoot
+Pitech.XR.Quiz.QuizUIController :: method Void Hide()
+Pitech.XR.Quiz.QuizUIController :: method Void ShowQuestion(Question, Action<List<Int32>>)
+Pitech.XR.Quiz.QuizUIController :: method Void ShowQuestion(Question, QuizAsset, QuizSession, Action<QuestionResult>)
+Pitech.XR.Quiz.QuizUIController :: method Void ShowQuestion(Question, QuizAsset, QuizSession, Action<QuestionResult>, SubmitMode, FeedbackMode, Single)
+Pitech.XR.Quiz.QuizUIController :: nested type FeedbackMode
+Pitech.XR.Quiz.QuizUIController :: nested type SubmitMode
+Pitech.XR.Quiz.QuizUIController+FeedbackMode :: field Int32 value__
+Pitech.XR.Quiz.QuizUIController+FeedbackMode :: static field FeedbackMode ForSeconds
+Pitech.XR.Quiz.QuizUIController+FeedbackMode :: static field FeedbackMode None
+Pitech.XR.Quiz.QuizUIController+FeedbackMode :: static field FeedbackMode UntilContinue
+Pitech.XR.Quiz.QuizUIController+SubmitMode :: field Int32 value__
+Pitech.XR.Quiz.QuizUIController+SubmitMode :: static field SubmitMode ImmediateSelection
+Pitech.XR.Quiz.QuizUIController+SubmitMode :: static field SubmitMode OnSubmitButton
+Pitech.XR.Scenario.Choice :: ctor()
+Pitech.XR.Scenario.Choice :: field Button button
+Pitech.XR.Scenario.Choice :: field List<StatEffect> effects
+Pitech.XR.Scenario.Choice :: field String nextGuid
+Pitech.XR.Scenario.Choice :: field UnityEvent onSelected
+Pitech.XR.Scenario.CompareOp :: field Int32 value__
+Pitech.XR.Scenario.CompareOp :: static field CompareOp Equal
+Pitech.XR.Scenario.CompareOp :: static field CompareOp Greater
+Pitech.XR.Scenario.CompareOp :: static field CompareOp GreaterOrEqual
+Pitech.XR.Scenario.CompareOp :: static field CompareOp IsFalse
+Pitech.XR.Scenario.CompareOp :: static field CompareOp IsTrue
+Pitech.XR.Scenario.CompareOp :: static field CompareOp Less
+Pitech.XR.Scenario.CompareOp :: static field CompareOp LessOrEqual
+Pitech.XR.Scenario.CompareOp :: static field CompareOp NotEqual
+Pitech.XR.Scenario.ConditionOutcome :: ctor()
+Pitech.XR.Scenario.ConditionOutcome :: field CompareOp compareOp
+Pitech.XR.Scenario.ConditionOutcome :: field Single compareValue
+Pitech.XR.Scenario.ConditionOutcome :: field String label
+Pitech.XR.Scenario.ConditionOutcome :: field String nextGuid
+Pitech.XR.Scenario.ConditionValueSource :: field Int32 value__
+Pitech.XR.Scenario.ConditionValueSource :: static field ConditionValueSource Component
+Pitech.XR.Scenario.ConditionValueSource :: static field ConditionValueSource ListByLabel
+Pitech.XR.Scenario.ConditionValueSource :: static field ConditionValueSource Stat
+Pitech.XR.Scenario.ConditionsEvaluator :: static method Boolean EvalCompare(Single, CompareOp, Single)
+Pitech.XR.Scenario.ConditionsStep :: ctor()
+Pitech.XR.Scenario.ConditionsStep :: field Component source
+Pitech.XR.Scenario.ConditionsStep :: field ConditionValueSource valueSource
+Pitech.XR.Scenario.ConditionsStep :: field List<ConditionOutcome> outcomes
+Pitech.XR.Scenario.ConditionsStep :: field String listEntryLabel
+Pitech.XR.Scenario.ConditionsStep :: field String listFieldName
+Pitech.XR.Scenario.ConditionsStep :: field String listLabelFieldName
+Pitech.XR.Scenario.ConditionsStep :: field String listValueFieldName
+Pitech.XR.Scenario.ConditionsStep :: field String memberName
+Pitech.XR.Scenario.ConditionsStep :: field String statKey
+Pitech.XR.Scenario.ConditionsStep :: property String Kind { get; }
+Pitech.XR.Scenario.CueCardsStep :: ctor()
+Pitech.XR.Scenario.CueCardsStep :: field AdvanceMode advanceMode
+Pitech.XR.Scenario.CueCardsStep :: field AnimationCurve fadeCurve
+Pitech.XR.Scenario.CueCardsStep :: field AnimationCurve scaleCurve
+Pitech.XR.Scenario.CueCardsStep :: field Boolean autoShowFirst
+Pitech.XR.Scenario.CueCardsStep :: field Boolean hideExtraWithFinalTap
+Pitech.XR.Scenario.CueCardsStep :: field Boolean useRenderersForExtra
+Pitech.XR.Scenario.CueCardsStep :: field Button nextButton
+Pitech.XR.Scenario.CueCardsStep :: field GameObject extraObject
+Pitech.XR.Scenario.CueCardsStep :: field GameObject tapHint
+Pitech.XR.Scenario.CueCardsStep :: field GameObject[] cards
+Pitech.XR.Scenario.CueCardsStep :: field Int32 extraShowAtIndex
+Pitech.XR.Scenario.CueCardsStep :: field PlayableDirector director
+Pitech.XR.Scenario.CueCardsStep :: field Single fadeDuration
+Pitech.XR.Scenario.CueCardsStep :: field Single popDuration
+Pitech.XR.Scenario.CueCardsStep :: field Single popScale
+Pitech.XR.Scenario.CueCardsStep :: field Single[] cueTimes
+Pitech.XR.Scenario.CueCardsStep :: field String nextGuid
+Pitech.XR.Scenario.CueCardsStep :: nested type AdvanceMode
+Pitech.XR.Scenario.CueCardsStep :: property String Kind { get; }
+Pitech.XR.Scenario.CueCardsStep+AdvanceMode :: field Int32 value__
+Pitech.XR.Scenario.CueCardsStep+AdvanceMode :: static field AdvanceMode OnButton
+Pitech.XR.Scenario.CueCardsStep+AdvanceMode :: static field AdvanceMode TapAnywhere
+Pitech.XR.Scenario.Editor.DevKitScenarioScriptYamlImportPostprocessor :: ctor()
+Pitech.XR.Scenario.Editor.DevKitYamlScriptGuidRepair :: static method Boolean AssetPathExistsOnDisk(String)
+Pitech.XR.Scenario.Editor.DevKitYamlScriptGuidRepair :: static method Boolean IsEligibleUserContentAssetPath(String)
+Pitech.XR.Scenario.Editor.DevKitYamlScriptGuidRepair :: static method Boolean MightContainRepairableDevKitBlocks(String)
+Pitech.XR.Scenario.Editor.DevKitYamlScriptGuidRepair :: static method Int32 RepairPrefabOrSceneAsset(String)
+Pitech.XR.Scenario.Editor.DevKitYamlScriptGuidRepair :: static method Void CollectBackingAssetPaths(GameObject, HashSet<String>)
+Pitech.XR.Scenario.Editor.ExportLabAsTestFixture :: static method Void ExportOpenScene()
+Pitech.XR.Scenario.Editor.ExportLabAsTestFixture :: static method Void GenerateSyntheticFixture()
+Pitech.XR.Scenario.Editor.ScenarioEditor :: ctor()
+Pitech.XR.Scenario.Editor.ScenarioEditor :: method Void OnInspectorGUI()
+Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static field Int32 SchemaVersion
+Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static method List<String> CheckInvariants(Scenario)
+Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static method Scenario FindScenario(GameObject)
+Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static method String BuildSnapshotJson(Scenario)
+Pitech.XR.Scenario.Editor.SceneManagerEditor :: ctor()
+Pitech.XR.Scenario.Editor.SceneManagerEditor :: method Void OnInspectorGUI()
+Pitech.XR.Scenario.EventStep :: ctor()
+Pitech.XR.Scenario.EventStep :: field Single waitSeconds
+Pitech.XR.Scenario.EventStep :: field String nextGuid
+Pitech.XR.Scenario.EventStep :: field UnityEvent onEnter
+Pitech.XR.Scenario.EventStep :: property String Kind { get; }
+Pitech.XR.Scenario.GroupStep :: ctor()
+Pitech.XR.Scenario.GroupStep :: field Boolean stopOthersOnComplete
+Pitech.XR.Scenario.GroupStep :: field CompleteWhen completeWhen
+Pitech.XR.Scenario.GroupStep :: field Int32 requiredCount
+Pitech.XR.Scenario.GroupStep :: field List<ChildRequirement> childRequirements
+Pitech.XR.Scenario.GroupStep :: field List<MultiConditionBranch> multiConditionBranches
+Pitech.XR.Scenario.GroupStep :: field List<Step> steps
+Pitech.XR.Scenario.GroupStep :: field String nextGuid
+Pitech.XR.Scenario.GroupStep :: field String specificStepGuid
+Pitech.XR.Scenario.GroupStep :: method Boolean IsChildRequired(String)
+Pitech.XR.Scenario.GroupStep :: method Void EnsureChildRequirements()
+Pitech.XR.Scenario.GroupStep :: method Void EnsureMultiConditionBranchRequirements()
+Pitech.XR.Scenario.GroupStep :: nested type ChildRequirement
+Pitech.XR.Scenario.GroupStep :: nested type CompleteWhen
+Pitech.XR.Scenario.GroupStep :: nested type MultiConditionBranch
+Pitech.XR.Scenario.GroupStep :: property String Kind { get; }
+Pitech.XR.Scenario.GroupStep :: static method Boolean IsChildRequiredInList(List<ChildRequirement>, String)
+Pitech.XR.Scenario.GroupStep+ChildRequirement :: ctor()
+Pitech.XR.Scenario.GroupStep+ChildRequirement :: field Boolean required
+Pitech.XR.Scenario.GroupStep+ChildRequirement :: field String guid
+Pitech.XR.Scenario.GroupStep+CompleteWhen :: field Int32 value__
+Pitech.XR.Scenario.GroupStep+CompleteWhen :: static field CompleteWhen AllChildrenComplete
+Pitech.XR.Scenario.GroupStep+CompleteWhen :: static field CompleteWhen AnyChildCompletes
+Pitech.XR.Scenario.GroupStep+CompleteWhen :: static field CompleteWhen MultiCondition
+Pitech.XR.Scenario.GroupStep+CompleteWhen :: static field CompleteWhen NOfMChildrenComplete
+Pitech.XR.Scenario.GroupStep+CompleteWhen :: static field CompleteWhen RequiredChildrenComplete
+Pitech.XR.Scenario.GroupStep+CompleteWhen :: static field CompleteWhen SpecificChildCompletes
+Pitech.XR.Scenario.GroupStep+MultiConditionBranch :: ctor()
+Pitech.XR.Scenario.GroupStep+MultiConditionBranch :: field CompleteWhen mode
+Pitech.XR.Scenario.GroupStep+MultiConditionBranch :: field Int32 requiredCount
+Pitech.XR.Scenario.GroupStep+MultiConditionBranch :: field List<ChildRequirement> childRequirements
+Pitech.XR.Scenario.GroupStep+MultiConditionBranch :: field String label
+Pitech.XR.Scenario.GroupStep+MultiConditionBranch :: field String nextGuid
+Pitech.XR.Scenario.GroupStep+MultiConditionBranch :: field String specificStepGuid
+Pitech.XR.Scenario.InsertStep :: ctor()
+Pitech.XR.Scenario.InsertStep :: field Boolean parentToAttach
+Pitech.XR.Scenario.InsertStep :: field Boolean smoothAttach
+Pitech.XR.Scenario.InsertStep :: field Collider targetTrigger
+Pitech.XR.Scenario.InsertStep :: field Single angleTolerance
+Pitech.XR.Scenario.InsertStep :: field Single moveSpeed
+Pitech.XR.Scenario.InsertStep :: field Single positionTolerance
+Pitech.XR.Scenario.InsertStep :: field Single rotateSpeed
+Pitech.XR.Scenario.InsertStep :: field String nextGuid
+Pitech.XR.Scenario.InsertStep :: field Transform attachTransform
+Pitech.XR.Scenario.InsertStep :: field Transform item
+Pitech.XR.Scenario.InsertStep :: property String Kind { get; }
+Pitech.XR.Scenario.MiniQuizChoice :: ctor()
+Pitech.XR.Scenario.MiniQuizChoice :: field Boolean isCorrect
+Pitech.XR.Scenario.MiniQuizChoice :: field Button button
+Pitech.XR.Scenario.MiniQuizChoice :: field List<StatEffect> effects
+Pitech.XR.Scenario.MiniQuizChoice :: field UnityEvent onSelected
+Pitech.XR.Scenario.MiniQuizOutcome :: ctor()
+Pitech.XR.Scenario.MiniQuizOutcome :: field Int32 maxCorrect
+Pitech.XR.Scenario.MiniQuizOutcome :: field Int32 minCorrect
+Pitech.XR.Scenario.MiniQuizOutcome :: field String label
+Pitech.XR.Scenario.MiniQuizOutcome :: field String nextGuid
+Pitech.XR.Scenario.MiniQuizQuestion :: ctor()
+Pitech.XR.Scenario.MiniQuizQuestion :: field List<MiniQuizChoice> choices
+Pitech.XR.Scenario.MiniQuizQuestion :: field String label
+Pitech.XR.Scenario.MiniQuizStep :: ctor()
+Pitech.XR.Scenario.MiniQuizStep :: field Animator panelAnimator
+Pitech.XR.Scenario.MiniQuizStep :: field Boolean lockQuestionAfterAnswer
+Pitech.XR.Scenario.MiniQuizStep :: field Button submitButton
+Pitech.XR.Scenario.MiniQuizStep :: field CompleteMode completion
+Pitech.XR.Scenario.MiniQuizStep :: field List<MiniQuizOutcome> outcomes
+Pitech.XR.Scenario.MiniQuizStep :: field List<MiniQuizQuestion> questions
+Pitech.XR.Scenario.MiniQuizStep :: field RectTransform panelRoot
+Pitech.XR.Scenario.MiniQuizStep :: field String defaultNextGuid
+Pitech.XR.Scenario.MiniQuizStep :: field String hideTrigger
+Pitech.XR.Scenario.MiniQuizStep :: field String showTrigger
+Pitech.XR.Scenario.MiniQuizStep :: nested type CompleteMode
+Pitech.XR.Scenario.MiniQuizStep :: property String Kind { get; }
+Pitech.XR.Scenario.MiniQuizStep+CompleteMode :: field Int32 value__
+Pitech.XR.Scenario.MiniQuizStep+CompleteMode :: static field CompleteMode AutoWhenAllAnswered
+Pitech.XR.Scenario.MiniQuizStep+CompleteMode :: static field CompleteMode OnSubmitButton
+Pitech.XR.Scenario.QuestionStep :: ctor()
+Pitech.XR.Scenario.QuestionStep :: field Animator panelAnimator
+Pitech.XR.Scenario.QuestionStep :: field List<Choice> choices
+Pitech.XR.Scenario.QuestionStep :: field RectTransform panelRoot
+Pitech.XR.Scenario.QuestionStep :: field Single fallbackHideSeconds
+Pitech.XR.Scenario.QuestionStep :: field String hideTrigger
+Pitech.XR.Scenario.QuestionStep :: field String showTrigger
+Pitech.XR.Scenario.QuestionStep :: property String Kind { get; }
+Pitech.XR.Scenario.QuizResultsStep :: ctor()
+Pitech.XR.Scenario.QuizResultsStep :: field CompleteMode completion
+Pitech.XR.Scenario.QuizResultsStep :: field QuizAsset quiz
+Pitech.XR.Scenario.QuizResultsStep :: field Single completeAfterSeconds
+Pitech.XR.Scenario.QuizResultsStep :: field String failedNextGuid
+Pitech.XR.Scenario.QuizResultsStep :: field String nextGuid
+Pitech.XR.Scenario.QuizResultsStep :: field String passedNextGuid
+Pitech.XR.Scenario.QuizResultsStep :: field WhenComplete whenComplete
+Pitech.XR.Scenario.QuizResultsStep :: nested type CompleteMode
+Pitech.XR.Scenario.QuizResultsStep :: nested type WhenComplete
+Pitech.XR.Scenario.QuizResultsStep :: property String Kind { get; }
+Pitech.XR.Scenario.QuizResultsStep+CompleteMode :: field Int32 value__
+Pitech.XR.Scenario.QuizResultsStep+CompleteMode :: static field CompleteMode BranchOnPassed
+Pitech.XR.Scenario.QuizResultsStep+CompleteMode :: static field CompleteMode OnContinue
+Pitech.XR.Scenario.QuizResultsStep+WhenComplete :: field Int32 value__
+Pitech.XR.Scenario.QuizResultsStep+WhenComplete :: static field WhenComplete AfterContinueButtonPressed
+Pitech.XR.Scenario.QuizResultsStep+WhenComplete :: static field WhenComplete AfterSeconds
+Pitech.XR.Scenario.QuizStep :: ctor()
+Pitech.XR.Scenario.QuizStep :: field AnswerSubmitMode submitMode
+Pitech.XR.Scenario.QuizStep :: field CompleteMode completion
+Pitech.XR.Scenario.QuizStep :: field FeedbackMode feedback
+Pitech.XR.Scenario.QuizStep :: field Int32 questionIndex
+Pitech.XR.Scenario.QuizStep :: field QuizAsset quiz
+Pitech.XR.Scenario.QuizStep :: field Single feedbackSeconds
+Pitech.XR.Scenario.QuizStep :: field String correctNextGuid
+Pitech.XR.Scenario.QuizStep :: field String nextGuid
+Pitech.XR.Scenario.QuizStep :: field String questionId
+Pitech.XR.Scenario.QuizStep :: field String wrongNextGuid
+Pitech.XR.Scenario.QuizStep :: nested type AnswerSubmitMode
+Pitech.XR.Scenario.QuizStep :: nested type CompleteMode
+Pitech.XR.Scenario.QuizStep :: nested type FeedbackMode
+Pitech.XR.Scenario.QuizStep :: property String Kind { get; }
+Pitech.XR.Scenario.QuizStep+AnswerSubmitMode :: field Int32 value__
+Pitech.XR.Scenario.QuizStep+AnswerSubmitMode :: static field AnswerSubmitMode ImmediateSelection
+Pitech.XR.Scenario.QuizStep+AnswerSubmitMode :: static field AnswerSubmitMode OnSubmitButton
+Pitech.XR.Scenario.QuizStep+CompleteMode :: field Int32 value__
+Pitech.XR.Scenario.QuizStep+CompleteMode :: static field CompleteMode AnyAnswer
+Pitech.XR.Scenario.QuizStep+CompleteMode :: static field CompleteMode BranchOnCorrectness
+Pitech.XR.Scenario.QuizStep+FeedbackMode :: field Int32 value__
+Pitech.XR.Scenario.QuizStep+FeedbackMode :: static field FeedbackMode ForSeconds
+Pitech.XR.Scenario.QuizStep+FeedbackMode :: static field FeedbackMode None
+Pitech.XR.Scenario.QuizStep+FeedbackMode :: static field FeedbackMode UntilContinue
+Pitech.XR.Scenario.Scenario :: ctor()
+Pitech.XR.Scenario.Scenario :: field List<Step> steps
+Pitech.XR.Scenario.Scenario :: method StepGraphDisplay FindStepGraphDisplay(String)
+Pitech.XR.Scenario.Scenario :: method StepGraphDisplay GetOrAddStepGraphDisplay(String)
+Pitech.XR.Scenario.Scenario :: method Void PruneStepGraphDisplay(String)
+Pitech.XR.Scenario.Scenario :: method Void RemoveStepGraphDisplay(String)
+Pitech.XR.Scenario.Scenario :: method Void RemoveStepGraphDisplayRecursive(Step)
+Pitech.XR.Scenario.Scenario :: nested type GraphGroup
+Pitech.XR.Scenario.Scenario :: nested type GraphNote
+Pitech.XR.Scenario.Scenario :: nested type StepGraphDisplay
+Pitech.XR.Scenario.Scenario :: property List<GraphGroup> GraphGroups { get; }
+Pitech.XR.Scenario.Scenario :: property List<GraphNote> GraphNotes { get; }
+Pitech.XR.Scenario.Scenario :: property List<StepGraphDisplay> StepGraphDisplays { get; }
+Pitech.XR.Scenario.Scenario :: property String Title { get; }
+Pitech.XR.Scenario.Scenario+GraphGroup :: ctor()
+Pitech.XR.Scenario.Scenario+GraphGroup :: field Rect rect
+Pitech.XR.Scenario.Scenario+GraphGroup :: field String guid
+Pitech.XR.Scenario.Scenario+GraphGroup :: field String title
+Pitech.XR.Scenario.Scenario+GraphNote :: ctor()
+Pitech.XR.Scenario.Scenario+GraphNote :: field Rect rect
+Pitech.XR.Scenario.Scenario+GraphNote :: field String attachedStepGuid
+Pitech.XR.Scenario.Scenario+GraphNote :: field String guid
+Pitech.XR.Scenario.Scenario+GraphNote :: field String text
+Pitech.XR.Scenario.Scenario+GraphNote :: field Vector2 attachOffset
+Pitech.XR.Scenario.Scenario+StepGraphDisplay :: ctor()
+Pitech.XR.Scenario.Scenario+StepGraphDisplay :: field String displayName
+Pitech.XR.Scenario.Scenario+StepGraphDisplay :: field String stepGuid
+Pitech.XR.Scenario.Scenario+StepGraphDisplay :: field Vector2 size
+Pitech.XR.Scenario.SceneManager :: ctor()
+Pitech.XR.Scenario.SceneManager :: field Boolean autoStart
+Pitech.XR.Scenario.SceneManager :: field MonoBehaviour contentDelivery
+Pitech.XR.Scenario.SceneManager :: field QuizAsset defaultQuiz
+Pitech.XR.Scenario.SceneManager :: field QuizResultsUIController quizResultsPanel
+Pitech.XR.Scenario.SceneManager :: field QuizSession quizSession
+Pitech.XR.Scenario.SceneManager :: field QuizUIController quizPanel
+Pitech.XR.Scenario.SceneManager :: field Scenario scenario
+Pitech.XR.Scenario.SceneManager :: field SelectablesManager selectables
+Pitech.XR.Scenario.SceneManager :: field SelectionLists selectionLists
+Pitech.XR.Scenario.SceneManager :: field StatsConfig statsConfig
+Pitech.XR.Scenario.SceneManager :: field StatsRuntime runtime
+Pitech.XR.Scenario.SceneManager :: field StatsUIController statsUI
+Pitech.XR.Scenario.SceneManager :: field Transform labContentRoot
+Pitech.XR.Scenario.SceneManager :: method QuizSession GetOrCreateQuizSession(QuizAsset)
+Pitech.XR.Scenario.SceneManager :: method Void ActivateSelectionList(Int32)
+Pitech.XR.Scenario.SceneManager :: method Void ActivateSelectionListByName(String)
+Pitech.XR.Scenario.SceneManager :: method Void CompleteSelection()
+Pitech.XR.Scenario.SceneManager :: method Void EditorSkipFromGraph(String, Int32)
+Pitech.XR.Scenario.SceneManager :: method Void Restart()
+Pitech.XR.Scenario.SceneManager :: method Void RetrySelection()
+Pitech.XR.Scenario.SceneManager :: property Boolean AutoStart { get; set; }
+Pitech.XR.Scenario.SceneManager :: property Int32 CurrentStepIndex { get; }
+Pitech.XR.Scenario.SceneManager :: property Int32 StepIndex { get; }
+Pitech.XR.Scenario.SelectionStep :: ctor()
+Pitech.XR.Scenario.SelectionStep :: field Animator panelAnimator
+Pitech.XR.Scenario.SelectionStep :: field Boolean requireExactCount
+Pitech.XR.Scenario.SelectionStep :: field Boolean resetOnEnter
+Pitech.XR.Scenario.SelectionStep :: field Button submitButton
+Pitech.XR.Scenario.SelectionStep :: field CompleteMode completion
+Pitech.XR.Scenario.SelectionStep :: field GameObject hint
+Pitech.XR.Scenario.SelectionStep :: field Int32 allowedWrong
+Pitech.XR.Scenario.SelectionStep :: field Int32 listIndex
+Pitech.XR.Scenario.SelectionStep :: field Int32 requiredSelections
+Pitech.XR.Scenario.SelectionStep :: field List<StatEffect> onCorrectEffects
+Pitech.XR.Scenario.SelectionStep :: field List<StatEffect> onWrongEffects
+Pitech.XR.Scenario.SelectionStep :: field RectTransform panelRoot
+Pitech.XR.Scenario.SelectionStep :: field SelectionLists lists
+Pitech.XR.Scenario.SelectionStep :: field Single timeoutSeconds
+Pitech.XR.Scenario.SelectionStep :: field String correctNextGuid
+Pitech.XR.Scenario.SelectionStep :: field String hideTrigger
+Pitech.XR.Scenario.SelectionStep :: field String listKey
+Pitech.XR.Scenario.SelectionStep :: field String showTrigger
+Pitech.XR.Scenario.SelectionStep :: field String wrongNextGuid
+Pitech.XR.Scenario.SelectionStep :: field UnityEvent onCorrect
+Pitech.XR.Scenario.SelectionStep :: field UnityEvent onWrong
+Pitech.XR.Scenario.SelectionStep :: nested type CompleteMode
+Pitech.XR.Scenario.SelectionStep :: property String Kind { get; }
+Pitech.XR.Scenario.SelectionStep+CompleteMode :: field Int32 value__
+Pitech.XR.Scenario.SelectionStep+CompleteMode :: static field CompleteMode AutoWhenRequirementMet
+Pitech.XR.Scenario.SelectionStep+CompleteMode :: static field CompleteMode OnSubmitButton
+Pitech.XR.Scenario.Step :: ctor()
+Pitech.XR.Scenario.Step :: field String guid
+Pitech.XR.Scenario.Step :: field Vector2 graphPos
+Pitech.XR.Scenario.Step :: property String Kind { get; }
+Pitech.XR.Scenario.TimelineStep :: ctor()
+Pitech.XR.Scenario.TimelineStep :: field Boolean rewindOnEnter
+Pitech.XR.Scenario.TimelineStep :: field Boolean waitForEnd
+Pitech.XR.Scenario.TimelineStep :: field PlayableDirector director
+Pitech.XR.Scenario.TimelineStep :: field String nextGuid
+Pitech.XR.Scenario.TimelineStep :: property String Kind { get; }
+Pitech.XR.Stats.StatEffect :: ctor()
+Pitech.XR.Stats.StatEffect :: field Single value
+Pitech.XR.Stats.StatEffect :: field StatOp op
+Pitech.XR.Stats.StatEffect :: field String key
+Pitech.XR.Stats.StatEffect :: method Single Apply(Single)
+Pitech.XR.Stats.StatOp :: field Int32 value__
+Pitech.XR.Stats.StatOp :: static field StatOp Add
+Pitech.XR.Stats.StatOp :: static field StatOp Divide
+Pitech.XR.Stats.StatOp :: static field StatOp Multiply
+Pitech.XR.Stats.StatOp :: static field StatOp Set
+Pitech.XR.Stats.StatOp :: static field StatOp Subtract
+Pitech.XR.Stats.StatsConfig :: ctor()
+Pitech.XR.Stats.StatsConfig :: method Boolean TryGet(String, Entry&)
+Pitech.XR.Stats.StatsConfig :: method IEnumerable<KeyValuePair<String, Entry>> All()
+Pitech.XR.Stats.StatsConfig :: method Single GetDefault(String)
+Pitech.XR.Stats.StatsConfig :: method Vector2 GetRange(String)
+Pitech.XR.Stats.StatsConfig :: nested type Entry
+Pitech.XR.Stats.StatsConfig :: static method String NormalizeKey(String)
+Pitech.XR.Stats.StatsConfig+Entry :: field Single defaultValue
+Pitech.XR.Stats.StatsConfig+Entry :: field Single max
+Pitech.XR.Stats.StatsConfig+Entry :: field Single min
+Pitech.XR.Stats.StatsConfig+Entry :: field String key
+Pitech.XR.Stats.StatsRuntime :: ctor()
+Pitech.XR.Stats.StatsRuntime :: event Action<String, Single, Single> OnChanged
+Pitech.XR.Stats.StatsRuntime :: method Boolean TryGet(String, Single&)
+Pitech.XR.Stats.StatsRuntime :: method Boolean TryGetRange(String, Single&, Single&)
+Pitech.XR.Stats.StatsRuntime :: method Void EnsureKey(String, Single)
+Pitech.XR.Stats.StatsRuntime :: method Void Reset(StatsConfig)
+Pitech.XR.Stats.StatsRuntime :: property Single Item { get; set; }
+Pitech.XR.Stats.StatsUIController :: ctor()
+Pitech.XR.Stats.StatsUIController :: field List<Binding> bindings
+Pitech.XR.Stats.StatsUIController :: method Void ApplyConfig(StatsConfig, Boolean)
+Pitech.XR.Stats.StatsUIController :: method Void Init(StatsRuntime, Boolean)
+Pitech.XR.Stats.StatsUIController :: nested type Binding
+Pitech.XR.Stats.StatsUIController+Binding :: ctor()
+Pitech.XR.Stats.StatsUIController+Binding :: field Slider slider
+Pitech.XR.Stats.StatsUIController+Binding :: field String format
+Pitech.XR.Stats.StatsUIController+Binding :: field String key
+Pitech.XR.Stats.StatsUIController+Binding :: field TMP_Text text
+ScenarioGraphWindow :: ctor()
+ScenarioGraphWindow :: method Boolean IsNoteAttached(String)
+ScenarioGraphWindow :: method Void AddAttachedNote(Step)
+ScenarioGraphWindow :: method Void AttachNoteToNearest(String)
+ScenarioGraphWindow :: method Void CollectTethers(List<ValueTuple<Vector2, Vector2>>)
+ScenarioGraphWindow :: method Void DetachNote(String)
+ScenarioGraphWindow :: static method Boolean GroupUsesMultiConditionPorts(GroupStep)
+ScenarioGraphWindow :: static method Boolean GroupUsesProxyBranchPorts(GroupStep)
+ScenarioGraphWindow :: static method Step TryGetGroupProxyBranchChild(GroupStep)
+ScenarioGraphWindow :: static method Void Open(Scenario)
+ScenarioGraphWindow :: static method Void OpenWindow()
+SelectablesManagerEditor :: ctor()
+SelectablesManagerEditor :: method Void OnInspectorGUI()

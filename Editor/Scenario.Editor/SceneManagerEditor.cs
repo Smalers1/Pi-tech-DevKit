@@ -442,7 +442,7 @@ namespace Pitech.XR.Scenario.Editor
                         }
                         else
                         {
-                            // Fallback για οποιοδήποτε μελλοντικό step type
+                            // Fallback for any future step type
                             EditorGUILayout.LabelField($"{i:00}. {s.GetType().Name}");
                         }
                     }
@@ -462,7 +462,7 @@ namespace Pitech.XR.Scenario.Editor
                 var sc = GetScenarioFromManager(gm);
                 int totalSteps = (sc != null && sc.steps != null) ? sc.steps.Count : 0;
 
-                // Τρέχον index
+                // Current index
                 int currentIndex = -1;
                 var idxProp = gm.GetType().GetProperty("StepIndex",
                     BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
@@ -476,7 +476,7 @@ namespace Pitech.XR.Scenario.Editor
                     catch { }
                 }
 
-                // Γραμμή κατάστασης
+                // Status line
                 string status;
                 if (!Application.isPlaying)
                     status = "Editor idle (enter Play mode)";
@@ -487,7 +487,7 @@ namespace Pitech.XR.Scenario.Editor
 
                 EditorGUILayout.LabelField(status);
 
-                // Progress bar (μόνο αν έχουμε valid steps)
+                // Progress bar (only when there are valid steps)
                 if (totalSteps > 0)
                 {
                     float progress = 0f;

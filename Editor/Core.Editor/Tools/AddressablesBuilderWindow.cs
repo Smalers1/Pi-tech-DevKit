@@ -64,7 +64,8 @@ namespace Pitech.XR.Core.Editor
             window.minSize = new Vector2(980f, 620f);
             window.Show();
         }
-private void OnEnable()
+
+        private void OnEnable()
         {
             BuildUi();
             RefreshMappingPreview();

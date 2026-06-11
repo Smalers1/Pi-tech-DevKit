@@ -2123,7 +2123,7 @@ public class ScenarioGraphWindow : EditorWindow
             if (ec == null)
                 continue;
 
-            Color activeColor = new Color(0.3f, 0.7f, 1f); // μπλε-κυανό
+            Color activeColor = new Color(0.3f, 0.7f, 1f); // blue-cyan
 
             if (isTransitionEdge)
             {
@@ -3362,13 +3362,13 @@ public class ScenarioGraphWindow : EditorWindow
             {
                 tbox.style.backgroundColor = new Color(0.90f, 0.75f, 0.25f);
                 if (titleLabel != null)
-                    titleLabel.style.color = Color.black;   // μαύρο text για το κίτρινο
+                    titleLabel.style.color = Color.black;   // black text on the yellow
             }
             if (s is EventStep)
             {
                 tbox.style.backgroundColor = new Color(0.25f, 0.70f, 0.70f);
                 if (titleLabel != null)
-                    titleLabel.style.color = Color.black;   // μαύρο text για το κίτρινο
+                    titleLabel.style.color = Color.black;   // black text on the yellow
             }
             if (s is GroupStep)
             {
@@ -3816,7 +3816,7 @@ public class ScenarioGraphWindow : EditorWindow
 
             else if (s is InsertStep ins)
             {
-                // Inline mini-inspector για γρήγορο authoring
+                // Inline mini-inspector for quick authoring
                 fold.contentContainer.Add(new IMGUIContainer(() =>
                 {
                     EditorGUI.BeginChangeCheck();

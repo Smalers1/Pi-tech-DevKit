@@ -1,0 +1,30 @@
+{
+    "name": "Pitech.XR.Scenario.Editor.Tests",
+    "rootNamespace": "Pitech.XR.Scenario.Editor.Tests",
+    "references": [
+        "Pitech.XR.Core",
+        "Pitech.XR.Scenario",
+        "Pitech.XR.Quiz",
+        "Pitech.XR.Interactables",
+        "Pitech.XR.Stats",
+        "Pitech.XR.Scenario.Editor",
+        "Pitech.XR.Core.Editor",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

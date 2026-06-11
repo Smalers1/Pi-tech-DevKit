@@ -3,10 +3,27 @@
   "displayName": "Pi tech XR DevKit",
   "version": "0.10.5",
   "unity": "2022.3",
+  "unityRelease": "0f1",
   "description": "Modular in-house toolkit for XR apps.",
   "author": {
     "name": "Pi tech"
   },
+  "license": "SEE LICENSE IN LICENSE.md",
+  "licensesUrl": "https://github.com/Smalers1/Pi-tech-DevKit/blob/main/LICENSE.md",
+  "documentationUrl": "https://github.com/Smalers1/Pi-tech-DevKit",
+  "changelogUrl": "https://github.com/Smalers1/Pi-tech-DevKit/blob/main/CHANGELOG.md",
+  "keywords": [
+    "xr",
+    "vr",
+    "ar",
+    "unity",
+    "scenario",
+    "authoring",
+    "addressables",
+    "quiz",
+    "healthon",
+    "vicky"
+  ],
   "samples": [
     {
       "displayName": "Quiz UI (TMP) \u2013 Guided Setup",

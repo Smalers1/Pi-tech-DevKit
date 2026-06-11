@@ -16,7 +16,7 @@ namespace Pitech.XR.Interactables
         public List<Collider> correct = new();
 
         [Header("UI (World-space)")]
-        public GameObject buttonRoot;     // optional (θα auto-wire Button/Graphic πάνω του)
+        public GameObject buttonRoot;     // optional (a Button/Graphic on it will be auto-wired)
         public Animator buttonAnimator;   // optional
         public TMP_Text title;            // optional
 
@@ -31,7 +31,7 @@ namespace Pitech.XR.Interactables
 
         [NonSerialized] public bool isCompleted;
 
-        // === Cache για scoring ===
+        // === Scoring cache ===
         [NonSerialized] HashSet<int> _ids;
         public void EnsureCache()
         {
@@ -45,10 +45,10 @@ namespace Pitech.XR.Interactables
         public void RefreshLabel() { if (title) title.text = name; }
         public void Fire(string trigger) { if (buttonAnimator && !string.IsNullOrEmpty(trigger)) buttonAnimator.SetTrigger(trigger); }
 
-        // === Cache για χρώματα κουμπιού ===
+        // === Button color cache ===
         [NonSerialized] public Button cachedButton;
-        [NonSerialized] public Graphic cachedGraphic;    // Image, TMP_Text, οτιδήποτε παράγει χρώμα
-        [NonSerialized] public Color originalColor;      // για επαναφορά σε Normal όταν δεν έχεις global normal
+        [NonSerialized] public Graphic cachedGraphic;    // Image, TMP_Text, anything that renders a color
+        [NonSerialized] public Color originalColor;      // for restoring to Normal when there is no global normal color
         [NonSerialized] public bool hasGraphic;
 
         public void CacheButtonGraphic()
@@ -66,7 +66,7 @@ namespace Pitech.XR.Interactables
             }
             else
             {
-                // αλλιώς πιάσε οποιοδήποτε Graphic επάνω στο root
+                // otherwise grab any Graphic on the root
                 buttonRoot.TryGetComponent(out cachedGraphic);
             }
 
@@ -103,20 +103,20 @@ namespace Pitech.XR.Interactables
 
         // ---------- Button Colors ----------
         [Header("Button Colors (optional)")]
-        [Tooltip("Αν είναι ενεργό, θα βάφει τα κουμπιά των λιστών ανάλογα με την κατάσταση.")]
+        [Tooltip("If enabled, tints the list buttons according to their state.")]
         public bool useButtonColors = true;
         public Color buttonNormalColor = Color.white;
-        public Color buttonSelectedColor = new Color(0.20f, 0.55f, 1f, 1f);  // μπλε-ish
-        public Color buttonCompletedColor = new Color(0.20f, 0.80f, 0.25f, 1f); // πράσινο
+        public Color buttonSelectedColor = new Color(0.20f, 0.55f, 1f, 1f);  // blue-ish
+        public Color buttonCompletedColor = new Color(0.20f, 0.80f, 0.25f, 1f); // green
 
         [SerializeField] int activeIndex = -1;
         public int Count => lists?.Count ?? 0;
         public int ActiveIndex => activeIndex;
 
-        /// Raised whenever the active list selection changes (ή όταν αλλάξει active list).
+        /// Raised whenever the active list selection changes (or when the active list changes).
         public event Action OnSelectionChanged;
 
-        /// Convenience: πόσα σωστά έχει η ενεργή λίστα.
+        /// Convenience: how many correct items the active list has.
         public int ActiveTotalCorrect => (activeIndex >= 0 && activeIndex < Count && lists[activeIndex] != null)
             ? lists[activeIndex].CorrectCount : 0;
 
@@ -154,7 +154,7 @@ namespace Pitech.XR.Interactables
             HideAllInfoPanels();
             UpdateInfoButtonState();
 
-            // Βεβαιώσου ότι όλα τα κουμπιά είναι σε normal στην εκκίνηση
+            // Make sure every button starts in the normal state
             RefreshButtonColors();
         }
 
@@ -234,7 +234,7 @@ namespace Pitech.XR.Interactables
         {
             if (index < 0 || index >= Count) return;
 
-            // previous comes back (αν δεν ολοκληρώθηκε)
+            // previous comes back (if it was not completed)
             if (activeIndex >= 0 && activeIndex < Count)
             {
                 var prev = lists[activeIndex];
@@ -395,10 +395,10 @@ namespace Pitech.XR.Interactables
                 else
                     c = buttonNormalColor;
 
-                // βάψε targetGraphic (Image/TMP/etc.)
+                // tint the targetGraphic (Image/TMP/etc.)
                 l.cachedGraphic.color = c;
 
-                // προαιρετικά μπορείς να πειράξεις και τα ButtonColors (Transition=ColorTint)
+                // optionally the ButtonColors can be adjusted too (Transition=ColorTint)
                 if (l.cachedButton && l.cachedButton.transition == Selectable.Transition.ColorTint)
                 {
                     var cb = l.cachedButton.colors;
