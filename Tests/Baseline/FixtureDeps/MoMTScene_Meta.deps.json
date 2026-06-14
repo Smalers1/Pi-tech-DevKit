@@ -1,0 +1,3605 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "guid": "005ab0ae8aa7f74438a5fa50f7cd50e3",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_fist_anim.fbx"
+    },
+    {
+      "guid": "008165c69c4a670479895049b826e927",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/metal aluminium.mat"
+    },
+    {
+      "guid": "009a0e62f2caf384db37c84e5e2c9ed0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/Material.001.mat"
+    },
+    {
+      "guid": "00a9d2b4c09a30144ae216eb3d756ac2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/console_upper_wall.fbx"
+    },
+    {
+      "guid": "016040f67b8fb4745883bdf3eb15da85",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_Normal.png"
+    },
+    {
+      "guid": "0188e12bd4e13c445b2985a60170eae4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/bluePlasticVentilator.1.mat"
+    },
+    {
+      "guid": "01a05e9c84884544a8e00db287a11246",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/hospital_bed_ metal1.mat"
+    },
+    {
+      "guid": "01ac879f6ce09924e9c26663f798beaf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Materials/OculusTouchForQuestAndRiftS_Material.mat"
+    },
+    {
+      "guid": "01c3e1803401f754989b7b2c8031ba9f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medical device1.mat"
+    },
+    {
+      "guid": "01cd3c78c7f72b14889a324160d61b2e",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Isothermal blanket/isothermal blanket  final.fbx"
+    },
+    {
+      "guid": "027857433134c6044aabf7655c8e2d6f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Towel_Surgical_Diffuse.jpg"
+    },
+    {
+      "guid": "02eaba36e33096d43a89aa32ac43d192",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/MED 2.jpg"
+    },
+    {
+      "guid": "03190b23f0f30f74dacc4ed3992541b6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Tunneling/TunnelingEffect.cs"
+    },
+    {
+      "guid": "038d627f7b72e904382b2b0f8fb30c29",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/TubeRenderer.cs"
+    },
+    {
+      "guid": "03dadd6395bb01d4aa42bb081a0ffabd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical light black plastic.3.mat"
+    },
+    {
+      "guid": "03ff4d0d2e789d64aae26907f336c4af",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Steel_Stainlessl_Shiny_instruments.002.mat"
+    },
+    {
+      "guid": "045ac7b07167e0946befc064809ac26a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/LEVEL.jpg"
+    },
+    {
+      "guid": "063f7a502a7e06e428090710e8286b2b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/OculusTouchForRift/touchController_albedo.png"
+    },
+    {
+      "guid": "06789eebd2a6b124db80528cba3bbede",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/patient with shirt edit/rough_linen_diff_4k.jpg"
+    },
+    {
+      "guid": "067e4c93ded9fcb4aa69f885300832ec",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Drawer/blue_hospital_bed.mat"
+    },
+    {
+      "guid": "06bb919512016f24494df2464e2e30c2",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Boxers_Specular.png"
+    },
+    {
+      "guid": "071ddc3372b7f41df87ec22aa332ba2b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Common/Shaders/Recommended/Style-2-Avatar-Meta.shader"
+    },
+    {
+      "guid": "07ef93d28f1ad1e47bfeff93e36aef0f",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Textures/emblematy_Diffuse.png"
+    },
+    {
+      "guid": "08032fa3f321eae468af6b7ed7dde9a4",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/DefaultRigPrefabs/NetworkRig.prefab"
+    },
+    {
+      "guid": "081b28b195e4f5746a573ec466899ed6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_Diffuse.jpg"
+    },
+    {
+      "guid": "081fadf364fb2bc428250fe5c2e98dad",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_down/white_ plastic_hospital_bed.mat"
+    },
+    {
+      "guid": "082f656d6606beb4ea7710d5f111ba73",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Isothermal blanket/Material.001.mat"
+    },
+    {
+      "guid": "084fc413914adfe419f7ade44d2b9cff",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical white.mat"
+    },
+    {
+      "guid": "08f7cfb1f9629da4494ac0840f3a3cfd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/ShapeRecognizerActiveState.cs"
+    },
+    {
+      "guid": "0960539db92a0ea4ba1734bc4876df8b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Glass_number_002.jpg"
+    },
+    {
+      "guid": "0a0d692038e1ee44591c2fe7a12af65a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Steel_Stainlessl_Shiny.mat"
+    },
+    {
+      "guid": "0a7402d2a0fb764418b3f8d1526796fd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_down/Aluminum_matted.mat"
+    },
+    {
+      "guid": "0ab399da65aa9bc4c8f0cce89fc98c31",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/doctors stool_metal.mat"
+    },
+    {
+      "guid": "0ad8f448eabbeee439ddacaeeafe43ae",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/Table.fbx"
+    },
+    {
+      "guid": "0b408b96f0089d747871b6fa6b49a919",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Text 2.png"
+    },
+    {
+      "guid": "0b47856a33046ce40862a2fddb86623b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/OvrAvatarManager.cs"
+    },
+    {
+      "guid": "0b567a7c6d47e774ca65c81546f02af5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OVRHand_R.fbx"
+    },
+    {
+      "guid": "0bf88ab770bd548f2a1c9eecd1c8be06",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUIStartButtonOver.png"
+    },
+    {
+      "guid": "0c36d956bf264294ebb871f3b4e04372",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/SecondaryInteractorConnection.cs"
+    },
+    {
+      "guid": "0c6aa09f2d128af4d93fb9fc29ecec33",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/ReticleGhostDrawer.cs"
+    },
+    {
+      "guid": "0caa3b6faa9dbc14181cebbc40c36f59",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Syringe_Plastic_Blue.mat"
+    },
+    {
+      "guid": "0cdf62c9a4466cd42bc7ab6bcb25153d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Ga_Skin_Body 1.mat"
+    },
+    {
+      "guid": "0cf00a93483fd1b4ba357bf6f764d6e6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/InteractorUnityEventWrapper.cs"
+    },
+    {
+      "guid": "0da7b6b788a427847974e1521def89b2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Drawer/incubator black plastic.mat"
+    },
+    {
+      "guid": "0dcd701c2d5349545836f8ee8718013e",
+      "pathAtExport": "Assets/Scripts/Multiplayer/NetworkedStates/UIStateTrigger.cs"
+    },
+    {
+      "guid": "0ddbab7678a6d6b418b0bb07c1cbaf21",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Drawer/Aluminum_matted.mat"
+    },
+    {
+      "guid": "0e58761bf10f239419bdf19d49efda55",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Chrome.001.3.mat"
+    },
+    {
+      "guid": "0e592da4c92e7134088b802a59b91953",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Flevokathetiras/diafaneia.mat"
+    },
+    {
+      "guid": "0f6d07207ccfa4d47a94e2af0b628fc5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical white.3.mat"
+    },
+    {
+      "guid": "0f70f170f00c3ec48ba2a342506dadaf",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/wood4.jpg"
+    },
+    {
+      "guid": "0f943b0cae7c8034fb787812ccf881d9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143569169.mat"
+    },
+    {
+      "guid": "103a20c05e0730c4a8f437688e3b494e",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swab_Ball_Diffuse.jpg"
+    },
+    {
+      "guid": "10435f90f0628b749ba5d1c3065e02e8",
+      "pathAtExport": "Assets/Timelines/Patra 1/Timeline MoMT2Timeline.playable"
+    },
+    {
+      "guid": "11388ddcbb9e68d418c242b09c3cc0f3",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Peener Material.001.mat"
+    },
+    {
+      "guid": "115a4fd4ac2e6844daa2305603ce9688",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionEventSelector.cs"
+    },
+    {
+      "guid": "118593fd0b38c5847b2d468016296410",
+      "pathAtExport": "Assets/Scripts/Interactions/EyeLightReaction.cs"
+    },
+    {
+      "guid": "11a9df3a9754631449547b91038690d4",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_Diffuse Black.jpg"
+    },
+    {
+      "guid": "11fce7d2ac8a1464fb640061ca8f4721",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/darkgray plastic.mat"
+    },
+    {
+      "guid": "12294d18493eab648bada24ccfd723f2",
+      "pathAtExport": "Assets/3D_Objects/Textures/Bed/Low_poly_bed/BED_standardSurface23_BaseColor.1001.png"
+    },
+    {
+      "guid": "124929c2aa796964883ea3bd445088e5",
+      "pathAtExport": "Assets/Sound/Hospital Ambience edit.wav"
+    },
+    {
+      "guid": "124f4583f657475469a45ab6fca8f921",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/OneGrabRotateTransformer.cs"
+    },
+    {
+      "guid": "126cae2e7a3ffe2468c7541fd2b0882f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/white_ plastic_hospital_bed.mat"
+    },
+    {
+      "guid": "12e0d551f2089fc4380c1368a69a3512",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Animation/MetaQuestTouchPlusLeftAnimation.controller"
+    },
+    {
+      "guid": "136637d0bab73744c940588bc90dd10a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/Ventilator.fbx"
+    },
+    {
+      "guid": "13f5839d0b38e4abdb0dc5015a82afdc",
+      "pathAtExport": "Assets/Obi/Editor/Resources/Icons/ObiTearableClothRenderer Icon.png"
+    },
+    {
+      "guid": "13f92dc3773e94e4bb99958bbd939c29",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OVRHand_L.fbx"
+    },
+    {
+      "guid": "1422dad93a971684680c377d14ef7980",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/EKAB_Man_Motion.Fbx"
+    },
+    {
+      "guid": "14ba79cd9a63ea54981de8f2f97fd9e2",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Upper_Teeth 1.mat"
+    },
+    {
+      "guid": "151f9be47337d9e4daef0b8725e30eab",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/FromHandPrefabDataSource.cs"
+    },
+    {
+      "guid": "153dab4e31638384bbdefcb2c8fe014f",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Sport_sneakers_Normal.jpg"
+    },
+    {
+      "guid": "1556e379500c5a54991526db338d653d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Mask_Diffuse.png"
+    },
+    {
+      "guid": "16276395cc1549843843aec29be1ffc2",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/base 5.mat"
+    },
+    {
+      "guid": "162ec62ca2f09734ebcb93b9e64f3fdf",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pulse_oxymeter/M_DeviceBlue.mat"
+    },
+    {
+      "guid": "165871bb4fa915847973b6955c7a670d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_pinch_anim.fbx"
+    },
+    {
+      "guid": "169d905e9874c45438b3c9d739915a4a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/samsung q7f 55 screen edge.mat"
+    },
+    {
+      "guid": "16a87db82a90e2b40986857ee65aea51",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_cap_touch_anim.fbx"
+    },
+    {
+      "guid": "172f0244b6ca20d48b16e64e2a02244e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/TRANSLUCENT GLASS.mat"
+    },
+    {
+      "guid": "1788ce7c914374d949486d9789c9f306",
+      "pathAtExport": "Assets/Obi/Editor/Resources/Icons/ObiRigidbody Icon.png"
+    },
+    {
+      "guid": "17cc85983dec7534ab8d35297a9f9f05",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Models/LeftHandAnimator.controller"
+    },
+    {
+      "guid": "187cb37923de6a24892662b021ddb3d8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/white metal bedsidetable.mat"
+    },
+    {
+      "guid": "189ea817d962af84893a69754bc2b3f8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Tunneling/WallPenetrationTunneling.cs"
+    },
+    {
+      "guid": "194b7d1054b8fa64b9bdcea46d06c3a1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateTracker.cs"
+    },
+    {
+      "guid": "19bd39fadb132a346940c534b2d2b90d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Prefabs/NetworkLeftHand.prefab"
+    },
+    {
+      "guid": "19ece0d72e235894ba4d4be3d5364642",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/white_ plastic_hospital_bed.mat"
+    },
+    {
+      "guid": "1a379f34d4f4f2e408d34f14bfb753ce",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/Hand.cs"
+    },
+    {
+      "guid": "1a56054f6e3838f4e85dce4e71979800",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/InteractorActiveState.cs"
+    },
+    {
+      "guid": "1a9df1cd315367647bc8a7b41d4e67dd",
+      "pathAtExport": "Assets/Scripts/Interactions/MaterialStateManager.cs"
+    },
+    {
+      "guid": "1b6b944de90aa9047929c54d143ff2da",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/IndexPinchSelector.cs"
+    },
+    {
+      "guid": "1c8d545e0ca2b5a4ea59ba7ea935a248",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/Shared/PlatformInit/Scripts/PlatformInit_.cs"
+    },
+    {
+      "guid": "1cb402a081d35f94c99fe89acfeabb7a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Suction_Catheter/Material orange.mat"
+    },
+    {
+      "guid": "1cd9780be7e512049b4d33d5c9d0ac92",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateSelector.cs"
+    },
+    {
+      "guid": "1cdfef6e175d8d64b936252dc4d667bc",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/piesometro teliko/piesometro3_aiStandardSurface2_BaseColor.png"
+    },
+    {
+      "guid": "1d2705674196dfc4da9c25fbacda72d8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/ActiveStateUnityEventWrapper.cs"
+    },
+    {
+      "guid": "1d95d46c42e4d2e4ea2c2e2f76be71ed",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Scissors/Aluminum_Normal.png"
+    },
+    {
+      "guid": "1db8ea62a613f0d488f8f6d4a32758db",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedAvatar/Scripts/AvatarBehaviourFusion.cs"
+    },
+    {
+      "guid": "1dcabe7b065172d40991aecec9fc6555",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Polyline/TransformsPolyline.cs"
+    },
+    {
+      "guid": "1e273eb3fcec83045851c41d1139b636",
+      "pathAtExport": "Assets/Scripts/Interactions/AudioSpeed.cs"
+    },
+    {
+      "guid": "1e4882f1d294f9e4faec181d88554429",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Mask plastic green.mat"
+    },
+    {
+      "guid": "1e6ad53b0a19939498a9243a238e6a27",
+      "pathAtExport": "Assets/UI/Panels/Panel 1024x512.png"
+    },
+    {
+      "guid": "1e76ce1effa19564984f30811afd0cbe",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oxygen Mask/oxy_rubber.mat"
+    },
+    {
+      "guid": "1e848dd38d3144e45902aafd7d039b3f",
+      "pathAtExport": "Assets/3D_Objects/_EXTRAS PATIENT/Vomit/vomit_normal.jpg"
+    },
+    {
+      "guid": "1ee82d2d63daf8b4c93040e331f8e801",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/DefaultSettings/PoseDetection/DefaultThumbFeatureStateThresholds.asset"
+    },
+    {
+      "guid": "1f1c685e906d1e5459daf77b45927644",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-Regular SDF.asset"
+    },
+    {
+      "guid": "1f915fca79faf784d94b170d553cd457",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/nets.mat"
+    },
+    {
+      "guid": "1fa11ed97bee17142b29a59e54deaf98",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Screenshot_4.png"
+    },
+    {
+      "guid": "1fe79ac31adf2bc46b79e7c1ea44768f",
+      "pathAtExport": "Assets/Animations/Animation without skin MIxamo/Sad Idle.anim"
+    },
+    {
+      "guid": "20a8f8b4624d2be4b9bde99305d83e1c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/MED.jpg"
+    },
+    {
+      "guid": "20cecbe26a0501f488b8c5bcd913b88d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medical device 02.1.mat"
+    },
+    {
+      "guid": "20f70e4a95f798a46a88da4749c1ecb1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medical_display.jpg"
+    },
+    {
+      "guid": "2140032c9091a01438c4c6f8ef307250",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scripts/LegsBehavior/OvrAvatarRigRootIdentifier.cs"
+    },
+    {
+      "guid": "2154c02ae7c510448a35033c8dc49252",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Ga_Skin_Body_Normal.png"
+    },
+    {
+      "guid": "21ed57d0966453147a1f45acec32e4dc",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Ga_Skin_Body_Normal.png"
+    },
+    {
+      "guid": "21f8f53b7e73da747b6691380307784b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical white.7.mat"
+    },
+    {
+      "guid": "2257b3446ccce53479af998284a801fe",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/PeenerMaterial_BaseColor.png"
+    },
+    {
+      "guid": "22c1c08aafd9f8b45a8b7fa6692565a2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/offscreen.mat"
+    },
+    {
+      "guid": "23e0c6f9d8722f4498fd02cb9ac18fce",
+      "pathAtExport": "Assets/3D_Objects/_UI/Image Panels/ACVPU.mat"
+    },
+    {
+      "guid": "24ac5c89d4441ab46b8ec071bc774a3e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Glass_number.jpg"
+    },
+    {
+      "guid": "2518c50cb3fc6a6458d4b743c2f69c7d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/PointableCanvasModule.cs"
+    },
+    {
+      "guid": "25b5eb0761edb6346b0b3444af76b55e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/OculusTouchForQuest2_Right.fbx"
+    },
+    {
+      "guid": "25b949dbf89921a42bb29d85b7c43d25",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Scripts/NetworkBonesStateSync.cs"
+    },
+    {
+      "guid": "2606bf2f0c914a7aba4390f29ba2eb6e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/HMD/Hmd.cs"
+    },
+    {
+      "guid": "2609c54f376cffc4da1ab9401cc1a36f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRSkeleton.cs"
+    },
+    {
+      "guid": "266fe091407078a40a85b34119defd48",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Animation/OvrAvatarRigVersionIdentifier.cs"
+    },
+    {
+      "guid": "26d931f235b61ee468f7dfb102bb0926",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/MetaCoreIntegration/Runtime/MetaCoreIntegration/Scripts/MetaBridgeHardwareRig.cs"
+    },
+    {
+      "guid": "2721694f4ddbb384a98e33650b1a61a6",
+      "pathAtExport": "Assets/Scripts/Interactions/ObjectAttachMetaIntegration.cs"
+    },
+    {
+      "guid": "2771258a413ee134ab18726bc0362e4d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_l_lo_Normal.png"
+    },
+    {
+      "guid": "27b116331227a8440a3be57d15d3698c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Sport_sneakers 1.mat"
+    },
+    {
+      "guid": "28a5209dfc7fe754482a4ed425fdc05a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/MEDICAL Regulator_Sign.jpg"
+    },
+    {
+      "guid": "28b30b562dbde354791bc33057f2a8ae",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/surgical_items.fbx"
+    },
+    {
+      "guid": "29023eb5f3a1df84dadc9662cd077dc8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/ventilatordisplay_diffuse.jpg"
+    },
+    {
+      "guid": "29e07bbe8e7ca364898a75fd9c0f829d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Basic_T_shirts_Diffuse.jpg"
+    },
+    {
+      "guid": "2a376950fc564934694a462cdf8b415a",
+      "pathAtExport": "Assets/Scripts/Interactions/CountDown.cs"
+    },
+    {
+      "guid": "2b1aaafc31655024394d83dc00911c1c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/MetaQuestTouchPlus_Left.fbx"
+    },
+    {
+      "guid": "2b9768cc0be08784b91b7da60696ba29",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/MetaQuestTouchPro_Left.fbx"
+    },
+    {
+      "guid": "2cd6eda636b9144439141427c0beb50d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/AnimatedSnapTurnVisuals.cs"
+    },
+    {
+      "guid": "2cfa8921821fe1345b657e836ceac402",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Lower_Teeth_Diffuse.jpg"
+    },
+    {
+      "guid": "2d0c5d6dc73df3f41abd949f3afb6afe",
+      "pathAtExport": "Assets/UI/Options/Option 128x64.png"
+    },
+    {
+      "guid": "2d179fd81cd2e344ab2e610cd5f7260e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/Visuals/HandGhost.cs"
+    },
+    {
+      "guid": "2d1d53719388f194fb476d5eeafc06c3",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Stethoscope/Material.002.mat"
+    },
+    {
+      "guid": "2d223d32e16db394fa1b33c620bcae79",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Material/HandMaterial.mat"
+    },
+    {
+      "guid": "2e37f83c0ac7da147869aafac90815e1",
+      "pathAtExport": "Assets/3D_Objects/Textures/Bed/Low_poly_bed/BED_standardSurface23_Metallic.1001.png"
+    },
+    {
+      "guid": "2e7b639e16802bc4780c47948240e98d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Textures/Jeans_Albedo.jpg"
+    },
+    {
+      "guid": "2ea89d6e4d9c45940908e3f337989a9a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusLeft_Material.fbx"
+    },
+    {
+      "guid": "2ead38ff2e6dd7f43859f226d99a8a55",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Towel_Surgical.mat"
+    },
+    {
+      "guid": "2fadc56f841e8224ea1ff539811fc765",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProLeft_Material.fbx"
+    },
+    {
+      "guid": "2ff10fdcc575f324f91cfdc8b60bd6ac",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/white_ plastic_monitor.mat"
+    },
+    {
+      "guid": "2ff26c21ac005534e8af75f8427be9d1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/Visuals/HandGrabStateVisual.cs"
+    },
+    {
+      "guid": "322264e282958f24f95997fe7069572e",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swap_Pad.mat"
+    },
+    {
+      "guid": "329dc4d410fedc949b39aeb55dc44239",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/Plastic_Translucent_Red.mat"
+    },
+    {
+      "guid": "32fbc8bcebb64584da5868aeeb086cda",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/OculusTouchForQuestAndRiftS_Left.fbx"
+    },
+    {
+      "guid": "33031983c03ec0b429a5dd3d6a085287",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Materials/ubranie.mat"
+    },
+    {
+      "guid": "331d7f91e4f2d20498cb8079638deeda",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/LocomotionAxisTurnerInteractor.cs"
+    },
+    {
+      "guid": "335d75faf2966944c94ee3b473124610",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_cap_touch_thumb_mask_anim.fbx"
+    },
+    {
+      "guid": "3362383cdbcda714f9e3ed5ba2599417",
+      "pathAtExport": "Assets/UI/Panels/Rectangle 5801.png"
+    },
+    {
+      "guid": "33ede8340c73cd0468783809cd0cf270",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Endotracheal_tube/Tube_Plastic_White.mat"
+    },
+    {
+      "guid": "3432720df84ba1c418617c7978b090ca",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Teeth.fbx"
+    },
+    {
+      "guid": "34d583d697c088d47bd9592bf7ad5358",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Basic_T_shirts 1.mat"
+    },
+    {
+      "guid": "3511a1f6da5690c4892a8e1fb5715dca",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/patient with shirt edit/rough_linen_nor_gl_4k.exr"
+    },
+    {
+      "guid": "35f50715fc3edf74cbd4b3439fad8f70",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/Aluminum_matted.mat"
+    },
+    {
+      "guid": "36066a07b4a43b441a1060691b682df2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Screenshot_2.png"
+    },
+    {
+      "guid": "3621a054ab63b2a4c9d43fdf2f046440",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Towel_Surgical._ItemsOnTop.mat"
+    },
+    {
+      "guid": "3637b758ff163493f8bb8b6d7e96d7ae",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Materials/Hands_solid.mat"
+    },
+    {
+      "guid": "3660a99281736e44f857c49226afeb6a",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Turtleneck_sweater 1.mat"
+    },
+    {
+      "guid": "3673df66324d8f34d9433049c54de631",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ControllerRef.cs"
+    },
+    {
+      "guid": "367eacd8142e4ca478642189323d9cee",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_thumbs_up_anim.fbx"
+    },
+    {
+      "guid": "36ace6149c192b0439cbc28a92682150",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/blue_hospital_bed.mat"
+    },
+    {
+      "guid": "378787d1709f72447963a68c8aa642c2",
+      "pathAtExport": "Assets/UI/Menu/Reload.png"
+    },
+    {
+      "guid": "37ba10a26a648144fa2390c8adfb2c8a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/OculusTouchForQuestAndRiftS_Right.fbx"
+    },
+    {
+      "guid": "3800ffe56dc139c4d914c783e52a3ac7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Flashligh/Flashlight_Normal.png"
+    },
+    {
+      "guid": "38245a3244d4c904e9a7c93dfc8ffbaf",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_thumbs_up_anim.fbx"
+    },
+    {
+      "guid": "3861555276e1a07489d3c0971e091e46",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/OvrAvatarShaderConfiguration.cs"
+    },
+    {
+      "guid": "38beab19e7c1f7947afac78fd60f90b0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Materials/SystemGestureSkeletonBoneMaterial.mat"
+    },
+    {
+      "guid": "38db45e6a1a371f42b564b61a03d9f5a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/ControllerPinchInjector.cs"
+    },
+    {
+      "guid": "39017ee2f9a8ace4996171605253bfab",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bin4_bag_Normal.png"
+    },
+    {
+      "guid": "393a4b9740438da48ad5acb86f91256d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_down/Console_Down2.jpg"
+    },
+    {
+      "guid": "3952177e694781b48a591cf609642190",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Tunneling/LocomotionTunneling.cs"
+    },
+    {
+      "guid": "3a422ed07fa94184db3047243b0d1585",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Screenshot_4_normal.png"
+    },
+    {
+      "guid": "3a8604486333c403ba34435dd150a1ef",
+      "pathAtExport": "Assets/Obi/Scripts/Cloth/Rendering/ObiTearableClothRenderer.cs"
+    },
+    {
+      "guid": "3abd38e0d18db6c49b2c96961d69d024",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/batteryIndicator_mat.mat"
+    },
+    {
+      "guid": "3b1af6fba8b08224e8168fdaa76037f9",
+      "pathAtExport": "Assets/Scripts/Interactions/VibrationStyle.cs"
+    },
+    {
+      "guid": "3bb591b8f8584a4458e78667df944e90",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Suction_Catheter/oxy_rubber_light.mat"
+    },
+    {
+      "guid": "3bf4ba42458d05a48affc8cf623d4256",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Suction_Catheter/suction_eidt.fbx"
+    },
+    {
+      "guid": "3c08ce434693a4740bb5d256ffa5f8d1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Animation/OculusTouchRiftLeftAnimation.controller"
+    },
+    {
+      "guid": "3c1e2504e79f7a242a8a0c8a4add2578",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_relax_mid_fist_anim.fbx"
+    },
+    {
+      "guid": "3c23a7077c08a52439ffa72144bd59a8",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Flevokathetiras/kentrikos.fbx"
+    },
+    {
+      "guid": "3c54bf5a543ad1e4dbd42f245b94d722",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medical device 02.mat"
+    },
+    {
+      "guid": "3c85433956d6ebf4ead83f530727c47c",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/MetaCoreIntegration/Runtime/MetaGrabbing/Scripts/MetaXRSharedGrabbable.cs"
+    },
+    {
+      "guid": "3d03f0cc40bd94046bbabd64e26ed601",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/OculusRayCursor.shader"
+    },
+    {
+      "guid": "3d0f3ee05fc6f7f48b22c4928c64a786",
+      "pathAtExport": "Assets/Scripts/Interactions/MenuHandler.cs"
+    },
+    {
+      "guid": "3dc5096e5fc80594097741cde4f5d1a4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/lamp shade.2.mat"
+    },
+    {
+      "guid": "3dc9b36eb85fa424489d9d859f737ab4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusCursorMaterial.mat"
+    },
+    {
+      "guid": "3decc5024473a2841aaddfab5d4557c2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/surgical light black plastic.2.mat"
+    },
+    {
+      "guid": "3e2cb428b733e56478338c736189a0d5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ControllerActiveState.cs"
+    },
+    {
+      "guid": "3e95c831cb7049e43a842e54ec20a1c4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Towel_Surgical._Big.mat"
+    },
+    {
+      "guid": "3eac11706db359b49bf0ea4b2576b331",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/UseGrab/HandGrabUseInteractor.cs"
+    },
+    {
+      "guid": "3eb730d9986cf8a40987f8eef2ccaa9c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Wound_No_Blood.mat"
+    },
+    {
+      "guid": "3eea87b91f85d324797846a5c54875b0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Right_BaseColor_AO_AlphaRoughness.png"
+    },
+    {
+      "guid": "3f0075ceea111b4418fb0b0e49cc1713",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Purple_Tongue.mat"
+    },
+    {
+      "guid": "3f032750a244319498ff63757c66cf04",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/RoomModel/Shaders/TransparentTexture.shader"
+    },
+    {
+      "guid": "3f372cf1215ef50499f9b9d82e05831a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/Visuals/TeleportReticleDrawer.cs"
+    },
+    {
+      "guid": "3f6be9148cc05f5439535dda63698715",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Textures/Jeans_Nor.jpg"
+    },
+    {
+      "guid": "3f974d61f39a79c408d54b32f31f186c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Animation/OculusTouchQuestAndRiftSRightAnimation.controller"
+    },
+    {
+      "guid": "3f9ce8c498020414bb2329b1e2f53a46",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Wound_noblood_Base.png"
+    },
+    {
+      "guid": "3faa9508f11074044ab4952ab4794ce0",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pulse_oxymeter/M_DeviceWhite.mat"
+    },
+    {
+      "guid": "3ff69efc68416e14781e4e8a745e576d",
+      "pathAtExport": "Assets/Sound/Normal Breath Sound.mp3"
+    },
+    {
+      "guid": "3ffe41fe81087fa41a2062cc69b99615",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/PointableCanvas.cs"
+    },
+    {
+      "guid": "4005ec4dc7a14dd408f4b8f39b8a9937",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/batteryIndicatorTexture32.png"
+    },
+    {
+      "guid": "40061db54b1594340a4cfae53bc2a242",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/piesometro teliko/Piesometro_Final.fbx"
+    },
+    {
+      "guid": "407b75ffa53b29f43864ce234590e7b0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Reservoir.mat"
+    },
+    {
+      "guid": "40e411facfd4a474da313c4cd88b07bb",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Body Eyelashes.mat"
+    },
+    {
+      "guid": "417817ee9b785e341b31ce731f028317",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandPointerPose.cs"
+    },
+    {
+      "guid": "418a6e15171963442b31005b0a02e853",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Ga_Skin_Body_Diffuse.png"
+    },
+    {
+      "guid": "41ad88f621d56a14d948ebc97c2278a0",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Resources/Scriptables/OpenXRBonesCompression/RightHandSynchronization.asset"
+    },
+    {
+      "guid": "423724faee32f66469f5887322b8aa2d",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Endotracheal_tube/Tube_Carlens_Diffuse.jpg"
+    },
+    {
+      "guid": "428b009056176bc4cb6ca0c6d94b2601",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_down/white_ metal_incubator.mat"
+    },
+    {
+      "guid": "42984d465c69e964c94f5472fe640585",
+      "pathAtExport": "Assets/3D_Objects/Textures/lines.mat"
+    },
+    {
+      "guid": "42bba106679662e4b925dca314de22c2",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Virtual/VirtualSelector.cs"
+    },
+    {
+      "guid": "42e7d21986e335945bf24940426864fd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pulse_oxymeter/M_BlackScreeb.mat"
+    },
+    {
+      "guid": "43825f0ec3ac9ac47b3bffefcf660f72",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/CoreAssets/Textures/lut_sss_curvature.png"
+    },
+    {
+      "guid": "438e12c9002f2c8489c81a2d3472b18d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Controllers/ControllerPointerPose.cs"
+    },
+    {
+      "guid": "43f86b14a27b52f4f9298c33015b5c26",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/Grabbable.cs"
+    },
+    {
+      "guid": "4482d207f75721944b841f4746012dd8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medical_item_normal.png"
+    },
+    {
+      "guid": "4534b960f6fd44447a8408752cd22ab3",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/Scripts/OSFHandRepresentation.cs"
+    },
+    {
+      "guid": "4586bbc8f000620428a7a2c0ff17013b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/TunnelingEffect.mat"
+    },
+    {
+      "guid": "46a73f2c9851f1d4bb65257522bcf2e4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/surgical light black plastic.mat"
+    },
+    {
+      "guid": "46b8c62814cae074c99dcc1398d6d6b7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143571609.mat"
+    },
+    {
+      "guid": "46bdecb553d8f5a479398cab3c3df2d5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/MIRROR.mat"
+    },
+    {
+      "guid": "4733c5f009d26ad49b3685117b8d3eb4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/RayInteractor.cs"
+    },
+    {
+      "guid": "47349f9cf0f4cd045b97092aac31b3f5",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Rigs/NetworkRig/NetworkRig.cs"
+    },
+    {
+      "guid": "47b087e85a2ef4a40a15fcf7ef9af6ac",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143571612.mat"
+    },
+    {
+      "guid": "47b531ddc7a6a92468aaeedbb9020d42",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/surgical blue plastic.mat"
+    },
+    {
+      "guid": "484167e684014224c9a8bff92b293c6a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/HMD/HmdRef.cs"
+    },
+    {
+      "guid": "4855895ba1c44959a306beb7ae318fc2",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/FromOVRHandDataSource.cs"
+    },
+    {
+      "guid": "4873a892e56b3ad47ac329f54753eabc",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/Case Material.mat"
+    },
+    {
+      "guid": "488896fe86105104a8453d9f173cf62a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Controllers/ControllerOffset.cs"
+    },
+    {
+      "guid": "488ce88fa6b4eb14d81e24c2314c13e4",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scripts/LegsBehavior/OvrAvatarDefaultStateListener.cs"
+    },
+    {
+      "guid": "48914dda5e8f20f42bdc6b1a7ba28283",
+      "pathAtExport": "Assets/3D_Objects/Textures/Bed/Low_poly_bed/BED_standardSurface23_Roughness.1001.png"
+    },
+    {
+      "guid": "48eae4e01ff52814f965a83bc880aa45",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/Chrome.mat"
+    },
+    {
+      "guid": "4929e0c1b3e25bd4195cc6ddd4724fe5",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Prefabs/NetworkRigWithoutHands.prefab"
+    },
+    {
+      "guid": "494d67f4b4a376e44a39c27282217d34",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bin4.fbx"
+    },
+    {
+      "guid": "4a0124413f6c41543a1bdffc9f0fe78c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_Locomotion_Exit.wav"
+    },
+    {
+      "guid": "4a8e946ed663e4a4db0f537e2965635d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Animation/OculusTouchQuest2LeftAnimation.controller"
+    },
+    {
+      "guid": "4aa4a1b9a03d9b54d80515831235fbe9",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Textures/Reticle-Circle.png"
+    },
+    {
+      "guid": "4ac558de6fb637548a9e3e0483939688",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/BestSelectInteractorGroup.cs"
+    },
+    {
+      "guid": "4ae60cfa43388e449a7518f36418f81c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/Controller.cs"
+    },
+    {
+      "guid": "4b0cb3952fb8c6b41a50b06bff3a0b3f",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Eye_Diffuse_big.jpg"
+    },
+    {
+      "guid": "4b13877204bf5394c80dc8b6e469ec13",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusMATphong_right.mat"
+    },
+    {
+      "guid": "4b164e9f885bc79439f1c08e88edae9d",
+      "pathAtExport": "Assets/UI/Menu/Back forward.png"
+    },
+    {
+      "guid": "4ba8719e0e9296246acd05ee53ae49f4",
+      "pathAtExport": "Assets/UI/Menu/Home.png"
+    },
+    {
+      "guid": "4bb17fa3a0a95413a817e60391d26010",
+      "pathAtExport": "Assets/Obi/Editor/Resources/Icons/ObiSolver Icon.png"
+    },
+    {
+      "guid": "4bd1f1e23a51a7d428dd152466736b7a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/RectTransformBoundsClipperDriver.cs"
+    },
+    {
+      "guid": "4c2948df05c18464b87150ead9e36ff4",
+      "pathAtExport": "Assets/UI/Menu/Record Session Button Off 72X72.png"
+    },
+    {
+      "guid": "4c2da5cd579300446b3a62385ffe2bb9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143569171.mat"
+    },
+    {
+      "guid": "4ca9205ccc703aa4498dca7d2f68a907",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Textures/ubranie_0_Diffuse.png"
+    },
+    {
+      "guid": "4cfc0d0865bc6ca4c92fe1055cdf16d0",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Drawer/Drawer.fbx"
+    },
+    {
+      "guid": "4cfe1df7ed391a24fbe2a2d275e81b06",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/ShapeRecognizer.cs"
+    },
+    {
+      "guid": "4d03c9194b7ab4aaba4dfa5afec22c69",
+      "pathAtExport": "Assets/Obi/Scripts/Common/Utils/ObiParticleAttachment.cs"
+    },
+    {
+      "guid": "4d739e0ea15bde448837731b623f15e7",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Wheelchair/Paint Metal Dark.mat"
+    },
+    {
+      "guid": "4da77ccaa334a3e45961430811956356",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Animation/MetaQuestTouchProRightAnimation.controller"
+    },
+    {
+      "guid": "4ddcbef05127c68428a1bac97da597ee",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/medical cabinet glass sdoor.mat"
+    },
+    {
+      "guid": "4df48b829cc336447968e68490b90b23",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Materials/ubranie_1.mat"
+    },
+    {
+      "guid": "4dffc2a801520fb4cbe2c11894faf431",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/JointsRadiusFeature.cs"
+    },
+    {
+      "guid": "4f4594d3823cc9e4ea68ebb1e27310da",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_Locomotion_Enter.wav"
+    },
+    {
+      "guid": "4f62acf90e41ded439f14c4e15871abd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/TeleportInteractor.cs"
+    },
+    {
+      "guid": "4fc55f06baa808648b3da9957220a915",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Syringe_Diffuse_Blue.jpg"
+    },
+    {
+      "guid": "5032133647099a44fb1f5296f5788d9b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/infpolestandardopacity.jpg"
+    },
+    {
+      "guid": "508ffd27ea1aff049b3c3137dc3d98ce",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/Console_Up_Normal.jpg"
+    },
+    {
+      "guid": "50e09292ca409324bb0dc53075129e9d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/infusion pole metal.mat"
+    },
+    {
+      "guid": "50f211aff3d26554691f0499eaa219e5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/DistantInteractionTubeVisual.cs"
+    },
+    {
+      "guid": "5178bc8574ce2bf4388e787a2e2af326",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRHeadsetEmulator.cs"
+    },
+    {
+      "guid": "51a9b15cac88438428aa615d88c0ef9a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Chrome.001.1.mat"
+    },
+    {
+      "guid": "526aeea2e3491f24e91f75ccc7351b5d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/blue_fabric1.jpg"
+    },
+    {
+      "guid": "528296ec8cb7e9e4b836b8aa1197aa98",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Materials/pasted_touchPBS_MAT.fbx"
+    },
+    {
+      "guid": "528d201bc10084452b24974deb16a423",
+      "pathAtExport": "Assets/Obi/Editor/Resources/Icons/ObiParticleHandle Icon.png"
+    },
+    {
+      "guid": "52f32f18bd8beca459c8d60a02b60a9e",
+      "pathAtExport": "Assets/Scripts/Interactions/Suction_Substaction.cs"
+    },
+    {
+      "guid": "539d0a82de451074b97cf8422154480c",
+      "pathAtExport": "Assets/3D_Objects/_UI/Pi tech Logo 3D/Material.001.mat"
+    },
+    {
+      "guid": "539fbf1f950eaf149b94c967498d66c2",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Body_Normal.png"
+    },
+    {
+      "guid": "5430ef503010d36409954ca089580a5f",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Std_Lower_Teeth_Normal.png"
+    },
+    {
+      "guid": "546c836d3c95db04182543d3541aeb12",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/ConicalFrustum.cs"
+    },
+    {
+      "guid": "5487a7af70ff7364996d8da93d056fa9",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusMATphong_left.mat"
+    },
+    {
+      "guid": "54b62ae21d2a24f4f8327fa4a01db8f2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/white_ metal_hospital_bed.mat"
+    },
+    {
+      "guid": "54c16b381e28e8d479237771d234dbae",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRSkeletonRenderer.cs"
+    },
+    {
+      "guid": "54e70084d2847414fa910ef03a48db90",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Resources/Scriptables/OpenXRDefaultBonesPositions/LeftXRHandsDefaultBonesState.asset"
+    },
+    {
+      "guid": "554db66db97cac3458e7670293930091",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Bag Valve Mask.controller"
+    },
+    {
+      "guid": "55d9ac8bdf143984b95e041f13a07f68",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/CoreAssets/Textures/lut_sss_ZH.png"
+    },
+    {
+      "guid": "5601f7bacce04d34b8daf65b68bf34b2",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Resources/Scriptables/OpenXRDefaultBonesPositions/RightXRHandsDefaultBonesState.asset"
+    },
+    {
+      "guid": "56032097b1ab3a540b3349af62f82310",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/LOD/AvatarLODLookat.cs"
+    },
+    {
+      "guid": "5621073eba7df4a419e0cb12f78935bd",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/PatientM/Patient_Colliders/cheek_collider_R.fbx"
+    },
+    {
+      "guid": "564097ba7235dc04bafcd86e3771d3e4",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Models/PlayerCapsule.fbx"
+    },
+    {
+      "guid": "5658ac9811f732345b2aa356d2040a7d",
+      "pathAtExport": "Assets/3D_Objects/Materials/Bruise-PNG.png"
+    },
+    {
+      "guid": "5680c367a0210354bb5fb189bea6a816",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Wheelchair/Gray Aluminum.mat"
+    },
+    {
+      "guid": "5690b064787418646b57789e277dd4fa",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Rigs/NetworkRig/NetworkHeadset.cs"
+    },
+    {
+      "guid": "56d32fefcdbea354196592f4c5e50aef",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material.001.mat"
+    },
+    {
+      "guid": "57810e99e5374304f9bca8395d497369",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_Normal Light Blue.png"
+    },
+    {
+      "guid": "57c3dce928a7b51469e543e194c7a70b",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Scripts/HandDescriptionScriptables/HandSynchronizationScriptable.cs"
+    },
+    {
+      "guid": "57ed3b2ab79010148ae1995742821291",
+      "pathAtExport": "Assets/Scripts/TestingScripts/MetaCustomGrabbableHandler.cs"
+    },
+    {
+      "guid": "58c0a1688e1e94246a18cba0ca9a5dab",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Stethoscope/Stethoscope_updated.fbx"
+    },
+    {
+      "guid": "592ac3f1a010f3d48970c5beb7e4f68f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/Axis2DActiveState.cs"
+    },
+    {
+      "guid": "596cef32851f2f747b1e43b129420da6",
+      "pathAtExport": "Assets/Animations/MOMT/ac.scissor.controller"
+    },
+    {
+      "guid": "5996bd14a44b14c4b9a5d3b29ec8974d",
+      "pathAtExport": "Assets/Scripts/Multiplayer/NetworkedStates/NetworkStateManager.cs"
+    },
+    {
+      "guid": "59bc45f8df128e8428eb62f127d220f8",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Slim_Jeans 1.mat"
+    },
+    {
+      "guid": "59c663caca09ea94db8a28d6b8564325",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Transparent.mat"
+    },
+    {
+      "guid": "59daf1983342d944388d3eba902fbde9",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/patient with shirt edit/Basic_T_shirts edit.mat"
+    },
+    {
+      "guid": "5a1bc992571301d4a9602ac95ef4c71a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Grab/GrabInteractable.cs"
+    },
+    {
+      "guid": "5a52cc62b98662b4e9ac356027b2b070",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandTransformScaler.cs"
+    },
+    {
+      "guid": "5ab90b5d07fb7e240975058b36a342a4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Slide/SlideLocomotionBroadcaster.cs"
+    },
+    {
+      "guid": "5b023183069df224080314a560e6e1ff",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/BuildingBlock.cs"
+    },
+    {
+      "guid": "5b1accc13fa2ae24e9c3fddfb5d54889",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swap_Pad_Round.mat"
+    },
+    {
+      "guid": "5b2cc46d1164b134f93c551aa78ed42e",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Boxers_Diffuse.png"
+    },
+    {
+      "guid": "5b47dd96177c39842951ddbaae3f2a54",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Hair_Transparency.mat"
+    },
+    {
+      "guid": "5b9c84cdb747944209b1c8753933c5db",
+      "pathAtExport": "Assets/Obi/Scripts/Common/Collisions/ObiCollisionMaterial.cs"
+    },
+    {
+      "guid": "5bab197e47032c54d9c7f862b7c5ee71",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pulse_oxymeter/M_DeviceBlue_HIGHLIGHT.mat"
+    },
+    {
+      "guid": "5c67033f580359c4581dff1ccffcca91",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/DataModifiers/SyntheticHand.cs"
+    },
+    {
+      "guid": "5cc5c234723e3a54d8dd09b131117743",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRMesh.cs"
+    },
+    {
+      "guid": "5cc714b2baff802439bff9ff64780563",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/cx50_gray.mat"
+    },
+    {
+      "guid": "5d3633cd24b8d474580adbf8f1026885",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Wheelchair/WheelChair.fbx"
+    },
+    {
+      "guid": "5d73d5466b6e24b40acf73ec4c503cbc",
+      "pathAtExport": "Assets/3D_Objects/_EXTRAS PATIENT/Blood/emesmata.mat"
+    },
+    {
+      "guid": "5e1abaf5e84caa346b3e5ff1434d570b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/Chrome.mat"
+    },
+    {
+      "guid": "5e38df5678b37d6429ef2446d3589e00",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Visuals/InteractorDebugVisual.cs"
+    },
+    {
+      "guid": "5f552e57d966ddb40b5687d066a5a873",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Input/ControllerCommand/NetworkControllerCommand.cs"
+    },
+    {
+      "guid": "5f8eb095a141e5047a9d1a78cc54a061",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/piesometro teliko/aiStandardSurface2.mat"
+    },
+    {
+      "guid": "602440a27021ced4cac5527c32d2e347",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Ga_Skin_Body.mat"
+    },
+    {
+      "guid": "6072b48fd6f80a942a66791bdab1eb4d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pipe_pipeBase/pipe_pipeBase_eidt.fbx"
+    },
+    {
+      "guid": "60a0845f4c50cf34f928703a0d57f174",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/piesometro teliko/othoni.mat"
+    },
+    {
+      "guid": "60cfb6d5be8d32b4aade87198e2c0646",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Aluminum_matted.1.mat"
+    },
+    {
+      "guid": "60f30059310f3684d969f78755773775",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Rigs/NetworkRig/NetworkController.cs"
+    },
+    {
+      "guid": "60f9185eeab3cb744a9345e5e46a662b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/plastic_operation table.mat"
+    },
+    {
+      "guid": "6208d46a8b602b245baaf9a5ff7ed7cf",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swab_Pad_Diffuse2.png"
+    },
+    {
+      "guid": "622db80eec0bd344f920b1aa056ae8d0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/HandGrab/HandGrabPose.cs"
+    },
+    {
+      "guid": "62359d80fdc0e4315ab6331b78ec5b90",
+      "pathAtExport": "Assets/Obi/Scripts/Common/Collisions/ObiRigidbody.cs"
+    },
+    {
+      "guid": "624a43b12f51b9441bf79e5816ae681f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medical_item.png"
+    },
+    {
+      "guid": "627682f55c93a0141a5e324fc612cb57",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/ventilator controls2.mat"
+    },
+    {
+      "guid": "62a9d09916ac8bf4ba30ba4803d3503a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Animation/OculusTouchQuest2RightAnimation.controller"
+    },
+    {
+      "guid": "635f432b0b5a8c44992364202b2f5d5b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/DistanceHandGrab/DistanceHandGrabInteractor.cs"
+    },
+    {
+      "guid": "637d9f4699d72664d882de0b9775d38a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swab_Pad_Round_Diffuse.jpg"
+    },
+    {
+      "guid": "637f19aef5eccc146a6ab77a1d4ab0a8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/OvrAvatarShaderManagerSingle.cs"
+    },
+    {
+      "guid": "63d10a535aa014c4f9e3f04185131351",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRLeftHand.fbx"
+    },
+    {
+      "guid": "6418748e9d0ad7644ae0f0586c655804",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Left_BaseColor_AO_AlphaRoughness.png"
+    },
+    {
+      "guid": "649ee9096089b1342bee9132e3ccc8bd",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_relax_3qtr_fist_anim.fbx"
+    },
+    {
+      "guid": "655762154f2c178408c679dfe2ddfff4",
+      "pathAtExport": "Assets/Scripts/UI/SceneHandler.cs"
+    },
+    {
+      "guid": "6557dba7c7035a3448c0583098600c6c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/Icons/ovr_bb_icon.png"
+    },
+    {
+      "guid": "6575f01d27d850e4f8806ea617209f38",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/ICU Room.fbx"
+    },
+    {
+      "guid": "657af07d59b79b7408096dcb8d545af6",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Maselaki/maselaki_lowPoly.fbx"
+    },
+    {
+      "guid": "6593496738c8e8045badc49f0ef2917a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Skinning/GpuSkinning/Shaders/OvrApplyMorphsAndSkinning.compute"
+    },
+    {
+      "guid": "65f8cf47cb3c5c14ea5eaa32d2f11ad2",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Top.mat"
+    },
+    {
+      "guid": "6668dc41af99ede409b16564189b35f6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Top_Normal.png"
+    },
+    {
+      "guid": "666b67ab466d90a428369709bf4651dc",
+      "pathAtExport": "Assets/UI/Menu/Record Session Toggle Off 144X72.png"
+    },
+    {
+      "guid": "667128fde557c9a4fb3c1ea2ddf5428c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/man-in-sudden-pain-268131.mp3"
+    },
+    {
+      "guid": "66a08668344af0949bfefc8f5bada04e",
+      "pathAtExport": "Assets/3D_Objects/_EXTRAS PATIENT/Vomit/vomit_albedo.jpg"
+    },
+    {
+      "guid": "66ef3c3d063fc9847afd6147afe20e79",
+      "pathAtExport": "Assets/3D_Objects/Materials/Bruise intense.mat"
+    },
+    {
+      "guid": "6757b231cedd544c583ef8aeaf773b2a",
+      "pathAtExport": "Assets/Obi/Scripts/Common/Collisions/ObiCollider.cs"
+    },
+    {
+      "guid": "67be4f15fa1af0c4486fedbfeb87774c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Textures/fingers_glow_mask.png"
+    },
+    {
+      "guid": "67fb2ae006d618c4180efcabc2481fcf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateNot.cs"
+    },
+    {
+      "guid": "684d0022a849cf348a309f48323f9043",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/wound.controller"
+    },
+    {
+      "guid": "68e6db2ebdc24f95958faec2be5558d6",
+      "pathAtExport": "Assets/TextMesh Pro/Shaders/TMP_SDF.shader"
+    },
+    {
+      "guid": "6937544d08e2ba34da6ff4ab90cbfd84",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scripts/SampleInputManager.cs"
+    },
+    {
+      "guid": "697d9a99ae3c7784bbef700ed300a1ca",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusHandWire.mat"
+    },
+    {
+      "guid": "69a56a590bc345b42b367a1c73088cce",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/VirtualActiveState.cs"
+    },
+    {
+      "guid": "6a7cf355f32cb3d49abbca2846e7510d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_down/Console_Down2_Normal.jpg"
+    },
+    {
+      "guid": "6aa068de562edd1418e1ed5cda559f1b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material.003.mat"
+    },
+    {
+      "guid": "6aca0e436cad1ae4db780266f99039b3",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Mask_Normal.png"
+    },
+    {
+      "guid": "6adcc508ee7b97c45b3f0d15786bb315",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Wound_Normal.jpg"
+    },
+    {
+      "guid": "6b01d08517c292649974266c91441d73",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/Materials/OSFHandMaterial.mat"
+    },
+    {
+      "guid": "6bcb907778a00234ea4e7aa9cf238631",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/TouchHandGrab/TouchHandGrabInteractor.cs"
+    },
+    {
+      "guid": "6bdab6502f1ed414d8b4a2517ea565e6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pulse_oxymeter/Pulse Oxymeter3.fbx"
+    },
+    {
+      "guid": "6c41a6e223fece0458162624394578d6",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_hold_generic_anim.fbx"
+    },
+    {
+      "guid": "6d2303af7d4c7114681742031c4a0ac6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Controllers/ControllerSelector.cs"
+    },
+    {
+      "guid": "6d9d81be1c5cd1942a7572d99a4fca60",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/ReticleMeshDrawer.cs"
+    },
+    {
+      "guid": "6da22d6bce08a4f3d86542bb903de689",
+      "pathAtExport": "Assets/Obi/Editor/Resources/Icons/ObiCollider Icon.png"
+    },
+    {
+      "guid": "6dbadae3d5e5bed42ab90157442156f0",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Rigs/NetworkRig/NetworkHand.cs"
+    },
+    {
+      "guid": "6e2d24945b0416e4a853eeb481fe8fa5",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Steel_Stainless_Dull_Instruments.mat"
+    },
+    {
+      "guid": "6eadb23de7fc4dc4a9cea0f597add098",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Scripts/XRHandRemoteSkeletonDriver.cs"
+    },
+    {
+      "guid": "6eae2e000194a3347934681aa0401ce2",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/piesometro teliko/othoni 1.mat"
+    },
+    {
+      "guid": "6f21528085b305345aa60f40f4a5a5d8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/Visuals/RayInteractorRayVisual.cs"
+    },
+    {
+      "guid": "6f37195661808b94ea8146879c3b7134",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Upper_Teeth_Diffuse.jpg"
+    },
+    {
+      "guid": "6f7b5e023c26c764c9cb12069073934d",
+      "pathAtExport": "Assets/UI/Options/Option Selected 128x64.png"
+    },
+    {
+      "guid": "6f94bc87ecdf02f499aaef84a42dc385",
+      "pathAtExport": "Assets/Scenes/Patron/MoMt/Cubemap Shader Graph.shadergraph"
+    },
+    {
+      "guid": "6fbec8b93f708634184d88199348f3ac",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Models/window_blinds.fbx"
+    },
+    {
+      "guid": "6fce4d906dba56f4bb507682dbb5b81d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProRight_Material.fbx"
+    },
+    {
+      "guid": "6ffb89a2f7bcddf46895b734f75a2983",
+      "pathAtExport": "Assets/Scripts/Interactions/Managers/SkinColorController.cs"
+    },
+    {
+      "guid": "700142580560ace4cbddcacbae9ae39b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRRightHand.fbx"
+    },
+    {
+      "guid": "70e19a5bbd6f5064ea3c0dd58b4949f2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/samsung TV logo.mat"
+    },
+    {
+      "guid": "726b68641ed4449419211070f24dc792",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Ourokathetiras/CatheterWithSplit.fbx"
+    },
+    {
+      "guid": "727baca55cc0aa44d994b9820ca48e25",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Std_Upper_BrokenTeeth_Diffuse.png"
+    },
+    {
+      "guid": "72d852fe52caff1489017f9d468fd339",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/incubator metal.mat"
+    },
+    {
+      "guid": "72ef1d6c14ea71048a433157151cbeb4",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Eye_Diffuse_small.jpg"
+    },
+    {
+      "guid": "72fa0775a6fc4a343a6385cac467dcdc",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-SemiBold SDF.asset"
+    },
+    {
+      "guid": "73a85459dfe95c7428c7ecf2ca4714f5",
+      "pathAtExport": "Assets/Scenes/Testing/Global Volume Profile.asset"
+    },
+    {
+      "guid": "73af2d5eb4aa5f84c9489fec88acb742",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_cap_touch_thumb_mask_anim.fbx"
+    },
+    {
+      "guid": "73da5ad8c91f75342be4c2ef39fe13ea",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/PatientM/Patient_Colliders/cheek_collider_L.fbx"
+    },
+    {
+      "guid": "73eac66b128fc8749a21623225c34541",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRMeshRenderer.cs"
+    },
+    {
+      "guid": "74271f35fab95ce4492d41655d39605b",
+      "pathAtExport": "Assets/3D_Objects/_UI/Image Panels/Scale of pain severity.mat"
+    },
+    {
+      "guid": "744e936c89f0d704a87622ec3a6f8937",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/monitor case.mat"
+    },
+    {
+      "guid": "7474ef669a231ab43a8cafe3315ea801",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Slim_fit_pants 1.mat"
+    },
+    {
+      "guid": "74ac3c0186fe13047ad8400da0990acf",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bin yellow.mat"
+    },
+    {
+      "guid": "759098c79db7ee147beab307a024beef",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Models/PhotonCap.fbx"
+    },
+    {
+      "guid": "75b646d6177327a49960ce0e2006eca6",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/base 1.mat"
+    },
+    {
+      "guid": "75d3a1facc5f29d4ea65d3af68af5c9e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/TagSetFilter.cs"
+    },
+    {
+      "guid": "761f4f0b73f99884fad9bb1642b039e6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical light black plastic.1.mat"
+    },
+    {
+      "guid": "7633c2c6690d75f4397c26437d837a98",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Stethoscope/Material.001.mat"
+    },
+    {
+      "guid": "76e21ecf1a8eac24bb400da663dfa0a7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bag yellow.mat"
+    },
+    {
+      "guid": "76f6075ec84afca46b2a5e5b3bfdf8ce",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Materials/OculusTouchForRift_Material.fbx"
+    },
+    {
+      "guid": "77e60cd7a8e8d064183f1754eb3db644",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scenes/LegsNetworkLoopback/HumanoidAnimations/CustomAnimationControllerWithDefaultTransition.controller"
+    },
+    {
+      "guid": "78004595c6cead044be53137cdf8db19",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/Shared/NetworkedAvatar/Scripts/AvatarEntity.cs"
+    },
+    {
+      "guid": "7809dda1d56f7784d80e91bd7020adc3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/hospital_bed_ metal1.mat"
+    },
+    {
+      "guid": "78e0f69dd04ac2440a08fa31c8d96f83",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Microgestures/MicroGestureUnityEventWrapper.cs"
+    },
+    {
+      "guid": "79e0d96a3e30fec46a930ab7dd95ef5f",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_relax_3qtr_fist_anim.fbx"
+    },
+    {
+      "guid": "7a701167f3382f3469c311bb308142af",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_point_anim.fbx"
+    },
+    {
+      "guid": "7ab9b017cacf5bc4c8738f5bdd90936f",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Turtleneck_sweater_Normal.jpg"
+    },
+    {
+      "guid": "7b15e2166f85f424c89127e1c615ccee",
+      "pathAtExport": "Assets/Resources/CustomAvatar ForMeta.prefab"
+    },
+    {
+      "guid": "7bd5c966dda648a4598ab2d053407f38",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical white.4.mat"
+    },
+    {
+      "guid": "7bf81deb4ead62e4c9de1e69bb491c00",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_hold_ping_pong_ball_anim.fbx"
+    },
+    {
+      "guid": "7c03a1f52a4ed51428913c25ec54afc0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusRayMaterial.mat"
+    },
+    {
+      "guid": "7ca2a25ee76397f49a0f7956a45e00ae",
+      "pathAtExport": "Assets/Scripts/Multiplayer/ToDelete/StateListener.cs"
+    },
+    {
+      "guid": "7cb2e1480bb51ce4282f540ea3f41d4f",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_fist_anim.fbx"
+    },
+    {
+      "guid": "7ce766bc737a59742bbf0b6a2ab717a6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Materials/Ga_Skin_Body.mat"
+    },
+    {
+      "guid": "7d7e5afcf77b642499ef26fce926de5d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Ga_Skin_Body_Diffuse.png"
+    },
+    {
+      "guid": "7d913d464bb884dcd8b301c1d3ccbb4b",
+      "pathAtExport": "Assets/Obi/Scripts/Cloth/Actors/ObiTearableCloth.cs"
+    },
+    {
+      "guid": "7daff26e66096cd49a253ca3ab592c03",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/DataModifiers/LastKnownGoodHand.cs"
+    },
+    {
+      "guid": "7dcbab6982c500847b89fc493e0e29ad",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Towel_Surgical_Diffuse.jpg"
+    },
+    {
+      "guid": "7e933e81d3c20c74ea6fdc708a67e3a5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRManager.cs"
+    },
+    {
+      "guid": "7edaf861565f0fe4b83a2b13f00ed335",
+      "pathAtExport": "Assets/Scripts/CustomAvatarRigSyncFusion.cs"
+    },
+    {
+      "guid": "7ff0354edd21e6343bb017c054753ec4",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/transparent.mat"
+    },
+    {
+      "guid": "7ff7f4efcfd34e4498f8c4800a28787d",
+      "pathAtExport": "Assets/Animations/Animation without skin MIxamo/Standing W_Briefcase Idle.anim"
+    },
+    {
+      "guid": "8083b51aac07f7f4dad4a7f6878b97e3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Prefabs/HandGrab/OpenXRGhost-LeftHand.prefab"
+    },
+    {
+      "guid": "80974952fba3c1646bab1442cd77350c",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Mask Plastic.mat"
+    },
+    {
+      "guid": "80d79f2cb06397f4b8fa99bc661ed361",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Ourokathetiras/Urine Bag Holder.fbx"
+    },
+    {
+      "guid": "81224343ceee4c64e8c44f57bddbbd1e",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Prefabs/PhotonDummy.prefab"
+    },
+    {
+      "guid": "814fa524bf762ee4fafde3bb2f561611",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/Prefabs/OSFLeftHand.prefab"
+    },
+    {
+      "guid": "81521d61d0efc3a4b87b3783aee9f4a4",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scripts/LegsBehavior/OvrAvatarAnimationBehavior.cs"
+    },
+    {
+      "guid": "818440d98ea39cb41b0ae9d96d5fb728",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/samsung TV led box.mat"
+    },
+    {
+      "guid": "8268085ebe170e64aa36672a45f0dd8d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/CenterEyeOffset.cs"
+    },
+    {
+      "guid": "83052ea2d6bb311488211916605e716b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkRunner/Scripts/FusionBBEvents.cs"
+    },
+    {
+      "guid": "8310d4698426ea24e923c8a77fe0f3a0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/HmdOffset.cs"
+    },
+    {
+      "guid": "835f403de88abf344b8ef872112995a1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/Porcelain.mat"
+    },
+    {
+      "guid": "837542eeb807eb84bab49f76eda4c808",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-SemiBold.otf"
+    },
+    {
+      "guid": "8383f6890f5df614ba74314147dbdd4f",
+      "pathAtExport": "Assets/Scenes/Patron/MoMt/Materials MoMt/Tools_metal_generic.mat"
+    },
+    {
+      "guid": "838bf82eef6d73d42b59f428c4e33417",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/TouchHandGrab/TouchHandGrabInteractorVisual.cs"
+    },
+    {
+      "guid": "8397e55cac8b92142a005b5dde7c9022",
+      "pathAtExport": "Assets/3D_Objects/Materials/Bruise.mat"
+    },
+    {
+      "guid": "83ccbdf0788f1cc4ebeac106967c5660",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_Diffuse light Blue.jpg"
+    },
+    {
+      "guid": "83eb29e70c040cb4683337799a37608b",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Materials/ubranie_0.mat"
+    },
+    {
+      "guid": "84629dcf390c7964d81376621726c632",
+      "pathAtExport": "Assets/3D_Objects/_EXTRAS PATIENT/Blood/Blood.fbx"
+    },
+    {
+      "guid": "84968b335caafc44d9b0cf378c659bb3",
+      "pathAtExport": "Assets/UI/Menu/Exit.png"
+    },
+    {
+      "guid": "84b4b1a3a2c3d8244872584943362d10",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pulse_oxymeter/Comp 1256.jpg"
+    },
+    {
+      "guid": "84c0cef49dded4c488ac1a59e9647098",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Hat.mat"
+    },
+    {
+      "guid": "84de3b22a7efbab46967c1a17f5b8cda",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/Visuals/HandGhostProvider.cs"
+    },
+    {
+      "guid": "85486bb3781f2ab47a398933493ad4e7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Steel_Stainlessl_Shiny.mat"
+    },
+    {
+      "guid": "85cc127d22d01bd47bbd4619b22ee0e3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143571607.mat"
+    },
+    {
+      "guid": "861c253c01be7f7489f64e9ac001a10c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusHandPinchMaterial.mat"
+    },
+    {
+      "guid": "8627cace146be5646b07e20336e69ed2",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Flevokathetiras/plastic.mat"
+    },
+    {
+      "guid": "8690ae037c466204f80781bcfbcd5888",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Models/LeftHand.fbx"
+    },
+    {
+      "guid": "86bd0d3098d25db4c9c839739557480b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/HandSkeletonOVR.cs"
+    },
+    {
+      "guid": "86cd88e82353d184eb08f27a699b8797",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_Light blue.mat"
+    },
+    {
+      "guid": "8733ebe23f85185428441f8c331788fc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/CharacterController.cs"
+    },
+    {
+      "guid": "878a10c816f77ef4e943778e04570b9e",
+      "pathAtExport": "Assets/3D_Objects/Textures/line.png"
+    },
+    {
+      "guid": "87d1ec9998300ff478a1fe9f77b24972",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/equipment_carrier_back.mat"
+    },
+    {
+      "guid": "88230848386761045af440d808ee3efa",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrap.cs"
+    },
+    {
+      "guid": "8857e68e3dcb74d489d183e048774da1",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Scissors/Scissor.fbx"
+    },
+    {
+      "guid": "88862cec87eb07b4b81acdef370a828a",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Std_Upper_Teeth.mat"
+    },
+    {
+      "guid": "88a539842f94cca46a9b7e67377eb63e",
+      "pathAtExport": "Assets/3D_Objects/_UI/Image Panels/Glascow.mat"
+    },
+    {
+      "guid": "894c12cc3c7830743844631fdeecd961",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swap_Pad_Round_Bloody.mat"
+    },
+    {
+      "guid": "8950f4676770cc74780718e473ee1e87",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Eye_NORMAL_No reaction.mat"
+    },
+    {
+      "guid": "898c44e82e053e04b9cf1f528883b3c9",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oxygen Mask/oxy_rubber_light.mat"
+    },
+    {
+      "guid": "89c4e64c9b8178747a7688d43abbbd42",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bag black.mat"
+    },
+    {
+      "guid": "8a0200d999c05c54fa27292e7f8616ee",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ControllerVisual.cs"
+    },
+    {
+      "guid": "8a423e339629e4f1a8bdb2b8bb5e0b2d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Prefabs/DummyAvatar.prefab"
+    },
+    {
+      "guid": "8acaf6c8bebf9b94bb9d755b6a6fcaf2",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Sport_sneakers_Normal.jpg"
+    },
+    {
+      "guid": "8ad84221314c64d46ab0a691dfb50864",
+      "pathAtExport": "Assets/Timelines/Patra 1/Timeline MoMT 2.playable"
+    },
+    {
+      "guid": "8ada5782ba7c90e46814c02fe803f43a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/Light_blue.mat"
+    },
+    {
+      "guid": "8b2fc1498442023409ccd04c3abff60e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/TouchHandGrab/HandSphereMap.cs"
+    },
+    {
+      "guid": "8b470e0c4b48d474c9a42d7f661d48c7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/DefaultSettings/PoseDetection/DefaultFingerFeatureStateThresholds.asset"
+    },
+    {
+      "guid": "8b83018900d13bb4f8e0ad895cb004e5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/OculusTouchForQuest2_Left.fbx"
+    },
+    {
+      "guid": "8ba5764f4714bd64ab9efab127938e77",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUI.cs"
+    },
+    {
+      "guid": "8c187a71eebf18441816c16087a51cb6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/Visuals/RayInteractorCursorVisual.cs"
+    },
+    {
+      "guid": "8c45b514357226842b84115fc6f63c44",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/Car_Paint_Standard.mat"
+    },
+    {
+      "guid": "8c904874630aea44fbafad4cde485bc1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143569221.mat"
+    },
+    {
+      "guid": "8cd27a8f4c15ae84bbdb2381fd964a49",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Metallic.png"
+    },
+    {
+      "guid": "8cdbffbe9adb0814aad486dd346fa517",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/steel_polished_Base_Color.jpg"
+    },
+    {
+      "guid": "8df81de6ba2e4e14c983a5a14b7957c0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ScrollInputProvider.cs"
+    },
+    {
+      "guid": "8e1d6427aa0b5584ab3744e9988d6e7b",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_cap_touch_index_mask_anim.fbx"
+    },
+    {
+      "guid": "8e529fb49bf04384ead892b0d1bac75b",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/base 2.mat"
+    },
+    {
+      "guid": "8e7d09ce4f5a4304fa25cfa678c60893",
+      "pathAtExport": "Assets/UI/Menu/Record Session Toggle On 144X72.png"
+    },
+    {
+      "guid": "8e9d707f9411fb34cb0641c160c87b5e",
+      "pathAtExport": "Assets/UI/Panels/Rectangle 5801 (1).png"
+    },
+    {
+      "guid": "8f30ac6cbbbe39d43886ad7626f7e2b2",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_cap_touch_index_mask_anim.fbx"
+    },
+    {
+      "guid": "8f3391361f239f74c949beb416e12769",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Slim_Jeans_Normal.jpg"
+    },
+    {
+      "guid": "9023fd6b7b0b2924686849f191595b75",
+      "pathAtExport": "Assets/Scripts/Interactions/Oxymeter.cs"
+    },
+    {
+      "guid": "9067480af55f5874d8f613b16812f968",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/HandGrab/HandGrabInteractor.cs"
+    },
+    {
+      "guid": "907321d040d29674781b019bd2f0e170",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Smooth Transition.shadergraph"
+    },
+    {
+      "guid": "90b7dc3f2fad6334f9f6817c8e00b96a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Wheelchair/Wheelchair_Fabric_NormalsMap.tga"
+    },
+    {
+      "guid": "90ba5ec6850308e4f8ec146f732b3821",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Steel_Stainlessl_Shiny_instruments.001.mat"
+    },
+    {
+      "guid": "90ee01f97dbdd5246924e5cf35eb4f1c",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-Light.otf"
+    },
+    {
+      "guid": "91544e64106755a40b45b2d31d2b36c0",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/walls.mat"
+    },
+    {
+      "guid": "91a6a726cbae826468cd43f740b33ef4",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Turtleneck_sweater_Diffuse.jpg"
+    },
+    {
+      "guid": "9222351df8d52de4db70ecbb3e1a136d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical light black plastic.2.mat"
+    },
+    {
+      "guid": "925ef87c5bafc37469a2f7ec825dee4b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Scripts/AudioTrigger.cs"
+    },
+    {
+      "guid": "927d10a84e1066c4a854939f0360d426",
+      "pathAtExport": "Assets/Scripts/Interactions/Wound.cs"
+    },
+    {
+      "guid": "92dd1ff21e711dc4b8b57eb39ab807ac",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Animation/OculusTouchQuestAndRiftSLeftAnimation.controller"
+    },
+    {
+      "guid": "9309edca93d5ef64cb39a427dd055b1d",
+      "pathAtExport": "Assets/3D_Objects/_UI/Image Panels/scale of pain severity Image.png"
+    },
+    {
+      "guid": "931fde946e2378d4fb627309623a41da",
+      "pathAtExport": "Assets/3D_Objects/_UI/Pi tech Logo 3D/Pi tech 3d.fbx"
+    },
+    {
+      "guid": "9346ee7dbf987684b86a8c5cb929a82c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/Locomotion/TunnelingEffect.shader"
+    },
+    {
+      "guid": "93e04c00e28f7274cb0fe7aa1cfab33b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/wood floor.mat"
+    },
+    {
+      "guid": "93e6eef6a3424ae4d8450b88688e6400",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Ga_Skin_Body 1.mat"
+    },
+    {
+      "guid": "9430f3b86da694e4d9ddf02b6c4882ae",
+      "pathAtExport": "Assets/3D_Objects/_UI/Image Panels/Glascow Coma Scale.jpg"
+    },
+    {
+      "guid": "949e33eb3289ef04ebbeb5f045a5add6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionActionsBroadcaster.cs"
+    },
+    {
+      "guid": "950a30cb30376cc4caeaa7f7cb86a492",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/equipment_carrier_body_frontface.mat"
+    },
+    {
+      "guid": "954b4af064a7a8e4eaa84f5ee4d06312",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/infusion plastic.mat"
+    },
+    {
+      "guid": "955afd60aadad0d4488f944d44c2f8b5",
+      "pathAtExport": "Assets/Scripts/Interactions/Stethoscope.cs"
+    },
+    {
+      "guid": "959b9d2310d9e9642a1fbc51dd28e709",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/cx50_gray.mat"
+    },
+    {
+      "guid": "95aa46eaf15ce6441a7679a097c897b4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical light black plastic.mat"
+    },
+    {
+      "guid": "95baec1b518a6eb4e9cbc268b496665a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Ourokathetiras/UrineBag.fbx"
+    },
+    {
+      "guid": "95f57c7db6696c04aba3868666fe3682",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Suction_Catheter/rinogastrikos.fbx"
+    },
+    {
+      "guid": "96527cb8eaee9f54c9854c9bdb0caf71",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medicaldevice02.jpg"
+    },
+    {
+      "guid": "96d76c7c8260afe419cbedcab84ad927",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medical_equipment.fbx"
+    },
+    {
+      "guid": "978e30b3c2f462849b022dbb5b438952",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/transparent 1.mat"
+    },
+    {
+      "guid": "97ad1841d31cfd844995732927b7c958",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRMicrogestureEventSource.cs"
+    },
+    {
+      "guid": "97e292191d2c70747a09d7adaa298e1a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/lid.mat"
+    },
+    {
+      "guid": "981050b4bfa334648892ecfb88c9332b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bag.mat"
+    },
+    {
+      "guid": "981f973aa925c574aad9018fe3fb0b96",
+      "pathAtExport": "Assets/3D_Objects/_EXTRAS PATIENT/Blood/blood_mat.mat"
+    },
+    {
+      "guid": "9889b45bb24173a4d93c7f6b5a496800",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Animation/OculusTouchRiftRightAnimation.controller"
+    },
+    {
+      "guid": "98ab6df3072881247ab3ea6bac011d41",
+      "pathAtExport": "Assets/Scripts/Interactions/AudioVolume.cs"
+    },
+    {
+      "guid": "990692c9edb7a214d9b122856cf44929",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ControllerAxis2D.cs"
+    },
+    {
+      "guid": "99880f9db1c4f80499af15f1dfcaaf51",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Nurse Woman1_Hair_specular.png"
+    },
+    {
+      "guid": "998a5646185efb9488265f3a2f35a99a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/TrackingToWorldTransformerOVR.cs"
+    },
+    {
+      "guid": "9a174518816f7e645860e70cf978ba1c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/OneEuroFilter/FilteredTransform.cs"
+    },
+    {
+      "guid": "9a639444e2ef0d244a367a4c5bc5414f",
+      "pathAtExport": "Assets/UI/Logo/Patron Logo.png"
+    },
+    {
+      "guid": "9a8bb2498cdcda04c89df15c8ee19159",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/TurnArrowVisuals.cs"
+    },
+    {
+      "guid": "9abf623c439ef024ea27b008893b7821",
+      "pathAtExport": "Assets/UI/Menu/Menu Background 1080x1248.png"
+    },
+    {
+      "guid": "9ac639554b8a09943aa991b71ca0eb12",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/Locomotion/LocomotionLocation.fbx"
+    },
+    {
+      "guid": "9af9ea683544b184083cef283557012d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Visuals/HandVisual.cs"
+    },
+    {
+      "guid": "9b494e79be7014742be94dba8995412c",
+      "pathAtExport": "Assets/3D_Objects/_UI/Pi tech Logo 3D/Pi tech logo.png"
+    },
+    {
+      "guid": "9b72e9ba2c21430c818f53e1079c2a93",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedGrabbableObject/Scripts/TransferOwnershipFusion.cs"
+    },
+    {
+      "guid": "9b9df4f150839de48af887d742aabf53",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Prefabs/HandGrab/OpenXRGhostProvider.asset"
+    },
+    {
+      "guid": "9be7b0d61698f784bbcec0d5bfa8394a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Steel_Stainlessl_Shiny_instruments.mat"
+    },
+    {
+      "guid": "9c05c5a6e4902ff4082cfb34e5b64b2d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Materials/SkeletonBoneMaterial.mat"
+    },
+    {
+      "guid": "9c2beb69c900ccf4984646ad420b1e17",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandPinchOffset.cs"
+    },
+    {
+      "guid": "9c85518923910924a864887f462b85d5",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Peener Material_Normal.png"
+    },
+    {
+      "guid": "9cd5a402535193341b44caf0e28ba882",
+      "pathAtExport": "Assets/Scripts/Multiplayer/ToDelete/DisableNetworkObjects.cs"
+    },
+    {
+      "guid": "9ce0c9faf0a7165468b37c129eea5023",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Slim_fit_pants_Diffuse.jpg"
+    },
+    {
+      "guid": "9cf2a74d69b1c1e41916d2a7afdff5be",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/PlaneSurface.cs"
+    },
+    {
+      "guid": "9d107f2f043e1ed408b970f146718017",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Materials/SystemGestureHandMaterial.mat"
+    },
+    {
+      "guid": "9d174fab52f0c4b8399f25d5c3ea524c",
+      "pathAtExport": "Assets/Obi/Scripts/Common/Solver/ObiSolver.cs"
+    },
+    {
+      "guid": "9d1b2e84aab9fe14cb4608bf4a53db56",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/Aluminum_matted.mat"
+    },
+    {
+      "guid": "9d4edac8b27eead43ae4839ff9b23791",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Textures/RainbowGradient.png"
+    },
+    {
+      "guid": "9d9fca63d22eb2148a9ffd90e781b16c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/blue_hospital_bed.mat"
+    },
+    {
+      "guid": "9dda6958e834dc644b949b1ff70e432b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/DistanceGrab/DistanceGrabInteractor.cs"
+    },
+    {
+      "guid": "9e2b620e87916bb43b259c5761e59386",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/bluePlasticVentilator.mat"
+    },
+    {
+      "guid": "9e6c0c0cb80eb2446baad1d778119e14",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Materials/Capsule.mat"
+    },
+    {
+      "guid": "9eba9bcfb034e0042a97704b4e823c36",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/BATHROOM_CABINET.mat"
+    },
+    {
+      "guid": "9f0725c2825f41f40bb6b718b16bcf89",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Textures/ubranie_1_Diffuse.png"
+    },
+    {
+      "guid": "9f1871411a4175a49a72069635000987",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_r_lo_BaseColor.png"
+    },
+    {
+      "guid": "9f18cb69931d9f84fab4aa08a4060a8d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Wound_Base.png"
+    },
+    {
+      "guid": "9f21929cc9805504fabe50dfd325bbe6",
+      "pathAtExport": "Assets/Timelines/Patra 1/Timeline MoMT 1.playable"
+    },
+    {
+      "guid": "9f82f534b80494f4f95b189f6e778650",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Tools/Scripts/Misc/Spawn/UserSpawner.cs"
+    },
+    {
+      "guid": "9f9762bc264a42e4da98e4436768e5cd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/surgical_table1.fbx"
+    },
+    {
+      "guid": "9fa76bd9e9d3a34429b6c90d00678855",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/Visuals/TeleportProceduralArcVisual.cs"
+    },
+    {
+      "guid": "a00bb4e2a48d6b04f9a9865f78869df2",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_point_anim.fbx"
+    },
+    {
+      "guid": "a03f6824ff165bb42bf51d2e4a2038d0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Endotracheal_tube/Tubes_Endotracheal_MK3D_edit.fbx"
+    },
+    {
+      "guid": "a0b7b39d61e93ce4f8acde479cf66777",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Slim_Jeans_Diffuse.jpg"
+    },
+    {
+      "guid": "a1eea11467ac17a4482df94a000f45c6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/Shared/NetworkedAvatar/AvatarSDK/Scripts/LipSyncMicInput.cs"
+    },
+    {
+      "guid": "a1f8c7c07a7af234592d8360c3451bbb",
+      "pathAtExport": "Assets/UI/Options/On.png"
+    },
+    {
+      "guid": "a21fa42f7d6f68f4281ca2efb8783165",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Materials/PhotonCap URP.mat"
+    },
+    {
+      "guid": "a31239ad859f2cd418576d1ca3e6976b",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/PatientM/Ga_Skin_Body_Normal.png"
+    },
+    {
+      "guid": "a43584a1a3156434998fe2f673ac3c0c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/surgical light black plastic.3.mat"
+    },
+    {
+      "guid": "a4485b4ed046293458a876a036fed1b5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/furniture_white_glossy.mat"
+    },
+    {
+      "guid": "a477100e04cbc454ca3ca79b6b66caad",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/airway1.fbx"
+    },
+    {
+      "guid": "a49c22e69aed68a4e9c458fe4276065c",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_hold_ping_pong_ball_anim.fbx"
+    },
+    {
+      "guid": "a49f1f4ef00c5054fb3c6f5b4b7b20da",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Std_Upper_Broken_Teeth 1.mat"
+    },
+    {
+      "guid": "a4c415e222887254b84b07962105fa81",
+      "pathAtExport": "Assets/Scripts/Interactions/Vibration.cs"
+    },
+    {
+      "guid": "a4f76ee9a4bceba4385d001e7ee27427",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/DefaultSettings/Locomotion/ExitMicroGesture.asset"
+    },
+    {
+      "guid": "a509dbf839e0e4044a7affab5b5a3e55",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/OvrAvatarLipSyncContext.cs"
+    },
+    {
+      "guid": "a53d1d4e8207acf45b310f189c342b70",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/OculusTouchForQuestAndRiftS/OculusQuestTouchControllerTexture.tga"
+    },
+    {
+      "guid": "a577701db3e23d8489feb76cd34e2336",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Prefabs/HandGrab/OpenXRGhost-RightHand.prefab"
+    },
+    {
+      "guid": "a63ea968be5c2084588e377a5dc05473",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/ShoulderEstimatePosition.cs"
+    },
+    {
+      "guid": "a67a75b2c42243745add5f2ec24917b4",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oxygen Mask/oxy_thread.mat"
+    },
+    {
+      "guid": "a6f7713dd4ff45e4dafb8077daeebef7",
+      "pathAtExport": "Assets/3D_Objects/_EXTRAS PATIENT/Blood/Vomit.controller"
+    },
+    {
+      "guid": "a72627b2aaba05645b5b9e7470e677f9",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/wound.fbx"
+    },
+    {
+      "guid": "a72a7996ed1f9c54ca8a648de9669c8e",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Eye_Asymmetry_With reaction.mat"
+    },
+    {
+      "guid": "a7a6709449d68482c8c03bb546ddcaec",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUIStartWindow.png"
+    },
+    {
+      "guid": "a7b47e36715521d4e8a30d2c5b6e83e2",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/OVRCameraRigRef.cs"
+    },
+    {
+      "guid": "a7d153c984a90a6488110013f4cfd9c3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/InteractorControllerDecorator.cs"
+    },
+    {
+      "guid": "a7d76ef3ada5e3646be0ff905da3572f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedAvatar/Scripts/AvatarSpawnerFusion.cs"
+    },
+    {
+      "guid": "a7ec0ff0ec83f9b41a5a3e0f4d020e72",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Hair_Normal.png"
+    },
+    {
+      "guid": "a8444b7957e9b03488621ecec11153ef",
+      "pathAtExport": "Assets/Scripts/UI/DisplaySliderValue.cs"
+    },
+    {
+      "guid": "a8c8b6ce6d8138e4fb349ae1f0dd8f95",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Mask.mat"
+    },
+    {
+      "guid": "a90778180a9f88c4da5da37447d11254",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_down/surgical white.mat"
+    },
+    {
+      "guid": "a91ff20f7450bf446a6bf0bfb5e932ae",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_pinch_anim.fbx"
+    },
+    {
+      "guid": "a9f4b1b5ef87cf0419535d7ce28337d5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkRunner/Scripts/CustomNetworkObjectProvider.cs"
+    },
+    {
+      "guid": "aa584fbee541324448dd18d8409c7a41",
+      "pathAtExport": "Assets/Photon/PhotonUnityNetworking/Code/PhotonView.cs"
+    },
+    {
+      "guid": "aa70c70787230f248b33d8a0ce1a6c3d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Materials/DefaultHandMaterial.mat"
+    },
+    {
+      "guid": "aaa9829e545a541498f4d93a6a20924f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Slide/StepLocomotionBroadcaster.cs"
+    },
+    {
+      "guid": "aae35d0104f744f4f9c215b38f79d24e",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Nurse Woman1_Body_diffuse 1.png"
+    },
+    {
+      "guid": "ab17befe27448954095b88d6ff056131",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/incubator black plastic.mat"
+    },
+    {
+      "guid": "ab7bf1d99f35ec64aa880c069ae44789",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medical_device_side.mat"
+    },
+    {
+      "guid": "ab9a4ff7237162d4e80c63c134ec4078",
+      "pathAtExport": "Assets/3D_Objects/_UI/Image Panels/Pain Scale White BG.png"
+    },
+    {
+      "guid": "abee63302fdc2bb4f80efe129df0a723",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandJoint.cs"
+    },
+    {
+      "guid": "acab2e07904c6514ea5d9efe904f6f06",
+      "pathAtExport": "Assets/3D_Objects/Materials/Shadow Silhouette/Hologram.shader"
+    },
+    {
+      "guid": "acb743c666c1ab34e928a0b62c2fa862",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Grab/GrabInteractor.cs"
+    },
+    {
+      "guid": "ad1baee4d6596da4c8e6b24484bb0f69",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Chrome.001.2.mat"
+    },
+    {
+      "guid": "ad2069ba7fe0238489d3531897cea8cf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Materials/OculusTouchForQuest2_MAT.fbx"
+    },
+    {
+      "guid": "ad374a43a946e7d4496818c6b194809f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ControllerButtonUsageActiveState.cs"
+    },
+    {
+      "guid": "ad451c12d41f58d4489ce17007b13199",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Steel_Stainless_Dull.mat"
+    },
+    {
+      "guid": "adc4d546a3ecc2c46812430133db4813",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Models/RightHand.fbx"
+    },
+    {
+      "guid": "adee424ac9576984da6cd4c044c80118",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Animation/MetaQuestTouchProLeftAnimation.controller"
+    },
+    {
+      "guid": "ae0d22cc43fbf934faae065e40542f5f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/incubator black plastic.mat"
+    },
+    {
+      "guid": "ae43f25c06eb2d9408a201216b4c3ed7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/HandGrabAPI.cs"
+    },
+    {
+      "guid": "ae819c4c5138d1f40b75830f5fdb59fe",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_blue.mat"
+    },
+    {
+      "guid": "aebd5da9a8bd22243b407f1927f4965b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateGroup.cs"
+    },
+    {
+      "guid": "aec3b95727d10ff4990ddc7d488f36da",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/surgical white.1.mat"
+    },
+    {
+      "guid": "aed62bf3ae2456c408f247f96808ce96",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRControllerHelper.cs"
+    },
+    {
+      "guid": "af2bc089c54024846a042346cd8a1d51",
+      "pathAtExport": "Assets/Scripts/Multiplayer/NetworkedStates/NetworkedInteractionRelay.cs"
+    },
+    {
+      "guid": "b00f5335e9436b143b07d0884c1b35f7",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R Black.mat"
+    },
+    {
+      "guid": "b06fd9f3f06d67247a6cb7eede41eef4",
+      "pathAtExport": "Assets/Scripts/Multiplayer/LabNetworkTeardown.cs"
+    },
+    {
+      "guid": "b07be626a8e824a5aaed89fffbde2fc7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/HandGlow/HandPokeOvershootGlow.cs"
+    },
+    {
+      "guid": "b07d1e835fa6eaa4ba3202098065419e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/water dispenser red plastic.mat"
+    },
+    {
+      "guid": "b08450a273899dd46a62bbf25c0ae9b7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/overbed_items3.fbx"
+    },
+    {
+      "guid": "b0f0cbc6622833d459e2a79271eefdff",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bin.mat"
+    },
+    {
+      "guid": "b14164f8f23faae4293baeb84485b3d6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/HandRef.cs"
+    },
+    {
+      "guid": "b16d8f9aa1c6f5f41a64769bfd357e21",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Green arrow.jpg"
+    },
+    {
+      "guid": "b1ac60afbe530f340b365e006c9a73f7",
+      "pathAtExport": "Assets/UI/Pi tech Logo/HealthOn XR Logo.png"
+    },
+    {
+      "guid": "b1c2d3e4f5a6478990abcdef12345601",
+      "pathAtExport": "Assets/Scripts/Multiplayer/DummyAvatarFollowNetworkHands.cs"
+    },
+    {
+      "guid": "b1f40c50ae24356469c6c6d4bfb2a2d6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/OculusTouchForQuest2/OculusTouchForQuest2_AlbedoRoughness.tga"
+    },
+    {
+      "guid": "b20e33af4c119b7478e627c5bc254a92",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/galssefacemask.mat"
+    },
+    {
+      "guid": "b2aefb20d0065c0418fac6dbd3a722e9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143571606.mat"
+    },
+    {
+      "guid": "b4107f81cdd393840b2cdeb5b9d89f08",
+      "pathAtExport": "Assets/3D_Objects/Materials/Window_blinds/blinds.mat"
+    },
+    {
+      "guid": "b450b25fcb13b4d6f864b0d7c7a08d46",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Common/Shaders/Configurations/Recommended/MetaStyle2ShaderConfiguration.asset"
+    },
+    {
+      "guid": "b46ceeff8367b49478703e01487778a0",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical white.1.mat"
+    },
+    {
+      "guid": "b4e685ae3573358448be443e8ac54104",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/orangeplasticinfusionpole.mat"
+    },
+    {
+      "guid": "b509fde79093393479908a63060c39eb",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/HoverInteractorsGate.cs"
+    },
+    {
+      "guid": "b5407298bc6eaa245bde17cbba9d7e8b",
+      "pathAtExport": "Assets/Scripts/PUN/NetworkTurnTimelineProxy.cs"
+    },
+    {
+      "guid": "b58fdf466c162d447913b955fc10ad96",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProLeft_Material.mat"
+    },
+    {
+      "guid": "b5e59dfed43e0994eb13b389bba2b940",
+      "pathAtExport": "Assets/Timelines/Patra 1/Timeline MoMT 3.playable"
+    },
+    {
+      "guid": "b66927e2848de9043b32b25e2e370fee",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/Face Shield.fbx"
+    },
+    {
+      "guid": "b6b083f9268c1e541ab5ca759d135dbd",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-Regular.otf"
+    },
+    {
+      "guid": "b75e38bc0a7bfd240b73ed3c9463ab5e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/surgical light black plastic.1.mat"
+    },
+    {
+      "guid": "b77f723c576a04907a94ed4c1a78f74d",
+      "pathAtExport": "Assets/Obi/Editor/Resources/Icons/ObiTearableCloth Icon.png"
+    },
+    {
+      "guid": "b7e222a5845534242bcca61ba737e299",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/parquet_flooring_diff.png"
+    },
+    {
+      "guid": "b824a49b427a74a49adb9a019dee5c9f",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swab_Ball_White.mat"
+    },
+    {
+      "guid": "b83d67fb615bc604b8fded8e73f74928",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bin4_lid_Normal.png"
+    },
+    {
+      "guid": "b8667bbf66117438986bafc711f920ed",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/HandGlow/HandGrabGlow.cs"
+    },
+    {
+      "guid": "b8943b5ee74fcd945a2746d0051466cd",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_hold_generic_anim.fbx"
+    },
+    {
+      "guid": "b895d3431e75dc345a72e171f82bfbea",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/OculusHand.shader"
+    },
+    {
+      "guid": "b8be976986492c247be869fbd60cc64a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Wheelchair/Fabric_Textile Black.mat"
+    },
+    {
+      "guid": "b8edbe7108d8a43ab838cf8b8d9453df",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/Utilities/RunnerVisibility/RunnerEnableVisibility.cs"
+    },
+    {
+      "guid": "b942c16a6d6a4edaad7c18c7d5762cdf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/FingerFeatureStateProvider.cs"
+    },
+    {
+      "guid": "b993bf5ae8abfcf4fa906913206b7b6c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143569222.mat"
+    },
+    {
+      "guid": "b9a3e6a211d26574890af83cb8299705",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Wheelchair/Paint Metal Dark and Weld.mat"
+    },
+    {
+      "guid": "ba1fa4a8c66106b4988c88fe4b8e8502",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/CustomHandRight.prefab"
+    },
+    {
+      "guid": "bac2f5915f5ebc045830a328ad040f3e",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Std_Upper_Teeth_Normal.png"
+    },
+    {
+      "guid": "bb07e603455f7d34b85387ec71ad8f51",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Tongue.controller"
+    },
+    {
+      "guid": "bb0e74cd38b3ddc40a59e43ef62f3e6c",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-Light SDF.asset"
+    },
+    {
+      "guid": "bb3ba0ec8e748fb49a18ac07898c80ab",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Hair.mat"
+    },
+    {
+      "guid": "bb86ba9d4c5126e48bfef9b0c9550e9d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/RayInteractable.cs"
+    },
+    {
+      "guid": "bbb35201095f6bf499fe2cd30ef3b6c7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusRight_Material.fbx"
+    },
+    {
+      "guid": "bbe1b25275c702c4a80f203311c3eed2",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/Prefabs/OSFRightHand.prefab"
+    },
+    {
+      "guid": "bc4e543ed50b566489293f8416e6f2f3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/Plastic_Translucent_White.mat"
+    },
+    {
+      "guid": "bc69bed182ea859469880da3ad5f2f7c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/Shared/NetworkedAvatar/AvatarSDK/Prefabs/Rendering/AVATAR_LOD_DEBUG_CANVAS.prefab"
+    },
+    {
+      "guid": "bcfb86f428eca7f4088fb6845e30c386",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swab_Pad_Rect_006 (1).controller"
+    },
+    {
+      "guid": "bd92cf91426f39e47877846ed4e14780",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/PatientM/Ga_Skin_Body.mat"
+    },
+    {
+      "guid": "bd96f518b3952ae48a90c2c79ba139c1",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Lower_Teeth 1.mat"
+    },
+    {
+      "guid": "be0709453dc25c64e9d70c37cf9f6f02",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Plastic009_1K_Roughness.jpg"
+    },
+    {
+      "guid": "be4f8a87204f80c46a1af01f7787fb0d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/TurnLocomotionBroadcaster.cs"
+    },
+    {
+      "guid": "be5585168c67af345b1074140733215b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/TurnerEventBroadcaster.cs"
+    },
+    {
+      "guid": "bea6571c974f89440b3379b928084e50",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/Visuals/RayInteractorPinchVisual.cs"
+    },
+    {
+      "guid": "bebfb74b97b000d4899abbd61f49aa40",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/HandActiveState.cs"
+    },
+    {
+      "guid": "bef2973cf0137a04fbdd59ed0bab09bc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Skinning/GpuSkinning/Shaders/combine-morph-targets.shader"
+    },
+    {
+      "guid": "bf59b10353515d4479c50bf628679733",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/TeleportReticleMaterial.mat"
+    },
+    {
+      "guid": "bf7605932bc514945adb3803a0be2ed9",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/SyntheticControllerInHand.cs"
+    },
+    {
+      "guid": "bff8d673f6c74404185591a1a9a7f3fb",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/base 4.mat"
+    },
+    {
+      "guid": "bffe606b408599b4fad696ddc889a943",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/TransformFeatureStateProvider.cs"
+    },
+    {
+      "guid": "c04977d44cf37bc49aa4b7d621d87929",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_down/console_down.mat"
+    },
+    {
+      "guid": "c06d0686c580e73419705e2f82bbb1cf",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Boxers_Opacity.png"
+    },
+    {
+      "guid": "c099b4c9dfbeb894387c74e96a465c4a",
+      "pathAtExport": "Assets/3D_Objects/_UI/Image Panels/Pain Scale.mat"
+    },
+    {
+      "guid": "c0b3b4e0d7dde3b43b9f819150b091bc",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medicadevice03_edit1.jpg"
+    },
+    {
+      "guid": "c0ba6ade6934d7746aa3b9859297aee6",
+      "pathAtExport": "Assets/Scripts/Interactions/Managers/ControlOptionManager.cs"
+    },
+    {
+      "guid": "c0fa3abce9894864baf165e949f1f369",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Models/bed.fbx"
+    },
+    {
+      "guid": "c1d51706ce563944f9f5f26cd025b9a0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Isothermal blanket/2.mat"
+    },
+    {
+      "guid": "c1e6d38d4b4b28f44841507763c7d80f",
+      "pathAtExport": "Assets/Scripts/TurnTimeline.cs"
+    },
+    {
+      "guid": "c1f3fc66622ed4e4a9a260ecc2867589",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_down/white_ metal_incubator.1.mat"
+    },
+    {
+      "guid": "c211c4953c57a4843ac5b21db99e8f24",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Prefabs/NetworkRightHand.prefab"
+    },
+    {
+      "guid": "c2857de67b636f14e9a196870973525e",
+      "pathAtExport": "Assets/3D_Objects/_EXTRAS PATIENT/Blood/Blood.controller"
+    },
+    {
+      "guid": "c29ecd19ae3de684aaef251a082fd1a3",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Resources/Scriptables/OpenXRBonesCompression/LeftHandSynchronization.asset"
+    },
+    {
+      "guid": "c2ace68b1ed79454a8d2febfb98c4a2b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/TransparentStandard.mat"
+    },
+    {
+      "guid": "c2c37f691ea9d544b8f6bea57594aacd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/surgical white.mat"
+    },
+    {
+      "guid": "c2d3e4f5a6b7488990abcdef12345602",
+      "pathAtExport": "Assets/Scripts/Multiplayer/NetworkRigRemoteHandVisuals.cs"
+    },
+    {
+      "guid": "c2eb7b6fe6533ab438ba8e98587c020f",
+      "pathAtExport": "Assets/UI/Menu/Menu Button 384x384.png"
+    },
+    {
+      "guid": "c3798d66af7bbe54bbfe22a3b302300b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/right_touch_controller_model_skel.fbx"
+    },
+    {
+      "guid": "c37ba1b67eef14b419a4302c54c5d4f5",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Male standar facial expressions/male_Relative.fbx"
+    },
+    {
+      "guid": "c39027ea03246644a800bdd373513146",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bin black.mat"
+    },
+    {
+      "guid": "c3ba18e9fa5e9104098cbdbb3e23a5b4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/left_touch_controller_model_skel.fbx"
+    },
+    {
+      "guid": "c3bf6df4a5ac85847831e1fb5fa00ff8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/Visuals/HandPuppet.cs"
+    },
+    {
+      "guid": "c3d444b7248dd2744b0c7d505b1f51fe",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/surgical light black plastic.mat"
+    },
+    {
+      "guid": "c405974571271c24fa0133934a31aa24",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Textures/Ga_Skin_Body_Normal.png"
+    },
+    {
+      "guid": "c42c107006a196c429acb14cca7daa65",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pulse_oxymeter/Oxymeter Screen.jpg"
+    },
+    {
+      "guid": "c44c9a197a294834c84f342e57ea1a3b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Chrome.001.mat"
+    },
+    {
+      "guid": "c4cd3b845a3c66340a5207fe97bb3697",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Wheelchair/Dark Plastik.mat"
+    },
+    {
+      "guid": "c5af6ab9d1bd4a47970ad151090281f3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/FingerFeatureStateThresholds.cs"
+    },
+    {
+      "guid": "c6205320beaf25644968a9120395a1ad",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/Locomotion/Hotspot.shader"
+    },
+    {
+      "guid": "c62aefa44f5a8614bb49c5b2a6caaff0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/TeleportArcGravity.cs"
+    },
+    {
+      "guid": "c68dc3484b5708d44ba4e2ccab1decf4",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Scripts/HandDescriptionScriptables/BonesStateScriptableObject.cs"
+    },
+    {
+      "guid": "c69e75972982d8d45ba66b99a321ce49",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Textures/Jeans_Dis.jpg"
+    },
+    {
+      "guid": "c7d0c96f4d96542cd9a593afbcf2c535",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUIStartButton.png"
+    },
+    {
+      "guid": "c8053f6a4c390b94ab59c45d853d530c",
+      "pathAtExport": "Assets/UI/Menu/user.png"
+    },
+    {
+      "guid": "c81996ac468be0a4f8644bcb29f18b4c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Sport_sneakers_Diffuse.jpg"
+    },
+    {
+      "guid": "c8605172aea670447ae960062ff67f25",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/tongue.anim"
+    },
+    {
+      "guid": "c885becc27b125a42bfef52f0fbbd7be",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Bag_.mat"
+    },
+    {
+      "guid": "c8a2ff7529f26d3439d7eacde270e1c7",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Std_Lower_Teeth.mat"
+    },
+    {
+      "guid": "c90b937da87ec4183bab56bc75798697",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUIStartButtonDown.png"
+    },
+    {
+      "guid": "c933168a9a0f1e04bb793786b96e2f4b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/MetaQuestTouchPro_Right.fbx"
+    },
+    {
+      "guid": "c9baea8b9d474934191bc47580d2537c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/UseGrab/UseFingerCurlAPI.cs"
+    },
+    {
+      "guid": "c9fb7e7c823527a4d829620ebfdb0d2b",
+      "pathAtExport": "Assets/UI/Menu/power.png"
+    },
+    {
+      "guid": "c9fd998c5249ac6418bbdccbb3c90d62",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Textures/Ga_Skin_Body_Diffuse.png"
+    },
+    {
+      "guid": "ca20b3907ff1c794cb89c1ad2cce8282",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Models/l_hand_skeletal_lowres.fbx"
+    },
+    {
+      "guid": "ca2ac45775ed4eb4eb4129cd6b826005",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/piesometro teliko/piesometro3_aiStandardSurface2_Normal.png"
+    },
+    {
+      "guid": "cb028ce99f9700e4197a49bfdcd525dd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Poke/Visuals/HandPokeLimiterVisual.cs"
+    },
+    {
+      "guid": "cb449574a814ccc45b3fb694e3a2fcb8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/bluePlasticVentilator.mat"
+    },
+    {
+      "guid": "cb7623a8f0b49cf4dbaa40aea4d4be64",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRHand.cs"
+    },
+    {
+      "guid": "cba76cb6dc1e5ed4796e511e376ec906",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/surgical light black plastic.mat"
+    },
+    {
+      "guid": "cbc02a91841771b4ab9f12678612c4b1",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scenes/LegsNetworkLoopback/Resources/Humanoid Avatar Rig v3 Variant.prefab"
+    },
+    {
+      "guid": "cc9b99c3c49e8bf43aa5f407934a93c4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medicalequipmenttexture.jpg"
+    },
+    {
+      "guid": "ccaba27912d831846bf7a6cd1b24571d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/16 - Default.mat"
+    },
+    {
+      "guid": "ccf05ef1b867a5f4193510126c1f7036",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_down/console_down.fbx"
+    },
+    {
+      "guid": "cd8b2526ba8d46448ba8cd971780b334",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Aluminum_matted.mat"
+    },
+    {
+      "guid": "cdced97e28e414b4d8e639933140b618",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Patient_Body_Base.png"
+    },
+    {
+      "guid": "ce47caa6d3ed0ae4b82721ed63c8fbb8",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/PatientM/Patient_Colliders/teeth_mesh.fbx"
+    },
+    {
+      "guid": "ce6184a26b41c254ea24a5968f59d34e",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_relax_mid_fist_anim.fbx"
+    },
+    {
+      "guid": "ce67415a9a94bca45a6db7ec544cbd1b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Normals.png"
+    },
+    {
+      "guid": "ce6d38a20eab4a04d823f7652ef583f0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Maselaki/object_6.mat"
+    },
+    {
+      "guid": "cf87288d64a53404fa94219cd6defb74",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/paper towel.mat"
+    },
+    {
+      "guid": "cfa08f997b0cebf4cb7c6ba3ccc73fb6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/monitor screen.mat"
+    },
+    {
+      "guid": "cfa50fc6e259b524ea01ec7dde0f108d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Shaders/OculusSampleAlphaHandOutline.shader"
+    },
+    {
+      "guid": "cfd929db97cb3844284b6747d93a3b75",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scenes/LegsNetworkLoopback/DefaultAnimations/Humanoid Avatar Rig.fbx"
+    },
+    {
+      "guid": "cfe15fc546d2bc7418198139eb6d9887",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical white.2.mat"
+    },
+    {
+      "guid": "d0c255d07fd68f14b94e55d388e7e6bb",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Models/r_hand_skeletal_lowres.fbx"
+    },
+    {
+      "guid": "d0f6dd94f61b3e841aaadc67d9c88f32",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material.002.mat"
+    },
+    {
+      "guid": "d14e2050d26c69e4f8305ee268361b06",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Steel_Stainless_Dull.mat"
+    },
+    {
+      "guid": "d15674a7092108e41805c8b25ed0c50a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medical device 03.mat"
+    },
+    {
+      "guid": "d17425af5fc89a443bba05adbe10381a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/WristAngleActiveState.cs"
+    },
+    {
+      "guid": "d1cbc01aacf97c54a9d380b01434b3c4",
+      "pathAtExport": "Assets/Sound/HospitalRespirator_H2B4Q.wav"
+    },
+    {
+      "guid": "d1d4d16fa99c8ca4dab50b31238f2e77",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Top_Diffuse.png"
+    },
+    {
+      "guid": "d30a0ace99ddfca4297ff9ee32d5d6a8",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scenes/AvatarRetargeting/Animations/jump_anim.fbx"
+    },
+    {
+      "guid": "d32bfe77913d75d4f919b5c9ae778fa7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedAvatar/Prefabs/FusionAvatarSdk28Plus.prefab"
+    },
+    {
+      "guid": "d3686afbed2a71f4ba742da6c03ce42e",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Basic_T_shirts_Normal.png"
+    },
+    {
+      "guid": "d3ea8c2b38a2e4abbaaa9caec105388a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/HandGlow/HandRayPinchGlow.cs"
+    },
+    {
+      "guid": "d4a5400590576014ba96c725a4f52fd9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical white.5.mat"
+    },
+    {
+      "guid": "d4a9567b63f402344be887b1a296bcc6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/Materials/DefaultMaterial.fbx"
+    },
+    {
+      "guid": "d4ad4f1ddee798f45a20be4efda35c8c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionEventsConnection.cs"
+    },
+    {
+      "guid": "d53f9b4ecd1e75149932edf33e967c87",
+      "pathAtExport": "Assets/UI/Questions/Eclipse 24x24.png"
+    },
+    {
+      "guid": "d55d42553d4aa794f91ec36b85268610",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/Hanger.fbx"
+    },
+    {
+      "guid": "d5e48d93b64a9ae4f9fd5a728c8f51af",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/MaterialProperties/MaterialPropertyBlockEditor.cs"
+    },
+    {
+      "guid": "d5f6067038541de49a1d3704fd43a884",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Drawer/white_ plastic_hospital_bed.mat"
+    },
+    {
+      "guid": "d6194704e42be4d45a1f40c275f20c64",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/Glass.mat"
+    },
+    {
+      "guid": "d61ea23b9fd13af40afe326bb23ac1cd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandRootOffset.cs"
+    },
+    {
+      "guid": "d637db1dcde8e724ead094b3b653768c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Std_Lower_Teeth_Diffuse.png"
+    },
+    {
+      "guid": "d641a50c4fe4ee3489a64cf52b76ae79",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusHand.mat"
+    },
+    {
+      "guid": "d660178ed2b38ec4d9b564be11e400cc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/DPadUnityEventWrapper.cs"
+    },
+    {
+      "guid": "d6c9c770856ba2840ab77fa3de9562cf",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Boxers_Normal.png"
+    },
+    {
+      "guid": "d6edba4b7cb695145963888d8dcdfd1b",
+      "pathAtExport": "Assets/UI/Menu/Record Session Button On 72X72.png"
+    },
+    {
+      "guid": "d7292a5e1ae17a64c95f3081d2c6be5a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Materials/OculusTouchForQuest2_MAT.mat"
+    },
+    {
+      "guid": "d828ebc07a422594c9192473f6ba1668",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/piesometro teliko/Othoni-Empty.png"
+    },
+    {
+      "guid": "d84f3d38acbf9334ea782d99aa3c1b6a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/VEntilator Display.mat"
+    },
+    {
+      "guid": "d94907f5aa052504da7f711653e1ba5e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/ventilatorMonitor.png"
+    },
+    {
+      "guid": "d952c175ec3c6554199fd744548ce50a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Poke/PokeInteractor.cs"
+    },
+    {
+      "guid": "d9ad590bd590c2d47b7034bbfc26813b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_l_lo_BaseColor.png"
+    },
+    {
+      "guid": "d9c2eace82dc78849b31d6257e506baf",
+      "pathAtExport": "Assets/Scripts/Interactions/NoseColliders.cs"
+    },
+    {
+      "guid": "da5013347379aff4cb899833cf9c146a",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Ga_Skin_Body_Reflection.png"
+    },
+    {
+      "guid": "da5836e87bd3afd4f86dce6fde7168be",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/metal_operation table.mat"
+    },
+    {
+      "guid": "da826ed828a5ba8438ad126407e06833",
+      "pathAtExport": "Assets/3D_Objects/Textures/Bed/Low_poly_bed/BED_standardSurface23_Normal.1001.png"
+    },
+    {
+      "guid": "dafc934b33a55eb46bf7ad4c9e09ac34",
+      "pathAtExport": "Assets/Scripts/Interactions/RangeBasedBlendshapeController.cs"
+    },
+    {
+      "guid": "db36af503fa273e49a3632319eb88604",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pipe_pipeBase/surgical red.mat"
+    },
+    {
+      "guid": "db6037bbad7c30647bc15d1a06614c24",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/medicadevice03_edit1_normal.jpg"
+    },
+    {
+      "guid": "dbe657a17a5bd2d41a191bd13f6f65e9",
+      "pathAtExport": "Assets/3D_Objects/_UI/Image Panels/AVPU scale.jpg"
+    },
+    {
+      "guid": "dc01b952a725a5340b84325708437574",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Hat_Normal.png"
+    },
+    {
+      "guid": "dc8799ab2d837ef4f8580c51009e3214",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Pipe_pipeBase/bluePlasticVentilator.mat"
+    },
+    {
+      "guid": "dc93f348368efba41b3a49f72674c1f1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Flashligh/Flashlight Material.mat"
+    },
+    {
+      "guid": "dca3d72ce32048e409eaaf754210cfe8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OculusHandPinchArrowBlended.fbx"
+    },
+    {
+      "guid": "dd68b7595d64746448da372ac0d0eb76",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Materials/Eye.mat"
+    },
+    {
+      "guid": "de38c994282f25542829f534a2f7cb65",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/lighrWood.mat"
+    },
+    {
+      "guid": "de576345b10aa944fbc6e1a6fd7285ca",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Flashligh/Flashlight_Base.png"
+    },
+    {
+      "guid": "de678b207999a984f9de1fcd246700d6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Hair.mat"
+    },
+    {
+      "guid": "de7552a3f332c5d4885e97b456bc3fea",
+      "pathAtExport": "Assets/UI/Panels/Menu Background 1080x1248 (1).png"
+    },
+    {
+      "guid": "de76f7169412b8f4896235a1585d8939",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/SelectorUnityEventWrapper.cs"
+    },
+    {
+      "guid": "de8d75b4937bf7c48921740485e7755d",
+      "pathAtExport": "Assets/UI/Images/ChatGPT Image Jan 20, 2026, 02_04_04 PM(1).png"
+    },
+    {
+      "guid": "de9ad9b147e364f468d3d235475287b7",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Std_Upper_Teeth_Diffuse.png"
+    },
+    {
+      "guid": "deb7533ca606ed241b3541310f39ba5d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/UseGrab/UseFingerControllerAPI.cs"
+    },
+    {
+      "guid": "deed68a7fd2e9234899298cf80fae7ad",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/MetaQuestTouchPlus_Right.fbx"
+    },
+    {
+      "guid": "df0584602f1ba4d4ca01e61c56e86509",
+      "pathAtExport": "Assets/3D_Objects/_EXTRAS PATIENT/Blood/Blood Animation.anim"
+    },
+    {
+      "guid": "df9f338034892c44ebb62d97894772f1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRCameraRig.cs"
+    },
+    {
+      "guid": "dfe36e2c91595374c9b12c19ae68457e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/ventilator controls2.jpg"
+    },
+    {
+      "guid": "dfee80e1d2a38ea45a01698af1c06034",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProRight_Material.mat"
+    },
+    {
+      "guid": "e00ff2c1207ec064cac7bc321bee406a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionActiveState.cs"
+    },
+    {
+      "guid": "e03af547c5811ba4b9414ea1ec8bfdd7",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Slim_fit_pants_Normal.png"
+    },
+    {
+      "guid": "e06f85250886b4b49bf47f40b151cb74",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bin/bin4_bin_AlbedoTransparency.png"
+    },
+    {
+      "guid": "e06fe30fd4efa954b8f53ccc8da8f46b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/BestHoverInteractorGroup.cs"
+    },
+    {
+      "guid": "e08ab46e8fb05dc46b34e54466dc11e3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/BoundsClipper.cs"
+    },
+    {
+      "guid": "e0c493fb22c458946bd44e502efbecd7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/LocomotionIndicatorMaterial.mat"
+    },
+    {
+      "guid": "e101664ae1c454916896aaaa3199221c",
+      "pathAtExport": "Assets/Obi/Editor/Resources/Icons/ObiCollisionMaterial Icon.png"
+    },
+    {
+      "guid": "e1692bbc8f3c3824593b7aaa6cb45510",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/Console_Up.jpg"
+    },
+    {
+      "guid": "e174ad3c3a537424a982cf0400cb399f",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Suction_Catheter/Material green.mat"
+    },
+    {
+      "guid": "e1e762c717b147a4681ac280d4fc14ef",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical white.6.mat"
+    },
+    {
+      "guid": "e20fcbe7f2c351b4096e9fc3f6a320ae",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_cap_touch_anim.fbx"
+    },
+    {
+      "guid": "e27cd7bfa3c509645822f8896a4c616e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/surgical white.8.mat"
+    },
+    {
+      "guid": "e2d53d01d95ac7940897b53d3cbbf36d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Eye_Asymmetry_No reaction.mat"
+    },
+    {
+      "guid": "e2f8f6e9e6f3e114b9bf9a57c2160615",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/PointableUnityEventWrapper.cs"
+    },
+    {
+      "guid": "e3ee01d2457358541b11a7710034994d",
+      "pathAtExport": "Assets/Scenes/Patron/MoMt/Materials MoMt/ReflectionProbe-2.mat"
+    },
+    {
+      "guid": "e47bc1f876d85d641a974e9e83a62a6e",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Male/Ga_Skin_Body_Normal.png"
+    },
+    {
+      "guid": "e5565ca2a5794874d8d981e0b8db3046",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Hat_Diffuse.png"
+    },
+    {
+      "guid": "e58bbb1e6d3f8eb44ba8044feafa6591",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Flashligh/flashlight_front.mat"
+    },
+    {
+      "guid": "e59b35dfeb4b6f54e9b2791b2a40a510",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUISkin.guiskin"
+    },
+    {
+      "guid": "e5a4d98717f7cd3438673513dec081c8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Home_AMEA/Final Materials/Glossy white.002.mat"
+    },
+    {
+      "guid": "e6ba3498ffa1e534b91a07264266e6b8",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/CustomHandLeft.prefab"
+    },
+    {
+      "guid": "e721d13e13541ae43bccbf3640bfc5e5",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Ga_Eyelash_Diffuse 1.png"
+    },
+    {
+      "guid": "e725a070cec140c4caffb81624c8c787",
+      "pathAtExport": "Assets/Photon/Fusion/Assemblies/Fusion.Runtime.dll"
+    },
+    {
+      "guid": "e80f3cd94214810498f8681fd6bc9e86",
+      "pathAtExport": "Assets/Sound/heartbeat-01-brvhrtz-225058.mp3"
+    },
+    {
+      "guid": "e8135ac9be4bf94419fc3c090c4d741a",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/patient with shirt/jersey1.mesh"
+    },
+    {
+      "guid": "e84844636b1e0004c85f6e48e0d30cb9",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Materials/CapLogo.mat"
+    },
+    {
+      "guid": "e878dcbefebb86f478a53130d09dd0ac",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Materials/OculusTouchForQuestAndRiftS_Material.fbx"
+    },
+    {
+      "guid": "e8cea2b99060f304381b406fa12c010f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/white_ plastic_hospital_bed.mat"
+    },
+    {
+      "guid": "e95939fdbc6588d4fb99644ee8999018",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/BaseInteractions/Grabbing/NetworkGrabber.cs"
+    },
+    {
+      "guid": "e97ff483f27572949b0cad996e09abdf",
+      "pathAtExport": "Assets/Scripts/Interactions/ScissorTearController.cs"
+    },
+    {
+      "guid": "e9a7676b01585ce43908639a27765dfc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/HandGrab/HandGrabInteractable.cs"
+    },
+    {
+      "guid": "eacafe280fdfa6a44845c135057ae6a5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Materials/OculusTouchForRift_Material.mat"
+    },
+    {
+      "guid": "eaec34b65f72ea3459a436e9fd146a12",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swap_Pad_Bloody.mat"
+    },
+    {
+      "guid": "eb019fa6922e4ad4e8a5cdfc5de797d4",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Ga_Eyelash.mat"
+    },
+    {
+      "guid": "eb074ca0f195b874cb9dafea389b3d4c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Female Standar facail expressions/female_RelativeBlendShapes.fbx"
+    },
+    {
+      "guid": "eb93af016e1d74144b033f39d0a620c5",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oxygen Mask/oxy_metal.mat"
+    },
+    {
+      "guid": "ebd05eb6cf1b957479a499227d3b5cfd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Flashligh/flashlight_edit.fbx"
+    },
+    {
+      "guid": "ec6a2955cc1374944a4634c6f312985a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/FirstPersonLocomotor.cs"
+    },
+    {
+      "guid": "ecbcfc445b9afc940a22b5ed81521d2d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/white_ metal_incubator.mat"
+    },
+    {
+      "guid": "ecce9fd50b1f0484c84bbf37ac9ad5dc",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Eye_NORMAL_With reaction.mat"
+    },
+    {
+      "guid": "ecd1062ecb075db4a83f03b03ba8100d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Skinning/GpuSkinningConfiguration.cs"
+    },
+    {
+      "guid": "ece6d5c24d1517e4095abc7015c3c710",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Sport_sneakers_Diffuse.jpg"
+    },
+    {
+      "guid": "ed664dd8f785c79409ee27b83c0f7dfd",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/blood_reveal.anim"
+    },
+    {
+      "guid": "ed965723b6756dc4faaa410790e98e31",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/ProceduralArcMaterial.mat"
+    },
+    {
+      "guid": "ee06393db71006742b029a984f58301f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/tavan.mat"
+    },
+    {
+      "guid": "ee1180b4cffb1504688214f7c3a01b38",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Boxers.mat"
+    },
+    {
+      "guid": "ee1f1406edf162945868fafc408691aa",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Skinning/GpuSkinning/Shaders/skin-to-texture.shader"
+    },
+    {
+      "guid": "ee5ca7de93fbc7e45aa8bbd3f02f39b7",
+      "pathAtExport": "Assets/UI/Menu/Browser.png"
+    },
+    {
+      "guid": "ee656357883b72f41af57b4531f6d3aa",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Ga_Skin_Body_Diffuse.png"
+    },
+    {
+      "guid": "ee6b94f7bc105c24ea3746dc4141a7eb",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/FromOVRControllerDataSource.cs"
+    },
+    {
+      "guid": "eeb09e4f18fd0954796cd0b766d28fa4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Scripts/RespawnOnDrop.cs"
+    },
+    {
+      "guid": "eec470f79e3e5634fbb97bed502c8db4",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Nurse Avatar.fbx"
+    },
+    {
+      "guid": "eedb965bcb4e568479a4828d17fbc1c3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedAvatar/Prefabs/FusionAvatar.prefab"
+    },
+    {
+      "guid": "efaebd45ed5aaa94caddcb2443a1cb10",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/wound.anim"
+    },
+    {
+      "guid": "efd927768041afd4d90e5d822283f0f4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/ClippedPlaneSurface.cs"
+    },
+    {
+      "guid": "f021fdd42f427624cafac3d7b2d10167",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Patient_Complete.fbx"
+    },
+    {
+      "guid": "f0263bfee6ce8a946bd8f4784d2b519a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/Rubber_clean.mat"
+    },
+    {
+      "guid": "f026be10edaad42429c52aa2200881dd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/ReticleIconDrawer.cs"
+    },
+    {
+      "guid": "f08b90363e6615b4dbad107fc64564da",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Hair_Transparency_0_Diffuse.png"
+    },
+    {
+      "guid": "f0b1f0fb1d44c9040b4693cd6022f804",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/Material.003.mat"
+    },
+    {
+      "guid": "f0d16396e840d534aa085e8f2c700786",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/Unlit Material.mat"
+    },
+    {
+      "guid": "f11d0567aa21b964d9e05eeb67d70a2f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Medical_equipment/Chrome.001.4.mat"
+    },
+    {
+      "guid": "f14890a606f5fac4094022eec799dc21",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/lamp shade.mat"
+    },
+    {
+      "guid": "f1a03de1aafd166419d7fae7e1017875",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateGate.cs"
+    },
+    {
+      "guid": "f247e36976f1f724c89e1c772cc1fdb8",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Sport_sneakers 1.mat"
+    },
+    {
+      "guid": "f24cb2556f0be444fa4332f6780197b4",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Tools/Scripts/Misc/ObjectDisplay/HideForLocalUser.cs"
+    },
+    {
+      "guid": "f26092baf57e24349bfc56b79271ba26",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143570381.mat"
+    },
+    {
+      "guid": "f273abee0604ad2409c9bbc9a60e461e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/FromOVRHmdDataSource.cs"
+    },
+    {
+      "guid": "f27971349b51a594c8af2f0886786329",
+      "pathAtExport": "Assets/3D_Objects/Materials/Bed/low_poly_bed/aiStandardSurface2 1.mat"
+    },
+    {
+      "guid": "f2e8677bac33bbf4eb43f0f1289803a7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Shaders/MetaLit.shader"
+    },
+    {
+      "guid": "f2f73129ee283464ab31cba8510882f0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/OculusRayVisual.shader"
+    },
+    {
+      "guid": "f2f9ddb32c6ba5e4dbe0f3ff6cf497aa",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Models/RightHandAnimator.controller"
+    },
+    {
+      "guid": "f31998af88f6d2a4b914228928160afb",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/samsung tv screen.mat"
+    },
+    {
+      "guid": "f4ca90dad12bd14458652d44fcb9500a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oxygen Mask/Oxygen Mask.fbx"
+    },
+    {
+      "guid": "f57c51f181259e94e965737a6212409d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Textures/Photon.png"
+    },
+    {
+      "guid": "f5922d62eca2f8845a45e22a98d29a08",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143569172.mat"
+    },
+    {
+      "guid": "f5b611d07ea5a3143ac09736cde05bd7",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Syringe_Diffuse.jpg"
+    },
+    {
+      "guid": "f64dee90b24da9540ab6fe99ff5ea9bc",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/ANALOG.jpg"
+    },
+    {
+      "guid": "f6523e0a8db9d3e47a406597aadb0288",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/Airways Case.fbx"
+    },
+    {
+      "guid": "f70e3934aff73ac4cba0ae713ec09b52",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Rubber.mat"
+    },
+    {
+      "guid": "f720f1fae5832a94989d69cc528f8d5d",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Bag valve.anim"
+    },
+    {
+      "guid": "f7532232f07594be3a36470e25b47b4f",
+      "pathAtExport": "Assets/Obi/Samples/Common/SampleResources/CollisionMaterials/HighStaticFriction.asset"
+    },
+    {
+      "guid": "f7536d5bc8206f4419ea79ab2b4b024e",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Swab_Pad_Bloody_Diffuse2.png"
+    },
+    {
+      "guid": "f76ac96be52ce764aa832df99e34d87a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/DistanceReticle.mat"
+    },
+    {
+      "guid": "f879806dd7639e14a9e27336809bbdee",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/logo samsung 2 refl.jpg"
+    },
+    {
+      "guid": "f892af86578f82443a9682973148029a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/LOD/AvatarLODManager.cs"
+    },
+    {
+      "guid": "f8c8fe39e3e871943ae148921dfa89c4",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/airway1_edit.fbx"
+    },
+    {
+      "guid": "f948c5abc1b97ba42b1175d8f132e773",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Bag Valve Mask/Bag Valve Mask.fbx"
+    },
+    {
+      "guid": "f96590373b26c024e8990f88adef4b29",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/white_ metal_hospital_bed.mat"
+    },
+    {
+      "guid": "f9bf26d166b053340a6be3388701a2b3",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Wound.mat"
+    },
+    {
+      "guid": "fa8575a6677a00846a9dbb626e69c3ca",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Lower_Teeth_Normal.jpg"
+    },
+    {
+      "guid": "fa90b465975effe4e87f781aec191275",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Syringe_Plastic_white.mat"
+    },
+    {
+      "guid": "faabcfcf03098b449aef6ec71829cfc5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/Material #2143571608.mat"
+    },
+    {
+      "guid": "fab7a647b5ffcfb4d87ad179668542cd",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient Complete/Eye_Diffuse.jpg"
+    },
+    {
+      "guid": "faff192ad5862624d8a3be26ae4d15d6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/Locomotion/TransparentVertexTexture.shader"
+    },
+    {
+      "guid": "fb9f603ea0cfb9c4f8eb6c6227622672",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Console_upper/bluePlasticVentilator.mat"
+    },
+    {
+      "guid": "fbf214a7144702148b2f2a7f38c8928f",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patients Mo Mt/Patient EKAB/Textures/ubranie_Diffuse.png"
+    },
+    {
+      "guid": "fbf59dac2c199e44fb42aa5ecd07dd33",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Common/Shaders/Configurations/Recommended/MetaStyle2ShaderConfigurationVertex.asset"
+    },
+    {
+      "guid": "fc0fd19b38dfb6a4ba0336bf7b518c8e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/Locomotion/LocomotionPointer.fbx"
+    },
+    {
+      "guid": "fc948f57db734e74094dc532bdbbc3e8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Animation/MetaQuestTouchPlusRightAnimation.controller"
+    },
+    {
+      "guid": "fce613e6639c4c445bd3a5c9c485b4ad",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Body Nurse.mat"
+    },
+    {
+      "guid": "fcef3e50bc18d6e47a34b71341296bce",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Body.mat"
+    },
+    {
+      "guid": "fd5c080ab82eda14dbae95393c30c32f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Table/Chrome.mat"
+    },
+    {
+      "guid": "fe393ace9b354375a9cb14cdbbc28be4",
+      "pathAtExport": "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader"
+    },
+    {
+      "guid": "fe45792cd6b7d594ab9076fec9332ee1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Ventilator/surgical white.mat"
+    },
+    {
+      "guid": "fe6dffbda2f52bb4998faa03fee04336",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_r_lo_Normal.png"
+    },
+    {
+      "guid": "ff2a2b163512a28409423c717434ece0",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Upper_Teeth_Normal.jpg"
+    },
+    {
+      "guid": "ff5791497b290334cb5242e6777d974b",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Models/PhotonLogo.fbx"
+    },
+    {
+      "guid": "ff76928dc593e58449caf6f7332e698c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Over the head/new/bottle.mat"
+    },
+    {
+      "guid": "ffac358f26b6fbe4b877a8d5869cdb88",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Oropharyngeal Airway/base.mat"
+    },
+    {
+      "guid": "ffd70f105e5a749489578054b505f3fd",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical gloves/Glove_rubber.mat"
+    }
+  ]
+}

@@ -20,44 +20,57 @@ namespace Pitech.XR.Scenario
     [AddComponentMenu("Pi tech/Scenario/Scene Manager")]
     public class SceneManager : MonoBehaviour, Pitech.XR.Core.ISceneRunnerControl
     {
+        /// <summary>The scenario graph this manager runs (the ordered <c>[SerializeReference]</c> step list). Required for step flow.</summary>
         [Header("Scenario")]
         [Tooltip("Required for step flow. For Addressable lab prefabs, assign on the prefab asset (CCD bundle), not only in a scene instance.")]
         public Scenario scenario;
+        /// <summary>When true, <see cref="Restart"/> runs automatically from <c>Start()</c>. ContentDeliverySpawner clears this until the lab prefab has spawned.</summary>
         [Tooltip("If true, Restart() runs from Start(). When using ContentDeliverySpawner with defer SceneManager, autoStart is turned off until after spawn.")]
         public bool autoStart = true;
 
+        /// <summary>Optional UI controller that displays the live stat values.</summary>
         public StatsUIController statsUI;
+        /// <summary>Optional stat definitions (keys, ranges, defaults) for this lab.</summary>
         public StatsConfig statsConfig;
         bool _statsBound;
 
+        /// <summary>Optional shared stats store. If null, a plain instance is created on demand.</summary>
         [Header("Stats (optional)")]
         public StatsRuntime runtime;   // assign if you have one. if null we create a plain instance
 
+        /// <summary>Default quiz asset used when a step does not specify its own.</summary>
         [Header("Quiz (optional)")]
         [FormerlySerializedAs("quiz")]
         public QuizAsset defaultQuiz;
 
+        /// <summary>UI controller that presents quiz questions.</summary>
         [FormerlySerializedAs("quizUI")]
         public QuizUIController quizPanel;
 
+        /// <summary>UI controller that presents the quiz results screen.</summary>
         [FormerlySerializedAs("quizResultsUI")]
         public QuizResultsUIController quizResultsPanel;
+        /// <summary>The active quiz session (scoring/state). Created lazily via <see cref="GetOrCreateQuizSession"/>.</summary>
         public QuizSession quizSession;
 
+        /// <summary>Catalog of selectable colliders/targets in the scene.</summary>
         [Header("Interactables (optional)")]
         public SelectablesManager selectables;     // the catalog of clickable colliders
+        /// <summary>The selection quiz/controller that drives <see cref="selectables"/>.</summary>
         public SelectionLists selectionLists;      // the quiz/controller using that catalog
 
+        /// <summary>Optional reference to the ContentDeliverySpawner (or compatible component) that spawned this lab.</summary>
         [Header("Content Delivery (optional)")]
         [Tooltip("Optional reference to ContentDeliverySpawner (or compatible component).")]
         public MonoBehaviour contentDelivery;
 
+        /// <summary>Optional root for auto-finding Quiz UI controllers. Falls back to <c>transform.root</c> so discovery stays within this lab prefab instance (never binds shell UI).</summary>
         [Header("Prefab / Addressables lab")]
         [Tooltip(
             "Optional root for auto-finding Quiz UI controllers. If null, uses transform.root so discovery stays within this lab prefab instance (never binds shell UI).")]
         public Transform labContentRoot;
 
-        /// Current step index while running. -1 when idle or finished
+        /// <summary>Current step index while running; <c>-1</c> when idle or finished.</summary>
         public int StepIndex { get; private set; } = -1;
 
         // --- ISceneRunnerControl (WS A8): behaviour-neutral typed seam. Forwards to existing members;
@@ -132,9 +145,13 @@ namespace Pitech.XR.Scenario
         }
 
         // ------ Convenience bridges (so Timeline/UI can talk only to SceneManager) ------
+        /// <summary>Activate the selection list at <paramref name="index"/> (no-op if no <see cref="selectionLists"/>).</summary>
         public void ActivateSelectionList(int index) => selectionLists?.ActivateList(index);
+        /// <summary>Activate the selection list named <paramref name="listName"/> (no-op if no <see cref="selectionLists"/>).</summary>
         public void ActivateSelectionListByName(string listName) => selectionLists?.ActivateListByName(listName);
+        /// <summary>Mark the active selection list complete (no-op if no <see cref="selectionLists"/>).</summary>
         public void CompleteSelection() => selectionLists?.CompleteActive();
+        /// <summary>Reset/retry the active selection list (no-op if no <see cref="selectionLists"/>).</summary>
         public void RetrySelection() => selectionLists?.RetryActive();
 
         void Start()
@@ -142,6 +159,7 @@ namespace Pitech.XR.Scenario
             if (autoStart) Restart();
         }
 
+        /// <summary>Restart the scenario from the first step: stops any running coroutine and re-runs the graph from the top.</summary>
         public void Restart()
         {
             if (_run != null) StopCoroutine(_run);
@@ -983,6 +1001,7 @@ namespace Pitech.XR.Scenario
             yield return WaitForPointerRelease();
         }
 
+        /// <summary>Return the active <see cref="quizSession"/>, creating one bound to <paramref name="asset"/> if needed. A null asset returns the existing session unchanged.</summary>
         public QuizSession GetOrCreateQuizSession(QuizAsset asset)
         {
             if (asset == null) return quizSession;
@@ -1171,22 +1190,6 @@ namespace Pitech.XR.Scenario
             if (val is bool bv) return bv ? 1f : 0f;
             if (val is double dv) return (float)dv;
             return 0f;
-        }
-
-        static bool EvalCompare(float value, CompareOp op, float compareValue)
-        {
-            switch (op)
-            {
-                case CompareOp.Less: return value < compareValue;
-                case CompareOp.LessOrEqual: return value <= compareValue;
-                case CompareOp.Greater: return value > compareValue;
-                case CompareOp.GreaterOrEqual: return value >= compareValue;
-                case CompareOp.Equal: return Mathf.Approximately(value, compareValue);
-                case CompareOp.NotEqual: return !Mathf.Approximately(value, compareValue);
-                case CompareOp.IsTrue: return value > 0.5f;
-                case CompareOp.IsFalse: return value < 0.5f;
-                default: return false;
-            }
         }
 
         void ApplyEffects(List<StatEffect> effects)
@@ -1528,6 +1531,8 @@ namespace Pitech.XR.Scenario
                 }
             }
         }
+
+        /// <summary>Editor-only play-mode hook: the Scenario Graph's Branch/Skip/Outcome buttons call this to advance or branch the running scenario at <paramref name="stepGuid"/> along <paramref name="branchIndex"/>. No-op outside play mode. This is the deterministic driver the Phase D golden-trace recorder wraps.</summary>
         public void EditorSkipFromGraph(string stepGuid, int branchIndex)
         {
             if (!Application.isPlaying) return;

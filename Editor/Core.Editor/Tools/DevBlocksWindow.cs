@@ -597,21 +597,6 @@ namespace Pitech.XR.Core.Editor
             return Mathf.Floor(w);
         }
 
-        static Button SmallButton(string text, Action onClick)
-        {
-            var b = new Button(onClick) { text = text };
-            b.style.height = 24;
-            b.style.minWidth = 0;
-            b.style.paddingLeft = b.style.paddingRight = 8;
-            b.style.paddingTop = b.style.paddingBottom = 3;
-            b.style.fontSize = 11;
-            b.style.backgroundColor = new Color(0.18f, 0.20f, 0.24f, 1);
-            b.style.color = DevkitTheme.Text;
-            b.style.borderTopLeftRadius = b.style.borderTopRightRadius =
-                b.style.borderBottomLeftRadius = b.style.borderBottomRightRadius = 6;
-            return b;
-        }
-
         static Button SmallIconButton(GUIContent icon, Action onClick)
         {
             if (_addIcon == null)

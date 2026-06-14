@@ -19,6 +19,7 @@ namespace Pitech.XR.Core.Editor
         static readonly Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();
 
         readonly Dictionary<string, Component> firstSceneComponentByType = new Dictionary<string, Component>();
+        readonly List<Component> sceneComponents = new List<Component>();
         bool sceneComponentIndexBuilt;
         int sceneComponentIndexSceneHandle;
 
@@ -81,8 +82,29 @@ namespace Pitech.XR.Core.Editor
             if (string.IsNullOrEmpty(fullTypeName)) return null;
 
             EnsureSceneComponentIndex();
-            firstSceneComponentByType.TryGetValue(fullTypeName, out var component);
-            return component;
+
+            // Fast path: an exact concrete-type match was indexed during the one scan (also returns a
+            // previously memoized assignable hit).
+            if (firstSceneComponentByType.TryGetValue(fullTypeName, out var exact) && exact)
+                return exact;
+
+            // Assignable fallback: a SUBCLASS of the requested type counts as present, matching the
+            // pre-cache Resources.FindObjectsOfTypeAll(t) semantics the perf rework dropped. Resolve the
+            // requested type and return the first scene component it is assignable from, memoizing the
+            // hit so repeated render-time queries stay O(1).
+            var requestedType = FindType(fullTypeName);
+            if (requestedType == null) return null;
+
+            for (int i = 0; i < sceneComponents.Count; i++)
+            {
+                var component = sceneComponents[i];
+                if (component && requestedType.IsInstanceOfType(component))
+                {
+                    firstSceneComponentByType[fullTypeName] = component;
+                    return component;
+                }
+            }
+            return null;
         }
 
         public Component CreateUnderManagersRoot(string fullTypeName, string goName, string undoName)
@@ -106,6 +128,7 @@ namespace Pitech.XR.Core.Editor
             go.transform.SetParent(parent, false);
             var comp = go.AddComponent(t) as Component;
             RememberSceneComponent(comp);
+            if (comp && sceneComponentIndexBuilt) sceneComponents.Add(comp);
             EditorSceneManager.MarkSceneDirty(go.scene);
             Selection.activeObject = go;
             return comp;
@@ -142,6 +165,7 @@ namespace Pitech.XR.Core.Editor
             sceneComponentIndexBuilt = true;
             sceneComponentIndexSceneHandle = sceneHandle;
             firstSceneComponentByType.Clear();
+            sceneComponents.Clear();
 
             if (!s.IsValid() || !s.isLoaded) return;
 
@@ -152,6 +176,7 @@ namespace Pitech.XR.Core.Editor
                 if (!component || !component.gameObject || component.gameObject.scene != s)
                     continue;
 
+                sceneComponents.Add(component);
                 RememberSceneComponent(component);
             }
         }

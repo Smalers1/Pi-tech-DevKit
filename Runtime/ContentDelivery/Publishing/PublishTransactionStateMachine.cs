@@ -229,12 +229,4 @@ namespace Pitech.XR.ContentDelivery
             return report;
         }
     }
-
-    public static class Timestamp
-    {
-        public static string UtcNowIso8601()
-        {
-            return DateTime.UtcNow.ToString("o");
-        }
-    }
 }

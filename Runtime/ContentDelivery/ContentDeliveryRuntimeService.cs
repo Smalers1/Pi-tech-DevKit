@@ -4,21 +4,6 @@ using UnityEngine;
 
 namespace Pitech.XR.ContentDelivery
 {
-    public interface ILaunchContextProvider
-    {
-        bool TryBuildLaunchContext(AddressablesModuleConfig config, out LaunchContext context);
-    }
-
-    public interface IContentDeliveryService : IXRService
-    {
-        bool IsReady { get; }
-        LaunchContext CurrentContext { get; }
-        event Action<LaunchContext> OnLaunchContextResolved;
-        void SetLaunchContext(LaunchContext context);
-        bool TryGetCurrentContext(out LaunchContext context);
-        bool TryReconcileAttempt(string launchRequestId, string canonicalAttemptId);
-    }
-
     public sealed class ContentDeliveryRuntimeService : IContentDeliveryService
     {
         private readonly AddressablesModuleConfig config;

@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b2e7b4b8b154c2cb0b3b2b9d3c9a1e2, type: 3}
+  m_Name: mega_quiz
+  m_EditorClassIdentifier: Pitech.XR.Quiz::Pitech.XR.Quiz.QuizAsset
+  questions:
+  - id: mega-q-01
+    prompt: "\u03A0\u03BF\u03B9\u03BF \u03B5\u03AF\u03BD\u03B1\u03B9 \u03C4\u03BF
+      \u03C3\u03C9\u03C3\u03C4\u03CC;"
+    type: 0
+    points: 1
+    allowPartialCredit: 0
+    answers:
+    - text: "\u03A3\u03C9\u03C3\u03C4\u03CC"
+      isCorrect: 1
+      explanation: "\u03A3\u03C9\u03C3\u03C4\u03AE \u03B1\u03C0\u03AC\u03BD\u03C4\u03B7\u03C3\u03B7."
+    - text: "\u039B\u03AC\u03B8\u03BF\u03C2"
+      isCorrect: 0
+      explanation: 
+  - id: mega-q-02
+    prompt: Pick the two correct items.
+    type: 1
+    points: 2
+    allowPartialCredit: 1
+    answers:
+    - text: Alpha
+      isCorrect: 1
+      explanation: 
+    - text: Beta
+      isCorrect: 0
+      explanation: 
+    - text: Gamma
+      isCorrect: 1
+      explanation: 
+  showCorrectImmediately: 1
+  showSummaryAtEnd: 1
+  passThresholdPercent: 0.5

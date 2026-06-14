@@ -1,6 +1,6 @@
 ---
 title: Phase A - Refactor & Foundation (behaviour-neutral)
-status: RATIFIED by Petros (board) 2026-06-10 - Stergios sign-off + DISPATCHED 2026-06-10; IN PROGRESS (execution started at WS A1)
+status: RATIFIED by Petros (board) 2026-06-10 - Stergios sign-off + DISPATCHED 2026-06-10; IN PROGRESS - WS A1/A2/A3/A4/A7-core/A8 DONE (WS A3 net VERIFIED GREEN 2026-06-11, 97 checks; A3 follow-on Steps 11-12 mega-fixture + missing-deps skip + per-lab/batch/quiet-window LANDED + user-confirmed green 2026-06-12); A5 (dead-code) + A6 (ALL 7 file splits, incl. the `ScenarioGraphWindow` partial-class split) + A7 Step 1 (XML docs) all LANDED + statically verified neutral + USER-VERIFIED GREEN 2026-06-12 (full batch COMPILED + `Evaluate Changes` GREEN in HealthOn VR; 6-lab corpus re-exported same day, content drift = the user's own authored lab edits); end-of-Phase-A hygiene fixes (legend/pluralization/orphan-usings/GuidedSetup assignable-type/scene-list collision) + record corrections LANDED 2026-06-12; remaining [HUMAN]: A6 Step 2 graph-window UI smoke + the A->B phase-exit declaration. DEFERRED: A6 namespace work -> Phase I (Proof B), A7 Step 2 (LogException, with-disposition), A6 Step 4(b) `Find*` unify (Proof-A-gated); A9 PROPOSED
 date: 2026-06-09
 owner: Stergios & Alexandros
 reviewers:
@@ -163,7 +163,7 @@ is not a net.
 | Med | `ScenarioEditor.cs:220-231` | ungated "Remove null entry" can permanently destroy a still-valid step | No | after Phase A (elevated) |
 | Med | `AddressablesAdapterResolver.cs:23-33` | vendor `HealthOnAddressablesAdapter` inside the generic toolkit | No | Phase D (document now) |
 | Med | `Editor/Core.Editor` layering | naive `AddressablesBuilderWindow` move = circular asmdef ref | No | Phase D (constraint recorded) |
-| Med | `--- SCENE MANAGERS ---.prefab` (root) | stray content prefab, referenced by GUID | No | Phase D |
+| Med | `--- SCENE MANAGERS ---.prefab` (root) | stray content prefab (own guid `a0032abe...`; ZERO inbound refs - package-wide sweep 2026-06-12) | Yes | ~~Phase D~~ **A5 Step 9 - DELETED 2026-06-12** |
 | Low-Med | hygiene (multiple) | mojibake, Greek comments, wrong `rootNamespace`, missing root docs | mostly Yes | **WS A4/A7** |
 
 **Confirmed Phase-A-deletable dead code** (all verified zero-caller, private/internal, not serialized):
@@ -240,7 +240,11 @@ and the deletes must be proven caller-free - none of which is safe to start blin
 - [x] Step 2: Freeze the census as the disposition reference WS A2..A7 execute against. *(Frozen 2026-06-10 - all
       corrections inlined as dated census-freeze notes; the tables now match live source.)*
 - [x] Step 3: Mark the 3-5 labs that become the WS A3 fixture corpus (criteria in Appendix I.3). *(Done 2026-06-10 -
-      5 labs marked + the not-in-any-real-lab gap list; see the I.3 addendum table.)*
+      5 labs marked + the not-in-any-real-lab gap list; see the I.3 addendum table.)* *(SUPERSEDED 2026-06-11 - the
+      ACTUAL committed corpus is the 6 real shipped university scenes: DIPAE_Nosileutiki_Meta, Delirium,
+      EkpaSceneEmergency, Loimokseis, MoMTScene_Meta, Pharmacy + synthetic_routing_families. The census-marked
+      Loimokseis_Old_1 + "Delirium Stats Test" were dropped; DIPAE/Ekpa/MoMT added - these are the scenes actually
+      shipped to universities (per Stergios). See the A3 green-run row.)*
 - [x] Step 4: Cross-check delete/relocate calls against §3 resolved decisions (`ScenarioEditorUtil` = delete;
       `AddressablesBuilderWindow` relocation = Phase D, NOT here). *(Done 2026-06-10: `ScenarioEditorUtil` zero-caller
       verified (grep, package-wide); the rejected EnsureStableGuids alternative is NOT implemented anywhere; the dead
@@ -308,26 +312,26 @@ later phase. **Full ticket set with test specs + asmdef JSON: Appendix I.**
 
 **Steps (progress tracking):**
 
-> *All 10 steps below are AUTHORED (2026-06-10, Claude) but intentionally LEFT UNTICKED. WS A3's acceptance is a
-> GREEN in-Unity run on unmodified code, which cannot be produced from the agent environment (no Unity here). Tick
-> each box only after the user opens the Unity 6+ host, compiles clean (catching any CS error is the whole point of
-> this WS), and runs `Pi tech/Tools/Evaluate Changes` green. See the matching Status & Progress Log row for the file
-> manifest + the exact in-Unity hand-off steps (fixture extraction, baseline capture).*
+> *All 10 steps below were AUTHORED 2026-06-10 and VERIFIED GREEN in Unity 6 on 2026-06-11 (Stergios, HealthOn VR):
+> `Pi tech/Tools/Evaluate Changes` = **97 checks pass** against the real shipped corpus + synthetic, so the boxes are
+> now ticked. The acceptance was always a green in-Unity run on unmodified code (an authored-but-never-run net is not
+> a net, addendum (e)) - that run has happened. Two post-green follow-on items (mega-fixture + missing-deps skip) are
+> tracked as Steps 11-12 after Step 10 below. See the 2026-06-11 Status & Progress Log row for the full run record.*
 
-- [ ] Step 1: Create `Pitech.XR.Scenario.Editor.Tests` (EditMode) referencing Scenario+Core+Quiz+Interactables+Stats,
+- [x] Step 1: Create `Pitech.XR.Scenario.Editor.Tests` (EditMode) referencing Scenario+Core+Quiz+Interactables+Stats,
       in the **modern** asmdef form (`UNITY_INCLUDE_TESTS` + `nunit.framework.dll` precompiled + `overrideReferences:true`
       + TestRunner refs - exact JSON in Appendix I.1). Do NOT copy the deprecated `optionalUnityReferences` template;
       migrate the existing ContentDelivery test asmdef to the modern form too.
-- [ ] Step 2: EditMode-lock the pure logic on UNMODIFIED code: `ConditionsEvaluator.EvalCompare` (all 8 `CompareOp`
+- [x] Step 2: EditMode-lock the pure logic on UNMODIFIED code: `ConditionsEvaluator.EvalCompare` (all 8 `CompareOp`
       incl. `Mathf.Approximately` + bool encodings); `GroupStep.IsChildRequired*`/`Ensure*`.
-- [ ] Step 3: **Proof A test** - scenario graph integrity per Appendix I.0 (invariants + per-lab snapshot JSON).
-- [ ] Step 4: **Proof C test** - GUID-stability (`ScriptGuids.json`, Appendix I.7) + open->save serialized-diff per
+- [x] Step 3: **Proof A test** - scenario graph integrity per Appendix I.0 (invariants + per-lab snapshot JSON).
+- [x] Step 4: **Proof C test** - GUID-stability (`ScriptGuids.json`, Appendix I.7) + open->save serialized-diff per
       fixture, scene object AND prefab-instance-with-override (method: Appendix I.6).
-- [ ] Step 5: **Proof B test** - public-API baseline (additions-only) + Core.Editor `FullName` literal resolution
+- [x] Step 5: **Proof B test** - public-API baseline (additions-only) + Core.Editor `FullName` literal resolution
       (Appendix I.8).
-- [ ] Step 6: ContentDelivery additive tests: `RewriteUrl`/`TryParseCcdUrl`, `LaunchContextValidation`,
+- [x] Step 6: ContentDelivery additive tests: `RewriteUrl`/`TryParseCcdUrl`, `LaunchContextValidation`,
       `PublishTransactionStateMachine.CanTransition`, `PublishReportService` JSON-golden.
-- [ ] Step 7: **`Export Lab as Test Fixture` tool** (menu + Hub Maintain + GameObject context; saves the Scenario
+- [x] Step 7: **`Export Lab as Test Fixture` tool** (menu + Hub Maintain + GameObject context; saves the Scenario
       subtree as a self-contained prefab into `Tests/Fixtures/Scenarios/` carrying its `.meta`; captures the
       graph-integrity snapshot baseline). Extract the **3-5 real-lab fixtures** chosen in WS A1 (corpus: Appendix I.3).
       *(AMENDED 2026-06-11, Stergios' process consolidation: ONE export mode - the WHOLE open scene, run inside
@@ -335,17 +339,66 @@ later phase. **Full ticket set with test specs + asmdef JSON: Appendix I.**
       transport). The subtree mode + GameObject context were REMOVED (real labs are cross-root; synthetic shapes have
       their own generator); the export now REFUSES on graph-invariant violations. THE process incl. the re-export
       git-diff rule: `Documentation~/testing-and-fixtures.md`.)*
-- [ ] Step 8: **`DevKit > Evaluate Changes`** - the one-click manual gate (menu item + Hub button; runs the EditMode
+- [x] Step 8: **`DevKit > Evaluate Changes`** - the one-click manual gate (menu item + Hub button; runs the EditMode
       suite via `TestRunnerApi`; plain-language verdict; shared `DevKitChecks.RunEditModeGate()` core + headless
       `RunAll()` so a pre-push hook / Phase D CI attach later unchanged - spec: Appendix I.9-I.11).
-- [ ] Step 9: **SEED Proof D** - create `Pitech.XR.Scenario.PlayMode.Tests` + the `GoldenTraceRecorder` and prove it
+- [x] Step 9: **SEED Proof D** - create `Pitech.XR.Scenario.PlayMode.Tests` + the `GoldenTraceRecorder` and prove it
       on ONE happy-path fixture (schema + harness: Appendix I.4/I.5). NOT a Phase A gate; corpus + CI = Phase D.
-- [ ] Step 10: Confirm Proofs A/B/C GREEN on unmodified code; log the green run in the Status & Progress Log.
+- [x] Step 10: Confirm Proofs A/B/C GREEN on unmodified code; log the green run in the Status & Progress Log.
+      *(DONE 2026-06-11 - 97 checks pass in HealthOn VR; logged in the Status & Progress Log.)*
+
+> **Post-green follow-on (Steps 11-12; LANDED 2026-06-11 - added after the green run).** Steps 1-10
+> are DONE. These two extend the gate; both are behaviour-neutral editor/test-only work that does not block A5/A6:
+> - [x] **Step 11 (LANDED 2026-06-11): Mega-fixture.** One hand-built, SDK-free, asset-free fixture that is a strict SUPERSET of
+>   the WS A1 census - every step type, every routing family, every GroupStep mode, every reference pattern (listeners
+>   wired to plain GameObject / CanvasGroup / AudioSource-no-clip / PlayableDirector-no-asset; no SDK/TMP/asset GUIDs) -
+>   so it covers the real labs by construction and runs ANYWHERE (the bare DevKit gate project included). It becomes the
+>   gate's PRIMARY synthetic corpus; extends `GenerateSyntheticFixture`. **Spec first** (mapped from Appendix A as an
+>   explicit superset of each real lab), then build. *(Stergios' idea, agreed 2026-06-11; spec is the immediate next task.)*
+>   *(SPEC AUTHORED 2026-06-11 - `../specs/2026-06-11-mega-fixture-spec.md` (PROPOSED v2, adversarially verified by 3
+>   skeptics, awaiting Stergios review: decisions D1-D4). Scope grew beyond this bullet: + variant twin, LegacyForms
+>   old-serialized-states twin, KnownBad detector-proof poisons, a package-internal test asset, the ExportSceneCore
+>   extraction. The spec's §8 rewrites this step's text on landing.)*
+> - [x] **Step 12 (LANDED 2026-06-11): "missing-deps -> Inconclusive skip" guard.** So the bare DevKit gate project stays GREEN
+>   while the SDK/TMP-referencing real-scene fixtures are committed: a fixture whose dependencies are absent in the
+>   current project reads **Inconclusive** (skip), never red. The real scenes are only exercised where Meta/TMP resolve
+>   (HealthOn); the bare project exercises the synthetic + mega-fixture + self-contained proofs. ~~Secondary to Step 11.~~
+>   *(RE-SCOPED 2026-06-11 by the spec: SAME work item as Step 11, not secondary - the gate filters by assembly only,
+>   so the bare project stays RED on the real-scene fixtures until this lands; spec §7.)*
+>   *(PREDICATE DEFINED 2026-06-11 (Stergios' hardening) - spec §7.1: the skip is keyed to a committed EXPORT-TIME
+>   declaration (`Tests/Baseline/FixtureDeps/<name>.deps.json`, written only by the export tool), never inferred from
+>   the observed failure; skip iff declaration exists AND has entries AND >=1 GUID unresolvable; mega/variant/
+>   synthetic + the LegacyForms/detection tests can NEVER skip; skips are loud Inconclusive naming the unmet deps;
+>   one-time migration = re-export the 6 labs in HealthOn (doubles as the export-neutrality acceptance).)*
+>
+> **LANDED 2026-06-11 (build + 1st in-Unity green + per-lab follow-on).** Steps 11+12 built, reviewed (3-skeptic),
+> and the mega/variant drift cleared via the NORMALIZE-THEN-CAPTURE fix (spec §10). The orphan `synthetic_routing_families`
+> baseline was deleted (the prefab was already gone) - the orphan check correctly demanded it. Plus a **per-lab reporting
+> + batch-export follow-on** (Stergios' ask, same day): the four fixture checks are now PARAMETRIZED per lab via a shared
+> `FixtureCorpus` source, so `Evaluate Changes` reports each lab individually (the window groups by check with a status dot
+> + full message per lab; passing labs shown too) - the old monolithic checks collapsed every red to its first line. The
+> orphan-baseline/deps and corpus-present checks are now suite-level. **In-test baseline auto-capture was retired** (the one
+> semantic change): a missing baseline is a per-lab Inconclusive pointing at the export tool, never written mid-test
+> (removes a test-order hazard the parametrization would otherwise introduce). New `Export All Test Scenes` (+ `Manage Test
+> Scenes List`) batch-re-exports a curated, auto-seeded scene list through the same `ExportSceneCore` (open-scene export
+> unchanged). `FixtureDependencies` moved off the public surface (`internal` + `InternalsVisibleTo` the test assembly, new
+> `Editor/Scenario.Editor/AssemblyInfo.cs` - the ContentDelivery/AgentSubstrate pattern). All new members internal/private,
+> no `.cs` moved, fresh unique `.meta` guids, no asmdef change ⇒ Proof-B/C-neutral by construction. *(In-Unity re-run of
+> the per-lab gate + the 6-lab deps migration + the bare-project run are the remaining verification ticks.)*
 
 **Where the tests run:** the package's tests + fixture corpus live INSIDE the package; the DevKit Unity project
 (Unity 6+, package embedded) is the iteration gate; after a package bump you also run `Evaluate Changes` in the
 HealthOn projects against real scenes = the integration check. One suite, two run-locations. The package gate never
 *depends* on a consumer project.
+
+> **REALIZED RUN ARCHITECTURE (amended 2026-06-11 after the green run).** Reality refined the above in two ways:
+> (1) HealthOn references the package by **`file:`** (a LIVE link, not a snapshot) - editing package source recompiles
+> HealthOn on focus, so the real-scene gate runs against new code with NO package bump or re-import. (2) The
+> SDK/TMP-referencing real scenes can ONLY be exported + validated where Meta/TMP resolve, i.e. **inside HealthOn**
+> (export and test in the same project = zero cross-project drift). So for the real corpus, HealthOn is not a secondary
+> "integration check" - it is the run-location, by dependency necessity. The bare DevKit project validates the SDK-free
+> synthetic (and, once Step 11 lands, the mega-fixture + self-contained proofs); Step 12's Inconclusive-skip is what
+> lets it stay green while the real-scene fixtures are present. The package gate still never *depends* on a consumer.
 
 **Acceptance:** Proofs A/B/C runnable + green on unmodified code (Proof C as scene object AND
 prefab-instance-with-override); `Evaluate Changes` one-click verdict works; Export-Lab-as-Fixture ships; 3-5 fixtures
@@ -372,7 +425,9 @@ hidden behind whitespace churn.
       assets - neutral. Greek HELP-BOX strings in `SelectionListsEditor` are user-visible -> after Phase A, excluded here.)*
       *(DONE 2026-06-10 - live grep found MORE than the census: SelectionLists had 13 Greek comments + the 1 Tooltip
       (all translated); SceneManagerEditor 4; graph window 4 (at 2126/3365/3371/3819). Post-pass sweep: zero `\p{Greek}`
-      in `.cs` outside the 6 excluded SelectionListsEditor help-boxes.)*
+      in `.cs` outside the 6 excluded SelectionListsEditor help-boxes. EXCEPTION (since 2026-06-11): `MegaFixtureBuilder.cs`
+      deliberately authors Greek FIXTURE content (spec §2 identity-weirdness rows) - it is test data, excluded from the
+      zero-Greek sweep alongside the SelectionListsEditor help-boxes.)*
 - [x] Step 3: Fix the two `U+FFFD` mojibake comments in `DevkitWidgets.cs`; re-indent the broken object-initializer braces.
       *(DONE 2026-06-10 - smart-quote mojibake at :214/:278 -> ASCII quotes; the four col-8 `style =` initializer blocks
       (StatusRibbon wrap/track/fill + the live Card) re-indented to proper nesting.)*
@@ -385,35 +440,40 @@ hidden behind whitespace churn.
       is WS A6 Step 7, untouched.)*
 - [x] Step 5: Fix `AddressablesBuilderWindow` `OnEnable` brace/indentation. *(DONE 2026-06-10 - the `private void
       OnEnable()` declaration sat at column 0; indented to member level + missing blank line after `Open()` restored.)*
-- [ ] Step 6: Run the WS A3 net after each pass (free insurance - touches no compiled logic). *(USER: run `Evaluate
-      Changes` once after pulling these passes - expected all-green, same shape as the 2026-06-10 verified run.)*
+- [x] Step 6: Run the WS A3 net after each pass (free insurance - touches no compiled logic). *(DONE 2026-06-11 -
+      satisfied by the 97-check green corpus run in HealthOn VR with the A4 passes loaded; all-green.)*
 
 **Acceptance:** only comment/whitespace bytes change; Proofs A/C trivially green.
 **Gate:** runs through WS A3.
 
 ---
 
-## WS A5 - Dead-code & dead-artifact removal
+## WS A5 - Dead-code & dead-artifact removal *(IN PROGRESS 2026-06-12)*
 
 **Goal:** delete provably-dead code. Every deletion verified zero-caller, private/internal, references no serialized type.
 
+> **LANDED 2026-06-12 (Claude; code authored + statically proven neutral - the per-deletion net-run is Step 8, the user's in-Unity tick).** All 8 deletions made and statically verified Proof-A/B/C-neutral: **Proof A** untouched (no fixture/graph/routing changed); **Proof B** additions-only HOLDS (every removed member is private or sits in an `internal` class -> absent from `PublicApi.Pitech.XR.txt`, verified by grep - including the nested `ScenarioEditor.Styles.Primary`, which is NOT exported: the baseline lists only `ScenarioEditor.ctor()`/`OnInspectorGUI()`); **Proof C** zero (no `.meta` touched, no pinned runtime type's GUID changed, and the deleted files' types are not in `ScriptGuidStabilityTests.PinnedTypes`). Each `.cs` diff is clean deletion-only (`DevkitWidgets.cs` was restored to CRLF so its diff shows only the removed members, not a line-ending flip - the global LF renormalization stays its own commit per A7 Step 3). Two non-pure-deletion edits were proven output-preserving: the `defaultNextGuid` ternary (`ObjectNames.NicifyVariableName("defaultNextGuid")` == `"Default Next Guid"`, so the special case was redundant) and the `StatsUIController` `try/catch` removal (the `StatsRuntime` indexer getter is provably non-throwing - `TryGetValue` -> `0f` fallback, annotated `// no exception`). The root prefab `--- SCENE MANAGERS ---.prefab` (guid `a0032abe...`) had ZERO package-internal references (sweep passed) -> deleted per Step 9; **this supersedes the stale §0 top-problems + Explicitly-deferred "Phase D relocate" rows**, which predated the 2026-06-11 flag. Consumer projects were NOT swept (it is package-root debris that ships downstream) - the user can confirm no HealthOn scene binds it. **USER (in Unity): run `Evaluate Changes` -> expect all-green (Step 8), then tick Step 8 + the §4 A5 row.**
+
 **Steps (progress tracking):**
-- [ ] Step 1: Delete `SceneManager.EvalCompare` (1168-1182) - zero callers; both live sites use
+- [x] Step 1: Delete `SceneManager.EvalCompare` (1168-1182) - zero callers; both live sites use
       `ConditionsEvaluator.EvalCompare`.
-- [ ] Step 2: Delete the unreachable `"defaultNextGuid"` ternary (`ScenarioEditor.cs:1050` - was :1041 pre-`448301b`) + the unused `Styles.Primary`.
-- [ ] Step 3: Delete empty `LaunchContextProviders.cs` + `.meta`.
-- [ ] Step 4: Delete the dead `DevkitWidgets` cluster (StatusChips/StatusBar/StatusRibbon/StatusHeader/ProgressBar/
+- [x] Step 2: Delete the unreachable `"defaultNextGuid"` ternary (`ScenarioEditor.cs:1050` - was :1041 pre-`448301b`) + the unused `Styles.Primary`.
+- [x] Step 3: Delete empty `LaunchContextProviders.cs` + `.meta`.
+- [x] Step 4: Delete the dead `DevkitWidgets` cluster (StatusChips/StatusBar/StatusRibbon/StatusHeader/ProgressBar/
       ProgressBarPro/Kpi/Tile + `DevBlocksWindow.SmallButton`) after a zero-reference sweep; remove duplicate comment
       banners + the dead `RebuildLinksFromGraph` forwarder. **Live API excluded:** `Actions` (22 sites), `Card` (21),
       `Pill` (23), `PillsRow`, `StatusChip`, `TileGrid`, `CardGridTwoCol`.
-- [ ] Step 5: Delete `BuildDefaultPrefabAddressKey`; inline `ComputeAddressKey` at its two private call sites; remove
+- [x] Step 5: Delete `BuildDefaultPrefabAddressKey`; inline `ComputeAddressKey` at its two private call sites; remove
       the orphan duplicated `<summary>` above `BuildLocalLabVersionRoot`.
-- [ ] Step 6: Replace the dead `try/catch` in `StatsUIController.Init` (~56) with a direct indexer read
+- [x] Step 6: Replace the dead `try/catch` in `StatsUIController.Init` (~56) with a direct indexer read
       (`StatsRuntime` indexer is provably non-throwing).
-- [ ] Step 7: **Delete `ScenarioEditorUtil.cs`** + its `.meta` (RESOLVED §3; the "wire Load to EnsureStableGuids"
+- [x] Step 7: **Delete `ScenarioEditorUtil.cs`** + its `.meta` (RESOLVED §3; the "wire Load to EnsureStableGuids"
       alternative is REJECTED - do not implement it).
-- [ ] Step 8: Run the WS A3 net after each deletion - a deletion is only "safe" if the net stays green.
-- [ ] Step 9: Delete the stray tracked `--- SCENE MANAGERS ---.prefab` + `.meta` at the **package root** (committed
+- [x] Step 8: Run the WS A3 net after each deletion - a deletion is only "safe" if the net stays green. *(DONE
+      2026-06-12 - satisfied by the user's full-batch run: A5 + A6 (Steps 2-7) + A7 COMPILED clean + `Evaluate Changes`
+      GREEN in HealthOn VR, all 9 deletions in. Consumer sweep CLOSED: the 5 deleted-asset GUIDs (root prefab, ScenarioEditorUtil,
+      LaunchContextProviders, synthetic_routing_families x2) have ZERO references anywhere in the HealthOn VR project.)*
+- [x] Step 9: Delete the stray tracked `--- SCENE MANAGERS ---.prefab` + `.meta` at the **package root** (committed
       historical debris; ships into every consumer; flagged 2026-06-11) after a zero-reference sweep (code, menus,
       GuidedSetup recipes, `Samples~`).
 
@@ -427,37 +487,159 @@ hidden behind whitespace churn.
 **Goal:** the structural heart of Phase A - real god-class decomposition that is still provably a *move*. Most
 exposed to the GUID-regen risk (§3); hence the hard dependency on the net.
 
+> **Step 1 LANDED 2026-06-12 (data-model split; authored + statically verified - COMPILE + net-run pending the user).**
+> `Scenario.cs` split per the Appendix A(F) map into `Runtime/Scenario/Steps/`: `Step.cs` (base) +
+> `TimelineStep`/`CueCardsStep`/`QuestionStep`(+`Choice`)/`MiniQuizStep`(+`MiniQuizChoice`/`Question`/`Outcome`)/
+> `SelectionStep`/`InsertStep`/`EventStep`/`ConditionsStep`(+`CompareOp`/`ConditionValueSource`/`ConditionOutcome`/
+> `ConditionsEvaluator`)/`GroupStep`(+`CompleteWhen`/`ChildRequirement`/`MultiConditionBranch`). `Scenario.cs` now holds
+> ONLY the `Scenario` MonoBehaviour (+ the editor-only `GraphNote`/`GraphGroup`/`StepGraphDisplay` + `OnValidate`) and
+> KEEPS its original `.meta` GUID, so the `Scenario` `m_Script` binding is intact. **Proof-A/B/C-neutral by
+> construction:** every moved type keeps `namespace Pitech.XR.Scenario` + the same asmdef; the Step subclasses are
+> `[SerializeReference]` (bound by type-name, NOT script-GUID, so the 10 new hand-authored `.meta` GUIDs are irrelevant
+> to lab serialization); `ConditionsEvaluator` stays `Pitech.XR.Scenario.ConditionsEvaluator` (Proof B additions-only
+> holds); none of the moved types is in `ScriptGuidStabilityTests.PinnedTypes` (Proof C GUID pins unaffected). Each new
+> `.cs` carries a fresh hand-authored `.meta` + per-file-tailored `using`s (verified against each type's dependencies);
+> no asmdef change (the moved types use the same external types `Scenario.cs` already referenced). STATIC VERIFICATION:
+> `Scenario.cs` diff is pure-deletion (560 lines; the kept `Scenario` class is byte-identical incl. its en/em-dash +
+> ellipsis), and `git`/grep show zero `U+FFFD` across `Runtime/Scenario` (no encoding rot in the moved special chars).
+> No `[MovedFrom]` (no namespace/assembly change). **USER: open Unity -> COMPILE FIRST (the one thing static analysis
+> cannot prove) -> then `Evaluate Changes`: Proof C must stay ZERO (no fixture/baseline byte changed). Verify before
+> the Step 2/3 god-class splits land on top.**
+
+> **PROOF-B RECONCILIATION for the namespace work (Claude, 2026-06-12) - a plan-vs-Proof-B conflict caught BEFORE
+> execution.** Step 2's *namespace wrap* and Step 7's *type-namespace changes* CANNOT be done Proof-B-neutrally, so the
+> file-splits proceed but the namespace work is DEFERRED. Why: `ScenarioGraphWindow` is `public` in the **global
+> namespace** and is in the public-API baseline (`ScenarioGraphWindow ::`, incl. its public statics `Open`/`OpenWindow`/
+> `GroupUsesMultiConditionPorts`/`GroupUsesProxyBranchPorts`/`TryGetGroupProxyBranchChild`). Wrapping it in
+> `namespace Pitech.XR.Scenario.Editor` changes its `Type.FullName` and every baselined member's -> Proof B sees the old
+> names REMOVED -> additions-only FAILS; likewise demoting the public statics. Same for Step 7's `SelectablesManagerEditor`
+> (baselined, global namespace) and `QuizDefaultUIPrefabFactory` (`Pitech.XR.Editor.Quiz.*` -> `Pitech.XR.Quiz.Editor.*`).
+> The plan's Step 2 note only verified CALLER safety (`OpenGraph` resolves by `t.Name`), not the API-SURFACE impact.
+> **Reconciliation:** (a) **Step 2 = file split ONLY, keeping the current (global) namespace + public modifiers** - the
+> decomposition (10 types -> per-type files) is the real value and is Proof-B-neutral as a pure move; the namespace wrap +
+> public-helper demotion DEFER to **Phase I (v1.0 API lock)**, the sanctioned API-change phase (or an explicit Stergios
+> sign-off to regen the Proof-B baseline). Lift pure helpers into an `internal static` class ONLY for helpers that are not
+> in the baseline. (b) **Step 7 = asmdef `rootNamespace` fix ONLY** (IDE metadata for new files; does not rename existing
+> types -> neutral); the type-namespace changes DEFER with Step 2's. This keeps the net GREEN and the API stable through
+> launch. **Stergios: override if you want the namespace cleanup treated as a sanctioned API change now.**
+
 **Steps (progress tracking):**
-- [ ] Step 1: **Data-model split (flagship, highest risk).** Move each Step subclass + `ConditionsEvaluator` out of
+- [x] Step 1: **Data-model split (flagship, highest risk).** Move each Step subclass + `ConditionsEvaluator` out of
       `Scenario.cs` into `Runtime/Scenario/Steps/<Type>.cs` (per-type map: Appendix A(F)). **Namespace
       `Pitech.XR.Scenario` unchanged, same asmdef, each file carries its `.meta`.** The `Scenario` MonoBehaviour +
       `OnValidate` guard stay untouched. The file retaining `Scenario` KEEPS `Scenario.cs.meta`'s GUID (split rule:
       Appendix I.7). No `[MovedFrom]`.
-- [ ] Step 2: **Graph window split + namespace wrap.** Wrap `ScenarioGraphWindow` + nested types + `StepEditWindow` in
+- [x] Step 2: **Graph window split + namespace wrap.** Wrap `ScenarioGraphWindow` + nested types + `StepEditWindow` in
       `namespace Pitech.XR.Scenario.Editor`; one file per type; lift pure helpers (`GroupSummary`,
       `GetGroupPreferredWidth`, `OutcomeLabel`, AutoLayout BFS) into an `internal` static class; demote
       no-external-caller `public static` helpers after grep. *(Verified safe: `ScenarioService.OpenGraph` resolves the
       window by simple `t.Name` - namespace-independent.)*
-- [ ] Step 3: **Inspector split.** `ScenarioEditor.cs` -> one file per `PropertyDrawer` + `Styles.cs`, same
+      *(DONE 2026-06-12 - FILE SPLIT via `partial class` LANDED + statically verified; namespace wrap + helper
+      lift/demote DEFERRED to Phase I per the Proof-B reconciliation above. The 5,897-line `ScenarioGraphWindow.cs`
+      split into 7 files (each new `.cs` carries a fresh hand-authored `.meta`): the main file keeps
+      `public partial class ScenarioGraphWindow : EditorWindow` (its ORIGINAL `.meta` GUID = the EditorWindow MonoScript)
+      with all 11 public/baselined members (ctor, IsNoteAttached, AddAttachedNote, AttachNoteToNearest, CollectTethers,
+      DetachNote, the 3 GroupUses*/TryGetGroupProxyBranchChild statics, Open, OpenWindow - verified all at lines 66-2402,
+      inside the kept regions) + the window methods + `PendingNoteEdit`; the 5 inner types move to per-type `partial class`
+      files KEPT NESTED (so `ScenarioGraphWindow+<T>` full names + enclosing-private access are unchanged): `EditableNote`
+      -> `.EditableNote.cs` (0764e951...), `GroupBox` -> `.GroupBox.cs` (fef321cf...), `ScenarioGraphView` -> `.GraphView.cs`
+      (855b315f...), `PortMeta`+`FlowEdge` -> `.Edges.cs` (3b3264e6...), `StepNode`(+`ECListener`) -> `.StepNode.cs`
+      (86b9627b...); the top-level internal `StepEditWindow` -> `StepEditWindow.cs` (ae2bdf00...). Each new file re-wrapped
+      in `#if UNITY_EDITOR` + the full original using-set. PROOFS: (B) `ScenarioGraphWindow` stays `public` in the GLOBAL
+      namespace with every baselined member retained, the 5 inner types stay private-nested (not baselined), `StepEditWindow`
+      is internal (not baselined) -> additions-only holds; (C) main keeps its `.meta` (EditorWindow MonoScript; also not a
+      pinned type), the partial files' new `.meta` GUIDs are inert (partial -> no file-name type match), no scenario-serialized
+      type moved -> round-trip zero; (A) pure line-move, zero logic change (only the `partial` keyword added). STATIC
+      VERIFICATION: line conservation 2576 kept + 3315 extracted + 6 dropped blanks = 5897 orig; EVERY file brace-balanced
+      (main 393/393, StepNode 280/280, ...) and `#if/#endif`-balanced (main 15/15, GraphView 3/3 incl. its 2 inner pairs);
+      each type declared EXACTLY once; ZERO `U+FFFD` across all 7 files (the ✕/✓/✗ glyphs survived); main stayed CRLF/no-BOM
+      (diff 2 ins / 3329 del), new files LF/no-BOM. No `[MovedFrom]`. **COMPILED + `Evaluate Changes` GREEN 2026-06-12 (user, HealthOn VR -
+      the full-batch run; see the status log).** **REMAINING [HUMAN] - ~5-min manual graph-window UI smoke** (the proofs
+      are EditMode serialization/API/GUID checks and never exercise GraphView interaction - the known UI-coverage gap, also
+      recorded in the CHANGELOG): open each lab graph; drag/connect nodes incl. a GroupStep's proxy-branch ports;
+      create/move/retitle a group box; attach/detach an EditableNote; open each StepEditWindow variant + apply an edit;
+      scrub each step drawer in the inspector; undo each action.)*
+- [x] Step 3: **Inspector split.** `ScenarioEditor.cs` -> one file per `PropertyDrawer` + `Styles.cs`, same
       assembly/namespace, each `.meta` carried. **Carry the `using Runtime = Pitech.XR.Scenario;` alias into each
-      split file** or fully-qualify, else compile break.
-- [ ] Step 4: **ContentDelivery extractions.** Extract the byte-identical `TrySetAutoStart`/`TryRestart` into one
+      split file** or fully-qualify, else compile break. *(DONE 2026-06-12 - the 11 step drawers (Timeline/CueCards/
+      Question/MiniQuiz/Choice/Selection/Quiz/QuizResults/Insert/Event/ConditionOutcome) extracted from the 1505-line
+      `ScenarioEditor.cs` (now 888) into `ScenarioStepDrawers.cs` (+ fresh `.meta`), same namespace + the `Runtime`
+      alias + the original full using-set. TWO minor, documented deviations: (a) ONE cohesive drawers file, not 11 -
+      fewer files = smaller per-file error surface for a blind no-compiler move; splittable per-drawer later if wanted;
+      (b) `Styles` KEPT nested in `ScenarioEditor` rather than a separate `Styles.cs` - it is a `private` nested class
+      used ONLY by `ScenarioEditor`'s own body (the drawers never reference it), so moving it would be pure churn.
+      STATIC VERIFICATION: `ScenarioEditor.cs` is a clean 619-line deletion (kept body byte-preserved via marker
+      truncation, `Styles` intact, CRLF kept), zero `U+FFFD` in the new file (the QuizStep `…` survived), each drawer
+      defined exactly once. Proof-B-neutral (drawers are `internal` -> not baselined; `ScenarioEditor` unchanged) +
+      Proof-C-neutral (no existing `.meta` touched; drawers bind by `[CustomPropertyDrawer]`, not GUID). **USER: COMPILE
+      with Step 1 -> `Evaluate Changes` green.**)*
+- [x] Step 4: **ContentDelivery extractions.** Extract the byte-identical `TrySetAutoStart`/`TryRestart` into one
       `internal static` helper. **Exclude the only-near-identical `Find*SceneManager*` helpers from the verbatim
       move** - unify them separately as a small behaviour-equivalent change proven by Proof A. Move `Timestamp` to its
       own file. Split public interfaces/enums (`IContentDeliveryService`, `ILaunchContextProvider`,
       `IContentDeliveryMetadataProvider`, `ContentSourceMode`) into own files (none are `[SerializeReference]`).
-- [ ] Step 5: **Features.** Rename non-serialized private Stats fields to `_camelCase`; split `StatsConfig.cs` into
+      *(DONE 2026-06-12 - authored + statically verified. (a) DEDUP: the two byte-identical private-static
+      `TrySetAutoStart`/`TryRestart` copies (`AddressablesBootstrapper` + `ContentDeliverySpawner`) collapsed into one
+      `internal static SceneRunnerReflection` (new file, guid 43ddba8d...); proven byte-identical pre-merge (both blocks
+      1185 chars, same SHA-256), all 5 call sites re-pointed to `SceneRunnerReflection.*`, zero private copies / zero
+      unqualified calls remain. (b) `Find*SceneManager*` unification = NOT DONE BY DESIGN (the plan gates it on Proof A /
+      golden trace, which this env cannot run; also no `FindObjectOfType`/`GameObject.Find` exists in CD runtime per the
+      no-Find rule) - DEFERRED. (c) `Timestamp` -> own `Timestamp.cs` (guid 5b139beb...), KEEPING `namespace
+      Pitech.XR.ContentDelivery` (it is baselined: `...Timestamp :: static method String UtcNowIso8601()`); its 8 callers
+      resolve unchanged. (d) the 4 public interfaces/enums each -> own file, same namespace: `IContentDeliveryService.cs`
+      (guid a9a4fa0d...), `ILaunchContextProvider.cs` (ceb8573b...), `IContentDeliveryMetadataProvider.cs` (bbd1c812...),
+      `ContentSourceMode.cs` (893c2189...); `OnlineMetadataSource` left in place (out of the named scope). PROOFS: (B) every
+      moved type keeps FullName + members (baseline-confirmed) -> additions-only holds, `SceneRunnerReflection` is `internal`
+      -> not baselined; (C) none of the moved types is m_Script-bound or in `PinnedTypes` (12), each new `.cs` carries a fresh
+      `.meta`; (A) the dedup is byte-identical logic, the moves change no logic. STATIC VERIFICATION: 4 edited files = 5 ins /
+      110 del (clean minimal diffs; all 4 keep CRLF - the benign "CRLF->LF" warning fires on each); each moved type defined
+      exactly once (in its new file only). No `[MovedFrom]`. **USER: COMPILE + `Evaluate Changes` green.**)*
+- [x] Step 5: **Features.** Rename non-serialized private Stats fields to `_camelCase`; split `StatsConfig.cs` into
       `StatsConfig.cs`/`StatEffect.cs`/`StatsRuntime.cs` **only after confirming same namespace+assembly** (if any
       `[SerializeReference]` usage is found on `StatEffect`, demote to after Phase A). Normalize the three
       `"Pi tech XR/Scenario/..."` paths on Interactables types (ORG-03). **Excluded:** promoting nested
       `MetaSelectRelay` to its own file (type-name change -> needs `[MovedFrom]` -> after Phase A).
-- [ ] Step 6: **Reflection -> typed access in `SceneManagerEditor`** (`gm.scenario`/`gm.StepIndex`/`gm.Restart()` -
+      *(DONE 2026-06-12 - authored + statically verified. SPLIT: `StatsConfig.cs` keeps ONLY `StatsConfig : ScriptableObject`
+      (+ nested `Entry`) and its ORIGINAL `.meta` GUID (pinned Proof-C type + `.asset`-referenced SO); `StatOp` + `StatEffect`
+      -> new `StatEffect.cs` (guid e2e2b847...), `StatsRuntime` -> new `StatsRuntime.cs` (guid 7bac114b...); each new `.cs`
+      carries a fresh hand-authored `.meta` + tailored usings. RENAMES (the only two non-serialized private caches):
+      `StatsConfig.table` -> `_table` (6 refs), `StatsRuntime.v` -> `_values` (8 sites); `_cfg` already conformant. EXCLUDED
+      from rename (serialized / baselined): `[SerializeField] entries`, the `Entry` fields, all `StatEffect` public fields.
+      PROOF GATES cleared pre-edit: (B) all types keep `namespace Pitech.XR.Stats` + asmdef + public members - private
+      renames invisible; (C) `StatEffect`/`StatsRuntime`/`StatOp` are NOT in `ScriptGuidStabilityTests.PinnedTypes` (12
+      pinned, verified) so their new GUIDs are unchecked, `StatsConfig` keeps file+GUID, and `StatEffect` is plain
+      `[Serializable]`-by-value (NO `[SerializeReference]`, confirmed across all `List<StatEffect>` sites) so the fixture
+      round-trip binds by type-name -> zero; (A) no runtime logic touched (`StatEffect.Apply` + `StatsRuntime` semantics
+      byte-identical). ORG-03 = NO-OP (already landed WS A2 Step 2; zero `"Pi tech XR/Scenario/..."` code paths remain).
+      STATIC VERIFICATION: `StatsConfig.cs` git diff = 6 ins / 81 del (clean minimal diff, NOT a CRLF whole-file flip -
+      the benign "CRLF->LF" warning confirms it stayed CRLF, no-BOM preserved); each of the 4 types defined exactly once
+      across `Runtime/Stats`; zero `U+FFFD`. No `[MovedFrom]`. **USER: COMPILE + `Evaluate Changes` - Proof C must stay ZERO.**)*
+- [x] Step 6: **Reflection -> typed access in `SceneManagerEditor`** (`gm.scenario`/`gm.StepIndex`/`gm.Restart()` -
       public, assembly already referenced; same values read). *(Distinct from the RUNTIME reflection in
       ContentDelivery, which is Phase D.)*
+      *(DONE 2026-06-12 - authored + statically verified. The 3 reflection sites in `SceneManagerEditor`
+      (`GetScenarioFromManager` `GetField("scenario")`, the `GetProperty("StepIndex")` block, the `GetMethod("Restart")`
+      invoke) replaced with direct typed access `gm.scenario` / `gm.StepIndex` / `gm.Restart()`. SAFE + behaviour-equivalent:
+      all three are PUBLIC + in the API baseline (`SceneManager :: field Scenario scenario` 1107, `:: property Int32 StepIndex`
+      1123 [public getter], `:: method Void Restart()` 1119) and the editor already references these runtime types typed
+      (`(SceneManager)target`, returns `Scenario`, uses `TimelineStep` etc.) - so the reflection (which resolved them via
+      `Public|NonPublic`) read the very same members; the defensive null/try-catch fallbacks were dead (the members always
+      resolve) so dropping them changes nothing. Now-unused `using System.Reflection;` removed (no Reflection type is named
+      after the edit - `AppDomain.GetAssemblies()`/`Assembly.GetTypes()` are inferred, not named). EDITOR-ONLY (no runtime,
+      no Proof-A/B/C surface: not public API, not GUID-bound, not serialized). STATIC VERIFICATION: diff 4 ins / 26 del
+      (clean, CRLF preserved - "CRLF->LF" warning fires); zero `GetField`/`GetMethod`/`GetProperty`/`BindingFlags` remain.
+      **USER: COMPILE + `Evaluate Changes` green.** NB the RUNTIME ContentDelivery reflection stays - that is Phase D.)*
 - [ ] Step 7: **Editor metadata fixes.** `Interactables.Editor.asmdef` `rootNamespace` ->
       `Pitech.XR.Interactables.Editor`; namespace `SelectablesManagerEditor` (+ `: UnityEditor.Editor`); `#if
       UNITY_EDITOR` + namespace fix on `QuizDefaultUIPrefabFactory` (`Pitech.XR.Editor.Quiz` -> `Pitech.XR.Quiz.Editor`).
-- [ ] Step 8: Run the WS A3 net after each split; Proof C must stay zero as scene object AND prefab instance.
+      *(PARTIAL 2026-06-12: the asmdef `rootNamespace` fix LANDED (`Pitech.XR.Scenario.Editor` -> `Pitech.XR.Interactables.Editor`;
+      metadata-only IDE default for new files, zero compile/Proof impact). The two TYPE-namespace changes
+      (`SelectablesManagerEditor`, `QuizDefaultUIPrefabFactory`) are DEFERRED to Phase I per the Proof-B reconciliation
+      note above - both are public + baselined, so renaming their namespace fails Proof B additions-only.)*
+- [x] Step 8: Run the WS A3 net after each split; Proof C must stay zero as scene object AND prefab instance. *(DONE
+      2026-06-12 - satisfied by the user's full-batch run: COMPILED clean + `Evaluate Changes` GREEN in HealthOn VR.
+      Proof C zero on `mega_fixture` + its prefab-variant twin (scene object AND prefab instance); the 6 re-exported
+      labs' `Tests/` git drift is user-attributed authored lab edits, not code-induced - see the 2026-06-12 status row.)*
 
 > **Editor-visible-string rule:** `AddComponentMenu`/`[MenuItem]` path changes are permitted as deliberate,
 > single-line, documented edits - NOT bundled into a "pure move" commit - provided a grep first proves the exact path
@@ -473,11 +655,21 @@ addendum (d) if it threatens the store deadline.
 ## WS A7 - Documentation, XML docs & package-root professionalization *(additive; zero compiled impact)*
 
 **Steps (progress tracking):**
-- [ ] Step 1: XML `///` docs on the API-baseline members (`SceneManager` public fields, `StepIndex`, `Restart`,
-      `EditorSkipFromGraph`, selection bridges, `GetOrCreateQuizSession`) + `XRServices`.
+- [x] Step 1: XML `///` docs on the API-baseline members (`SceneManager` public fields, `StepIndex`, `Restart`,
+      `EditorSkipFromGraph`, selection bridges, `GetOrCreateQuizSession`) + `XRServices`. *(DONE 2026-06-12 - `///
+      <summary>` added to all 13 `SceneManager` public fields, `StepIndex`, `Restart`, `EditorSkipFromGraph`, the 4
+      selection bridges, and `GetOrCreateQuizSession`, plus the `XRServices` locator + `IXRService` + its 5 methods.
+      Comments only - no `.cs` token outside comments changed, so Proof B is unaffected (docs are not reflected);
+      `XRServices.cs` kept CRLF to avoid a line-ending-flip diff. `CurrentStepIndex`/`AutoStart` already carried A8 docs.)*
 - [ ] Step 2: `Debug.LogException(e)` inside the bare `catch {}` blocks in the graph window - **permitted only as a
       diagnostic-output-only change when no test asserts console silence on that path** (console output IS observable
-      behaviour); verify after WS A3, else defer.
+      behaviour); verify after WS A3, else defer. *(DEFERRED 2026-06-12 - dispositioned, NOT skipped. The 7 graph-window
+      catches are NOT uniformly bug-hiding: several are intentional best-effort swallows (`:5268` "GlobalObjectId can
+      fail in some editor contexts", `:266` "best-effort") where `Debug.LogException` would be console SPAM, not a
+      diagnostic win. Telling log-worthy from benign-expected needs a per-site failure-semantics triage + a net re-run to
+      confirm no console-silence assertion trips - exactly the "verify after A3, else defer" gate, which this
+      environment (no Unity) cannot satisfy. Adding code here would also break A7's own "no `.cs` token outside comments"
+      acceptance. Revisit in-Unity, or fold into a post-launch quality pass.)*
 - [x] Step 3: Add `README.md`, `CHANGELOG.md`, `LICENSE.md`, `.editorconfig` (encodes the 4-space style),
       `.gitattributes` (LF; `.meta`/`.prefab`/`.asset` as text with explicit eol). Initial LF renormalization is its
       own isolated commit. *(2026-06-11 - all present at the package root; LICENSE.md remains the flagged
@@ -523,11 +715,11 @@ namespace Pitech.XR.Core
 ```
 
 **Steps (progress tracking):**
-- [ ] Step 1: Add the interface exactly as above; `SceneManager` adds `: ISceneRunnerControl` + three forwarding
-      members. No field renamed, nothing made non-public, behaviour identical.
-- [ ] Step 2: **Keep it exactly these three members** - do NOT widen toward flow-store/ledger concepts (premature
-      lock-in; that is after Phase A).
-- [ ] Step 3: Run the WS A3 net - Proof B additions-only; Proof C unchanged (nothing serialized).
+- [x] Step 1: Add the interface exactly as above; `SceneManager` adds `: ISceneRunnerControl` + three forwarding
+      members. No field renamed, nothing made non-public, behaviour identical. *(DONE 2026-06-10 - `Runtime/Core/ISceneRunnerControl.cs`.)*
+- [x] Step 2: **Keep it exactly these three members** - do NOT widen toward flow-store/ledger concepts (premature
+      lock-in; that is after Phase A). *(DONE 2026-06-10 - exactly 3 members; Director-trajectory XML note added, interface not widened.)*
+- [x] Step 3: Run the WS A3 net - Proof B additions-only; Proof C unchanged (nothing serialized). *(DONE 2026-06-11 - the A8 members are present in the green Proof B run.)*
 
 **Acceptance:** interface lands additively; proofs green; `SceneManager` untouched as a runner.
 **Gate:** after WS A3; its own isolated ticket.
@@ -579,7 +771,7 @@ a placeholder so the idea is captured, not a license to implement.
 | Runtime reflection/`Find` removal (Interactables + ContentDelivery) | Phase D | changes discovery/timing/caching | via `ISceneRunnerControl`; cache VR/Meta determination |
 | Core.Editor layering inversion + `AddressablesBuilderWindow` relocation | Phase D | naive move = circular asmdef ref | first extract editor-UI primitives to a lower assembly |
 | HealthOn adapter de-coupling | Phase D | changes resolution for labs on the implicit fallback | gate behind a config migration setting `adapterTypeName` |
-| Stray root prefab relocation | Phase D | referenced by GUID `a0032abe...` | carry `.meta`; prove Proof C |
+| ~~Stray root prefab relocation~~ **DELETED in A5 Step 9 (2026-06-12)** | ~~Phase D~~ A5 | own guid `a0032abe...` has ZERO inbound refs (sweep 2026-06-12) - "relocation" was unnecessary; it was debris | deleted outright (not relocated); no Proof C impact (nothing binds it) |
 | `link.xml` narrowing | Phase D | size optimization, safe today | enumerate every reflection-instantiated Step type first |
 | Saved graph "section shapes" + custom branch names | first item after Phase A | serialized fields -> fails Proof C | editor-only serialized field via the `Scenario.GraphNote` `#if UNITY_EDITOR` pattern. *(2026-06-10: "section shapes" LANDED early - `448301b`'s `GraphGroup` boxes, already in the compliant pattern; saved per-node display name + manual node size (a 448301b feature this row never listed) also landed, reconciled into the `StepGraphDisplay` side-table. REMAINING deferred scope: custom names on label-less branch EDGES only - node header names are NOT that feature.)* |
 
@@ -624,29 +816,55 @@ a placeholder so the idea is captured, not a license to implement.
 - [x] Four reserved module slots (Networking / Localization / Analytics / Vitals) stubbed by the one recipe -
       structure only, no logic. *(2026-06-10 - asmdefs + empty placeholders + Hub tiles.)*
 
-**Safety net (A3) - all EditMode:**
-- [ ] `Pitech.XR.Scenario.Editor.Tests` exists in the modern asmdef form; discoverable in Test Runner.
-- [ ] `Export Lab as Test Fixture` ships; 3-5 real labs extracted into `Tests/Fixtures/`; net green against them.
-- [ ] Proof A green (refs/routes/events; per-lab snapshots committed). Pure-logic tests green (`EvalCompare` all 8
+**Safety net (A3) - all EditMode:** *(all VERIFIED GREEN 2026-06-11, HealthOn VR, 97 checks; corpus = the 6 real
+shipped scenes + synthetic_routing_families.)*
+- [x] `Pitech.XR.Scenario.Editor.Tests` exists in the modern asmdef form; discoverable in Test Runner.
+- [x] `Export Lab as Test Fixture` ships; 3-5 real labs extracted into `Tests/Fixtures/`; net green against them.
+      *(6 real scenes + synthetic committed; faithful-capture single-open-with-restore export.)*
+- [x] Proof A green (refs/routes/events; per-lab snapshots committed). Pure-logic tests green (`EvalCompare` all 8
       ops; `GroupStep.Ensure*`/`IsChildRequired*`).
-- [ ] Proof C green per fixture (GUID-stability + serialized-diff, scene object AND prefab-instance-with-override).
-- [ ] Proof B green + the Core.Editor `FullName` literals all resolve. ContentDelivery additive tests green.
-- [ ] `DevKit > Evaluate Changes` ships (menu + Hub button), one-click verdict; headless entry exists so a pre-push
+- [x] Proof C green per fixture (GUID-stability + serialized-diff, scene object AND prefab-instance-with-override).
+- [x] Proof B green + the Core.Editor `FullName` literals all resolve. ContentDelivery additive tests green.
+- [x] `DevKit > Evaluate Changes` ships (menu + Hub button), one-click verdict; headless entry exists so a pre-push
       hook / Phase D CI attach unchanged.
-- [ ] `.editorconfig` + `.gitattributes` committed; dependency-truth REPORT generated.
-- [ ] *(Phase D-prep, not a gate)* golden-trace harness passes on ONE seed fixture.
+- [x] `.editorconfig` + `.gitattributes` committed; dependency-truth REPORT generated.
+- [ ] *(Phase D-prep, not a gate)* golden-trace harness passes on ONE seed fixture. *(SEEDED + wired - recorder
+      compiles, `[Ignore]` until a Phase D golden exists; no real golden run yet. Not a Phase A gate.)*
 
 **Reorganization (proven neutral):**
-- [ ] WS A4 landed as separate commits; only comment/whitespace bytes changed.
-- [ ] WS A5 deletions all zero-caller; Proofs A/B/C green; `ScenarioEditorUtil.cs` deleted with its `.meta`.
-- [ ] WS A6 splits landed; every moved `.cs` carries its `.meta`; Proof C zero both ways; no `[MovedFrom]`.
-- [ ] `SceneManagerEditor` reflection -> typed access; behaviour identical. `rootNamespace`/namespace fixes applied.
+- [x] WS A4 landed as separate commits; only comment/whitespace bytes changed. *(Steps 1-6 done; net green 2026-06-11.)*
+- [x] WS A5 deletions all zero-caller; Proofs A/B/C green; `ScenarioEditorUtil.cs` deleted with its `.meta`. *(CODE
+      LANDED 2026-06-12 - all 9 deletions authored + statically proven Proof-A/B/C-neutral (zero-caller greps + baseline
+      checks); CLOSED 2026-06-12 - the user's full-batch compile + `Evaluate Changes` GREEN (HealthOn VR); A5 Step 8 ticked;
+      consumer GUID sweep clean (zero references in HealthOn VR to any of the 5 deleted-asset GUIDs).)*
+- [x] WS A6 splits landed; every moved `.cs` carries its `.meta`; Proof C zero both ways; no `[MovedFrom]`. *(ALL FILE
+      SPLITS LANDED + statically verified neutral 2026-06-12, awaiting the user's compile + net-run: **Step 1** (data-model
+      split `Scenario.cs` -> `Steps/<Type>.cs`) + **Step 2** (graph-window split `ScenarioGraphWindow.cs` -> 7 `partial
+      class` files) + **Step 3** (inspector drawers -> `ScenarioStepDrawers.cs`) + **Step 4** (CD extractions:
+      `SceneRunnerReflection` dedup + `Timestamp` + 4 interfaces/enums to own files) + **Step 5** (Stats split ->
+      `StatEffect.cs`/`StatsRuntime.cs` + `_table`/`_values` private-cache renames; ORG-03 no-op) + **Step 6**
+      (`SceneManagerEditor` reflection->typed) + **Step 7 asmdef `rootNamespace`** all LANDED. DEFERRED to Phase I
+      (Proof B): the Step 2 namespace wrap + public-helper demote + the Step 7 type-namespace changes. DEFERRED
+      (Proof-A-gated): Step 4(b) `Find*` unify. Box CLOSED 2026-06-12 - full batch COMPILED + `Evaluate Changes` GREEN (user,
+      HealthOn VR); Proof C zero on `mega_fixture` + its prefab-variant twin; the 6 re-exported labs' `Tests/` drift is
+      user-attributed authored lab edits. Outstanding [HUMAN]: the A6 Step 2 graph-window UI smoke checklist.)*
+- [x] `SceneManagerEditor` reflection -> typed access; behaviour identical. `rootNamespace`/namespace fixes applied.
+      *(2026-06-12: Step 6 (`SceneManagerEditor` reflection->typed) LANDED + statically verified; Step 7 asmdef
+      `rootNamespace` LANDED; Step 7 type-namespace changes DEFERRED to Phase I (Proof B). Box CLOSED 2026-06-12 by the
+      user's full-batch compile + `Evaluate Changes` GREEN (HealthOn VR).)*
 
 **Docs / metadata (A7):**
-- [ ] XML docs on baseline members; README/CHANGELOG/LICENSE at package root; metadata-only `package.json` fields;
-      subsystem-notes doc records the serialization exceptions + `link.xml` constraint.
+- [x] XML docs on baseline members; README/CHANGELOG/LICENSE at package root; metadata-only `package.json` fields;
+      subsystem-notes doc records the serialization exceptions + `link.xml` constraint. *(DONE - README/CHANGELOG/
+      LICENSE + metadata fields + subsystem-notes + dependency-truth report 2026-06-11; XML `///` docs (A7 Step 1)
+      2026-06-12. A7 Step 2 (`Debug.LogException` in graph-window catches) is DEFERRED-with-disposition (see WS A7
+      Step 2) and is not part of this exit line; the four items here are all done.)*
 
-**Negative gates (must remain TRUE):**
+**Negative gates (must remain TRUE):** *(All hold for the full landed batch through 2026-06-12 - A2..A8 incl. A5/A6/A7 -
+proven live by the user's 2026-06-12 `Evaluate Changes` GREEN in HealthOn VR: Proof B = public API additions-only, Proof C =
+GUID + serialized-diff zero (mega/variant; the 6-lab `Tests/` drift is user-attributed authored lab edits, not code-induced),
+version 0.10.5 untouched, no emission. The four boxes below are READY to tick - left unchecked DELIBERATELY: ticking them is
+the formal Phase A->B exit declaration, which is the user's call (see the header's remaining [HUMAN] item).)*
 - [ ] `OnValidate` no-null-strip + `isCompiling` guard untouched.
 - [ ] No runner unification, no dispatch-registry change, no undo-routing change, no runtime reflection/`Find`
       removal, no rewriter fix, no `dependencies` resolution change, no version bump.
@@ -681,6 +899,15 @@ events/facts/lifecycle hooks (behaviour).
 
 | Date | WS | Event | By |
 |---|---|---|---|
+| 2026-06-12 | A5/A6/A7 | **FULL BATCH USER-VERIFIED GREEN + end-of-Phase-A hygiene/record pass.** The user COMPILED the full A5 + A6 (Steps 2-7, on top of the earlier-verified Step 1) + A7 batch and ran `Evaluate Changes` GREEN inside HealthOn VR (tier 2 - the 6 real labs ENFORCE there by deps resolution; the bare gate project's prior milestone was 113 passed / 0 failed / 24 inconclusive = 6 labs x 4 checks loud-skipped by design). A5 Step 8 + A6 Step 8 ticked; the §4 A5/A6/SceneManagerEditor exit boxes CLOSED; the four §4 negative phase-exit gates left unticked DELIBERATELY (ticking = the A->B exit declaration, the user's call). **Corpus re-export (same session):** the 6 labs were re-exported through the new `ExportSceneCore` batch path; 6 fixtures + 6 graph baselines regenerated + the 6 `Tests/Baseline/FixtureDeps/*.deps.json` appeared (the testing-doc §4a one-time migration = DONE). ATTRIBUTION (the §3 review, by the user): the `Tests/` content drift is HIS OWN authored lab edits in HealthOn VR (Delirium route removal, `CANVASES` -> `--- UI ---` root renames, Loimokseis edits) - deliberate corpus updates, NOT code-induced serialization drift; to be committed as a SEPARATE corpus commit. **Correction banked:** export output is NOT byte-stable across sessions (benign fileID churn on all 6 labs even where content is unchanged), so the written "byte-neutral / bytes-unchanged" re-export acceptance (testing-and-fixtures.md §2/§3/§4a/§6, mega-spec §7.1.7/§9.5/§9.8) is corrected to GRAPH-CONTENT (snapshot) neutrality. **End-of-Phase-A fixes LANDED (this pass):** legend mis-attribution (the unmet-deps text sat on the gray Skipped dot that never fires in the EditMode gate -> moved to the yellow Inconclusive dot) + a tier hint on the green verdict; `dependencyies` pluralization (`FixtureCorpus`); two orphaned `using System.Reflection;` (A6 Step 4 leftovers); `GuidedSetupService` exact-type lookup restored to ASSIGNABLE-type (a latent A2-era `01ca1f2` perf-rework regression that would miss subclasses of a queried manager type - editor-only; no such subclass exists in any reachable consumer today); scene-list sanitized-name collisions now surfaced in the manager dialog; `MaintainPage` ExecuteMenuItem return now checked on all 6 buttons; `DevkitHubWindow` citation artifact stripped; `FixtureDependencies` `com.unity.*` predicate documented as deliberately-broad/loud-safe (exact allowlist deferred to the next re-export cycle). **ADDED to A6 Step 2:** a ~5-min [HUMAN] graph-window UI smoke checklist (open each lab graph; drag/connect nodes incl. GroupStep proxy-branch ports; create/move/retitle a group box; attach/detach an EditableNote; open each StepEditWindow variant + apply an edit; scrub each step drawer; undo each) - the proofs' known UI-coverage gap; still OPEN. Two independent multi-agent reviews (a 13-agent adversarial sweep + a 5-agent verification of a second human-style review) found the refactor code clean; all confirmed findings are addressed here or dispositioned. | Claude (Stergios compiled + ran the gate + attributed the lab edits) |
+| 2026-06-12 | A6 | **Step 3 (inspector split) DONE + statically verified.** The 11 step `PropertyDrawer`s extracted from `ScenarioEditor.cs` (1505 -> 888 lines) into `ScenarioStepDrawers.cs` (same namespace + `Runtime` alias). Clean 619-line deletion (kept body byte-preserved via marker truncation), zero `U+FFFD`, each drawer defined once -> Proof-B-neutral (drawers `internal`) + Proof-C-neutral (no existing `.meta` touched; `[CustomPropertyDrawer]` binding, not GUID). Two documented deviations: one cohesive drawers file (not 11 - blind-safety) + `Styles` kept nested (private, drawer-unused). Awaiting the user's compile + net (bundled with Step 1). | Claude |
+| 2026-06-12 | A6 | **Proof-B landmine caught in Steps 2 & 7 (the namespace work) BEFORE execution -> namespace changes DEFERRED to Phase I, file-splits proceed.** `ScenarioGraphWindow` (public, GLOBAL namespace), `SelectablesManagerEditor`, and `QuizDefaultUIPrefabFactory` are all in the public-API baseline; the planned namespace wrap/rename changes their `Type.FullName` -> Proof B (additions-only) would go RED (the plan's Step 2 note only checked CALLER safety, not the API surface). Also: the graph window's 7 satellite types (`PendingNoteEdit`/`EditableNote`/`GroupBox`/`ScenarioGraphView`/`PortMeta`/`FlowEdge`/`StepNode`) are PRIVATE NESTED inside the ~5,200-line `ScenarioGraphWindow`, so un-nesting them is a coupling-breaking refactor, NOT a pure move -> Step 2 will use `partial class` files (keep them nested, split the file) and gets its own careful pass. Reconciliation note added under WS A6. **Step 7 asmdef `rootNamespace` fix LANDED** (`Pitech.XR.Interactables.Editor.asmdef`: `Pitech.XR.Scenario.Editor` -> `Pitech.XR.Interactables.Editor`; metadata-only, IDE default for new files, zero compile/Proof impact); its type-namespace changes deferred with Step 2's. | Claude (caught pre-execution) |
+| 2026-06-12 | A5/A7/A6 | **A5 + A7 Step 1 + A6 Step 1 (data-model split) ALL VERIFIED GREEN by the user (tier-1 bare gate): 113 passed / 0 failed / 24 inconclusive.** The data-model split COMPILES clean and the net is green - Proof B (public API), Proof C (GUID stability + serialized round-trip, proven on `mega_fixture`+variant = the "2 ok" on every fixture row), Proof A (graph integrity on mega), and all pure-logic locks pass. The 24 inconclusive = the 6 real labs x 4 fixture checks, loud-Inconclusive in the bare project because their SDK/TMP deps are absent (the §7.1 skip working as designed); they enforce in HealthOn VR (tier 2). The mega fixture is a strict superset of every step type incl. the just-moved ones, so its zero Proof C directly proves the move is serialization-neutral. **Remaining A6: Steps 2-7.** Tier-2 (HealthOn) real-lab enforcement is the standing complete gate before the shipped package reference updates. | Claude (Stergios ran the gate) |
+| 2026-06-12 | A3->A5 | **A3 follow-on CONFIRMED GREEN by user + quiet-by-default verdict accepted; WS A5 STARTED.** User re-ran `Evaluate Changes` after the per-lab/batch/quiet-window drop: the mega/variant snapshot drift was the predicted stale-AssetDatabase (cleared by a reimport, NOT a code defect), and the gate reads green. The `Evaluate Changes` window was made QUIET BY DEFAULT (a clean run collapses the ~30-row inventory into a one-line tally + a `Show all checks` toggle; failures still expand per-lab) - editor-only presentation, no effect on the verdict. With this, the A3 follow-on (Steps 11-12 + per-lab reporting + batch export + quiet window) is treated DONE; the remaining A3 verification ticks (6-lab deps migration in HealthOn, bare-project loud-Inconclusive run) stay the user's in-Unity steps. **Phase A now turns to the remaining workstreams: A5 (dead-code, STARTED today) -> A7 Step 1/2 (XML docs + LogException) -> A6 (file splits).** Per addendum (d) these are the quality tail; per the completion discipline none are silently skipped. **UPDATE (same session): WS A5 LANDED (all 9 deletions; statically proven Proof-A/B/C-neutral - zero-caller greps + baseline checks; clean deletion-only diffs) + WS A7 Step 1 LANDED (XML docs on the API-baseline members + XRServices); A7 Step 2 (LogException) DEFERRED-with-disposition (the graph-window catches are mixed best-effort/bug-hiding - needs per-site triage + a net re-run this env can't run). A6 (god-class splits) is the remaining structural work: the full data-model split map + per-file usings + the by-construction Proof-A/B/C-neutrality argument are worked out, execution is next. RECOMMENDED SEQUENCING: the user runs ONE net pass to bank A5/A7 GREEN before the A6 split lands, so a blind-split compile issue cannot mask the clean A5/A7 work (A5/A7 touch disjoint files from the split).** | Claude (Stergios direction: "update the plan and start the next workstreams") |
+| 2026-06-11 | A3 | **Mega/variant drift CLEARED + orphan baseline removed + PER-LAB reporting & BATCH export follow-on (Stergios' ask) - code + 3-skeptic review; AWAITING in-Unity re-run.** (1) The NORMALIZE-THEN-CAPTURE fix (spec §10) cleared the same-session `[mega_fixture]` snapshot drift + `[mega_fixture_variant]` Inconclusive (HealthOn run #2). (2) The orphan `synthetic_routing_families.graph.json` (+ .meta) was deleted - its prefab was already retired (D1), so the §7.1.5-style orphan check correctly red'd; 8 fixtures ↔ 8 baselines now. (3) **Per-lab reporting:** the four fixture checks are PARAMETRIZED per lab via a shared `FixtureCorpus` source (`Tests/Editor/Scenario/FixtureCorpus.cs`), so `Evaluate Changes` reports each lab individually - the window (`DevKitChecks` per-case roster + `EvaluateChanges` rebuild) groups by check into foldouts with a status dot + FULL message per lab, passing labs shown; the §7.1 skip is per-lab (loud Inconclusive). Orphan-baseline/deps + corpus-present are now suite-level `[Test]`s. **In-test baseline auto-capture RETIRED** (the only semantic change): a missing baseline is a per-lab Inconclusive pointing at the export tool, never written mid-test (removes a test-order hazard parametrization would add). (4) **Batch export:** `Export All Test Scenes` (+ `Manage Test Scenes List`) re-exports a curated, auto-seeded (`EditorUserSettings`, per-project, from fixture-matching scenes) scene list through the same `ExportSceneCore`; open-scene export unchanged. (5) `FixtureDependencies` moved off the public surface (`internal` + new `Editor/Scenario.Editor/AssemblyInfo.cs` `InternalsVisibleTo` the test assembly - ContentDelivery/AgentSubstrate pattern). **3-reviewer pass: 1 BLOCKER (public FixtureDependencies) + 1 MINOR (progress-bar math) - both fixed.** All new members internal/private, no `.cs` moved, fresh unique `.meta` guids, no asmdef change ⇒ Proof-B/C-neutral. Docs updated: CHANGELOG, testing-and-fixtures.md (§2/§4/§5/§6), spec §10. **USER (in Unity): (1)** HealthOn - recompile, re-run `Evaluate Changes` -> expect per-lab ALL GREEN; **(2)** re-export the 6 labs (bytes unchanged + 6 new .deps.json) via `Export All Test Scenes`; **(3)** bare gate project - 6 labs loud-Inconclusive, mega/variant enforced green; **(4)** then tick the remaining verification. | Claude (Stergios ask; 3-agent review) |
+| 2026-06-11 | A3 | **Steps 11+12 IMPLEMENTED (one work item, per spec) - code authored + adversarially reviewed; AWAITING the user's in-Unity verification (boxes stay open until green).** Spec APPROVED by Stergios (D1-D4 as recommended) + his Step 12 hardening encoded as spec §7.1: the skip is keyed to a committed EXPORT-TIME deps declaration (`Tests/Baseline/FixtureDeps/<name>.deps.json`, written only by the export tool; no/empty declaration = always enforced), never inferred from the failure - so the mega/variant/synthetic can never skip and a DevKit-introduced dangling ref can never hide. Two spec v3 refinements at build: detection poisons are IN-MEMORY (no committed broken YAML) and the LegacyForms twins are GENERATOR-DERIVED (current twin saved by Unity, legacy twin derived textually - rid table never hand-written). **Code (5-agent build, file-disjoint):** `ExportSceneCore` extracted (menu export verified behaviour-identical guard-by-guard + root-name sanitize-identity for all 6 labs; baseline capture now also writes the deps declaration); `FixtureDependencies` (deterministic declaration write/read; `com.unity.*` = built-ins); `MegaFixtureBuilder` (~1200 lines: 53 steps realizing the full spec §2 matrix - 11/11 step types incl. the QuizStep/QuizResultsStep zero-coverage hole, all routing families + empties, 6/6 GroupStep modes + nested depth-3, the exact Loimokseis G-Multi complementary-flags shape, all 7 listener modes/3 call-states/3 benign detritus shapes, Greek/trailing-space/twin-sibling identities, the true fall-through island + 9 back-edges; + variant twin with an IN-BUILD D2 four-check feasibility gate; + LegacyForms twins; deterministic readable guids); both fixture-driven test files wired to the §7.1 skip with loud-Inconclusive semantics + orphan-declaration check; new `InvariantDetectionTests` (5 poisons + negative control - the detector PROVEN to fire) + `LegacySerializedFormTests` (3 FSA mappings + snapshot equivalence). **3-reviewer pass: 2 blockers found + fixed** (editor asmdef needed an ADDITIVE `Pitech.XR.Stats` ref - sanctioned, recorded in spec §9.7; `ComputeExternals` had to treat `Packages/com.unity.*` as built-ins or the mega would acquire a declaration and trip its own never-skip assert) + K1 double dialog, log-only asserts, helper duplication, missing .meta - all fixed; full record = spec §10. Docs updated: testing-and-fixtures.md (two-tier table + §4a skip + corpus), MaintainPage cards, README, CHANGELOG. **USER (in Unity): (1)** open HealthOn VR, compile clean; **(2)** run `Pi tech/Tools/Generate Synthetic Scenario Fixture` (builds mega + variant + twins; delete `synthetic_routing_families.prefab/.graph.json` in the same commit per D1); **(3)** `Evaluate Changes` green; **(4)** re-export the 6 labs (fixture/baseline bytes must be UNCHANGED; 6 new .deps.json appear = §9.5+§7.1.7); **(5)** in the bare gate project: compile + `Evaluate Changes` - mega ENFORCED green, 6 real fixtures loud-Inconclusive; **(6)** then tick Steps 11+12 + log the green run. | Claude (Stergios approval; 11-agent build+review) |
+| 2026-06-11 | A3 | **Mega-fixture SPEC AUTHORED + adversarially verified (Step 11; PROPOSED, awaiting Stergios review - no code built).** `Documentation~/specs/2026-06-11-mega-fixture-spec.md` v2. Grounded in a 4-reader disk inventory (full Step model; all 7 committed baselines; snapshot/export mechanics; census + discovery code), then hardened by 3 adversarial skeptics (coverage/feasibility/process - 1 blocker + 8 majors confirmed, ALL folded into v2). Inventory corrections to working assumptions: real labs ship ZERO fully-empty listener rows (the shipped detritus is clean-null-target-WITH-method, 2 rows) and the Loimokseis G-Multi branches carry COMPLEMENTARY required flags (semantics, not duplicates). Design: ~50 steps, 11/11 step types (closes the passedNextGuid/failedNextGuid + QuizStep/QuizResultsStep zero-coverage hole), all routing families non-vacuous + empty cases, 6/6 GroupStep modes + nested group (fallback-gated), all 7 listener modes + 3 call-states + the 3 benign detritus shapes, real-lab identity/topology weirdness (Greek/trailing-space names, same-named siblings, unreachable fall-through island, back-edges, fan-in hub), editor-only side-lists; companions = variant twin (D2-gated), LegacyForms old-serialized-states twin (the 3 SceneManager FSA mappings - the only legacy names in the model), KnownBad poisons proving the detector FIRES (sibling folders verified invisible to the green gate), package-internal test asset (makes the `asset:` StableId form non-vacuous in tier 1). Key process holds: `GenerateSyntheticFixture()` public symbol + menu path RETAINED (Proof-B-baselined - "replace" = fixture only); generator births the mega through the REAL export core (new internal `ExportSceneCore`, export-output-neutrality acceptance); deterministic readable step guids (verified safe - every assignment site is backfill-on-empty, Scenario.cs:695); **Step 12 re-scoped into the SAME work item** (the gate filters by assembly only - the bare project stays red on real-scene fixtures until the Inconclusive-skip lands). Two-tier process encoded (spec §7): tier 1 = mega everywhere on every change; tier 2 = full real-scene gate INSIDE HealthOn VR before the shipped git-tracked package reference updates. Decisions D1-D4 await Stergios. `testing-and-fixtures.md` corpus list also corrected (was still the census 5). | Claude (Stergios dispatch; 7-agent workflow) |
+| 2026-06-11 | A3 | **WS A3 net VERIFIED GREEN on the REAL shipped corpus - 97 checks pass (HealthOn VR) - A3 CLOSED; A5/A6 UNBLOCKED.** Stergios ran `Pi tech/Tools/Evaluate Changes` in HealthOn VR (DevKit on a local `file:` reference, `com.pitech.xr.devkit` added to the HealthOn `Packages/manifest.json` `testables` so the package tests discover): **97 checks pass** against the committed corpus. **A3 Steps 1-10 + the §4 A3 checklist now ticked** (they had been authored-but-unticked pending exactly this green run, addendum (e)). **Actual corpus = 6 real shipped university scenes** (DIPAE_Nosileutiki_Meta, Delirium, EkpaSceneEmergency, Loimokseis, MoMTScene_Meta, Pharmacy) **+ synthetic_routing_families** - all present on disk under `Tests/Fixtures/Scenarios/` + `Tests/Baseline/GraphSnapshots/` (+ `Tests/Baseline/PublicApi.Pitech.XR.txt`). This SUPERSEDES the 5 labs the census marked (Loimokseis_Old_1 + "Delirium Stats Test" dropped; DIPAE/Ekpa/MoMT added - the scenes actually shipped to universities); WS A1 Step 3 annotated. **REALIZED RUN ARCHITECTURE (a refinement of the plan's "two run-locations", now written into the WS A3 section):** `file:` is a LIVE link not a snapshot, so editing package source recompiles HealthOn on focus and the next `Evaluate Changes` tests the new code against the committed baselines with NO bump/re-import (this answers the user's recurring "do I re-import the package?" - no); and the SDK/TMP-referencing real scenes can ONLY be exported + validated where Meta/TMP resolve = INSIDE HealthOn (export+test same project => zero cross-project drift), so for the real corpus HealthOn is the run-location by dependency necessity, not a secondary check. The bare DevKit gate project validates the SDK-free synthetic today. **Reconciled stale boxes:** WS A8 Steps 1-3 (the seam had LANDED but its boxes were still open) + WS A4 Step 6 (the net-run, satisfied by this green run) now ticked. **COMMIT PREPARED (user runs git, cardinal rule):** comprehensive Phase A foundation message at `%TEMP%\commitmsg-phase-a.txt` covering A3 (+ this session's refinements: process consolidation, faithful-capture, dangling-only listener invariant, humanized messages), A4, A7, A8 - the host/HealthOn `file:`+`testables` changes are consumer-side and explicitly NOT in the package commit. **NEXT (planned, added as WS A3 Steps 11-12; do not block A5/A6):** (11) **mega-fixture** - one SDK-free/asset-free hand-built strict SUPERSET of the Appendix A census = the gate's PRIMARY synthetic corpus (Stergios' idea; SPEC is the immediate next task, then build, extends `GenerateSyntheticFixture`); (12) **"missing-deps -> Inconclusive skip" guard** so the bare project stays green while the real-scene fixtures are committed. | Claude (Stergios review; plan reconciliation) |
 | 2026-06-11 | A3 | **Listener invariant RELAXED (correctness fix - the net was over-strict) + ALL violation messages humanized + WS A9 proposed.** Stergios' first export attempt on the freshly `file:`-switched HealthOn VR hit `UnityEvent listener incomplete ... m_Target (null target)` on Delirium `EventStep` (step 6, onEnter, listener 5). A COLLEAGUE'S PRISTINE clone has the same empty row -> it is authored, shipped, and inert, NOT a DevKit-change regression. **Therefore the invariant was wrong:** flagging a fully-empty listener row (no target AND no method) would fail EVERY real lab on unmodified code (Proof A red) and refuse every export - breaking the A3 "green on unmodified code" acceptance outright. FIX in `ScenarioGraphSnapshot.CheckInvariants`: a persistent-call row is now a violation ONLY when HALF-WIRED - a non-empty method name at a null target (never fires), or a *dangling* target (deleted / script gone, instanceID!=0). Fully-empty rows and target-without-method are benign and skipped. Persistent-call targets are no longer double-reported by the generic dangling-ref check. The snapshot still records every listener leaf, so wiring an empty row later is caught as drift. **Messages rewritten to problem+action, per Stergios:** every violation now reads like `Step 06 (EventStep): the 'onEnter' event has a listener (slot 05) that calls 'Foo' but no target object is assigned, so it never fires. Assign the target, or delete the listener row.` - via new helpers (StepLocator resolves step number + [SerializeReference] type incl. nested `> child NN`; EventField/Slot/FieldLeaf/Shorten; zero-padded indices matching the inspector). Null-entry / duplicate-guid / broken-route / missing-ref lines all likewise name the step + the exact fix. Integrity-test doc comment, export refuse-gate comment, and Appendix I.0 listener clause all amended to the relaxed rule. **WS A9 (PROPOSED, NOT planned/implemented per Stergios "dont act... add it to the plan as an extra ws"):** a Scenario Health Monitor in the graph window - run the same human-readable invariants + light metrics live, before export - added to the plan with its open design questions; explicitly must not displace A5/A6 or start without a design pass. **Re-export discipline hardened (Stergios confirmed the recommendation):** the relaxation does NOT lose detection because the snapshot diffs the SAME fixture under two code versions (a code-introduced empty/drop/rewire still shows; empty rows cancel because they are identical on both sides). doc §3 now states the two rules that make attribution airtight - (3a) capture fixture+baseline on known-good `main` and commit BEFORE loading your changes (first capture under your own change launders it into the baseline = the one real hole), (3b) never re-export to chase a red test - and the export overwrite dialog was rewritten to say exactly this. A pristine-scene export OBLIGATION was explicitly REJECTED (would force editing the labs = the thing under test, and still would not close the hole). | Claude (Stergios dispatch) |
 | 2026-06-11 | A3 | **TEST PROCESS CONSOLIDATED (Stergios' direction: fewer tools, one canonical loop - SUPERSEDES the two earlier 2026-06-11 rows' workflows).** The loop: (1) HealthOn VR switches its DevKit manifest entry from the git URL (`https://github.com/Smalers1/pitech-xr-devkit.git`) to `file:E:/Pi Tech/Vicky/DevKit/Pi-tech-DevKit` - the SAME folder the gate project (`C:\Users\ntano\DevKit`, manifest verified) already references, so an export lands directly where the tests read it (no transport step exists at all, and no missing-script problem can exist - every lab script is present in the lab project); (2) per corpus lab: open scene -> `Export Lab as Test Fixture`; (3) in the gate project: `Evaluate Changes`; (4) **the re-export rule** (the correctness keystone, doc §3): fixtures/baselines are committed when green - a re-export under changed code must reproduce them BYTE-CLEAN in `git status Tests/`; any modification = the lab changed (commit deliberately) OR the code change altered serialization (STOP) - Proof C run against real history, which is what makes always-export-before-test protective rather than vacuous; (5) green + clean diff -> push -> consumers update. **Tooling cut to exactly 3 entries** (Evaluate Changes / Export Lab as Test Fixture / Generate Synthetic): the scene-mode export RENAMED to `Pi tech/Tools/Export Lab as Test Fixture` (23) and the subtree mode + its GameObject-context items + validators DELETED (real labs are cross-root; synthetic shapes have their own generator, now priority 24); the export gained a graph-notes check before save (REFINED 2026-06-11 to FAITHFUL CAPTURE: it diffs the graph notes before vs after the unpack/gather - pre-existing lab imperfections like a half-wired listener are LOGGED with an "Export anyway" proceed button, since a fixture must faithfully capture the lab and the net detects DevKit drift regardless; ONLY a break the export itself introduced (e.g. a cross-root ref that did not survive the gather) is a hard refuse - folds the audit's only load-bearing check into the one place it matters); same-day `FixtureExportAudit` + its Maintain card + `ScenarioGraphSnapshot.CollectObjectReferences` DELETED before ever being committed (they existed only for the now-dead import-into-host transport); Maintain "Test Fixtures" = 2 cards + a process hint. `Documentation~/testing-and-fixtures.md` REWRITTEN around the loop (at-a-glance diagram, one-time setup incl. the exact manifest line + shared-source caveat, the re-export rule, tool-inventory table with a justify-against-this-table bar for any future tool, trimmed troubleshooting). | Claude (Stergios' process; dispatch) |
 | 2026-06-11 | A3+/A7 | **Fixture-import AUDIT tool + A7 Steps 5/6 closed (test-independent batch while the corpus export is blocked on the user's import issue).** (1) The user hit the predicted import failure mode (missing scripts after the lab unitypackage import) - new READ-ONLY triage tool `FixtureExportAudit` (`Pi tech/Tools/Audit Open Scene for Fixture Export`, priority 26, + Maintain "Audit Scene Before Export" card, placed first as the pre-flight): classifies the scene as BLOCKER (graph invariant violations - dangling refs/incomplete listeners, e.g. a scenario event whose target's script is missing) / WARNING (graph-referenced GameObject also has missing-script slots; referenced component resolves, export safe) / INFO (unreferenced missing slots - Meta rigs etc., harmless; capped at 20 console lines), with a verdict dialog; never writes, safe on untitled scenes. Backed by a new additive `ScenarioGraphSnapshot.CollectObjectReferences()` (same Walk as the snapshot => triage coverage == Proof A coverage by construction). (2) NEW `Documentation~/testing-and-fixtures.md` - the gate/corpus/transport/per-lab-export runbook persisted out of chat, incl. the §5 troubleshooting table whose FIRST row is today's failure (script folders ticked at export -> host compile broken -> delete the imported script folders, recompile, audit). (3) **A7 Step 6 DONE:** `Documentation~/dependency-truth-report.md` - per-define truth table; findings: `PITECH_CCD` + `PITECH_HAS_META_INTERACTION` are defined-but-unused (dormant vocabulary, kept deliberately); every real Addressables API use is `PITECH_ADDR`-guarded (the one unguarded match, `ContentDeliveryCapability`, is a string-type-name reflection probe - correct); Interactables' GUID-form refs resolved against the HealthOn VR package cache = Core/TMP/InputSystem own+Unity only - **no Meta/Fusion hard refs anywhere**; `Unity.ResourceManager` correctly kept; no `package.json` deps block (Phase D cutover); link.xml gap noted (reserved stubs not listed - fine until they gain serialized types). (4) A7 Steps 3/4/5 ticked on verified artifacts (all root files present incl. `.editorconfig`+`LICENSE.md` placeholder; package.json fields complete; subsystem-notes doc covers all four prescribed exceptions). CI wiring deliberately NOT started (plan defers it to Phase D, §H.1/I.9). Also FLAGGED: stray tracked `--- SCENE MANAGERS ---.prefab` at the package ROOT (committed historical debris, ships to every consumer) - added to the WS A5 deletion candidates, gated on A3 green like the rest. | Claude (Stergios dispatch) |

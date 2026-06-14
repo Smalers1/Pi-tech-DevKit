@@ -24,19 +24,19 @@ namespace Pitech.XR.Stats
         }
         [SerializeField] Entry[] entries;
 
-        Dictionary<string, Entry> table;
+        Dictionary<string, Entry> _table;
 
         void Ensure()
         {
-            if (table != null) return;
-            table = new Dictionary<string, Entry>(StringComparer.Ordinal);
+            if (_table != null) return;
+            _table = new Dictionary<string, Entry>(StringComparer.Ordinal);
             if (entries == null) return;
 
             foreach (var e in entries)
             {
                 var k = NormalizeKey(e.key);
                 if (string.IsNullOrEmpty(k)) continue;
-                table[k] = e;
+                _table[k] = e;
             }
         }
 
@@ -45,7 +45,7 @@ namespace Pitech.XR.Stats
         public bool TryGet(string key, out Entry entry)
         {
             Ensure();
-            return table.TryGetValue(NormalizeKey(key), out entry);
+            return _table.TryGetValue(NormalizeKey(key), out entry);
         }
 
         public float GetDefault(string key) => TryGet(key, out var e) ? e.defaultValue : 0f;
@@ -59,82 +59,7 @@ namespace Pitech.XR.Stats
         public IEnumerable<KeyValuePair<string, Entry>> All()
         {
             Ensure();
-            return table;
+            return _table;
         }
-    }
-
-    public enum StatOp { Add, Subtract, Multiply, Divide, Set }
-
-    [Serializable]
-    public class StatEffect
-    {
-        [Tooltip("Stat key to modify (must exist in StatsConfig).")]
-        public string key;
-        public StatOp op = StatOp.Add;
-        public float value = 0;
-
-        public float Apply(float current)
-        {
-            switch (op)
-            {
-                case StatOp.Add: return current + value;
-                case StatOp.Subtract: return current - value;
-                case StatOp.Multiply: return current * value;
-                case StatOp.Divide: return Mathf.Approximately(value, 0f) ? current : current / value;
-                case StatOp.Set: return value;
-                default: return current;
-            }
-        }
-    }
-
-    public class StatsRuntime
-    {
-        readonly Dictionary<string, float> v = new Dictionary<string, float>(StringComparer.Ordinal);
-        public event Action<string, float, float> OnChanged;
-
-        StatsConfig _cfg;
-
-        public void Reset(StatsConfig cfg)
-        {
-            _cfg = cfg;
-            v.Clear();
-            if (cfg == null) return;
-            foreach (var kv in cfg.All())
-                v[kv.Key] = kv.Value.defaultValue;
-        }
-
-        public bool TryGetRange(string key, out float min, out float max)
-        {
-            if (_cfg == null) { min = 0; max = 1; return false; }
-            var r = _cfg.GetRange(key);
-            min = r.x; max = r.y;
-            return true;
-        }
-
-        public void EnsureKey(string key, float initial = 0f)
-        {
-            var k = StatsConfig.NormalizeKey(key);
-            if (string.IsNullOrEmpty(k)) return;
-            if (!v.ContainsKey(k)) v[k] = initial;
-        }
-
-        public bool TryGet(string key, out float value) => v.TryGetValue(StatsConfig.NormalizeKey(key), out value);
-
-        public float this[string key]
-        {
-            get => v.TryGetValue(StatsConfig.NormalizeKey(key), out var val) ? val : 0f; // no exception
-            set
-            {
-                var k = StatsConfig.NormalizeKey(key);
-                if (string.IsNullOrEmpty(k)) return;
-
-                var old = v.TryGetValue(k, out var o) ? o : 0f;
-                if (Mathf.Approximately(old, value)) return;
-                v[k] = value;
-                OnChanged?.Invoke(k, old, value);
-            }
-        }
-
-
     }
 }

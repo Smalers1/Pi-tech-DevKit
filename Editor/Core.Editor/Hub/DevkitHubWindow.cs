@@ -140,7 +140,7 @@ namespace Pitech.XR.Core.Editor
             _current = page;
             _content.Clear();
             if (_pages.TryGetValue(page, out var p))
-                p.BuildUI(_content); // uses your IDevkitPage contract :contentReference[oaicite:13]{index=13}
+                p.BuildUI(_content); // uses the IDevkitPage contract
         }
 
         void RefreshCurrentPage() => ShowPage(_current);

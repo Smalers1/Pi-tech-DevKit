@@ -1,4 +1,3 @@
-using System.Reflection;
 using Pitech.XR.Core;
 using UnityEngine;
 
@@ -48,7 +47,7 @@ namespace Pitech.XR.ContentDelivery
 
             if (deferSceneManagerAutoStart && sceneManager != null)
             {
-                TrySetAutoStart(sceneManager, false);
+                SceneRunnerReflection.TrySetAutoStart(sceneManager, false);
             }
         }
 
@@ -66,7 +65,7 @@ namespace Pitech.XR.ContentDelivery
 
             if (sceneManager != null && restartSceneManagerAfterContext)
             {
-                TryRestart(sceneManager);
+                SceneRunnerReflection.TryRestart(sceneManager);
             }
         }
 
@@ -118,41 +117,6 @@ namespace Pitech.XR.ContentDelivery
             }
 
             return null;
-        }
-
-        private static void TrySetAutoStart(MonoBehaviour target, bool value)
-        {
-            if (target == null)
-            {
-                return;
-            }
-
-            var type = target.GetType();
-            FieldInfo field = type.GetField("autoStart", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            if (field != null && field.FieldType == typeof(bool))
-            {
-                field.SetValue(target, value);
-                return;
-            }
-
-            PropertyInfo prop = type.GetProperty("autoStart", BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            if (prop != null && prop.PropertyType == typeof(bool) && prop.CanWrite)
-            {
-                prop.SetValue(target, value);
-            }
-        }
-
-        private static void TryRestart(MonoBehaviour target)
-        {
-            if (target == null)
-            {
-                return;
-            }
-
-            MethodInfo restart = target.GetType().GetMethod(
-                "Restart",
-                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-            restart?.Invoke(target, null);
         }
     }
 }

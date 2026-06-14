@@ -52,8 +52,8 @@ namespace Pitech.XR.Stats
                     foreach (var kv in map)
                     {
                         var b = kv.Value;
-                        float v = 0f;
-                        try { v = runtime[kv.Key]; } catch { /* seeded by SceneManager */ }
+                        // StatsRuntime's indexer getter is non-throwing (TryGetValue -> 0f fallback).
+                        float v = runtime[kv.Key];
                         SetImmediate(b, v);
                     }
                 }

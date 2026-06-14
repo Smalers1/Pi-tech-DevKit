@@ -1,0 +1,3365 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "guid": "005ab0ae8aa7f74438a5fa50f7cd50e3",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_fist_anim.fbx"
+    },
+    {
+      "guid": "009a0e62f2caf384db37c84e5e2c9ed0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/Material.001.mat"
+    },
+    {
+      "guid": "01ac879f6ce09924e9c26663f798beaf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Materials/OculusTouchForQuestAndRiftS_Material.mat"
+    },
+    {
+      "guid": "027857433134c6044aabf7655c8e2d6f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Towel_Surgical_Diffuse.jpg"
+    },
+    {
+      "guid": "03190b23f0f30f74dacc4ed3992541b6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Tunneling/TunnelingEffect.cs"
+    },
+    {
+      "guid": "031a6389f625dec41b597d5f6afe502e",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/xmppmax_v1_1_3_1_g.png"
+    },
+    {
+      "guid": "0352f443a06a14743ac8e6805275c7ae",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Roof lamp/roof lamp.fbx"
+    },
+    {
+      "guid": "038d627f7b72e904382b2b0f8fb30c29",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/TubeRenderer.cs"
+    },
+    {
+      "guid": "04937c8d57c99ae41971a8f1b7e00572",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Material #2143565976.mat"
+    },
+    {
+      "guid": "04d14e91811b3914f923892433574c01",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Flevokathetiras/mid.mat"
+    },
+    {
+      "guid": "05351408998248145aa71155519c93e7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/blue.005.mat"
+    },
+    {
+      "guid": "054b9d33bc57cfe40a6afdfe6e297d4a",
+      "pathAtExport": "Assets/Sound/Mountain Audio - Shower Door Slide Open - Sound - 1.mp3"
+    },
+    {
+      "guid": "059417805d16d9b4180f9daff6f7b32e",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Untitled.mat"
+    },
+    {
+      "guid": "063f7a502a7e06e428090710e8286b2b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/OculusTouchForRift/touchController_albedo.png"
+    },
+    {
+      "guid": "065c53075eeaa2742a6fb770a4c74bc9",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Eye_L_Diffuse.jpg"
+    },
+    {
+      "guid": "071ddc3372b7f41df87ec22aa332ba2b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Common/Shaders/Recommended/Style-2-Avatar-Meta.shader"
+    },
+    {
+      "guid": "0775bc57c13542049a26ca9f166cc12a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_PVC FB White.010.mat"
+    },
+    {
+      "guid": "07e3d111cc8f6f34480dfda101b75a64",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Medical Bin_1.mat"
+    },
+    {
+      "guid": "08032fa3f321eae468af6b7ed7dde9a4",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/DefaultRigPrefabs/NetworkRig.prefab"
+    },
+    {
+      "guid": "082e2558d2fa88f4cbff21cbb12fed83",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/silver 003_diffuse.png"
+    },
+    {
+      "guid": "0854a9b3e351815468407027178af6a7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/Serum SystemEdit.fbx"
+    },
+    {
+      "guid": "08b76d25e5d9b1b4ab82073b9c4b230b",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Aluminium Clean.mat"
+    },
+    {
+      "guid": "08bcf0282bee1434abcaa4a4aaf52555",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Mask Box_2.mat"
+    },
+    {
+      "guid": "08ceeee03883f3040ba70648713a5d98",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Converted_vray_Aluminium Clean2.002.mat"
+    },
+    {
+      "guid": "08f7cfb1f9629da4494ac0840f3a3cfd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/ShapeRecognizerActiveState.cs"
+    },
+    {
+      "guid": "091dfc2685f6b314db7f1491dc43cb93",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/_new ceramic tiles_Loimokseis.mat"
+    },
+    {
+      "guid": "0b085628e3c3a3d44aa222ee5179fbc0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical podia/22.Sterile drape.fbx"
+    },
+    {
+      "guid": "0b1152175540f2745adf8fdaaa9c3d2f",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Ga_Skin_Body_Normal.png"
+    },
+    {
+      "guid": "0b3b3f04ac18184468bedd999e5a6688",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Poke/Visuals/PokeInteractableVisual.cs"
+    },
+    {
+      "guid": "0b47856a33046ce40862a2fddb86623b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/OvrAvatarManager.cs"
+    },
+    {
+      "guid": "0b567a7c6d47e774ca65c81546f02af5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OVRHand_R.fbx"
+    },
+    {
+      "guid": "0b66ef6d0a33bac448918a7205ccc62c",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Leather Genuine Grey0.mat"
+    },
+    {
+      "guid": "0bf88ab770bd548f2a1c9eecd1c8be06",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUIStartButtonOver.png"
+    },
+    {
+      "guid": "0c36d956bf264294ebb871f3b4e04372",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/SecondaryInteractorConnection.cs"
+    },
+    {
+      "guid": "0c59c4b976a96f246a88470f77d41739",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/xmppmax_v1_5_1_1_n.jpg"
+    },
+    {
+      "guid": "0c6aa09f2d128af4d93fb9fc29ecec33",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/ReticleGhostDrawer.cs"
+    },
+    {
+      "guid": "0ce95ec14d5aa4d4b80a16fd4471fbfc",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Plastic_14.mat"
+    },
+    {
+      "guid": "0ceb2b325fd2f2e48a67ca729edf0c1d",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/preview-767945-oHumagSnkk-high_0009.jpg"
+    },
+    {
+      "guid": "0cf00a93483fd1b4ba357bf6f764d6e6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/InteractorUnityEventWrapper.cs"
+    },
+    {
+      "guid": "0dcd701c2d5349545836f8ee8718013e",
+      "pathAtExport": "Assets/Scripts/Multiplayer/NetworkedStates/UIStateTrigger.cs"
+    },
+    {
+      "guid": "0f0e89a69b8dccd42be60cda9562edee",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Cornea_R_Diffuse.png"
+    },
+    {
+      "guid": "0f23549d3e905c14f91b763dd1958a76",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Gauze/2. Gasa aposteiromeni 1.fbx"
+    },
+    {
+      "guid": "10028172bb0b9a843b9436604083722d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Tv display.mat"
+    },
+    {
+      "guid": "115a4fd4ac2e6844daa2305603ce9688",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionEventSelector.cs"
+    },
+    {
+      "guid": "117a254cb2f25d344af2d448f6bceae6",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/Surgical Glasses (1).fbx"
+    },
+    {
+      "guid": "11fce7d2ac8a1464fb640061ca8f4721",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/darkgray plastic.mat"
+    },
+    {
+      "guid": "11ff1773aaf26ba4c9b33e5c65a86440",
+      "pathAtExport": "Assets/3D_Objects/Materials/Bruise 1.mat"
+    },
+    {
+      "guid": "124f4583f657475469a45ab6fca8f921",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/OneGrabRotateTransformer.cs"
+    },
+    {
+      "guid": "12e0d551f2089fc4380c1368a69a3512",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Animation/MetaQuestTouchPlusLeftAnimation.controller"
+    },
+    {
+      "guid": "12e2c1c4ab1d62e4bbe37277ef40e2fd",
+      "pathAtExport": "Assets/Animations/Quad.controller"
+    },
+    {
+      "guid": "136607c8f195b314f8ff2f631c1b6021",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Metal Silver_1_1_diffuse.png"
+    },
+    {
+      "guid": "13f92dc3773e94e4bb99958bbd939c29",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OVRHand_L.fbx"
+    },
+    {
+      "guid": "1464721f2283eb14e94a33e812b47be4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/InteractableUnityEventWrapper.cs"
+    },
+    {
+      "guid": "150af70aa62cca34a8f585df6b9ab97d",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Material #2143565977.mat"
+    },
+    {
+      "guid": "151f9be47337d9e4daef0b8725e30eab",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/FromHandPrefabDataSource.cs"
+    },
+    {
+      "guid": "1556e379500c5a54991526db338d653d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Mask_Diffuse.png"
+    },
+    {
+      "guid": "1599d4dd34cf22543af5740df58856d0",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Cornea_L.mat"
+    },
+    {
+      "guid": "165871bb4fa915847973b6955c7a670d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_pinch_anim.fbx"
+    },
+    {
+      "guid": "16a87db82a90e2b40986857ee65aea51",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_cap_touch_anim.fbx"
+    },
+    {
+      "guid": "1716176fcda1ef043b9f0160e4c3b08e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/vray_Map #2138624973_VRayColor_0000.png"
+    },
+    {
+      "guid": "1730162add54c2d48aa4d60dbb58d09d",
+      "pathAtExport": "Assets/Animations/Loimokseis/POI_flevokathetiras.anim"
+    },
+    {
+      "guid": "17643a2154b38f6428d577d748806b40",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/vray_Map #2138624978_VRayColor_0000.png"
+    },
+    {
+      "guid": "17cc85983dec7534ab8d35297a9f9f05",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Models/LeftHandAnimator.controller"
+    },
+    {
+      "guid": "189ea817d962af84893a69754bc2b3f8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Tunneling/WallPenetrationTunneling.cs"
+    },
+    {
+      "guid": "18fac44d883efda49b47d5117b033043",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Abdominal Pads_diffuse.png"
+    },
+    {
+      "guid": "194b7d1054b8fa64b9bdcea46d06c3a1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateTracker.cs"
+    },
+    {
+      "guid": "19b4b9f100bbd8c439e35fc16ec150e0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Gauze/aposteiromeni_gasa_label3.png"
+    },
+    {
+      "guid": "19bd39fadb132a346940c534b2d2b90d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Prefabs/NetworkLeftHand.prefab"
+    },
+    {
+      "guid": "1a379f34d4f4f2e408d34f14bfb753ce",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/Hand.cs"
+    },
+    {
+      "guid": "1a50558fb8c70034f9113766fa8d5a23",
+      "pathAtExport": "Assets/Animations/Loimokseis/Betadine to Gauze.controller"
+    },
+    {
+      "guid": "1a56054f6e3838f4e85dce4e71979800",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/InteractorActiveState.cs"
+    },
+    {
+      "guid": "1acce2902a985a84d89bd6a40a4808a2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/sheetnormal.jpg"
+    },
+    {
+      "guid": "1aee5ef12a0bf5441844259a0e9fe001",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/white 001.mat"
+    },
+    {
+      "guid": "1b6b944de90aa9047929c54d143ff2da",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/IndexPinchSelector.cs"
+    },
+    {
+      "guid": "1bb5261d7cd290b4eacc0fd20e2db09f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Visuals/InteractableDebugVisual.cs"
+    },
+    {
+      "guid": "1bd5a5d89ccc4d84481dad215ae5fb5a",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Materials/FusionPrototypeMaterialBox.mat"
+    },
+    {
+      "guid": "1bdef1614564d7543b3fa21aa4ec924f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.2.13.mat"
+    },
+    {
+      "guid": "1c795601f1ef7b845813d4a3d717ae77",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Hand Wash Body only 1.fbx"
+    },
+    {
+      "guid": "1c8d545e0ca2b5a4ea59ba7ea935a248",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/Shared/PlatformInit/Scripts/PlatformInit_.cs"
+    },
+    {
+      "guid": "1cb50a7de0f9f954b8b0c331fe898a8f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_BasicPoke_ToyButton_Release_01.wav"
+    },
+    {
+      "guid": "1cd9780be7e512049b4d33d5c9d0ac92",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateSelector.cs"
+    },
+    {
+      "guid": "1d2705674196dfc4da9c25fbacda72d8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/ActiveStateUnityEventWrapper.cs"
+    },
+    {
+      "guid": "1db8ea62a613f0d488f8f6d4a32758db",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedAvatar/Scripts/AvatarBehaviourFusion.cs"
+    },
+    {
+      "guid": "1dcabe7b065172d40991aecec9fc6555",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Polyline/TransformsPolyline.cs"
+    },
+    {
+      "guid": "1e1ca969cd5bf7e49bfe377fac459429",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Aluminium Satin 1.mat"
+    },
+    {
+      "guid": "1ee82d2d63daf8b4c93040e331f8e801",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/DefaultSettings/PoseDetection/DefaultThumbFeatureStateThresholds.asset"
+    },
+    {
+      "guid": "1f1c685e906d1e5459daf77b45927644",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-Regular SDF.asset"
+    },
+    {
+      "guid": "1ff0528d4025a8343930d12695e5a014",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/blue 002_diffuse.png"
+    },
+    {
+      "guid": "2140032c9091a01438c4c6f8ef307250",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scripts/LegsBehavior/OvrAvatarRigRootIdentifier.cs"
+    },
+    {
+      "guid": "2190f7c8d96078747a80c096f490ea19",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/xmppmax_v1_5_1_1_g.jpg"
+    },
+    {
+      "guid": "22ce2f50e2a530d45991554abf8da622",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Plastic_14_diffuse.png"
+    },
+    {
+      "guid": "23c40de3cae606f4b86bc1859b4cf60a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/blue 002.mat"
+    },
+    {
+      "guid": "245bc1eee4559904481edca4af9d6cba",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/leftdown.anim"
+    },
+    {
+      "guid": "2518c50cb3fc6a6458d4b743c2f69c7d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/PointableCanvasModule.cs"
+    },
+    {
+      "guid": "25a28a1729bb1b944abb7d3daaa44de2",
+      "pathAtExport": "Assets/ShaderGraph_Dissolve/URP/SubGraph/DirMask Sub Graph.shadersubgraph"
+    },
+    {
+      "guid": "25b5eb0761edb6346b0b3444af76b55e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/OculusTouchForQuest2_Right.fbx"
+    },
+    {
+      "guid": "25b949dbf89921a42bb29d85b7c43d25",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Scripts/NetworkBonesStateSync.cs"
+    },
+    {
+      "guid": "2606bf2f0c914a7aba4390f29ba2eb6e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/HMD/Hmd.cs"
+    },
+    {
+      "guid": "2609c54f376cffc4da1ab9401cc1a36f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRSkeleton.cs"
+    },
+    {
+      "guid": "26102784f4e673944b009ef4b0493df5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_PVC White Matte Rough.001.mat"
+    },
+    {
+      "guid": "262a777d48af9bc42a62c74aa697d8d1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pills/Box_Base_color 1.png"
+    },
+    {
+      "guid": "2665a46fdc61fb243a123d127f576148",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Materials/PodiumMat.mat"
+    },
+    {
+      "guid": "266fe091407078a40a85b34119defd48",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Animation/OvrAvatarRigVersionIdentifier.cs"
+    },
+    {
+      "guid": "26b1010e62d6e6c419caa165465c8e52",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Ga_Skin_Body_Diffuse.png"
+    },
+    {
+      "guid": "26d931f235b61ee468f7dfb102bb0926",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/MetaCoreIntegration/Runtime/MetaCoreIntegration/Scripts/MetaBridgeHardwareRig.cs"
+    },
+    {
+      "guid": "2729e3eef6c876141a75796a4f7f8e4c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Untitled_Specular.jpg"
+    },
+    {
+      "guid": "2771258a413ee134ab18726bc0362e4d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_l_lo_Normal.png"
+    },
+    {
+      "guid": "27a0678f707a3c241b30c0f37df0bf4f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Converted_vray_PVC FB Dark Grey.022.mat"
+    },
+    {
+      "guid": "280bfef5f57aa4943a973bc9454a8377",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Cornea_R.mat"
+    },
+    {
+      "guid": "288983babea469240ab6a5308935e8d0",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/7800-2-1000x1000.jpg"
+    },
+    {
+      "guid": "28d3ef05683e3c0458cee9fbb41b39cf",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Table.fbx"
+    },
+    {
+      "guid": "2956750bad65b8b4eb7b65861fd116de",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Materials/PodiumMat.fbx"
+    },
+    {
+      "guid": "297e05a924cc9064ba1815eaa4961498",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/M_Glass.mat"
+    },
+    {
+      "guid": "29f52b54c7520304ea91faabded3fa6c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Material.mat"
+    },
+    {
+      "guid": "2a9d013aa9eb16341a887e778241b0b5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Dark metal.002.mat"
+    },
+    {
+      "guid": "2b092d46711f8bd4eb69e69998b1c178",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.mat"
+    },
+    {
+      "guid": "2b1612c44c696bc4da1d314b25ce4637",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Group 6.png"
+    },
+    {
+      "guid": "2b1aaafc31655024394d83dc00911c1c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/MetaQuestTouchPlus_Left.fbx"
+    },
+    {
+      "guid": "2b83d4fad4b8ef34b985ad83fff8d027",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/Mat.008.mat"
+    },
+    {
+      "guid": "2b9768cc0be08784b91b7da60696ba29",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/MetaQuestTouchPro_Left.fbx"
+    },
+    {
+      "guid": "2c3e985c952331842a82f9217244e75f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_WallPaint Pearl Dark Grey Satin.001.mat"
+    },
+    {
+      "guid": "2c5695c4e16ceb940b25ba8b70bc9929",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Ga_Skin_Body_Diffuse.png"
+    },
+    {
+      "guid": "2c58603f658c41f4caaea9e83a956389",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Ga_Eyelash.mat"
+    },
+    {
+      "guid": "2cd6eda636b9144439141427c0beb50d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/AnimatedSnapTurnVisuals.cs"
+    },
+    {
+      "guid": "2d179fd81cd2e344ab2e610cd5f7260e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/Visuals/HandGhost.cs"
+    },
+    {
+      "guid": "2d223d32e16db394fa1b33c620bcae79",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Material/HandMaterial.mat"
+    },
+    {
+      "guid": "2d6b4805614acbe49b090db634dd0140",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Gauze/Gasa_normal_with_betadine.png"
+    },
+    {
+      "guid": "2d9760245ddcaa44fbfed8149d1e8586",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_PVC FB Dark Grey.020.mat"
+    },
+    {
+      "guid": "2e498d1c8094910479dc3e1b768306a4",
+      "pathAtExport": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF - Fallback.asset"
+    },
+    {
+      "guid": "2e7b639e16802bc4780c47948240e98d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Textures/Jeans_Albedo.jpg"
+    },
+    {
+      "guid": "2ea89d6e4d9c45940908e3f337989a9a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusLeft_Material.fbx"
+    },
+    {
+      "guid": "2ed5105a8954bb84186243c8ac778daf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_BasicPoke_ToyButton_Press_02.wav"
+    },
+    {
+      "guid": "2f1048fdc291511449bfebb2b4230d8c",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Props_set.fbx"
+    },
+    {
+      "guid": "2f1d164e332c3f9438f7829eec151eff",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/M_Metal.mat"
+    },
+    {
+      "guid": "2fadc56f841e8224ea1ff539811fc765",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProLeft_Material.fbx"
+    },
+    {
+      "guid": "2ff26c21ac005534e8af75f8427be9d1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/Visuals/HandGrabStateVisual.cs"
+    },
+    {
+      "guid": "312946d8a34afef43ac8772f27b6c7ed",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Eye_R_Diffuse.jpg"
+    },
+    {
+      "guid": "317e663e2bb60ea408fe22b908b59295",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Poke/PokeInteractable.cs"
+    },
+    {
+      "guid": "31faba7929a19bb49a56cc8bb5072c9c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Cornea_R.mat"
+    },
+    {
+      "guid": "325f20ac3b4de394fa915b1d78710bb2",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical podia/Material.023.mat"
+    },
+    {
+      "guid": "32f68689808f3fa45a132d6d3d0d6657",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/xmppmax_v1_16_3_1_n.jpg"
+    },
+    {
+      "guid": "32fbc8bcebb64584da5868aeeb086cda",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/OculusTouchForQuestAndRiftS_Left.fbx"
+    },
+    {
+      "guid": "331d7f91e4f2d20498cb8079638deeda",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/LocomotionAxisTurnerInteractor.cs"
+    },
+    {
+      "guid": "335d75faf2966944c94ee3b473124610",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_cap_touch_thumb_mask_anim.fbx"
+    },
+    {
+      "guid": "33c050cc2a55c1b43bc0bd2b0f84e8d5",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC FB Dark Grey.010.mat"
+    },
+    {
+      "guid": "34cc19f16abdbcd43a0039c0074f653c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Group 6_edit.png"
+    },
+    {
+      "guid": "354b04977aec15c42819ef6947075146",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_BasicPoke_ToyButton_Press_03.wav"
+    },
+    {
+      "guid": "35803a87ca38a62459d5fbfa75a2ab61",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC FB Black.001.mat"
+    },
+    {
+      "guid": "3584f7d320b1ed444a1e483e47042e98",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PMMA Tr Clear.002.mat"
+    },
+    {
+      "guid": "35c2d4f31e61d414486cda0edb9fd7b4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/handWashEdit_press.fbx"
+    },
+    {
+      "guid": "3637b758ff163493f8bb8b6d7e96d7ae",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Materials/Hands_solid.mat"
+    },
+    {
+      "guid": "3673df66324d8f34d9433049c54de631",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ControllerRef.cs"
+    },
+    {
+      "guid": "367eacd8142e4ca478642189323d9cee",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_thumbs_up_anim.fbx"
+    },
+    {
+      "guid": "3793f6ef0aa9fad40b16902b9dea0a53",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Material #2143565978.mat"
+    },
+    {
+      "guid": "37ba10a26a648144fa2390c8adfb2c8a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/OculusTouchForQuestAndRiftS_Right.fbx"
+    },
+    {
+      "guid": "38245a3244d4c904e9a7c93dfc8ffbaf",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_thumbs_up_anim.fbx"
+    },
+    {
+      "guid": "3861555276e1a07489d3c0971e091e46",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/OvrAvatarShaderConfiguration.cs"
+    },
+    {
+      "guid": "388dc9fbcfcb6d04485b05087e09f712",
+      "pathAtExport": "Assets/Voice Over/Loimokseis/loimoxeis 4.wav"
+    },
+    {
+      "guid": "38beab19e7c1f7947afac78fd60f90b0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Materials/SystemGestureSkeletonBoneMaterial.mat"
+    },
+    {
+      "guid": "38db45e6a1a371f42b564b61a03d9f5a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/ControllerPinchInjector.cs"
+    },
+    {
+      "guid": "3952177e694781b48a591cf609642190",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Tunneling/LocomotionTunneling.cs"
+    },
+    {
+      "guid": "395daab592a1a8c4dad1ac1f37691527",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/leftbackwing.controller"
+    },
+    {
+      "guid": "3972bd70caa15084e9a9dd9d37d8f507",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/laminate_floor_02_nor_gl_4k.exr"
+    },
+    {
+      "guid": "397e1a6658efb7044a95d3ae93859e5d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/soil.jpg"
+    },
+    {
+      "guid": "3a38d1066ac584f4c9f7d57b1fc329b4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.003.mat"
+    },
+    {
+      "guid": "3a3d268b4495a2f4fa6eba1289361bd8",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/vray_Map #2138624878_VRayColor_0001.png"
+    },
+    {
+      "guid": "3abd38e0d18db6c49b2c96961d69d024",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/batteryIndicator_mat.mat"
+    },
+    {
+      "guid": "3ad151971ad36934ab35b720d6b3ae42",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Converted_vray_PVC White Matte Rough.001.mat"
+    },
+    {
+      "guid": "3b0828a2e03505c4db9e191b96fce3ed",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Metal012_2K_NormalGL.jpg"
+    },
+    {
+      "guid": "3ba68c7735494164380072201b210f62",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Mirror material.001.mat"
+    },
+    {
+      "guid": "3c08ce434693a4740bb5d256ffa5f8d1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Animation/OculusTouchRiftLeftAnimation.controller"
+    },
+    {
+      "guid": "3c1e2504e79f7a242a8a0c8a4add2578",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_relax_mid_fist_anim.fbx"
+    },
+    {
+      "guid": "3c6b9ed643c2f2d429d8560b2b317ca1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Clock/orario-wall-mounted-clock-diffuse.png"
+    },
+    {
+      "guid": "3c85433956d6ebf4ead83f530727c47c",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/MetaCoreIntegration/Runtime/MetaGrabbing/Scripts/MetaXRSharedGrabbable.cs"
+    },
+    {
+      "guid": "3d03f0cc40bd94046bbabd64e26ed601",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/OculusRayCursor.shader"
+    },
+    {
+      "guid": "3d0f3ee05fc6f7f48b22c4928c64a786",
+      "pathAtExport": "Assets/Scripts/Interactions/MenuHandler.cs"
+    },
+    {
+      "guid": "3dc9b36eb85fa424489d9d859f737ab4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusCursorMaterial.mat"
+    },
+    {
+      "guid": "3e2cb428b733e56478338c736189a0d5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ControllerActiveState.cs"
+    },
+    {
+      "guid": "3e74ef1f933f46745ac67418d35bfab4",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC FB Light Grey.mat"
+    },
+    {
+      "guid": "3e95c831cb7049e43a842e54ec20a1c4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Towel_Surgical._Big.mat"
+    },
+    {
+      "guid": "3ea26460b6d29ef43bbcb1eb26cb14dc",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Untitled_Normal.jpg"
+    },
+    {
+      "guid": "3eac11706db359b49bf0ea4b2576b331",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/UseGrab/HandGrabUseInteractor.cs"
+    },
+    {
+      "guid": "3eea87b91f85d324797846a5c54875b0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Right_BaseColor_AO_AlphaRoughness.png"
+    },
+    {
+      "guid": "3f032750a244319498ff63757c66cf04",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/RoomModel/Shaders/TransparentTexture.shader"
+    },
+    {
+      "guid": "3f245d39c3631be4887f0c81a79e9b39",
+      "pathAtExport": "Assets/Animations/Loimokseis/New Animator Controller.controller"
+    },
+    {
+      "guid": "3f372cf1215ef50499f9b9d82e05831a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/Visuals/TeleportReticleDrawer.cs"
+    },
+    {
+      "guid": "3f6be9148cc05f5439535dda63698715",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Textures/Jeans_Nor.jpg"
+    },
+    {
+      "guid": "3f974d61f39a79c408d54b32f31f186c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Animation/OculusTouchQuestAndRiftSRightAnimation.controller"
+    },
+    {
+      "guid": "3ffe41fe81087fa41a2062cc69b99615",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/PointableCanvas.cs"
+    },
+    {
+      "guid": "4005ec4dc7a14dd408f4b8f39b8a9937",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/batteryIndicatorTexture32.png"
+    },
+    {
+      "guid": "40417464962dcaa4db51e3bc406e1f55",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Hardwood_Diffuse.jpg"
+    },
+    {
+      "guid": "40e411facfd4a474da313c4cd88b07bb",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Body Eyelashes.mat"
+    },
+    {
+      "guid": "40ec74ce6410bae46a2f2dbc1587f982",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/BANANA BIG STVOL.mat"
+    },
+    {
+      "guid": "417817ee9b785e341b31ce731f028317",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandPointerPose.cs"
+    },
+    {
+      "guid": "41aa6e543dabd354e91f9edcbf1d4613",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Aluminium Satin 2.001.mat"
+    },
+    {
+      "guid": "41ad88f621d56a14d948ebc97c2278a0",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Resources/Scriptables/OpenXRBonesCompression/RightHandSynchronization.asset"
+    },
+    {
+      "guid": "42bba106679662e4b925dca314de22c2",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Virtual/VirtualSelector.cs"
+    },
+    {
+      "guid": "4308d328bdef9ac488573e3f7a1749b8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/6080a051619db65865d6e2de869cb427.jpg"
+    },
+    {
+      "guid": "43825f0ec3ac9ac47b3bffefcf660f72",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/CoreAssets/Textures/lut_sss_curvature.png"
+    },
+    {
+      "guid": "438e12c9002f2c8489c81a2d3472b18d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Controllers/ControllerPointerPose.cs"
+    },
+    {
+      "guid": "43f86b14a27b52f4f9298c33015b5c26",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Grabbable/Grabbable.cs"
+    },
+    {
+      "guid": "44160c8fdb4020940a65136b0073a768",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Cube_004.controller"
+    },
+    {
+      "guid": "44b6a3b64abc6e945ac814403a8a14b1",
+      "pathAtExport": "Assets/Voice Over/Loimokseis/loimoxeis 2 Wrong.wav"
+    },
+    {
+      "guid": "4534b960f6fd44447a8408752cd22ab3",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/Scripts/OSFHandRepresentation.cs"
+    },
+    {
+      "guid": "45350c22dd456db46b679571b46cf534",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/POT TEXTURE 0204 38.jpg"
+    },
+    {
+      "guid": "4556f26b1f30eb744a89f91f7aa2fece",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Acrylic Opaque Dusk Blue Dirty.001.mat"
+    },
+    {
+      "guid": "4586bbc8f000620428a7a2c0ff17013b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/TunnelingEffect.mat"
+    },
+    {
+      "guid": "466b476a9a4bcb54ba0ae1da7b81c602",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Light Emissive.mat"
+    },
+    {
+      "guid": "4733c5f009d26ad49b3685117b8d3eb4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/RayInteractor.cs"
+    },
+    {
+      "guid": "47349f9cf0f4cd045b97092aac31b3f5",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Rigs/NetworkRig/NetworkRig.cs"
+    },
+    {
+      "guid": "4784e51a29e851148ba5114815bbe947",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Cube.controller"
+    },
+    {
+      "guid": "479a3a5ebe2be224c9db1e0fd92977df",
+      "pathAtExport": "Assets/ShaderGraph_Dissolve/URP/ShaderGraph/DoubleSide/Dissolve_Direction_Metallic_DoubleSide.shadergraph"
+    },
+    {
+      "guid": "484167e684014224c9a8bff92b293c6a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/HMD/HmdRef.cs"
+    },
+    {
+      "guid": "4855895ba1c44959a306beb7ae318fc2",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/FromOVRHandDataSource.cs"
+    },
+    {
+      "guid": "488896fe86105104a8453d9f173cf62a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Controllers/ControllerOffset.cs"
+    },
+    {
+      "guid": "488ce88fa6b4eb14d81e24c2314c13e4",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scripts/LegsBehavior/OvrAvatarDefaultStateListener.cs"
+    },
+    {
+      "guid": "48be0e9ebd2bab043b74661134aaa2d2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/vray_Map #2138626405_VRayColor_0000.png"
+    },
+    {
+      "guid": "4929e0c1b3e25bd4195cc6ddd4724fe5",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Prefabs/NetworkRigWithoutHands.prefab"
+    },
+    {
+      "guid": "4a0124413f6c41543a1bdffc9f0fe78c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_Locomotion_Exit.wav"
+    },
+    {
+      "guid": "4a789a5bae617674c8c17a710e8cd054",
+      "pathAtExport": "Assets/Voice Over/Loimokseis/loimoxeis 3.wav"
+    },
+    {
+      "guid": "4a8e946ed663e4a4db0f537e2965635d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Animation/OculusTouchQuest2LeftAnimation.controller"
+    },
+    {
+      "guid": "4aa4a1b9a03d9b54d80515831235fbe9",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Textures/Reticle-Circle.png"
+    },
+    {
+      "guid": "4aa91741a410e8b48905562110c63579",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/vray_DC_VRayColor_0000.png"
+    },
+    {
+      "guid": "4ac558de6fb637548a9e3e0483939688",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/BestSelectInteractorGroup.cs"
+    },
+    {
+      "guid": "4ae60cfa43388e449a7518f36418f81c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/Controller.cs"
+    },
+    {
+      "guid": "4b13877204bf5394c80dc8b6e469ec13",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusMATphong_right.mat"
+    },
+    {
+      "guid": "4bb3a914fd743f14f89eecb0e58829a4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pills/Box.mat"
+    },
+    {
+      "guid": "4bd1f1e23a51a7d428dd152466736b7a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/RectTransformBoundsClipperDriver.cs"
+    },
+    {
+      "guid": "4cfe1df7ed391a24fbe2a2d275e81b06",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/ShapeRecognizer.cs"
+    },
+    {
+      "guid": "4da77ccaa334a3e45961430811956356",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Animation/MetaQuestTouchProRightAnimation.controller"
+    },
+    {
+      "guid": "4deb88afe2b877348beb0a48d1a19d24",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Cold Pack_16.mat"
+    },
+    {
+      "guid": "4dffc2a801520fb4cbe2c11894faf431",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/JointsRadiusFeature.cs"
+    },
+    {
+      "guid": "4f4594d3823cc9e4ea68ebb1e27310da",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_Locomotion_Enter.wav"
+    },
+    {
+      "guid": "4f62acf90e41ded439f14c4e15871abd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/TeleportInteractor.cs"
+    },
+    {
+      "guid": "500f15f4c6f23024fae11926652e3e99",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC FB Dark Grey.019.mat"
+    },
+    {
+      "guid": "5032133647099a44fb1f5296f5788d9b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/infpolestandardopacity.jpg"
+    },
+    {
+      "guid": "50d22e20b48255e4fbfff3dbe276c189",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Roof lamp/lamp.mat"
+    },
+    {
+      "guid": "50e09292ca409324bb0dc53075129e9d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/infusion pole metal.mat"
+    },
+    {
+      "guid": "50f211aff3d26554691f0499eaa219e5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/DistantInteractionTubeVisual.cs"
+    },
+    {
+      "guid": "514a2b618cc0fef4e9cd9a9955dd34f1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/silver.004.mat"
+    },
+    {
+      "guid": "5178bc8574ce2bf4388e787a2e2af326",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRHeadsetEmulator.cs"
+    },
+    {
+      "guid": "519dbf7cedee9b94b96755251be64514",
+      "pathAtExport": "Assets/Scenes/Patron/Loimokseis/Timelines/Timeline 3 correct.playable"
+    },
+    {
+      "guid": "52711496799867a48ad5ae9c704ad553",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Aluminium Clean2.001.mat"
+    },
+    {
+      "guid": "528296ec8cb7e9e4b836b8aa1197aa98",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Materials/pasted_touchPBS_MAT.fbx"
+    },
+    {
+      "guid": "52f069c032b433b4c8787aed317e77de",
+      "pathAtExport": "Assets/ShaderGraph_Dissolve/Utility/SubGraph/EdgeAndAlphaMask Sub Graph.shadersubgraph"
+    },
+    {
+      "guid": "5331531e72166e84487afc18fe23ca15",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/_NEW TEXTURES/ceramic_tiles_seashell_Base_Color.jpg"
+    },
+    {
+      "guid": "538e6bd00c44b1449a7e661d391328e5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/M_Metal_Normal.png"
+    },
+    {
+      "guid": "539fbf1f950eaf149b94c967498d66c2",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Body_Normal.png"
+    },
+    {
+      "guid": "546c836d3c95db04182543d3541aeb12",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/ConicalFrustum.cs"
+    },
+    {
+      "guid": "5487a7af70ff7364996d8da93d056fa9",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusMATphong_left.mat"
+    },
+    {
+      "guid": "54c16b381e28e8d479237771d234dbae",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRSkeletonRenderer.cs"
+    },
+    {
+      "guid": "54e70084d2847414fa910ef03a48db90",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Resources/Scriptables/OpenXRDefaultBonesPositions/LeftXRHandsDefaultBonesState.asset"
+    },
+    {
+      "guid": "54fbe814126121d4eac21c0dff03a61b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/BANANA BIG.mat"
+    },
+    {
+      "guid": "55585a3560a7c124288b7ee573ded50b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143565909.001.mat"
+    },
+    {
+      "guid": "559f2f2108ea141489d46cf56d90dc83",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143565970.001.mat"
+    },
+    {
+      "guid": "55d9ac8bdf143984b95e041f13a07f68",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/CoreAssets/Textures/lut_sss_ZH.png"
+    },
+    {
+      "guid": "5601f7bacce04d34b8daf65b68bf34b2",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Resources/Scriptables/OpenXRDefaultBonesPositions/RightXRHandsDefaultBonesState.asset"
+    },
+    {
+      "guid": "56032097b1ab3a540b3349af62f82310",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/LOD/AvatarLODLookat.cs"
+    },
+    {
+      "guid": "564097ba7235dc04bafcd86e3771d3e4",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Models/PlayerCapsule.fbx"
+    },
+    {
+      "guid": "567999966123afc48bc4673d4cb9bedf",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143565974.001.mat"
+    },
+    {
+      "guid": "568d3506826dd334c86d151e3b4087b9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/xmppmax_v1_1_3_1_g.png"
+    },
+    {
+      "guid": "5690b064787418646b57789e277dd4fa",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Rigs/NetworkRig/NetworkHeadset.cs"
+    },
+    {
+      "guid": "57bcc66c8b250a1428131bef5b452fe0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Textures/StreamAlpha.png"
+    },
+    {
+      "guid": "57c3dce928a7b51469e543e194c7a70b",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Scripts/HandDescriptionScriptables/HandSynchronizationScriptable.cs"
+    },
+    {
+      "guid": "5828f089c368cb14ca6bddd068e414ef",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC FB Dark Grey.002.mat"
+    },
+    {
+      "guid": "5836024ddb2dc9c4091fd6a6bc38c131",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Abdominal Pad.mat"
+    },
+    {
+      "guid": "58a676a9fd59f884a9c5d1ec4b9a5487",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/laminate_floor_02.mat"
+    },
+    {
+      "guid": "592ac3f1a010f3d48970c5beb7e4f68f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/Axis2DActiveState.cs"
+    },
+    {
+      "guid": "5958149563bb106489e2d25b2fedd21f",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/vray_Map #2138624878_VRayColor_0000.png"
+    },
+    {
+      "guid": "5a1bc992571301d4a9602ac95ef4c71a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Grab/GrabInteractable.cs"
+    },
+    {
+      "guid": "5a52cc62b98662b4e9ac356027b2b070",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandTransformScaler.cs"
+    },
+    {
+      "guid": "5ab90b5d07fb7e240975058b36a342a4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Slide/SlideLocomotionBroadcaster.cs"
+    },
+    {
+      "guid": "5b023183069df224080314a560e6e1ff",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/BuildingBlock.cs"
+    },
+    {
+      "guid": "5b9b3c67db832324caec698c4c032d8a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/TH_21010651_21011651_21014651_800_800.jpg"
+    },
+    {
+      "guid": "5c2a0ab8d12383d4eb4aeb7afd196e4f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/TH_21200599_001.jpg"
+    },
+    {
+      "guid": "5c411195dbfdd2c4eae786fe62ef6f30",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Cold Pack_16_diffuse.png"
+    },
+    {
+      "guid": "5c67033f580359c4581dff1ccffcca91",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/DataModifiers/SyntheticHand.cs"
+    },
+    {
+      "guid": "5cc5c234723e3a54d8dd09b131117743",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRMesh.cs"
+    },
+    {
+      "guid": "5d9af4b230d8983459beeb6df8b3eba6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/signal1.jpg"
+    },
+    {
+      "guid": "5dba404178fa3ee46a52eb3556c506e6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_PVC FB Dark Grey.023.mat"
+    },
+    {
+      "guid": "5e38df5678b37d6429ef2446d3589e00",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Visuals/InteractorDebugVisual.cs"
+    },
+    {
+      "guid": "5ee2e907eb6d91b40bc542039ffacb28",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Hand Wash Body only.fbx"
+    },
+    {
+      "guid": "5f552e57d966ddb40b5687d066a5a873",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Input/ControllerCommand/NetworkControllerCommand.cs"
+    },
+    {
+      "guid": "5ffbee578e2a2e0468e8391bf6dde0ff",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Aluminium Matte N.mat"
+    },
+    {
+      "guid": "609d964847b55cc47a4f90f145fafdda",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/depositphotos_34564495-stock-illustration-modern-electrocardiogram-monitor-display.jpg"
+    },
+    {
+      "guid": "60ba878d5e86c2a4fb3e684e4fc09e91",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Eye_L_Normal.png"
+    },
+    {
+      "guid": "60e16633c5d7cab4480ab96ce032fd87",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/BANANA BIG BACK.mat"
+    },
+    {
+      "guid": "60edb2f7e77f90d46adc327814a879c3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/white_diffuse.png"
+    },
+    {
+      "guid": "60f30059310f3684d969f78755773775",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Rigs/NetworkRig/NetworkController.cs"
+    },
+    {
+      "guid": "60f5e2f1a29beeb44a27bc61414d7a2c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/mat4_c.jpg"
+    },
+    {
+      "guid": "60f9185eeab3cb744a9345e5e46a662b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/plastic_operation table.mat"
+    },
+    {
+      "guid": "6123685ab0cf63a4ea3574b75c491194",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/xmppmax_v1_8_2_1_r.jpg"
+    },
+    {
+      "guid": "61a67f3761311a24a94550028ff66c4b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.2.mat"
+    },
+    {
+      "guid": "61d63a4b83c847048af1e85cf7c08b6e",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Flevokathetiras/flevokathetiras.fbx"
+    },
+    {
+      "guid": "622db80eec0bd344f920b1aa056ae8d0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/HandGrab/HandGrabPose.cs"
+    },
+    {
+      "guid": "62434d8a9e5ece542aa1a1792755585f",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Interactions/HardwareBasedGrabbing/Scripts/GrabbingSetup.cs"
+    },
+    {
+      "guid": "6246f38940a442d40a57113cee426181",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Leather Uph 2A Snow.mat"
+    },
+    {
+      "guid": "625167b0db5094b4d9e31600012e0818",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Materials/Shaders/ParticleAdditive.shader"
+    },
+    {
+      "guid": "626d5e053cc1db54d8b3e190ec315d04",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Ga_Eyelash_Diffuse.png"
+    },
+    {
+      "guid": "62a9d09916ac8bf4ba30ba4803d3503a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Animation/OculusTouchQuest2RightAnimation.controller"
+    },
+    {
+      "guid": "635f432b0b5a8c44992364202b2f5d5b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/DistanceHandGrab/DistanceHandGrabInteractor.cs"
+    },
+    {
+      "guid": "6365503782cfbca41b26db537b9d5c59",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/xmppmax_v1_1_3_2_g.png"
+    },
+    {
+      "guid": "637f19aef5eccc146a6ab77a1d4ab0a8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/OvrAvatarShaderManagerSingle.cs"
+    },
+    {
+      "guid": "63d10a535aa014c4f9e3f04185131351",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRLeftHand.fbx"
+    },
+    {
+      "guid": "640b25d19f932c546ba95956ba5c43e5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/legUp.anim"
+    },
+    {
+      "guid": "6418748e9d0ad7644ae0f0586c655804",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Left_BaseColor_AO_AlphaRoughness.png"
+    },
+    {
+      "guid": "649ee9096089b1342bee9132e3ccc8bd",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_relax_3qtr_fist_anim.fbx"
+    },
+    {
+      "guid": "65100a14e851c8446995d1e51bed1e8b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Delirium Room.fbx"
+    },
+    {
+      "guid": "655762154f2c178408c679dfe2ddfff4",
+      "pathAtExport": "Assets/Scripts/UI/SceneHandler.cs"
+    },
+    {
+      "guid": "6557dba7c7035a3448c0583098600c6c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/Icons/ovr_bb_icon.png"
+    },
+    {
+      "guid": "65674d9a061f7e84aac6ecc2ff7f7289",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Cornea_L_Diffuse.png"
+    },
+    {
+      "guid": "6593496738c8e8045badc49f0ef2917a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Skinning/GpuSkinning/Shaders/OvrApplyMorphsAndSkinning.compute"
+    },
+    {
+      "guid": "65f8cf47cb3c5c14ea5eaa32d2f11ad2",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Top.mat"
+    },
+    {
+      "guid": "6668dc41af99ede409b16564189b35f6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Top_Normal.png"
+    },
+    {
+      "guid": "6685609750762d24ebc6b334b1037c98",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC Poised Taupe Matte.001.mat"
+    },
+    {
+      "guid": "66a587dd4c7215a4289ae89c06ea980e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum/mat15_c.jpg"
+    },
+    {
+      "guid": "66f4803a0eb478f498a58fe4cac09071",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/laminate_floor_02_diff_4k.jpg"
+    },
+    {
+      "guid": "6748b45e3707d7842b8371e085959690",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.002.mat"
+    },
+    {
+      "guid": "6783aaa85c104e84db15b8e3496310f3",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/d6d2f88f16cd.jpg"
+    },
+    {
+      "guid": "67be4f15fa1af0c4486fedbfeb87774c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Textures/fingers_glow_mask.png"
+    },
+    {
+      "guid": "67fb2ae006d618c4180efcabc2481fcf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateNot.cs"
+    },
+    {
+      "guid": "681cdcc46a6ba1d4488cde60ca9caac0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/Glass.mat"
+    },
+    {
+      "guid": "68a9df147722850488009a017a1f6744",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Materials/StreamParticle.mat"
+    },
+    {
+      "guid": "68e6db2ebdc24f95958faec2be5558d6",
+      "pathAtExport": "Assets/TextMesh Pro/Shaders/TMP_SDF.shader"
+    },
+    {
+      "guid": "68f7be8fd96b49249a5e3052d5b9b895",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Komodino/komodino.fbx"
+    },
+    {
+      "guid": "6937544d08e2ba34da6ff4ab90cbfd84",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scripts/SampleInputManager.cs"
+    },
+    {
+      "guid": "697d9a99ae3c7784bbef700ed300a1ca",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusHandWire.mat"
+    },
+    {
+      "guid": "69a56a590bc345b42b367a1c73088cce",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/VirtualActiveState.cs"
+    },
+    {
+      "guid": "6a2450584366bfd4daeab93cc5bde1ca",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/RIGHTBACKWING 3.controller"
+    },
+    {
+      "guid": "6a6da6827fce76c4982814cf7731a957",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143565992.001.mat"
+    },
+    {
+      "guid": "6a8a1881d26fd0d41b104468b3fcf1a8",
+      "pathAtExport": "Assets/Scenes/Patron/Loimokseis/Timelines/Starting Timeline.playable"
+    },
+    {
+      "guid": "6a9cfe65a8b9b0746b1effc06e6e943f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.3.mat"
+    },
+    {
+      "guid": "6aca0e436cad1ae4db780266f99039b3",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Mask_Normal.png"
+    },
+    {
+      "guid": "6adbda85c68103d45a9ce06c325e6294",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Default Fabric_FRONT_3447_diffuse.png"
+    },
+    {
+      "guid": "6b01d08517c292649974266c91441d73",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/Materials/OSFHandMaterial.mat"
+    },
+    {
+      "guid": "6bcb907778a00234ea4e7aa9cf238631",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/TouchHandGrab/TouchHandGrabInteractor.cs"
+    },
+    {
+      "guid": "6bf6b991d9787f5489d8cbbac951edc8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/soil BUMP.jpg"
+    },
+    {
+      "guid": "6c41a6e223fece0458162624394578d6",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_hold_generic_anim.fbx"
+    },
+    {
+      "guid": "6c58bf8859e6eea4aa63eaa10c96ba72",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143566009.001.mat"
+    },
+    {
+      "guid": "6d2303af7d4c7114681742031c4a0ac6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Controllers/ControllerSelector.cs"
+    },
+    {
+      "guid": "6d789a1a60476f4428817e52d22031d3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/leftBackWing.anim"
+    },
+    {
+      "guid": "6d9d81be1c5cd1942a7572d99a4fca60",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/ReticleMeshDrawer.cs"
+    },
+    {
+      "guid": "6dbadae3d5e5bed42ab90157442156f0",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/Rigs/NetworkRig/NetworkHand.cs"
+    },
+    {
+      "guid": "6e29a5da46f946a43a21a0c03ef7d768",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Interactions/HardwareBasedGrabbing/Scripts/NetworkGrabbable.cs"
+    },
+    {
+      "guid": "6e8666897f4c6af4eb6e654dd63ed936",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical podia/Plastic_normals_V2.png"
+    },
+    {
+      "guid": "6e8c1aca798716d4e928252b5f9c4e54",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical podia/Material.001.mat"
+    },
+    {
+      "guid": "6eadb23de7fc4dc4a9cea0f597add098",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Scripts/XRHandRemoteSkeletonDriver.cs"
+    },
+    {
+      "guid": "6f21528085b305345aa60f40f4a5a5d8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/Visuals/RayInteractorRayVisual.cs"
+    },
+    {
+      "guid": "6f98640fb77302a41be4de97279009d9",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Betadin/6. Betadine.fbx"
+    },
+    {
+      "guid": "6fce4d906dba56f4bb507682dbb5b81d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProRight_Material.fbx"
+    },
+    {
+      "guid": "6fdc5e5ba06e68443bf7e15f50c1b364",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Metal012_2K_Roughness.jpg"
+    },
+    {
+      "guid": "700142580560ace4cbddcacbae9ae39b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRRightHand.fbx"
+    },
+    {
+      "guid": "706778b51728bee468184ba7cc8bb69d",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/5c4c47db542b.jpg"
+    },
+    {
+      "guid": "715bf3c12a3ef1a46ab1dc3f89cccbd3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/xmppmax_v1_5_1_1_g.jpg"
+    },
+    {
+      "guid": "7167ec1cc2681bf408f0c75e9122e281",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Materials/Textures/ShadowGradient.png"
+    },
+    {
+      "guid": "71a21a50ccebabf448bd8090c6be7f65",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/mat5_c.jpg"
+    },
+    {
+      "guid": "720268b1787906f45add9506caf417a0",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Ga_Eyelash_Normal.png"
+    },
+    {
+      "guid": "72fa0775a6fc4a343a6385cac467dcdc",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-SemiBold SDF.asset"
+    },
+    {
+      "guid": "73af2d5eb4aa5f84c9489fec88acb742",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_cap_touch_thumb_mask_anim.fbx"
+    },
+    {
+      "guid": "73eac66b128fc8749a21623225c34541",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRMeshRenderer.cs"
+    },
+    {
+      "guid": "73f5731e03ba0c74cb9aeb212c80d4d0",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/vray_Map #2138624982_VRayColor_0000.png"
+    },
+    {
+      "guid": "747eda403318db64d8e83460ed5fad84",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Cornea_L.mat"
+    },
+    {
+      "guid": "74ced4fd7fe39104cbae37e8c0e8387b",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Eye_R_Normal.png"
+    },
+    {
+      "guid": "74d6cd6a91d412f48afc2e17e4fef19a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Wood.mat"
+    },
+    {
+      "guid": "74f8df7b3217be8459a109a493fcc2b3",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Untitled_Specular.jpg"
+    },
+    {
+      "guid": "759098c79db7ee147beab307a024beef",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Models/PhotonCap.fbx"
+    },
+    {
+      "guid": "75d3a1facc5f29d4ea65d3af68af5c9e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/TagSetFilter.cs"
+    },
+    {
+      "guid": "766187a6d04800541ac6ffe72f016c61",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pills/Drugs.mat"
+    },
+    {
+      "guid": "76f6075ec84afca46b2a5e5b3bfdf8ce",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Materials/OculusTouchForRift_Material.fbx"
+    },
+    {
+      "guid": "778e12c5105bc624bbd591037ea0a32e",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Flevokathetiras/diafaneia 1.mat"
+    },
+    {
+      "guid": "77e60cd7a8e8d064183f1754eb3db644",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scenes/LegsNetworkLoopback/HumanoidAnimations/CustomAnimationControllerWithDefaultTransition.controller"
+    },
+    {
+      "guid": "78004595c6cead044be53137cdf8db19",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/Shared/NetworkedAvatar/Scripts/AvatarEntity.cs"
+    },
+    {
+      "guid": "78289d6caeacfc949ab1f90c3d78ec89",
+      "pathAtExport": "Assets/Scenes/Patron/Loimokseis/Loimokseis/Global Volume Profile.asset"
+    },
+    {
+      "guid": "78c894bdf5421be4882d2e68cf04e1dc",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/patient_with_robe_v3.Fbx"
+    },
+    {
+      "guid": "78e0f69dd04ac2440a08fa31c8d96f83",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Microgestures/MicroGestureUnityEventWrapper.cs"
+    },
+    {
+      "guid": "79e0d96a3e30fec46a930ab7dd95ef5f",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_relax_3qtr_fist_anim.fbx"
+    },
+    {
+      "guid": "79e268d64a018a64ca3c6da31ca44a17",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Eye_L_Diffuse.jpg"
+    },
+    {
+      "guid": "79e274fc2c02bd94bb92facf39c2c5b8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/sogukmetal.mat"
+    },
+    {
+      "guid": "7a33846be5c2f5a4da327797c411f1a2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Medical Bin.mat"
+    },
+    {
+      "guid": "7a48077efd51bfc4cb5aa242f5c422e3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum/label.mat"
+    },
+    {
+      "guid": "7a701167f3382f3469c311bb308142af",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_point_anim.fbx"
+    },
+    {
+      "guid": "7a70700d716a69d4897cba3f4aaa5c3e",
+      "pathAtExport": "Assets/Scenes/Patron/Loimokseis/Timelines/Timeline Fade out.playable"
+    },
+    {
+      "guid": "7b15e2166f85f424c89127e1c615ccee",
+      "pathAtExport": "Assets/Resources/CustomAvatar ForMeta.prefab"
+    },
+    {
+      "guid": "7bc837771a870f7438898da88109c587",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Shoe cover box_diffuse.png"
+    },
+    {
+      "guid": "7bf81deb4ead62e4c9de1e69bb491c00",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_hold_ping_pong_ball_anim.fbx"
+    },
+    {
+      "guid": "7c03a1f52a4ed51428913c25ec54afc0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusRayMaterial.mat"
+    },
+    {
+      "guid": "7cb2e1480bb51ce4282f540ea3f41d4f",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_fist_anim.fbx"
+    },
+    {
+      "guid": "7cbb0a184126a1f42b39dd100c5bd4d8",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Eye_R.mat"
+    },
+    {
+      "guid": "7d00ded67f66c0648aa17b90ce1970a6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Untitled_Diffuse.png"
+    },
+    {
+      "guid": "7d0789ec715aaee4eb85323d87c7b10d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143565983.001.mat"
+    },
+    {
+      "guid": "7d5daad3dd8ceed44b584a5e935a29d9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Sterile Water_14.mat"
+    },
+    {
+      "guid": "7daff26e66096cd49a253ca3ab592c03",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/DataModifiers/LastKnownGoodHand.cs"
+    },
+    {
+      "guid": "7e4c46a1dc07cf341a29123f98aee38b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/green.003.mat"
+    },
+    {
+      "guid": "7e933e81d3c20c74ea6fdc708a67e3a5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRManager.cs"
+    },
+    {
+      "guid": "7ec226bf3cad457418d926296435ec78",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/CircleSurface.cs"
+    },
+    {
+      "guid": "7edaf861565f0fe4b83a2b13f00ed335",
+      "pathAtExport": "Assets/Scripts/CustomAvatarRigSyncFusion.cs"
+    },
+    {
+      "guid": "7fb7dae98849b9f47a241ba9ffbdcd70",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Glass Optical Barium Crown 1.002.mat"
+    },
+    {
+      "guid": "804283a7de9c4054e95b56c8fced71b8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Materials/Textures/Podium/Podium_SpecularSmoothness.png"
+    },
+    {
+      "guid": "8083b51aac07f7f4dad4a7f6878b97e3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Prefabs/HandGrab/OpenXRGhost-LeftHand.prefab"
+    },
+    {
+      "guid": "810718ebdeb0283478f5945af8e206d0",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum/lit.mat"
+    },
+    {
+      "guid": "81224343ceee4c64e8c44f57bddbbd1e",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Prefabs/PhotonDummy.prefab"
+    },
+    {
+      "guid": "814fa524bf762ee4fafde3bb2f561611",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/Prefabs/OSFLeftHand.prefab"
+    },
+    {
+      "guid": "81521d61d0efc3a4b87b3783aee9f4a4",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scripts/LegsBehavior/OvrAvatarAnimationBehavior.cs"
+    },
+    {
+      "guid": "820bcb644711fe4419e25cd79e40c95f",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC FB Dark Grey.003.mat"
+    },
+    {
+      "guid": "822517341b13cd0408297b7b986314c7",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Acrylic Opaque White0.mat"
+    },
+    {
+      "guid": "8268085ebe170e64aa36672a45f0dd8d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/CenterEyeOffset.cs"
+    },
+    {
+      "guid": "829e6f11787747949a16c846b31b2c71",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Default Fabric_FRONT_3447.mat"
+    },
+    {
+      "guid": "83052ea2d6bb311488211916605e716b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkRunner/Scripts/FusionBBEvents.cs"
+    },
+    {
+      "guid": "8310d4698426ea24e923c8a77fe0f3a0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/HmdOffset.cs"
+    },
+    {
+      "guid": "837542eeb807eb84bab49f76eda4c808",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-SemiBold.otf"
+    },
+    {
+      "guid": "837f53188698fca4ea82eb525a940afd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_PVC FB Dark Grey.022.mat"
+    },
+    {
+      "guid": "838bf82eef6d73d42b59f428c4e33417",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/TouchHandGrab/TouchHandGrabInteractorVisual.cs"
+    },
+    {
+      "guid": "84c0cef49dded4c488ac1a59e9647098",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Hat.mat"
+    },
+    {
+      "guid": "84de3b22a7efbab46967c1a17f5b8cda",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/Visuals/HandGhostProvider.cs"
+    },
+    {
+      "guid": "8501b525058d2ef438aff0731a9440b3",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Gauze/Material_001.mat"
+    },
+    {
+      "guid": "85486bb3781f2ab47a398933493ad4e7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Steel_Stainlessl_Shiny.mat"
+    },
+    {
+      "guid": "861c253c01be7f7489f64e9ac001a10c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusHandPinchMaterial.mat"
+    },
+    {
+      "guid": "864c4bbe7dbfa7e44a5fa49d417a66b6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room Patrwn/armchair/Arm_Chair_Normal.png"
+    },
+    {
+      "guid": "8690ae037c466204f80781bcfbcd5888",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Models/LeftHand.fbx"
+    },
+    {
+      "guid": "86bd0d3098d25db4c9c839739557480b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/HandSkeletonOVR.cs"
+    },
+    {
+      "guid": "8733ebe23f85185428441f8c331788fc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/CharacterController.cs"
+    },
+    {
+      "guid": "87a3c21a91309e74ba47e8b713900082",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/Hospital flowers.fbx"
+    },
+    {
+      "guid": "87d3348c3dad30743afc00e1dadfb7cc",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Eye_L.mat"
+    },
+    {
+      "guid": "88230848386761045af440d808ee3efa",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrap.cs"
+    },
+    {
+      "guid": "888eab7c7dabe4c408933b26c6f23679",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Material.001 3.mat"
+    },
+    {
+      "guid": "89fd2d62b28394a4282e96fc2d753317",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum/main.mat"
+    },
+    {
+      "guid": "8a0200d999c05c54fa27292e7f8616ee",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ControllerVisual.cs"
+    },
+    {
+      "guid": "8a058fe7a70846541957759e41547941",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Hardwood_Normal.jpg"
+    },
+    {
+      "guid": "8a423e339629e4f1a8bdb2b8bb5e0b2d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Prefabs/DummyAvatar.prefab"
+    },
+    {
+      "guid": "8a67991d80aa53c42b29637299963849",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/TH_21200599_001.jpg"
+    },
+    {
+      "guid": "8b2fc1498442023409ccd04c3abff60e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/TouchHandGrab/HandSphereMap.cs"
+    },
+    {
+      "guid": "8b470e0c4b48d474c9a42d7f661d48c7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/DefaultSettings/PoseDetection/DefaultFingerFeatureStateThresholds.asset"
+    },
+    {
+      "guid": "8b83018900d13bb4f8e0ad895cb004e5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/OculusTouchForQuest2_Left.fbx"
+    },
+    {
+      "guid": "8ba5764f4714bd64ab9efab127938e77",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUI.cs"
+    },
+    {
+      "guid": "8bbece81149d1494e938df3e63bc883b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/Cabinet_Lowpoly.fbx"
+    },
+    {
+      "guid": "8bdb038bbb2a496458cf36af88d9e328",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Medical Storage 3D model_lowPoly.fbx"
+    },
+    {
+      "guid": "8c187a71eebf18441816c16087a51cb6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/Visuals/RayInteractorCursorVisual.cs"
+    },
+    {
+      "guid": "8cd27a8f4c15ae84bbdb2381fd964a49",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Metallic.png"
+    },
+    {
+      "guid": "8cdbffbe9adb0814aad486dd346fa517",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/steel_polished_Base_Color.jpg"
+    },
+    {
+      "guid": "8cefd558b55130c47af49fed308fee46",
+      "pathAtExport": "Assets/Scenes/Patron/Loimokseis/Timelines/Starting 1st chapter Timeline.playable"
+    },
+    {
+      "guid": "8d0d266cd769c7846836af8115bef8b1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/blue_diffuse.png"
+    },
+    {
+      "guid": "8d6c4573e4f06b74b80afa8a65880221",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/xmppmax_v1_8_2_1_b.jpg"
+    },
+    {
+      "guid": "8d72afb5e60bda84ca0ec65cb6ff11a2",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Aluminium Satin 2.mat"
+    },
+    {
+      "guid": "8db5bee7bb4a0774db53937b616cca65",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Aluminium Matte.004.mat"
+    },
+    {
+      "guid": "8de54ac7574fd9642aac418bfe204ec3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Sterile Water_14_diffuse.png"
+    },
+    {
+      "guid": "8df81de6ba2e4e14c983a5a14b7957c0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ScrollInputProvider.cs"
+    },
+    {
+      "guid": "8e1d6427aa0b5584ab3744e9988d6e7b",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_cap_touch_index_mask_anim.fbx"
+    },
+    {
+      "guid": "8e1f938f606bf254da9124cfd52ea326",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.001.mat"
+    },
+    {
+      "guid": "8f30ac6cbbbe39d43886ad7626f7e2b2",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_cap_touch_index_mask_anim.fbx"
+    },
+    {
+      "guid": "8f401838bc2d543499115545937bbf01",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/e996e9f43e57.jpg"
+    },
+    {
+      "guid": "8f586378b4e144a9851e7b34d9b748ee",
+      "pathAtExport": "Assets/TextMesh Pro/Resources/Fonts & Materials/LiberationSans SDF.asset"
+    },
+    {
+      "guid": "8fc2ec96a5de3a841aca9f1e21e8e89b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Materials/Textures/Podium/Podium_AO.png"
+    },
+    {
+      "guid": "8fc50588a0802c643b5a9878456512dd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/mat1_c.jpg"
+    },
+    {
+      "guid": "8fe9875a2e2a5184c89f0eac3d5bfdce",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Aluminium Satin 2.006.mat"
+    },
+    {
+      "guid": "9025e9c83c2f14243be808ae1bf892b5",
+      "pathAtExport": "Assets/Voice Over/Loimokseis/loimoxeis 4 Correct.wav"
+    },
+    {
+      "guid": "9067480af55f5874d8f613b16812f968",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/HandGrab/HandGrabInteractor.cs"
+    },
+    {
+      "guid": "907321d040d29674781b019bd2f0e170",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Surgical items/Smooth Transition.shadergraph"
+    },
+    {
+      "guid": "90c334f55baf3154f8deb5879fd81177",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Glass_1.mat"
+    },
+    {
+      "guid": "925ef87c5bafc37469a2f7ec825dee4b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Scripts/AudioTrigger.cs"
+    },
+    {
+      "guid": "927d10a84e1066c4a854939f0360d426",
+      "pathAtExport": "Assets/Scripts/Interactions/Wound.cs"
+    },
+    {
+      "guid": "92bfe643b6846e04199808ac75582868",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Washing room V2.fbx"
+    },
+    {
+      "guid": "92d3a5c1a965d3746ac851bf1460dd84",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/vray_Map #2138624962_VRayColor_0000.png"
+    },
+    {
+      "guid": "92dd1ff21e711dc4b8b57eb39ab807ac",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Animation/OculusTouchQuestAndRiftSLeftAnimation.controller"
+    },
+    {
+      "guid": "92df5e650015432428f7f1783586ab3c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/mat10_c.jpg"
+    },
+    {
+      "guid": "92edf9cdc0058b44f89a8e150e67290b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Abdominal Pad_1_36 quad.mat"
+    },
+    {
+      "guid": "931f469e11420814b8f3403700e760c9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Metal Silver_knob.mat"
+    },
+    {
+      "guid": "9346ee7dbf987684b86a8c5cb929a82c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/Locomotion/TunnelingEffect.shader"
+    },
+    {
+      "guid": "9413e5947bc7dbd45bd634eac778ca8e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/_NEW TEXTURES/ceramic_tiles_seashell_Normal.jpg"
+    },
+    {
+      "guid": "949e33eb3289ef04ebbeb5f045a5add6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionActionsBroadcaster.cs"
+    },
+    {
+      "guid": "94b10f68484cd8a45b02d2ea39925792",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/rightFrontWing.anim"
+    },
+    {
+      "guid": "94cb6205fe402bf42acfdb1a49de8565",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/rightBackWing.anim"
+    },
+    {
+      "guid": "953dacb453c642b41b72a21ad5fa34f2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Models/blinds.fbx"
+    },
+    {
+      "guid": "954b4af064a7a8e4eaa84f5ee4d06312",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/infusion plastic.mat"
+    },
+    {
+      "guid": "95b772925896fad4babe8ece2151d90a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Acrylic Opaque White.001.mat"
+    },
+    {
+      "guid": "95d0e72de3ac19b4bbaa3e76254e381c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Untitled_Normal.jpg"
+    },
+    {
+      "guid": "965694c34a214a244b64d1d516eb6994",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/Mat 001_diffuse.png"
+    },
+    {
+      "guid": "9785ba3d6c9331445b252551c840096a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Abdominal Pad quad.mat"
+    },
+    {
+      "guid": "97ad1841d31cfd844995732927b7c958",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRMicrogestureEventSource.cs"
+    },
+    {
+      "guid": "9889b45bb24173a4d93c7f6b5a496800",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Animation/OculusTouchRiftRightAnimation.controller"
+    },
+    {
+      "guid": "990692c9edb7a214d9b122856cf44929",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ControllerAxis2D.cs"
+    },
+    {
+      "guid": "99880f9db1c4f80499af15f1dfcaaf51",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Nurse Woman1_Hair_specular.png"
+    },
+    {
+      "guid": "998a5646185efb9488265f3a2f35a99a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/TrackingToWorldTransformerOVR.cs"
+    },
+    {
+      "guid": "9a174518816f7e645860e70cf978ba1c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/OneEuroFilter/FilteredTransform.cs"
+    },
+    {
+      "guid": "9a50b263d1bd8484fb5fa8f62f56dbca",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Cube_006.controller"
+    },
+    {
+      "guid": "9a8bb2498cdcda04c89df15c8ee19159",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/TurnArrowVisuals.cs"
+    },
+    {
+      "guid": "9abf623c439ef024ea27b008893b7821",
+      "pathAtExport": "Assets/UI/Menu/Menu Background 1080x1248.png"
+    },
+    {
+      "guid": "9ac639554b8a09943aa991b71ca0eb12",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/Locomotion/LocomotionLocation.fbx"
+    },
+    {
+      "guid": "9aebe039919052d4d88987e5aff567a3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.4.mat"
+    },
+    {
+      "guid": "9af9ea683544b184083cef283557012d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Visuals/HandVisual.cs"
+    },
+    {
+      "guid": "9b72e9ba2c21430c818f53e1079c2a93",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedGrabbableObject/Scripts/TransferOwnershipFusion.cs"
+    },
+    {
+      "guid": "9b9df4f150839de48af887d742aabf53",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Prefabs/HandGrab/OpenXRGhostProvider.asset"
+    },
+    {
+      "guid": "9bd003c15e37cd64bbc6b639062b44cd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Converted_vray_Glass Clear0.001.mat"
+    },
+    {
+      "guid": "9be333021b2b2b241a02122a7d7d088a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC FB White.mat"
+    },
+    {
+      "guid": "9c05c5a6e4902ff4082cfb34e5b64b2d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Materials/SkeletonBoneMaterial.mat"
+    },
+    {
+      "guid": "9c2beb69c900ccf4984646ad420b1e17",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandPinchOffset.cs"
+    },
+    {
+      "guid": "9c37593c9b2274a40aacd4d909777048",
+      "pathAtExport": "Assets/UI/Pi tech Logo/Pi tech Logo.png"
+    },
+    {
+      "guid": "9c588f7a6c8d16142bd78690b1f36fd5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_BasicPoke_ToyButton_Release_02.wav"
+    },
+    {
+      "guid": "9c75c7f193c2dc743b8019dac9085a77",
+      "pathAtExport": "Assets/Animations/Loimokseis/Betadine on gauze.anim"
+    },
+    {
+      "guid": "9c7f85ce3536b3b4c89aa4bd0db96665",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_BasicPoke_ToyButton_Press_01.wav"
+    },
+    {
+      "guid": "9cd5a402535193341b44caf0e28ba882",
+      "pathAtExport": "Assets/Scripts/Multiplayer/ToDelete/DisableNetworkObjects.cs"
+    },
+    {
+      "guid": "9ce117e743c68fa4daf24c7186a1ab62",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room Patrwn/armchair/arm_chair.fbx"
+    },
+    {
+      "guid": "9cf2a74d69b1c1e41916d2a7afdff5be",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/PlaneSurface.cs"
+    },
+    {
+      "guid": "9d107f2f043e1ed408b970f146718017",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Materials/SystemGestureHandMaterial.mat"
+    },
+    {
+      "guid": "9d4edac8b27eead43ae4839ff9b23791",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Textures/RainbowGradient.png"
+    },
+    {
+      "guid": "9dda6958e834dc644b949b1ff70e432b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/DistanceGrab/DistanceGrabInteractor.cs"
+    },
+    {
+      "guid": "9e6c0c0cb80eb2446baad1d778119e14",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Materials/Capsule.mat"
+    },
+    {
+      "guid": "9eda55bf91ce3e345bc4c1f4c64d077e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Vanadium.001.mat"
+    },
+    {
+      "guid": "9f1871411a4175a49a72069635000987",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_r_lo_BaseColor.png"
+    },
+    {
+      "guid": "9f82f534b80494f4f95b189f6e778650",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Tools/Scripts/Misc/Spawn/UserSpawner.cs"
+    },
+    {
+      "guid": "9f9762bc264a42e4da98e4436768e5cd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/surgical_table1.fbx"
+    },
+    {
+      "guid": "9fa76bd9e9d3a34429b6c90d00678855",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/Visuals/TeleportProceduralArcVisual.cs"
+    },
+    {
+      "guid": "9ff437c5631ba2d42b3bd9d8a8de9511",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Materials/ButtonRingShadowMat.mat"
+    },
+    {
+      "guid": "a00bb4e2a48d6b04f9a9865f78869df2",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_point_anim.fbx"
+    },
+    {
+      "guid": "a01a7868e3ea81f47957a2752fa04e90",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.5.mat"
+    },
+    {
+      "guid": "a072bc4cdeab1e34981c10c8bd8aa02d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/acikgold.mat"
+    },
+    {
+      "guid": "a0ee3bd2a2bf16f47b03f8f0a2ef5c5e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/pots Texture 0712 2445.mat"
+    },
+    {
+      "guid": "a185e2bfc17ac7c439ea2642cd51f512",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Metal Silver_1_0_diffuse.png"
+    },
+    {
+      "guid": "a1eea11467ac17a4482df94a000f45c6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/Shared/NetworkedAvatar/AvatarSDK/Scripts/LipSyncMicInput.cs"
+    },
+    {
+      "guid": "a2140d2b457bea84881488302059889b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/ColliderSurface.cs"
+    },
+    {
+      "guid": "a21fa42f7d6f68f4281ca2efb8783165",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Materials/PhotonCap URP.mat"
+    },
+    {
+      "guid": "a2595bc505aeb4c40ba76f369be884bf",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Cube_007.controller"
+    },
+    {
+      "guid": "a49c22e69aed68a4e9c458fe4276065c",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_hold_ping_pong_ball_anim.fbx"
+    },
+    {
+      "guid": "a4f76ee9a4bceba4385d001e7ee27427",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/DefaultSettings/Locomotion/ExitMicroGesture.asset"
+    },
+    {
+      "guid": "a509dbf839e0e4044a7affab5b5a3e55",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/OvrAvatarLipSyncContext.cs"
+    },
+    {
+      "guid": "a53d1d4e8207acf45b310f189c342b70",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/OculusTouchForQuestAndRiftS/OculusQuestTouchControllerTexture.tga"
+    },
+    {
+      "guid": "a577701db3e23d8489feb76cd34e2336",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Prefabs/HandGrab/OpenXRGhost-RightHand.prefab"
+    },
+    {
+      "guid": "a5951744ba5bb054896941534e617af5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/white.mat"
+    },
+    {
+      "guid": "a63ea968be5c2084588e377a5dc05473",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/ShoulderEstimatePosition.cs"
+    },
+    {
+      "guid": "a719c983c460dd84ba8ec0221f3d727f",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Eye_R_Normal.png"
+    },
+    {
+      "guid": "a7a6709449d68482c8c03bb546ddcaec",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUIStartWindow.png"
+    },
+    {
+      "guid": "a7b47e36715521d4e8a30d2c5b6e83e2",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/OVRCameraRigRef.cs"
+    },
+    {
+      "guid": "a7d153c984a90a6488110013f4cfd9c3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/InteractorControllerDecorator.cs"
+    },
+    {
+      "guid": "a7d76ef3ada5e3646be0ff905da3572f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedAvatar/Scripts/AvatarSpawnerFusion.cs"
+    },
+    {
+      "guid": "a7ec0ff0ec83f9b41a5a3e0f4d020e72",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Hair_Normal.png"
+    },
+    {
+      "guid": "a8c8b6ce6d8138e4fb349ae1f0dd8f95",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Mask.mat"
+    },
+    {
+      "guid": "a91ff20f7450bf446a6bf0bfb5e932ae",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_pinch_anim.fbx"
+    },
+    {
+      "guid": "a95614e8e06aa7e4babf316ef4e8bcee",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Ga_Skin_Body_Normal.png"
+    },
+    {
+      "guid": "a9f4b1b5ef87cf0419535d7ce28337d5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkRunner/Scripts/CustomNetworkObjectProvider.cs"
+    },
+    {
+      "guid": "aa70c70787230f248b33d8a0ce1a6c3d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Materials/DefaultHandMaterial.mat"
+    },
+    {
+      "guid": "aaa9829e545a541498f4d93a6a20924f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Slide/StepLocomotionBroadcaster.cs"
+    },
+    {
+      "guid": "aae35d0104f744f4f9c215b38f79d24e",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Nurse Woman1_Body_diffuse 1.png"
+    },
+    {
+      "guid": "ab17f0de3a748eb43b12ad46d0226778",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC FB White.002.mat"
+    },
+    {
+      "guid": "abee63302fdc2bb4f80efe129df0a723",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandJoint.cs"
+    },
+    {
+      "guid": "ac22d339a63cf5d4996b9c508a433e4f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/hospital_bed.fbx"
+    },
+    {
+      "guid": "ac59492b394bf134e874cf07e3107499",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/patient_with_robe_v1.Fbx"
+    },
+    {
+      "guid": "aca5fced984fe9247b5b45889a79db16",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/silver 003.mat"
+    },
+    {
+      "guid": "acb743c666c1ab34e928a0b62c2fa862",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Grab/GrabInteractor.cs"
+    },
+    {
+      "guid": "ad2069ba7fe0238489d3531897cea8cf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Materials/OculusTouchForQuest2_MAT.fbx"
+    },
+    {
+      "guid": "ad374a43a946e7d4496818c6b194809f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ControllerButtonUsageActiveState.cs"
+    },
+    {
+      "guid": "ad451c12d41f58d4489ce17007b13199",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Steel_Stainless_Dull.mat"
+    },
+    {
+      "guid": "ad50272593441704d9c1720fa4ecd855",
+      "pathAtExport": "Assets/Voice Over/Loimokseis/loimoxeis 1.wav"
+    },
+    {
+      "guid": "ad6d17dabd9144a4c9d512a9177ffeb3",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Gauze/Gasa (1).fbx"
+    },
+    {
+      "guid": "ad99679617a695c448ec128b64a29aef",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Material #2143565982.mat"
+    },
+    {
+      "guid": "adc4d546a3ecc2c46812430133db4813",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Models/RightHand.fbx"
+    },
+    {
+      "guid": "adee424ac9576984da6cd4c044c80118",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Animation/MetaQuestTouchProLeftAnimation.controller"
+    },
+    {
+      "guid": "ae43f25c06eb2d9408a201216b4c3ed7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/HandGrabAPI.cs"
+    },
+    {
+      "guid": "aebd5da9a8bd22243b407f1927f4965b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateGroup.cs"
+    },
+    {
+      "guid": "aed62bf3ae2456c408f247f96808ce96",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRControllerHelper.cs"
+    },
+    {
+      "guid": "af140106e3263f147a88684296add82b",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Untitled_Diffuse.png"
+    },
+    {
+      "guid": "af70fc3edbd215e438037aab32711dfd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Models/BigRedButton.fbx"
+    },
+    {
+      "guid": "af98d123353c1be4da08d9ff105f34a4",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PMMA Tr Clear.001.mat"
+    },
+    {
+      "guid": "b06fd9f3f06d67247a6cb7eede41eef4",
+      "pathAtExport": "Assets/Scripts/Multiplayer/LabNetworkTeardown.cs"
+    },
+    {
+      "guid": "b07be626a8e824a5aaed89fffbde2fc7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/HandGlow/HandPokeOvershootGlow.cs"
+    },
+    {
+      "guid": "b14164f8f23faae4293baeb84485b3d6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/HandRef.cs"
+    },
+    {
+      "guid": "b18cf6e968f91c841a5c670db5380d09",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_WallPaint Grey Aluminium Semi-Gloss.001.mat"
+    },
+    {
+      "guid": "b1ac60afbe530f340b365e006c9a73f7",
+      "pathAtExport": "Assets/UI/Pi tech Logo/HealthOn XR Logo.png"
+    },
+    {
+      "guid": "b1c2d3e4f5a6478990abcdef12345601",
+      "pathAtExport": "Assets/Scripts/Multiplayer/DummyAvatarFollowNetworkHands.cs"
+    },
+    {
+      "guid": "b1eaa701d7ef9fa4394ca0d9e1a7167e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/Drawer/cabinet.mat"
+    },
+    {
+      "guid": "b1f40c50ae24356469c6c6d4bfb2a2d6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/OculusTouchForQuest2/OculusTouchForQuest2_AlbedoRoughness.tga"
+    },
+    {
+      "guid": "b20e33af4c119b7478e627c5bc254a92",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/galssefacemask.mat"
+    },
+    {
+      "guid": "b26dafd4db0f9374e928967b1ddd22cc",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Metal Silver_ cabinet.mat"
+    },
+    {
+      "guid": "b2bf1471482e8f54383fc58ecb65ee26",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_PVC White Glossy.001.mat"
+    },
+    {
+      "guid": "b2d012fa3f3a56a4cb4d8383444f0a4d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Ga_Eyelash_Normal.png"
+    },
+    {
+      "guid": "b33cfe6cb010bd24aa112adac0f73290",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/VT_207.jpg"
+    },
+    {
+      "guid": "b43526e3ebd2ab840875fbb0dfe97df3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Gloves Box_1_diffuse.png"
+    },
+    {
+      "guid": "b450b25fcb13b4d6f864b0d7c7a08d46",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Common/Shaders/Configurations/Recommended/MetaStyle2ShaderConfiguration.asset"
+    },
+    {
+      "guid": "b4a7c9c9448d9584ea2097a456277de2",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Untitled.mat"
+    },
+    {
+      "guid": "b4e685ae3573358448be443e8ac54104",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/orangeplasticinfusionpole.mat"
+    },
+    {
+      "guid": "b509fde79093393479908a63060c39eb",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/HoverInteractorsGate.cs"
+    },
+    {
+      "guid": "b528fdfb306a11c4b8fb67b8232a209e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/VT_207.jpg"
+    },
+    {
+      "guid": "b5659ebe088a1954fade151c61bdf11c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room Patrwn/armchair/Arm_Chair_Basecolor.png"
+    },
+    {
+      "guid": "b56e27675bdb144498e5b668ec8dd056",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Komodino/handle.mat"
+    },
+    {
+      "guid": "b58fdf466c162d447913b955fc10ad96",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProLeft_Material.mat"
+    },
+    {
+      "guid": "b63a8c98414027a4f93ec7ff67fbbe7a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Gauze/apostiromeni_gasa_mat 1.mat"
+    },
+    {
+      "guid": "b63ea55cedb7b7a43bb0dc1789b098e6",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/xmppmax_v1_16_3_1_n.jpg"
+    },
+    {
+      "guid": "b64a2b2b54ab7ee4982bc6065a1bfba8",
+      "pathAtExport": "Assets/ShaderGraph_Dissolve/Utility/SubGraph/EulerAngleConverDir Sub Graph.shadersubgraph"
+    },
+    {
+      "guid": "b66927e2848de9043b32b25e2e370fee",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/Face Shield.fbx"
+    },
+    {
+      "guid": "b6b083f9268c1e541ab5ca759d135dbd",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-Regular.otf"
+    },
+    {
+      "guid": "b6e9a234124d6934dbbbeb1b487987b6",
+      "pathAtExport": "Assets/UI/Menu/Quest3_Left.png"
+    },
+    {
+      "guid": "b712e975e61a5c14782e0ded31aea582",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/BANANA LEAF STVOL 1008 1 BUMP.jpg"
+    },
+    {
+      "guid": "b74a1d46d1a8e3947b809168f844a42e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Roof lamp/light.mat"
+    },
+    {
+      "guid": "b8667bbf66117438986bafc711f920ed",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/HandGlow/HandGrabGlow.cs"
+    },
+    {
+      "guid": "b8943b5ee74fcd945a2746d0051466cd",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_hold_generic_anim.fbx"
+    },
+    {
+      "guid": "b895d3431e75dc345a72e171f82bfbea",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/OculusHand.shader"
+    },
+    {
+      "guid": "b8d6001430c747a4092d6310ba479a0a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum/orosEdit.fbx"
+    },
+    {
+      "guid": "b8edbe7108d8a43ab838cf8b8d9453df",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/Utilities/RunnerVisibility/RunnerEnableVisibility.cs"
+    },
+    {
+      "guid": "b9015074428f1364cae6d73da4600924",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Eye_R_Diffuse.jpg"
+    },
+    {
+      "guid": "b942c16a6d6a4edaad7c18c7d5762cdf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/FingerFeatureStateProvider.cs"
+    },
+    {
+      "guid": "b96b4dbb5e58d21468cfd0b50e4953bb",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.007.mat"
+    },
+    {
+      "guid": "ba0ddece6ea0de84399aa9eda90bcf9b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/SOIL 1303.mat"
+    },
+    {
+      "guid": "ba1ad0922b54c9046b6ba95e147bec2b",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PMMA Tr Green 6C77.mat"
+    },
+    {
+      "guid": "ba1fa4a8c66106b4988c88fe4b8e8502",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/CustomHandRight.prefab"
+    },
+    {
+      "guid": "ba4cb959b7b3f924b8c808702c24c946",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Cornea_R_Diffuse.png"
+    },
+    {
+      "guid": "ba5e7a83e72457b4bb2698bd551df615",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/Drawer/drawer.fbx"
+    },
+    {
+      "guid": "bab8923640a48a4459b7a740e97b66ec",
+      "pathAtExport": "Assets/ShaderGraph_Dissolve/Utility/SubGraph/Dissolve Sub Graph.shadersubgraph"
+    },
+    {
+      "guid": "bb3ba0ec8e748fb49a18ac07898c80ab",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Hair.mat"
+    },
+    {
+      "guid": "bb86ba9d4c5126e48bfef9b0c9550e9d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/RayInteractable.cs"
+    },
+    {
+      "guid": "bbb35201095f6bf499fe2cd30ef3b6c7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusRight_Material.fbx"
+    },
+    {
+      "guid": "bbe1b25275c702c4a80f203311c3eed2",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/Prefabs/OSFRightHand.prefab"
+    },
+    {
+      "guid": "bc2242152080e574faadbf3f244c875a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/blue 001_diffuse.png"
+    },
+    {
+      "guid": "bc45f81227048b247adfdb3e566a2b8e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Converted_vray_Material #2143565917.001.mat"
+    },
+    {
+      "guid": "bc68d8427cf8baf49803a0a3888b9067",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/vray_Map #2138624962_VRayColor_0000.png"
+    },
+    {
+      "guid": "bc69bed182ea859469880da3ad5f2f7c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/Shared/NetworkedAvatar/AvatarSDK/Prefabs/Rendering/AVATAR_LOD_DEBUG_CANVAS.prefab"
+    },
+    {
+      "guid": "bd196db46cc260a40b5c181d6aed7b4f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/Drawer/handle.mat"
+    },
+    {
+      "guid": "bd898d2911baf2045a7de16d7b8e6759",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/laminate_floor_02_rough_4k.exr"
+    },
+    {
+      "guid": "be4f8a87204f80c46a1af01f7787fb0d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/TurnLocomotionBroadcaster.cs"
+    },
+    {
+      "guid": "be5585168c67af345b1074140733215b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/TurnerEventBroadcaster.cs"
+    },
+    {
+      "guid": "bea6571c974f89440b3379b928084e50",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/Visuals/RayInteractorPinchVisual.cs"
+    },
+    {
+      "guid": "bebfb74b97b000d4899abbd61f49aa40",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/HandActiveState.cs"
+    },
+    {
+      "guid": "bef2973cf0137a04fbdd59ed0bab09bc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Skinning/GpuSkinning/Shaders/combine-morph-targets.shader"
+    },
+    {
+      "guid": "bf59b10353515d4479c50bf628679733",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/TeleportReticleMaterial.mat"
+    },
+    {
+      "guid": "bf7605932bc514945adb3803a0be2ed9",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/SyntheticControllerInHand.cs"
+    },
+    {
+      "guid": "bfb4ececc38095e468c6d8242cbbfd65",
+      "pathAtExport": "Assets/Voice Over/Loimokseis/loimoxeis 3 Correct.wav"
+    },
+    {
+      "guid": "bffdb7203a568c6489f2c3c342a7f8fa",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/M_Metal_Base_color.png"
+    },
+    {
+      "guid": "bffe606b408599b4fad696ddc889a943",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/TransformFeatureStateProvider.cs"
+    },
+    {
+      "guid": "c0e95fefeb1edac4cbd0c735335ff302",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Aluminium Matte.mat"
+    },
+    {
+      "guid": "c211c4953c57a4843ac5b21db99e8f24",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Prefabs/NetworkRightHand.prefab"
+    },
+    {
+      "guid": "c222820bacaefb2459c709b603670c8d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/Serum End Part.fbx"
+    },
+    {
+      "guid": "c29ecd19ae3de684aaef251a082fd1a3",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Resources/Scriptables/OpenXRBonesCompression/LeftHandSynchronization.asset"
+    },
+    {
+      "guid": "c2ace68b1ed79454a8d2febfb98c4a2b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/TransparentStandard.mat"
+    },
+    {
+      "guid": "c2d3e4f5a6b7488990abcdef12345602",
+      "pathAtExport": "Assets/Scripts/Multiplayer/NetworkRigRemoteHandVisuals.cs"
+    },
+    {
+      "guid": "c2eb7b6fe6533ab438ba8e98587c020f",
+      "pathAtExport": "Assets/UI/Menu/Menu Button 384x384.png"
+    },
+    {
+      "guid": "c3798d66af7bbe54bbfe22a3b302300b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/right_touch_controller_model_skel.fbx"
+    },
+    {
+      "guid": "c38809e0b47723e4f80f21b05c4e4758",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Metal Silver_1_diffuse.png"
+    },
+    {
+      "guid": "c38b0419c4593f04c8ee2da152587634",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143565971.001.mat"
+    },
+    {
+      "guid": "c3ab514dcbd16124c89245cb2582e881",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Betadin/Betadine_mat.mat"
+    },
+    {
+      "guid": "c3ba18e9fa5e9104098cbdbb3e23a5b4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/left_touch_controller_model_skel.fbx"
+    },
+    {
+      "guid": "c3bf6df4a5ac85847831e1fb5fa00ff8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/Visuals/HandPuppet.cs"
+    },
+    {
+      "guid": "c3e2a18295de6ab49a927e0a79be53aa",
+      "pathAtExport": "Assets/ShaderGraph_Dissolve/Utility/SubGraph/PBR_Metallic Sub Graph.shadersubgraph"
+    },
+    {
+      "guid": "c4a7825bad391b24990868ab2ab63de1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/bright metal.001.mat"
+    },
+    {
+      "guid": "c510a82e7ea23064483105aad86206fd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room Patrwn/armchair/aiStandardSurface1.mat"
+    },
+    {
+      "guid": "c517a0767cd07b2409268873f1ec69dd",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Eye_R.mat"
+    },
+    {
+      "guid": "c5af6ab9d1bd4a47970ad151090281f3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/FingerFeatureStateThresholds.cs"
+    },
+    {
+      "guid": "c617833536a7770468a28a51d1ba0721",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical podia/Podia.fbx"
+    },
+    {
+      "guid": "c6205320beaf25644968a9120395a1ad",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/Locomotion/Hotspot.shader"
+    },
+    {
+      "guid": "c62aefa44f5a8614bb49c5b2a6caaff0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/TeleportArcGravity.cs"
+    },
+    {
+      "guid": "c649a66fc27fcb2449e2559ce115602f",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical gloves/Medical Gloves.fbx"
+    },
+    {
+      "guid": "c68dc3484b5708d44ba4e2ccab1decf4",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/XRHandSynchronization/Scripts/HandDescriptionScriptables/BonesStateScriptableObject.cs"
+    },
+    {
+      "guid": "c69e75972982d8d45ba66b99a321ce49",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Textures/Jeans_Dis.jpg"
+    },
+    {
+      "guid": "c72191d7bf62f1f40863181f73cd0b34",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Clock/smallindicator.anim"
+    },
+    {
+      "guid": "c72d22db49a5f6744a655c8c8e4e9f65",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Demo/DefaultRig/Scripts/Grabbing/GrabbableCube.cs"
+    },
+    {
+      "guid": "c7432e5d774b4444cbfdae9f573c7bfb",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Abdominal Pads.mat"
+    },
+    {
+      "guid": "c799c2da4e16fa04ebe2334a3b2a934c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Converted_vray_WallPaint Pearl Dark Grey Satin.001.mat"
+    },
+    {
+      "guid": "c7d0c96f4d96542cd9a593afbcf2c535",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUIStartButton.png"
+    },
+    {
+      "guid": "c7e7036777e598147a06b59a2e51905d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Abdominal Pad_1_0_diffuse.png"
+    },
+    {
+      "guid": "c80311ed06acdf7498cee4dce5c491bf",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PMMA Tr Clear.mat"
+    },
+    {
+      "guid": "c8053f6a4c390b94ab59c45d853d530c",
+      "pathAtExport": "Assets/UI/Menu/user.png"
+    },
+    {
+      "guid": "c90b937da87ec4183bab56bc75798697",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUIStartButtonDown.png"
+    },
+    {
+      "guid": "c9175c22815d0e644914299e3c5216b0",
+      "pathAtExport": "Assets/Scripts/Interactions/ChangePositions.cs"
+    },
+    {
+      "guid": "c91abb465cfe0a940af470d5e07922ec",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/headUp.anim"
+    },
+    {
+      "guid": "c933168a9a0f1e04bb793786b96e2f4b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/MetaQuestTouchPro_Right.fbx"
+    },
+    {
+      "guid": "c9734d7c5b488284581a9082701aa269",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/xmppmax_v1_5_1_1_n.jpg"
+    },
+    {
+      "guid": "c9baea8b9d474934191bc47580d2537c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/UseGrab/UseFingerCurlAPI.cs"
+    },
+    {
+      "guid": "c9fb7e7c823527a4d829620ebfdb0d2b",
+      "pathAtExport": "Assets/UI/Menu/power.png"
+    },
+    {
+      "guid": "ca20b3907ff1c794cb89c1ad2cce8282",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Models/l_hand_skeletal_lowres.fbx"
+    },
+    {
+      "guid": "ca860f34f27c2b949b603cbc6ce22421",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143565981.001.mat"
+    },
+    {
+      "guid": "caf9e1eaddeac0c439230afca4040f8f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/TH_21010651_21011651_21014651_800_800.jpg"
+    },
+    {
+      "guid": "cb028ce99f9700e4197a49bfdcd525dd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Poke/Visuals/HandPokeLimiterVisual.cs"
+    },
+    {
+      "guid": "cb7623a8f0b49cf4dbaa40aea4d4be64",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRHand.cs"
+    },
+    {
+      "guid": "cbc02a91841771b4ab9f12678612c4b1",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scenes/LegsNetworkLoopback/Resources/Humanoid Avatar Rig v3 Variant.prefab"
+    },
+    {
+      "guid": "cca95029e3edae545a6773bae57de419",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_PVC FB Black.009.mat"
+    },
+    {
+      "guid": "ccaba27912d831846bf7a6cd1b24571d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/16 - Default.mat"
+    },
+    {
+      "guid": "cd093acb42a87d94b938d94bed32fbd8",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Betadin/betadine_label 2.png"
+    },
+    {
+      "guid": "cd420526f6b0b0547b743eb6e97b65d8",
+      "pathAtExport": "Assets/Scripts/UI/Floating Effect.cs"
+    },
+    {
+      "guid": "cd97e26827cf5cf4fb50adff3b141069",
+      "pathAtExport": "Assets/Scripts/Interactions/ParticleHandler.cs"
+    },
+    {
+      "guid": "ce06688dbcf52f4439969ba3cf96ee33",
+      "pathAtExport": "Assets/Scenes/Patron/Loimokseis/Timelines/Timeline wrong choice.playable"
+    },
+    {
+      "guid": "ce6184a26b41c254ea24a5968f59d34e",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/l_hand_relax_mid_fist_anim.fbx"
+    },
+    {
+      "guid": "ce67415a9a94bca45a6db7ec544cbd1b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Normals.png"
+    },
+    {
+      "guid": "ce74b4122cadaa44c9d2cf848c3ac42e",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PMMA Tr Blue 5C18.mat"
+    },
+    {
+      "guid": "cf7d1c360a4206f49b204a71c65d209f",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Ga_Skin_Body.mat"
+    },
+    {
+      "guid": "cfa50fc6e259b524ea01ec7dde0f108d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/HandTracking/Shaders/OculusSampleAlphaHandOutline.shader"
+    },
+    {
+      "guid": "cfbee2d75f4d3c34d888c305a84e200a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/M_Metal_Roughness.png"
+    },
+    {
+      "guid": "cfd929db97cb3844284b6747d93a3b75",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scenes/LegsNetworkLoopback/DefaultAnimations/Humanoid Avatar Rig.fbx"
+    },
+    {
+      "guid": "d00925573e00ab7439bb0aad402a12ee",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Loimokseis Room/Bed Cover 2.fbx"
+    },
+    {
+      "guid": "d040b0e6b2a3d3644ac537d2939191db",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/DoorOpenClose1 Fix.anim"
+    },
+    {
+      "guid": "d0c255d07fd68f14b94e55d388e7e6bb",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Models/r_hand_skeletal_lowres.fbx"
+    },
+    {
+      "guid": "d106a4a974656ae419011d71cc18becb",
+      "pathAtExport": "Assets/Scenes/Patron/Loimokseis/Timelines/Timeline 4 correct.playable"
+    },
+    {
+      "guid": "d17425af5fc89a443bba05adbe10381a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/WristAngleActiveState.cs"
+    },
+    {
+      "guid": "d17642d2a5b6bec4f84f81b3fc2e175e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Materials/Textures/Podium/Podium_Normal.png"
+    },
+    {
+      "guid": "d1d4d16fa99c8ca4dab50b31238f2e77",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Top_Diffuse.png"
+    },
+    {
+      "guid": "d238a425b99741340aa454fa39c05f80",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/DorrOpenClose 2 Fix.anim"
+    },
+    {
+      "guid": "d26b3e5e9d57f264cbff2c428fffd38c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Gloves Box.mat"
+    },
+    {
+      "guid": "d28fbd9dc3e70d54eb77bbabae9b0917",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Home_AMEA/Sink Tap (1).fbx"
+    },
+    {
+      "guid": "d30a0ace99ddfca4297ff9ee32d5d6a8",
+      "pathAtExport": "Assets/Samples/Meta Avatars SDK/40.0.1/Sample Scenes/Scenes/AvatarRetargeting/Animations/jump_anim.fbx"
+    },
+    {
+      "guid": "d32bfe77913d75d4f919b5c9ae778fa7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedAvatar/Prefabs/FusionAvatarSdk28Plus.prefab"
+    },
+    {
+      "guid": "d34a688f47a6feb4fb9625754ff5792c",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Leather Genuine Grey.mat"
+    },
+    {
+      "guid": "d3ea8c2b38a2e4abbaaa9caec105388a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/HandGlow/HandRayPinchGlow.cs"
+    },
+    {
+      "guid": "d4a9567b63f402344be887b1a296bcc6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/Materials/DefaultMaterial.fbx"
+    },
+    {
+      "guid": "d4ad4f1ddee798f45a20be4efda35c8c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionEventsConnection.cs"
+    },
+    {
+      "guid": "d51aba9adc35c754cb16e7cca0d49cc3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143565917.001.mat"
+    },
+    {
+      "guid": "d55d42553d4aa794f91ec36b85268610",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/Hanger.fbx"
+    },
+    {
+      "guid": "d5608d3db58b8534f96fec22954b1cca",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Converted_vray_Material #2143566009.001.mat"
+    },
+    {
+      "guid": "d5ce6f10c903473489adf4c509f736f5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/signal1bump.jpg"
+    },
+    {
+      "guid": "d5e48d93b64a9ae4f9fd5a728c8f51af",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/MaterialProperties/MaterialPropertyBlockEditor.cs"
+    },
+    {
+      "guid": "d61ea23b9fd13af40afe326bb23ac1cd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandRootOffset.cs"
+    },
+    {
+      "guid": "d641a50c4fe4ee3489a64cf52b76ae79",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusHand.mat"
+    },
+    {
+      "guid": "d660178ed2b38ec4d9b564be11e400cc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/DPadUnityEventWrapper.cs"
+    },
+    {
+      "guid": "d7292a5e1ae17a64c95f3081d2c6be5a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Materials/OculusTouchForQuest2_MAT.mat"
+    },
+    {
+      "guid": "d79cdd3a29334b241bd1c0f0a0a4987b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Material.001.mat"
+    },
+    {
+      "guid": "d861dc26ca81e88428c1b8c180bc5252",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/Mat 2_diffuse.png"
+    },
+    {
+      "guid": "d952c175ec3c6554199fd744548ce50a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Poke/PokeInteractor.cs"
+    },
+    {
+      "guid": "d9664553cb7e8a04f928841d2277da86",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Clock/Black.001.mat"
+    },
+    {
+      "guid": "d9ad590bd590c2d47b7034bbfc26813b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_l_lo_BaseColor.png"
+    },
+    {
+      "guid": "d9dd12a48a38ab84585ffb673195dd11",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Ga_Eyelash_Diffuse.png"
+    },
+    {
+      "guid": "d9e032ee32cfefe47aecffe6d8106526",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Eye_L.mat"
+    },
+    {
+      "guid": "da5836e87bd3afd4f86dce6fde7168be",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/Hanger/metal_operation table.mat"
+    },
+    {
+      "guid": "da8bcbc2fc730c541baaffb258ad4056",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Shoe cover box.mat"
+    },
+    {
+      "guid": "dbcabaf903a724d41ac8210bebf22fe6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/vray_Map #2138624973_VRayColor_0000.png"
+    },
+    {
+      "guid": "dbcc4fdf63e41474393b86f6034ae64d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Ga_Eyelash.mat"
+    },
+    {
+      "guid": "dbdec9e8a29d8c14d8eac28021a5af1e",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Base.003.mat"
+    },
+    {
+      "guid": "dc01b952a725a5340b84325708437574",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Hat_Normal.png"
+    },
+    {
+      "guid": "dc9815542dfccba43880543512d81006",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Materials/Textures/Podium/Podium_AlbedoTransparency.png"
+    },
+    {
+      "guid": "dca3d72ce32048e409eaaf754210cfe8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OculusHandPinchArrowBlended.fbx"
+    },
+    {
+      "guid": "dca4d8ce87d411741a2cd6cdaa0b762a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Clock/clock.fbx"
+    },
+    {
+      "guid": "dd0c329ef3134f84a93132ad68dd10d8",
+      "pathAtExport": "Assets/Scripts/Interactions/DoorSystem.cs"
+    },
+    {
+      "guid": "dd315c71252e2c44397ea26823afe86e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/vray_Material #2143565915.001.mat"
+    },
+    {
+      "guid": "dd68b7595d64746448da372ac0d0eb76",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Materials/Eye.mat"
+    },
+    {
+      "guid": "ddb9f94a67ef7af4da2448077ab2316b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/green_diffuse.png"
+    },
+    {
+      "guid": "de678b207999a984f9de1fcd246700d6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Hair.mat"
+    },
+    {
+      "guid": "de7552a3f332c5d4885e97b456bc3fea",
+      "pathAtExport": "Assets/UI/Panels/Menu Background 1080x1248 (1).png"
+    },
+    {
+      "guid": "de76f7169412b8f4896235a1585d8939",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/SelectorUnityEventWrapper.cs"
+    },
+    {
+      "guid": "de7d68f9f6bb9b443b231caeb3539615",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Cabinet/Cabinet.fbx"
+    },
+    {
+      "guid": "deb7533ca606ed241b3541310f39ba5d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/UseGrab/UseFingerControllerAPI.cs"
+    },
+    {
+      "guid": "deed68a7fd2e9234899298cf80fae7ad",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/MetaQuestTouchPlus_Right.fbx"
+    },
+    {
+      "guid": "def9eec6cf357af49912da05ed016fe3",
+      "pathAtExport": "Assets/ShaderGraph_Dissolve/Utility/SubGraph/UVSpeed Sub Graph.shadersubgraph"
+    },
+    {
+      "guid": "df288e5b28cae6b458706f86adfa2771",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/Std_Cornea_L_Diffuse.png"
+    },
+    {
+      "guid": "df629bfbb9f50314897e238540db0148",
+      "pathAtExport": "Assets/Animations/Fade in Delirium.anim"
+    },
+    {
+      "guid": "df6875f516b8a624dbee6662305f98bb",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/c3b2fdf4355b.jpg"
+    },
+    {
+      "guid": "df6901fb90dc32b4e99541c0c21d7ed9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/vray_Map #2138626405_VRayColor_0000.png"
+    },
+    {
+      "guid": "df8ed3657e78aee40a5278e8d8fb327f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/leftFrontWing.anim"
+    },
+    {
+      "guid": "df9b1d20352cfb24f968351fa427c5c4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Converted_vray_PVC FB Dark Grey.023.mat"
+    },
+    {
+      "guid": "df9f338034892c44ebb62d97894772f1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRCameraRig.cs"
+    },
+    {
+      "guid": "dfe7d19bd67d6194aa8d188fec2a534f",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Base.mat"
+    },
+    {
+      "guid": "dfee80e1d2a38ea45a01698af1c06034",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProRight_Material.mat"
+    },
+    {
+      "guid": "e00ff2c1207ec064cac7bc321bee406a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionActiveState.cs"
+    },
+    {
+      "guid": "e0386f7eabe03db44ba977184f63376e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Abdominal Pad_1_36.mat"
+    },
+    {
+      "guid": "e06fe30fd4efa954b8f53ccc8da8f46b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/BestHoverInteractorGroup.cs"
+    },
+    {
+      "guid": "e07d6ba3fd61f754db89cbc64175e244",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/xmppmax_v1_1_5_5_n.jpg"
+    },
+    {
+      "guid": "e08ab46e8fb05dc46b34e54466dc11e3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/BoundsClipper.cs"
+    },
+    {
+      "guid": "e0c493fb22c458946bd44e502efbecd7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/LocomotionIndicatorMaterial.mat"
+    },
+    {
+      "guid": "e12d6201ce9b82942b2236bef5b26ac1",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/vray_Map #2138624973_VRayColor_0000.png"
+    },
+    {
+      "guid": "e16332edca839334c9befa10231ebcb7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/84598.jpg"
+    },
+    {
+      "guid": "e1b64269e5ce8d445ad298f4336c0257",
+      "pathAtExport": "Assets/Sound/Interaction_BasicPoke_ButtonPress.wav"
+    },
+    {
+      "guid": "e1c61d6ece5775943bc21673e3336399",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/Plastic.mat"
+    },
+    {
+      "guid": "e20fcbe7f2c351b4096e9fc3f6a320ae",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Animations/r_hand_cap_touch_anim.fbx"
+    },
+    {
+      "guid": "e25260300ae7f6a488a84b7a84030c59",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Hospital Plants/BANANA LEAF STVOL 1008 1  05082019.jpg"
+    },
+    {
+      "guid": "e3265ab4bf004d28a9537516768c1c75",
+      "pathAtExport": "Assets/TextMesh Pro/Fonts/LiberationSans.ttf"
+    },
+    {
+      "guid": "e37b6157d6ad79b499e2abd62750f1b7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/BigRedButton/Materials/Textures/PodiumEmissive.png"
+    },
+    {
+      "guid": "e429b27f97d9dfd44bfaa76ef168bcd1",
+      "pathAtExport": "Assets/Voice Over/Loimokseis/loimoxeis 2.wav"
+    },
+    {
+      "guid": "e4b942cd23c4f494f9df84dfe0d4aaa9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Komodino/all.mat"
+    },
+    {
+      "guid": "e51be91de1e39eb4184b2ec8765c9e9f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Clock/clock.controller"
+    },
+    {
+      "guid": "e5565ca2a5794874d8d981e0b8db3046",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Hat_Diffuse.png"
+    },
+    {
+      "guid": "e59b35dfeb4b6f54e9b2791b2a40a510",
+      "pathAtExport": "Assets/Photon/Fusion/Runtime/FusionBootstrapDebugGUISkin.guiskin"
+    },
+    {
+      "guid": "e5fbfb8f65e7f2144a6772dff28cf875",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Clock/Clock.001.mat"
+    },
+    {
+      "guid": "e63d1ac2583955d48a9a557c66015f11",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/hospital_bed.controller"
+    },
+    {
+      "guid": "e6676b78723484343b451b8ff9ab57fd",
+      "pathAtExport": "Assets/Scenes/Patron/Loimokseis/Timelines/Timeline after selection.playable"
+    },
+    {
+      "guid": "e67f60cbd7a91864193ca8118f67ad7d",
+      "pathAtExport": "Assets/UI/Notifications/OK Button Selected 256x64.png"
+    },
+    {
+      "guid": "e6ba3498ffa1e534b91a07264266e6b8",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/CustomHandLeft.prefab"
+    },
+    {
+      "guid": "e70a2cc03d072ab4d9fbf8301c79c8e4",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_Material #2143565992.001.mat"
+    },
+    {
+      "guid": "e725a070cec140c4caffb81624c8c787",
+      "pathAtExport": "Assets/Photon/Fusion/Assemblies/Fusion.Runtime.dll"
+    },
+    {
+      "guid": "e7fc2338a8eccd042ad3e94abbb2555e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/handWashEdit.fbx"
+    },
+    {
+      "guid": "e84844636b1e0004c85f6e48e0d30cb9",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Materials/CapLogo.mat"
+    },
+    {
+      "guid": "e8648297185cf1541be534e1645a912a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Loimokseis Room/Bed Cover.fbx"
+    },
+    {
+      "guid": "e878dcbefebb86f478a53130d09dd0ac",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Materials/OculusTouchForQuestAndRiftS_Material.fbx"
+    },
+    {
+      "guid": "e8d8321cc119c0e4985230527628342a",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Gauze/Gasa_normal.png"
+    },
+    {
+      "guid": "e8fd33b5d1e6db74597aa86a1a45fd1f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Material.mat"
+    },
+    {
+      "guid": "e95939fdbc6588d4fb99644ee8999018",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Core/Scripts/BaseInteractions/Grabbing/NetworkGrabber.cs"
+    },
+    {
+      "guid": "e9a7676b01585ce43908639a27765dfc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/HandGrab/HandGrabInteractable.cs"
+    },
+    {
+      "guid": "eacafe280fdfa6a44845c135057ae6a5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Materials/OculusTouchForRift_Material.mat"
+    },
+    {
+      "guid": "eb8562823ba201c4f9941b5febbb0b63",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Material fade in fade out.mat"
+    },
+    {
+      "guid": "ec6a2955cc1374944a4634c6f312985a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/FirstPersonLocomotor.cs"
+    },
+    {
+      "guid": "ecbf985b6deb474479cbd6431cc2b9cf",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Bed with Animations/Mat.006.mat"
+    },
+    {
+      "guid": "ecd1062ecb075db4a83f03b03ba8100d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Skinning/GpuSkinningConfiguration.cs"
+    },
+    {
+      "guid": "ed965723b6756dc4faaa410790e98e31",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/ProceduralArcMaterial.mat"
+    },
+    {
+      "guid": "ee1f1406edf162945868fafc408691aa",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Skinning/GpuSkinning/Shaders/skin-to-texture.shader"
+    },
+    {
+      "guid": "ee5ca7de93fbc7e45aa8bbd3f02f39b7",
+      "pathAtExport": "Assets/UI/Menu/Browser.png"
+    },
+    {
+      "guid": "ee6b94f7bc105c24ea3746dc4141a7eb",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/FromOVRControllerDataSource.cs"
+    },
+    {
+      "guid": "ee9d3c5240c611249a93b91ffad764ce",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_PVC FB Dark Grey.014.mat"
+    },
+    {
+      "guid": "eeb09e4f18fd0954796cd0b766d28fa4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Scripts/RespawnOnDrop.cs"
+    },
+    {
+      "guid": "eec470f79e3e5634fbb97bed502c8db4",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Nurse Avatar.fbx"
+    },
+    {
+      "guid": "eedb965bcb4e568479a4828d17fbc1c3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/MultiplayerBlocks/PhotonFusion/NetworkedAvatar/Prefabs/FusionAvatar.prefab"
+    },
+    {
+      "guid": "ef4f51c9b55aa174e96e815bd0e7cbda",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_BasicPoke_ToyButton_Release_03.wav"
+    },
+    {
+      "guid": "efd927768041afd4d90e5d822283f0f4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/ClippedPlaneSurface.cs"
+    },
+    {
+      "guid": "f026be10edaad42429c52aa2200881dd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/ReticleIconDrawer.cs"
+    },
+    {
+      "guid": "f0348736f147cbe4fb029f3026df8038",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC Black Matte Rough.001.mat"
+    },
+    {
+      "guid": "f07b6e278f61e3f479d9a3b975e2eeec",
+      "pathAtExport": "Assets/UI/UiRoundedCorners/Round_Radius_10_Outline.png"
+    },
+    {
+      "guid": "f0b1f0fb1d44c9040b4693cd6022f804",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical glasses/Material.003.mat"
+    },
+    {
+      "guid": "f0d16396e840d534aa085e8f2c700786",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/Unlit Material.mat"
+    },
+    {
+      "guid": "f0e18771eb911534eb264461677af09d",
+      "pathAtExport": "Assets/Animations/Loimokseis/POI_flevokathetiras.controller"
+    },
+    {
+      "guid": "f1a03de1aafd166419d7fae7e1017875",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateGate.cs"
+    },
+    {
+      "guid": "f1a6204f35b7135459c834e7eb447b04",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Abdominal Pad_1_36_diffuse.png"
+    },
+    {
+      "guid": "f1a8a8d203307214ea0df72136536a8d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/7800-2-1000x1000.jpg"
+    },
+    {
+      "guid": "f24cb2556f0be444fa4332f6780197b4",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Tools/Scripts/Misc/ObjectDisplay/HideForLocalUser.cs"
+    },
+    {
+      "guid": "f273abee0604ad2409c9bbc9a60e461e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/FromOVRHmdDataSource.cs"
+    },
+    {
+      "guid": "f2b58dd94e66d7b49802311eb0cc02ea",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Tablet/textures/3d-model.fbx"
+    },
+    {
+      "guid": "f2e7a76641f3c874b80148e3b7799cf9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pills/Medicine.fbx"
+    },
+    {
+      "guid": "f2e8677bac33bbf4eb43f0f1289803a7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Shaders/MetaLit.shader"
+    },
+    {
+      "guid": "f2f73129ee283464ab31cba8510882f0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/OculusRayVisual.shader"
+    },
+    {
+      "guid": "f2f9ddb32c6ba5e4dbe0f3ff6cf497aa",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SimpleHands/ThirdParty/OculusSampleFrameworkHands/CustomHands/Models/RightHandAnimator.controller"
+    },
+    {
+      "guid": "f4290acb83d51f7448a942794de0756e",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/Interactions/HardwareBasedGrabbing/Scripts/Grabbable.cs"
+    },
+    {
+      "guid": "f47ec2467c010bc4f9aa5fbb195b6f05",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/DoorOpenClose2.anim"
+    },
+    {
+      "guid": "f543c249a4279ba45b12bdd43d3a4a89",
+      "pathAtExport": "Assets/UI/Options/Options Panel Background 512x256.png"
+    },
+    {
+      "guid": "f57c51f181259e94e965737a6212409d",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Textures/Photon.png"
+    },
+    {
+      "guid": "f687f6a840ba81249a6cf1c07ed3847c",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Ga_Skin_Body.mat"
+    },
+    {
+      "guid": "f696d643c0a422446ba7c272bbfcdccd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143565980.001.mat"
+    },
+    {
+      "guid": "f70e3934aff73ac4cba0ae713ec09b52",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Surgical Table/Rubber.mat"
+    },
+    {
+      "guid": "f76ac96be52ce764aa832df99e34d87a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/DistanceReticle.mat"
+    },
+    {
+      "guid": "f7cbf6b36a63cf5468141cf570e13570",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Glass Clear0.001.mat"
+    },
+    {
+      "guid": "f892af86578f82443a9682973148029a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/LOD/AvatarLODManager.cs"
+    },
+    {
+      "guid": "f8cbc4b1482a38c4699412a8d2d368da",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Flevokathetiras/back.mat"
+    },
+    {
+      "guid": "f9e595c20d6f78e468e4805465f73c12",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Delirium Room/Converted_vray_Material #2143566007.001.mat"
+    },
+    {
+      "guid": "fac661c83eb46e84695827d72013b968",
+      "pathAtExport": "Assets/Voice Over/Loimokseis/loimoxeis 2 Correct.wav"
+    },
+    {
+      "guid": "fac9ae0dfd008454fadd72b478ef1ddf",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Delirium Room props/Converted_vray_PVC FB Black.mat"
+    },
+    {
+      "guid": "faff192ad5862624d8a3be26ae4d15d6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/Locomotion/TransparentVertexTexture.shader"
+    },
+    {
+      "guid": "fb1fc77cc58099740908e2cb91b7476a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/Converted_vray_PVC White Glossy.001.mat"
+    },
+    {
+      "guid": "fbe436d1f5f017a4699476ff935a1b51",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Whasing Room loimwkseis/vray_Map #2138624978_VRayColor_0000.png"
+    },
+    {
+      "guid": "fbf59dac2c199e44fb42aa5ecd07dd33",
+      "pathAtExport": "Packages/com.meta.xr.sdk.avatars/Scripts/Common/Shaders/Configurations/Recommended/MetaStyle2ShaderConfigurationVertex.asset"
+    },
+    {
+      "guid": "fc0fd19b38dfb6a4ba0336bf7b518c8e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/Locomotion/LocomotionPointer.fbx"
+    },
+    {
+      "guid": "fc3fdb61943628644b7df91d34f4b4ad",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/Mat 001.mat"
+    },
+    {
+      "guid": "fc948f57db734e74094dc532bdbbc3e8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Animation/MetaQuestTouchPlusRightAnimation.controller"
+    },
+    {
+      "guid": "fce613e6639c4c445bd3a5c9c485b4ad",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Nurse/Body Nurse.mat"
+    },
+    {
+      "guid": "fcef3e50bc18d6e47a34b71341296bce",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/User Avatar/Body.mat"
+    },
+    {
+      "guid": "fdeaf26e845dc5841bcd31de97d26003",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/TagSet.cs"
+    },
+    {
+      "guid": "fe393ace9b354375a9cb14cdbbc28be4",
+      "pathAtExport": "Assets/TextMesh Pro/Shaders/TMP_SDF-Mobile.shader"
+    },
+    {
+      "guid": "fe6dffbda2f52bb4998faa03fee04336",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_r_lo_Normal.png"
+    },
+    {
+      "guid": "ff3601d5aedce1a49be4e888d05af29b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Medical Storage/Mask Box_diffuse.png"
+    },
+    {
+      "guid": "ff5791497b290334cb5242e6777d974b",
+      "pathAtExport": "Assets/Photon/Fusion/FusionAddons/XRShared/Runtime/SharedDesign/Models/CapsuleDummy/Models/PhotonLogo.fbx"
+    },
+    {
+      "guid": "ff5cb479f805d5947ae461c3c5855bac",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Serum System/white 001_diffuse.png"
+    },
+    {
+      "guid": "ffa4023c13d41a044b58917649a308f9",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Loimokseis/new patient/Std_Eye_L_Normal.png"
+    },
+    {
+      "guid": "ffd70f105e5a749489578054b505f3fd",
+      "pathAtExport": "Assets/3D_Objects/_EQUIPMENT/Medical gloves/Glove_rubber.mat"
+    }
+  ]
+}

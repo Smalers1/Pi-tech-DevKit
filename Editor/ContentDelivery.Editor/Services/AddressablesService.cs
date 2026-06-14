@@ -424,7 +424,7 @@ namespace Pitech.XR.ContentDelivery.Editor
             string resolvedLabId = string.IsNullOrWhiteSpace(labIdHint) ? "default" : labIdHint.Trim();
             IAddressablesConventionAdapter adapter = AddressablesAdapterResolver.Resolve(config);
             string groupName = adapter.BuildGroupName(config, resolvedLabId);
-            string addressKey = BuildDefaultPrefabAddressKey(resolvedLabId, prefabAsset.name);
+            string addressKey = ComputeAddressKey(resolvedLabId);
             result.prefabAssetPath = assetPath;
             result.prefabGuid = guid;
             result.groupName = groupName;
@@ -698,7 +698,7 @@ namespace Pitech.XR.ContentDelivery.Editor
             string resolvedLabId = string.IsNullOrWhiteSpace(labIdHint) ? "default" : labIdHint.Trim();
             IAddressablesConventionAdapter adapter = AddressablesAdapterResolver.Resolve(config);
             groupName = adapter.BuildGroupName(config, resolvedLabId);
-            addressKey = BuildDefaultPrefabAddressKey(resolvedLabId, prefabAsset.name);
+            addressKey = ComputeAddressKey(resolvedLabId);
 
             AddressableAssetSettings settings = AddressableAssetSettingsDefaultObject.Settings;
             if (settings == null)
@@ -740,10 +740,6 @@ namespace Pitech.XR.ContentDelivery.Editor
             }
         }
 
-        /// <summary>
-        /// Returns the canonical Addressables address key for a lab's main prefab.
-        /// Public so that report services can include it in build reports.
-        /// </summary>
         /// <summary>
         /// Project-relative folder for a lab + version under the local Addressables workspace (no <c>[BuildTarget]</c> suffix).
         /// Used for co-located publish JSON reports. Empty when lab id or version id is missing/invalid.
@@ -817,11 +813,6 @@ namespace Pitech.XR.ContentDelivery.Editor
         {
             string normalizedLabId = NormalizeKeySegment(labId, "default");
             return $"lab/{normalizedLabId}/scene/main".ToLowerInvariant();
-        }
-
-        private static string BuildDefaultPrefabAddressKey(string labId, string prefabName)
-        {
-            return ComputeAddressKey(labId);
         }
 
         public int CleanOtherLabGroups(AddressablesModuleConfig config, string labIdHint)

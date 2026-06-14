@@ -5,7 +5,8 @@
         "Pitech.XR.Scenario",
         "Pitech.XR.Core.Editor",
         "Pitech.XR.Interactables",
-        "Pitech.XR.Quiz"
+        "Pitech.XR.Quiz",
+        "Pitech.XR.Stats"
     ],
     "includePlatforms": [
         "Editor"

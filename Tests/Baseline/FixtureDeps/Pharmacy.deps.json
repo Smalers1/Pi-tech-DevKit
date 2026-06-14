@@ -1,0 +1,1749 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "guid": "00c92cc934ef3994fb48a266dcad8e36",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/020.mat"
+    },
+    {
+      "guid": "01a69c8ba702fbb418e7d97c68494f70",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/NEON GREEN_Roughness.jpg"
+    },
+    {
+      "guid": "01ac879f6ce09924e9c26663f798beaf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Materials/OculusTouchForQuestAndRiftS_Material.mat"
+    },
+    {
+      "guid": "02372cc918164f0408a88972a1d81359",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/031.mat"
+    },
+    {
+      "guid": "0287ecfb5cd4770498d144bf102abca6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Right_PC_Screen_Pharmacy_Store.png"
+    },
+    {
+      "guid": "02db93a9afba0824888bef89e236ca36",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_011.jpg"
+    },
+    {
+      "guid": "03190b23f0f30f74dacc4ed3992541b6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Tunneling/TunnelingEffect.cs"
+    },
+    {
+      "guid": "038d627f7b72e904382b2b0f8fb30c29",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/TubeRenderer.cs"
+    },
+    {
+      "guid": "04418ea8bcb2d494eb1ad885a10c0cef",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_010.jpg"
+    },
+    {
+      "guid": "04745fb487f34764d8c3d24476072dfc",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/033.mat"
+    },
+    {
+      "guid": "063f7a502a7e06e428090710e8286b2b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/OculusTouchForRift/touchController_albedo.png"
+    },
+    {
+      "guid": "07a2363a4ae18f447ba93c3bf7fc2c23",
+      "pathAtExport": "Assets/Timelines/Aigaiou/Timeline 2 (1st question)Timeline.playable"
+    },
+    {
+      "guid": "07ff0f59c4b4bad49a4f58f5e8ba7c10",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/021.mat"
+    },
+    {
+      "guid": "081b28b195e4f5746a573ec466899ed6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_Diffuse.jpg"
+    },
+    {
+      "guid": "08f7cfb1f9629da4494ac0840f3a3cfd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/ShapeRecognizerActiveState.cs"
+    },
+    {
+      "guid": "095633f478938f04091655b868edf41e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/02.mat"
+    },
+    {
+      "guid": "09ccd8c0c1554c745816f5a80923ecc9",
+      "pathAtExport": "Assets/Animations/Pharmacy/Female Customer Animator Controller.controller"
+    },
+    {
+      "guid": "0a9e5f9e60d23a54d9bc723bb8ee2a19",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_024.jpg"
+    },
+    {
+      "guid": "0b517b536c6fcbd44a243164ae2887de",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_028.jpg"
+    },
+    {
+      "guid": "0b567a7c6d47e774ca65c81546f02af5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OVRHand_R.fbx"
+    },
+    {
+      "guid": "0b9b208c2a988f243b2a6c5b6562b248",
+      "pathAtExport": "Assets/Animations/Pharmacy/FemaleCustomer LipSync/07_FemCust_Answer_v01.anim"
+    },
+    {
+      "guid": "0bf780b55f0696845aa8f62a779f879b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/037.mat"
+    },
+    {
+      "guid": "0c36d956bf264294ebb871f3b4e04372",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/SecondaryInteractorConnection.cs"
+    },
+    {
+      "guid": "0c6aa09f2d128af4d93fb9fc29ecec33",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/ReticleGhostDrawer.cs"
+    },
+    {
+      "guid": "0cf00a93483fd1b4ba357bf6f764d6e6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/InteractorUnityEventWrapper.cs"
+    },
+    {
+      "guid": "0e9f60f46a2a28244ae0ae997ba858ed",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Injured Female 30Y Secondary/Std_Eye_L_Diffuse.jpg"
+    },
+    {
+      "guid": "0eacb17724713564b95b70568847f7c1",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Clothes/Slim_Jeans_Diffuse.jpg"
+    },
+    {
+      "guid": "10dfcbea37d8c4a458d437bf08b4ead3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/013.mat"
+    },
+    {
+      "guid": "115a4fd4ac2e6844daa2305603ce9688",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionEventSelector.cs"
+    },
+    {
+      "guid": "11932d9bef2656d4cbb4d4471f25948c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/041.mat"
+    },
+    {
+      "guid": "11a9df3a9754631449547b91038690d4",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_Diffuse Black.jpg"
+    },
+    {
+      "guid": "12e0d551f2089fc4380c1368a69a3512",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Animation/MetaQuestTouchPlusLeftAnimation.controller"
+    },
+    {
+      "guid": "13f92dc3773e94e4bb99958bbd939c29",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OVRHand_L.fbx"
+    },
+    {
+      "guid": "14ba79cd9a63ea54981de8f2f97fd9e2",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Upper_Teeth 1.mat"
+    },
+    {
+      "guid": "14c196728e798074b96c73ee1527d61f",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/White marble tile floor_BaseColor.jpg"
+    },
+    {
+      "guid": "151f9be47337d9e4daef0b8725e30eab",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/FromHandPrefabDataSource.cs"
+    },
+    {
+      "guid": "189ea817d962af84893a69754bc2b3f8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Tunneling/WallPenetrationTunneling.cs"
+    },
+    {
+      "guid": "194b7d1054b8fa64b9bdcea46d06c3a1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateTracker.cs"
+    },
+    {
+      "guid": "199b5a45eefa3d243927841dd22f7dcb",
+      "pathAtExport": "Assets/Animations/Pharmacy/FemaleCustomer LipSync/06_FemCust_Answer_v01.anim"
+    },
+    {
+      "guid": "1a379f34d4f4f2e408d34f14bfb753ce",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/Hand.cs"
+    },
+    {
+      "guid": "1a56054f6e3838f4e85dce4e71979800",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/InteractorActiveState.cs"
+    },
+    {
+      "guid": "1ac908096e6d5494086bb1ec6695ae39",
+      "pathAtExport": "Assets/Timelines/Aigaiou/Timeline 1Timeline.playable"
+    },
+    {
+      "guid": "1b67afcff5948be44ab5b526df1c93b5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/08.mat"
+    },
+    {
+      "guid": "1b6b944de90aa9047929c54d143ff2da",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/IndexPinchSelector.cs"
+    },
+    {
+      "guid": "1b796dd7383dc3046a6dd48ed74ec5c1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_013.jpg"
+    },
+    {
+      "guid": "1bb5261d7cd290b4eacc0fd20e2db09f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Visuals/InteractableDebugVisual.cs"
+    },
+    {
+      "guid": "1cd9780be7e512049b4d33d5c9d0ac92",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateSelector.cs"
+    },
+    {
+      "guid": "1d2705674196dfc4da9c25fbacda72d8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/ActiveStateUnityEventWrapper.cs"
+    },
+    {
+      "guid": "1dcabe7b065172d40991aecec9fc6555",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Polyline/TransformsPolyline.cs"
+    },
+    {
+      "guid": "1e7cf4353cbb0a64fb62028a4a28f939",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/040.mat"
+    },
+    {
+      "guid": "1ee82d2d63daf8b4c93040e331f8e801",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/DefaultSettings/PoseDetection/DefaultThumbFeatureStateThresholds.asset"
+    },
+    {
+      "guid": "1efe15f78df058247b8d5be036c27d0c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/049.mat"
+    },
+    {
+      "guid": "1f1c685e906d1e5459daf77b45927644",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-Regular SDF.asset"
+    },
+    {
+      "guid": "20c521b63e10bf54f8768613a3592e9e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_043.jpg"
+    },
+    {
+      "guid": "223462169868d0c409b2e67aca5c3d90",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_039.jpg"
+    },
+    {
+      "guid": "22586d1cc9c35b449863f7bb8e64ee3a",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/Canvas_shoes_Diffuse.jpg"
+    },
+    {
+      "guid": "2518c50cb3fc6a6458d4b743c2f69c7d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/PointableCanvasModule.cs"
+    },
+    {
+      "guid": "25540f881d2aa9a48b9f03e7bee188ef",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/039.mat"
+    },
+    {
+      "guid": "25b5eb0761edb6346b0b3444af76b55e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/OculusTouchForQuest2_Right.fbx"
+    },
+    {
+      "guid": "2606bf2f0c914a7aba4390f29ba2eb6e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/HMD/Hmd.cs"
+    },
+    {
+      "guid": "2635022ca6033e94db8e0a546fc48683",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_031.jpg"
+    },
+    {
+      "guid": "2771258a413ee134ab18726bc0362e4d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_l_lo_Normal.png"
+    },
+    {
+      "guid": "29a585203c33cfd4dab94ebe616d654d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_09.jpg"
+    },
+    {
+      "guid": "2a00887df9d5b3f4f9f572dcfb3e89b9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Light grey marble.mat"
+    },
+    {
+      "guid": "2a1e967f504dc5645801ab377e841201",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Black leather.mat"
+    },
+    {
+      "guid": "2a993b17c3b415b4596fa9db1d5ef64a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/010.mat"
+    },
+    {
+      "guid": "2b1aaafc31655024394d83dc00911c1c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/MetaQuestTouchPlus_Left.fbx"
+    },
+    {
+      "guid": "2b63b05eed22f114ca34d722211cf12e",
+      "pathAtExport": "Assets/Scenes/Aigaiou/Pharmacy/Aigaiou Volume Profile.asset"
+    },
+    {
+      "guid": "2b9768cc0be08784b91b7da60696ba29",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/MetaQuestTouchPro_Left.fbx"
+    },
+    {
+      "guid": "2bb3e18e6e9f9b445870b69c925e409a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Material #79.mat"
+    },
+    {
+      "guid": "2c37a76f937891646bc5571258f7f2fd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_025.jpg"
+    },
+    {
+      "guid": "2c94075c83c22f2479f87ebadf2f37fc",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/046.mat"
+    },
+    {
+      "guid": "2cd6eda636b9144439141427c0beb50d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/AnimatedSnapTurnVisuals.cs"
+    },
+    {
+      "guid": "2cfa8921821fe1345b657e836ceac402",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Lower_Teeth_Diffuse.jpg"
+    },
+    {
+      "guid": "2ea89d6e4d9c45940908e3f337989a9a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusLeft_Material.fbx"
+    },
+    {
+      "guid": "2fadc56f841e8224ea1ff539811fc765",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProLeft_Material.fbx"
+    },
+    {
+      "guid": "2ff26c21ac005534e8af75f8427be9d1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/Visuals/HandGrabStateVisual.cs"
+    },
+    {
+      "guid": "30afd336d505d814a808bcf193673aa4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/025.mat"
+    },
+    {
+      "guid": "318a75d661e04f443aa33387ed4415ce",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/06.mat"
+    },
+    {
+      "guid": "31944aa7b9eeafb458a76f2d3ba46e9b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/NEON GREEN_BASE MAP.jpg"
+    },
+    {
+      "guid": "32fbc8bcebb64584da5868aeeb086cda",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/OculusTouchForQuestAndRiftS_Left.fbx"
+    },
+    {
+      "guid": "331d7f91e4f2d20498cb8079638deeda",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/LocomotionAxisTurnerInteractor.cs"
+    },
+    {
+      "guid": "331f09ef3178d9642bd1701b1182dd6e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/047.mat"
+    },
+    {
+      "guid": "335de39a03068a74eaa5785bde4297bd",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_026.jpg"
+    },
+    {
+      "guid": "34aae21d323632d4095d3fe08342dac9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/black.001.mat"
+    },
+    {
+      "guid": "36023d0ad9f66204f997db244f2c274d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_042.jpg"
+    },
+    {
+      "guid": "3673df66324d8f34d9433049c54de631",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ControllerRef.cs"
+    },
+    {
+      "guid": "36ba924fedc25b24e895a7fbd7ee826d",
+      "pathAtExport": "Assets/Timelines/Aigaiou/Timeline 6 (5th question)Timeline.playable"
+    },
+    {
+      "guid": "374056e80efce2b41ba7ee877bbff678",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Light Grey Matte Plastic.mat"
+    },
+    {
+      "guid": "37ba10a26a648144fa2390c8adfb2c8a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/OculusTouchForQuestAndRiftS_Right.fbx"
+    },
+    {
+      "guid": "38db45e6a1a371f42b564b61a03d9f5a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/ControllerPinchInjector.cs"
+    },
+    {
+      "guid": "38fdec864bf6fab40b0e372b9ca65ff9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_021.jpg"
+    },
+    {
+      "guid": "3952177e694781b48a591cf609642190",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Tunneling/LocomotionTunneling.cs"
+    },
+    {
+      "guid": "398eca3ae95f90c4baf9c96c43386627",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/LIP Sync/Handycap Head.mask"
+    },
+    {
+      "guid": "3a63cc48f2531334dbb1fb0c8652a827",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_040.jpg"
+    },
+    {
+      "guid": "3abd38e0d18db6c49b2c96961d69d024",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/batteryIndicator_mat.mat"
+    },
+    {
+      "guid": "3b28906a50ed917468e17d810b970841",
+      "pathAtExport": "Assets/Animations/Pharmacy/FemaleCustomer LipSync/08_FemCust_Answer_v01.anim"
+    },
+    {
+      "guid": "3c08ce434693a4740bb5d256ffa5f8d1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Animation/OculusTouchRiftLeftAnimation.controller"
+    },
+    {
+      "guid": "3d03f0cc40bd94046bbabd64e26ed601",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/OculusRayCursor.shader"
+    },
+    {
+      "guid": "3db1fa1fd642a3b468e36ce226570b3d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/016.mat"
+    },
+    {
+      "guid": "3dc9b36eb85fa424489d9d859f737ab4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusCursorMaterial.mat"
+    },
+    {
+      "guid": "3e2cb428b733e56478338c736189a0d5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ControllerActiveState.cs"
+    },
+    {
+      "guid": "3eac11706db359b49bf0ea4b2576b331",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/UseGrab/HandGrabUseInteractor.cs"
+    },
+    {
+      "guid": "3ed00fa47a209ff40be878682fb542ec",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_034.jpg"
+    },
+    {
+      "guid": "3eea87b91f85d324797846a5c54875b0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Right_BaseColor_AO_AlphaRoughness.png"
+    },
+    {
+      "guid": "3f032750a244319498ff63757c66cf04",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/BlockData/RoomModel/Shaders/TransparentTexture.shader"
+    },
+    {
+      "guid": "3f372cf1215ef50499f9b9d82e05831a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/Visuals/TeleportReticleDrawer.cs"
+    },
+    {
+      "guid": "3f46854225fc7c942b9b0c88e671685d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/PC Monitor.fbx"
+    },
+    {
+      "guid": "3f974d61f39a79c408d54b32f31f186c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Animation/OculusTouchQuestAndRiftSRightAnimation.controller"
+    },
+    {
+      "guid": "3ffe41fe81087fa41a2062cc69b99615",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/PointableCanvas.cs"
+    },
+    {
+      "guid": "4005ec4dc7a14dd408f4b8f39b8a9937",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/batteryIndicatorTexture32.png"
+    },
+    {
+      "guid": "4020c55bb1c1f664a9a6661cdfd00001",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/038.mat"
+    },
+    {
+      "guid": "4082947b90144f241b08b9be47b353d0",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/022.mat"
+    },
+    {
+      "guid": "417817ee9b785e341b31ce731f028317",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandPointerPose.cs"
+    },
+    {
+      "guid": "42bba106679662e4b925dca314de22c2",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Virtual/VirtualSelector.cs"
+    },
+    {
+      "guid": "42e954c6bbc96e147a3281dbfe30806a",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/Ga_Skin_Body_Normal.png"
+    },
+    {
+      "guid": "438e12c9002f2c8489c81a2d3472b18d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Controllers/ControllerPointerPose.cs"
+    },
+    {
+      "guid": "44d4ace1d364b1d4295500d1ebbeb944",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Plastic_Specular.jpg"
+    },
+    {
+      "guid": "454133029b29bc94397ffa3cd55bd3e2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Tv display.002.mat"
+    },
+    {
+      "guid": "45696e5f3c1b4f74eb91d30a67a77825",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_045.jpg"
+    },
+    {
+      "guid": "4586bbc8f000620428a7a2c0ff17013b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/TunnelingEffect.mat"
+    },
+    {
+      "guid": "4627faece16a2b0408b119b03e62ce90",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/048.mat"
+    },
+    {
+      "guid": "46dccdd9131a2204586bf2d02868d1d1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_030.jpg"
+    },
+    {
+      "guid": "4733c5f009d26ad49b3685117b8d3eb4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/RayInteractor.cs"
+    },
+    {
+      "guid": "484167e684014224c9a8bff92b293c6a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/HMD/HmdRef.cs"
+    },
+    {
+      "guid": "4855895ba1c44959a306beb7ae318fc2",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/FromOVRHandDataSource.cs"
+    },
+    {
+      "guid": "488896fe86105104a8453d9f173cf62a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Controllers/ControllerOffset.cs"
+    },
+    {
+      "guid": "49ca43deb2bfd6b42a01b560a56e281c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_029.jpg"
+    },
+    {
+      "guid": "4a0124413f6c41543a1bdffc9f0fe78c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_Locomotion_Exit.wav"
+    },
+    {
+      "guid": "4a8e946ed663e4a4db0f537e2965635d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Animation/OculusTouchQuest2LeftAnimation.controller"
+    },
+    {
+      "guid": "4aa4a1b9a03d9b54d80515831235fbe9",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Textures/Reticle-Circle.png"
+    },
+    {
+      "guid": "4ac558de6fb637548a9e3e0483939688",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/BestSelectInteractorGroup.cs"
+    },
+    {
+      "guid": "4ae60cfa43388e449a7518f36418f81c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/Controller.cs"
+    },
+    {
+      "guid": "4b13877204bf5394c80dc8b6e469ec13",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusMATphong_right.mat"
+    },
+    {
+      "guid": "4bd1f1e23a51a7d428dd152466736b7a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/RectTransformBoundsClipperDriver.cs"
+    },
+    {
+      "guid": "4c1fa63713b41504785008e2d05456d3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/034.mat"
+    },
+    {
+      "guid": "4cc29cd48c46e2a4da61b8defb625429",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_046.jpg"
+    },
+    {
+      "guid": "4cfe1df7ed391a24fbe2a2d275e81b06",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/ShapeRecognizer.cs"
+    },
+    {
+      "guid": "4da77ccaa334a3e45961430811956356",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Animation/MetaQuestTouchProRightAnimation.controller"
+    },
+    {
+      "guid": "4ded339bc14f1e64bbba44dc513838f9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_038.jpg"
+    },
+    {
+      "guid": "4dffc2a801520fb4cbe2c11894faf431",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/JointsRadiusFeature.cs"
+    },
+    {
+      "guid": "4f4594d3823cc9e4ea68ebb1e27310da",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Audio/Content/Interaction_Locomotion_Enter.wav"
+    },
+    {
+      "guid": "4f62acf90e41ded439f14c4e15871abd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/TeleportInteractor.cs"
+    },
+    {
+      "guid": "500d0ce5113b0dc47930faa21d4f7864",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_044.jpg"
+    },
+    {
+      "guid": "50bf06fba1937cc418b4589c8a76c85d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/029.mat"
+    },
+    {
+      "guid": "50ef1203baeb9b644837e8cfdb4c9bb7",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/pharmacy.fbx"
+    },
+    {
+      "guid": "50f211aff3d26554691f0499eaa219e5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/DistantInteractionTubeVisual.cs"
+    },
+    {
+      "guid": "5178bc8574ce2bf4388e787a2e2af326",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRHeadsetEmulator.cs"
+    },
+    {
+      "guid": "518633759b8ee8c4db5228b6b85f6397",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/black.mat"
+    },
+    {
+      "guid": "522759a77927c284fad2693bc4cbbdb3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/011.mat"
+    },
+    {
+      "guid": "528296ec8cb7e9e4b836b8aa1197aa98",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Materials/pasted_touchPBS_MAT.fbx"
+    },
+    {
+      "guid": "5331531e72166e84487afc18fe23ca15",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/_NEW TEXTURES/ceramic_tiles_seashell_Base_Color.jpg"
+    },
+    {
+      "guid": "536b3b80912e6224dac3045f195cd278",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/NEON GREEN_Normal.jpg"
+    },
+    {
+      "guid": "5445b265fb5ad554aa26a0fcba3c333c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Screen.mat"
+    },
+    {
+      "guid": "546c836d3c95db04182543d3541aeb12",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/ConicalFrustum.cs"
+    },
+    {
+      "guid": "5487a7af70ff7364996d8da93d056fa9",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusMATphong_left.mat"
+    },
+    {
+      "guid": "54de61a422259174dab2a1b2bee427d4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/woodcreator_1_basecolor.jpg"
+    },
+    {
+      "guid": "57810e99e5374304f9bca8395d497369",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_Normal Light Blue.png"
+    },
+    {
+      "guid": "592ac3f1a010f3d48970c5beb7e4f68f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/Axis2DActiveState.cs"
+    },
+    {
+      "guid": "5a52cc62b98662b4e9ac356027b2b070",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandTransformScaler.cs"
+    },
+    {
+      "guid": "5ab90b5d07fb7e240975058b36a342a4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Slide/SlideLocomotionBroadcaster.cs"
+    },
+    {
+      "guid": "5b023183069df224080314a560e6e1ff",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/BuildingBlocks/BuildingBlock.cs"
+    },
+    {
+      "guid": "5b47dd96177c39842951ddbaae3f2a54",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Hair_Transparency.mat"
+    },
+    {
+      "guid": "5c67033f580359c4581dff1ccffcca91",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/DataModifiers/SyntheticHand.cs"
+    },
+    {
+      "guid": "5c6f867d6d386404f97b983764a669d8",
+      "pathAtExport": "Assets/Timelines/Aigaiou/Timeline 4 (3rd question)Timeline.playable"
+    },
+    {
+      "guid": "5c76dd1ed80718141bb0fab2f57c95a9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/035.mat"
+    },
+    {
+      "guid": "5dc695c64a70a9a4bb2af9bb68aa5131",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/FemaleCustomerBlendShapes.fbx"
+    },
+    {
+      "guid": "5de6a3462dd0beb4ab6b013a54fae6c3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_016.jpg"
+    },
+    {
+      "guid": "5e38df5678b37d6429ef2446d3589e00",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Visuals/InteractorDebugVisual.cs"
+    },
+    {
+      "guid": "5eaa9c22444b590479560caa54b101a9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/09.mat"
+    },
+    {
+      "guid": "5fbf50e63902e8941b9dbfec75e76b89",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/023.mat"
+    },
+    {
+      "guid": "61c65921e33ba0743ac70e0276cc80fb",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_017.jpg"
+    },
+    {
+      "guid": "629afc28660b7ab46891091c1ad43f72",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Injured Female 30Y Secondary/Std_Cornea_R_Diffuse.jpg"
+    },
+    {
+      "guid": "62a9d09916ac8bf4ba30ba4803d3503a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Animation/OculusTouchQuest2RightAnimation.controller"
+    },
+    {
+      "guid": "635f432b0b5a8c44992364202b2f5d5b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/DistanceHandGrab/DistanceHandGrabInteractor.cs"
+    },
+    {
+      "guid": "63d10a535aa014c4f9e3f04185131351",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRLeftHand.fbx"
+    },
+    {
+      "guid": "6418748e9d0ad7644ae0f0586c655804",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Left_BaseColor_AO_AlphaRoughness.png"
+    },
+    {
+      "guid": "643aad0e04324874b9b3e525820d8671",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_036.jpg"
+    },
+    {
+      "guid": "6557dba7c7035a3448c0583098600c6c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Editor/BuildingBlocks/Icons/ovr_bb_icon.png"
+    },
+    {
+      "guid": "67b598f6f124559418cfdb7df9f7a390",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/BlackPlastic.mat"
+    },
+    {
+      "guid": "67be4f15fa1af0c4486fedbfeb87774c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Textures/fingers_glow_mask.png"
+    },
+    {
+      "guid": "67fb2ae006d618c4180efcabc2481fcf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateNot.cs"
+    },
+    {
+      "guid": "6831fba0792a2634c82f80e9e2e3a182",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/017.mat"
+    },
+    {
+      "guid": "68e6db2ebdc24f95958faec2be5558d6",
+      "pathAtExport": "Assets/TextMesh Pro/Shaders/TMP_SDF.shader"
+    },
+    {
+      "guid": "692e22a925612854a95b94c5e3a49d50",
+      "pathAtExport": "Assets/Animations/Pharmacy/Talking Aggresively.anim"
+    },
+    {
+      "guid": "697d9a99ae3c7784bbef700ed300a1ca",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusHandWire.mat"
+    },
+    {
+      "guid": "69a56a590bc345b42b367a1c73088cce",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/VirtualActiveState.cs"
+    },
+    {
+      "guid": "6bcb907778a00234ea4e7aa9cf238631",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/TouchHandGrab/TouchHandGrabInteractor.cs"
+    },
+    {
+      "guid": "6d2303af7d4c7114681742031c4a0ac6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Controllers/ControllerSelector.cs"
+    },
+    {
+      "guid": "6d84eb0778fdb3249ab9eb38944e5083",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/05.mat"
+    },
+    {
+      "guid": "6d9d81be1c5cd1942a7572d99a4fca60",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/ReticleMeshDrawer.cs"
+    },
+    {
+      "guid": "6db22cd790e38104ab9b8a3273aca54e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_020.jpg"
+    },
+    {
+      "guid": "6f21528085b305345aa60f40f4a5a5d8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/Visuals/RayInteractorRayVisual.cs"
+    },
+    {
+      "guid": "6f37195661808b94ea8146879c3b7134",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Upper_Teeth_Diffuse.jpg"
+    },
+    {
+      "guid": "6f9b55540258ba64198cfd8c0e5e50cc",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/026.mat"
+    },
+    {
+      "guid": "6fce4d906dba56f4bb507682dbb5b81d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProRight_Material.fbx"
+    },
+    {
+      "guid": "700142580560ace4cbddcacbae9ae39b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OpenXRRightHand.fbx"
+    },
+    {
+      "guid": "708e1d9f801e70b44b61e593f914dc89",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/Turtleneck_sweater_Diffuse.jpg"
+    },
+    {
+      "guid": "714c43cb5dcd9b54aab67d0eeab19590",
+      "pathAtExport": "Assets/Animations/Pharmacy/FemaleCustomer LipSync/05_FemCust_TalkAboutPain_v01.anim"
+    },
+    {
+      "guid": "7554c7588e862fc4a8f589cab003b53b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/018.mat"
+    },
+    {
+      "guid": "75d3a1facc5f29d4ea65d3af68af5c9e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/TagSetFilter.cs"
+    },
+    {
+      "guid": "76f6075ec84afca46b2a5e5b3bfdf8ce",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Materials/OculusTouchForRift_Material.fbx"
+    },
+    {
+      "guid": "76f7ee29d1c215a4e89fdc288f885787",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Material #75.mat"
+    },
+    {
+      "guid": "78e0f69dd04ac2440a08fa31c8d96f83",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Microgestures/MicroGestureUnityEventWrapper.cs"
+    },
+    {
+      "guid": "79ed6830845d2b9458c589c2ba879095",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_06.jpg"
+    },
+    {
+      "guid": "7b4efc98fd8d0c74fa526e4e85133b43",
+      "pathAtExport": "Assets/Audio/Music/Lo Fi music.mp3"
+    },
+    {
+      "guid": "7c03a1f52a4ed51428913c25ec54afc0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusRayMaterial.mat"
+    },
+    {
+      "guid": "7daff26e66096cd49a253ca3ab592c03",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/DataModifiers/LastKnownGoodHand.cs"
+    },
+    {
+      "guid": "7dfe22bf3b45fdf47a3798ab136268ad",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_048.jpg"
+    },
+    {
+      "guid": "7e933e81d3c20c74ea6fdc708a67e3a5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRManager.cs"
+    },
+    {
+      "guid": "7ec6dda040b7b3d48aa49cac620cd4e0",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/036.mat"
+    },
+    {
+      "guid": "7f1a6626de2622442b531861ee3feb59",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/woodcreator_1_metallic.jpg"
+    },
+    {
+      "guid": "7fa4a1bec17ce4b40b74df4a5fd43cf6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/030.mat"
+    },
+    {
+      "guid": "809186ad6f83c7b4aa4d6215bb40298c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/012.mat"
+    },
+    {
+      "guid": "8268085ebe170e64aa36672a45f0dd8d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/CenterEyeOffset.cs"
+    },
+    {
+      "guid": "8310d4698426ea24e923c8a77fe0f3a0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/HmdOffset.cs"
+    },
+    {
+      "guid": "8366a44845fb3bd4cb2caddbf799ba65",
+      "pathAtExport": "Assets/Animations/Pharmacy/Pointing Back.anim"
+    },
+    {
+      "guid": "838bf82eef6d73d42b59f428c4e33417",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/TouchHandGrab/TouchHandGrabInteractorVisual.cs"
+    },
+    {
+      "guid": "83ccbdf0788f1cc4ebeac106967c5660",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R_Diffuse light Blue.jpg"
+    },
+    {
+      "guid": "84d151614d979c749af366970bbe5781",
+      "pathAtExport": "Assets/UI/Options/icon arrow left(1) 1.png"
+    },
+    {
+      "guid": "85998b7b8ee295c449460005484f49db",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_014.jpg"
+    },
+    {
+      "guid": "861c253c01be7f7489f64e9ac001a10c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusHandPinchMaterial.mat"
+    },
+    {
+      "guid": "86bd0d3098d25db4c9c839739557480b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/HandSkeletonOVR.cs"
+    },
+    {
+      "guid": "86cd88e82353d184eb08f27a699b8797",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_Light blue.mat"
+    },
+    {
+      "guid": "8733ebe23f85185428441f8c331788fc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/CharacterController.cs"
+    },
+    {
+      "guid": "88daa2ddab2259e4980735e08c0506ac",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Injured Female 30Y Secondary/Std_Cornea_L_Diffuse.jpg"
+    },
+    {
+      "guid": "89a4c4c79abb4ca4f991b9f4eb478a8e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/marble02_roughness.jpg"
+    },
+    {
+      "guid": "8a0200d999c05c54fa27292e7f8616ee",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ControllerVisual.cs"
+    },
+    {
+      "guid": "8ae255182751c1f4289430bf191c00e5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/014.mat"
+    },
+    {
+      "guid": "8b2fc1498442023409ccd04c3abff60e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/TouchHandGrab/HandSphereMap.cs"
+    },
+    {
+      "guid": "8b470e0c4b48d474c9a42d7f661d48c7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/DefaultSettings/PoseDetection/DefaultFingerFeatureStateThresholds.asset"
+    },
+    {
+      "guid": "8b83018900d13bb4f8e0ad895cb004e5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/OculusTouchForQuest2_Left.fbx"
+    },
+    {
+      "guid": "8c187a71eebf18441816c16087a51cb6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/Visuals/RayInteractorCursorVisual.cs"
+    },
+    {
+      "guid": "8cd27a8f4c15ae84bbdb2381fd964a49",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Metallic.png"
+    },
+    {
+      "guid": "8df81de6ba2e4e14c983a5a14b7957c0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ScrollInputProvider.cs"
+    },
+    {
+      "guid": "8df96f5c17d14354d91f422a8dfbbc10",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_049.jpg"
+    },
+    {
+      "guid": "8ff056bfef4a2c3459133ad3f0a5cf14",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Wood.mat"
+    },
+    {
+      "guid": "9067480af55f5874d8f613b16812f968",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/HandGrab/HandGrabInteractor.cs"
+    },
+    {
+      "guid": "90eed2c6d390d424d98b677bbb37bdc0",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_018.jpg"
+    },
+    {
+      "guid": "9191c10f95bf5f64c82bb4dca75459e9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Converted_vray_Acrylic Opaque White0.001.mat"
+    },
+    {
+      "guid": "925ef87c5bafc37469a2f7ec825dee4b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Scripts/AudioTrigger.cs"
+    },
+    {
+      "guid": "92dd1ff21e711dc4b8b57eb39ab807ac",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Animation/OculusTouchQuestAndRiftSLeftAnimation.controller"
+    },
+    {
+      "guid": "9346ee7dbf987684b86a8c5cb929a82c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/Locomotion/TunnelingEffect.shader"
+    },
+    {
+      "guid": "93cbf9b7f558750489e84c001e948571",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Material #72.mat"
+    },
+    {
+      "guid": "93d587a3aba3f8a47a7115549cd5b0df",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/LightGrey_Base_Color.jpg"
+    },
+    {
+      "guid": "93dca5c60bea4f84381949ee805f8e95",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_05.jpg"
+    },
+    {
+      "guid": "9413e5947bc7dbd45bd634eac778ca8e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/ICU Room/ICU_Room/_NEW TEXTURES/ceramic_tiles_seashell_Normal.jpg"
+    },
+    {
+      "guid": "949e33eb3289ef04ebbeb5f045a5add6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionActionsBroadcaster.cs"
+    },
+    {
+      "guid": "97ad1841d31cfd844995732927b7c958",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRMicrogestureEventSource.cs"
+    },
+    {
+      "guid": "9889b45bb24173a4d93c7f6b5a496800",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Animation/OculusTouchRiftRightAnimation.controller"
+    },
+    {
+      "guid": "98ab002b0f5bbce41acb5f5ec8a7a5ba",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Plastic_Metallic.jpg"
+    },
+    {
+      "guid": "990692c9edb7a214d9b122856cf44929",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ControllerAxis2D.cs"
+    },
+    {
+      "guid": "998a5646185efb9488265f3a2f35a99a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/TrackingToWorldTransformerOVR.cs"
+    },
+    {
+      "guid": "9a174518816f7e645860e70cf978ba1c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/OneEuroFilter/FilteredTransform.cs"
+    },
+    {
+      "guid": "9a8bb2498cdcda04c89df15c8ee19159",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/TurnArrowVisuals.cs"
+    },
+    {
+      "guid": "9abf623c439ef024ea27b008893b7821",
+      "pathAtExport": "Assets/UI/Menu/Menu Background 1080x1248.png"
+    },
+    {
+      "guid": "9ac639554b8a09943aa991b71ca0eb12",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/Locomotion/LocomotionLocation.fbx"
+    },
+    {
+      "guid": "9af9ea683544b184083cef283557012d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Visuals/HandVisual.cs"
+    },
+    {
+      "guid": "9c2beb69c900ccf4984646ad420b1e17",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandPinchOffset.cs"
+    },
+    {
+      "guid": "9cf2a74d69b1c1e41916d2a7afdff5be",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/PlaneSurface.cs"
+    },
+    {
+      "guid": "9d4edac8b27eead43ae4839ff9b23791",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Textures/RainbowGradient.png"
+    },
+    {
+      "guid": "9dda6958e834dc644b949b1ff70e432b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/DistanceGrab/DistanceGrabInteractor.cs"
+    },
+    {
+      "guid": "9ec26d60caf4641498970d8bab8652ca",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Screen 1.mat"
+    },
+    {
+      "guid": "9f1871411a4175a49a72069635000987",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_r_lo_BaseColor.png"
+    },
+    {
+      "guid": "9f1c0a2c930931f4f858e83773d827ae",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_01.jpg"
+    },
+    {
+      "guid": "9fa76bd9e9d3a34429b6c90d00678855",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/Visuals/TeleportProceduralArcVisual.cs"
+    },
+    {
+      "guid": "a0fe75cc679959745a3e03b3fb553e41",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Home_AMEA/Glass.mat"
+    },
+    {
+      "guid": "a103bdc17c58dc84cad0caba1718df78",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/01.mat"
+    },
+    {
+      "guid": "a2140d2b457bea84881488302059889b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/ColliderSurface.cs"
+    },
+    {
+      "guid": "a4f2faded8924b54092b97646f51ae26",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/grey.mat"
+    },
+    {
+      "guid": "a4f76ee9a4bceba4385d001e7ee27427",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/DefaultSettings/Locomotion/ExitMicroGesture.asset"
+    },
+    {
+      "guid": "a53d1d4e8207acf45b310f189c342b70",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/OculusTouchForQuestAndRiftS/OculusQuestTouchControllerTexture.tga"
+    },
+    {
+      "guid": "a63ea968be5c2084588e377a5dc05473",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/ShoulderEstimatePosition.cs"
+    },
+    {
+      "guid": "a720613b90ccbe843bcec813908e4cad",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/White marble tile floor.mat"
+    },
+    {
+      "guid": "a7b47e36715521d4e8a30d2c5b6e83e2",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/OVRCameraRigRef.cs"
+    },
+    {
+      "guid": "a7cfb2a81dd74cd42ac0a196f57ad29d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/White marble tile floor_Roughness.jpg"
+    },
+    {
+      "guid": "a7d153c984a90a6488110013f4cfd9c3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/InteractorControllerDecorator.cs"
+    },
+    {
+      "guid": "a936d8b73506be745a9d0869aa0a39ed",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/xmppmax_v1_16_3_1_n.jpg"
+    },
+    {
+      "guid": "aa194ba0641a213459a879d9fe61359d",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_032.jpg"
+    },
+    {
+      "guid": "aaa342c0671919d46a62425e644a1d36",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Injured Female 30Y Secondary/Std_Eye_L_Normal.jpg"
+    },
+    {
+      "guid": "aaa9829e545a541498f4d93a6a20924f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Slide/StepLocomotionBroadcaster.cs"
+    },
+    {
+      "guid": "aab98079112c27d459b4308067cf2147",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/UpperBody Only Right Arm.mask"
+    },
+    {
+      "guid": "aad6e1c9c5e4c5d4a8ba6d7999dcadd5",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_02.jpg"
+    },
+    {
+      "guid": "abee63302fdc2bb4f80efe129df0a723",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandJoint.cs"
+    },
+    {
+      "guid": "ac88b9251c1287448b2d3d5b1a409ae9",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/Turtleneck_sweater_Normal.jpg"
+    },
+    {
+      "guid": "acb743c666c1ab34e928a0b62c2fa862",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Grab/GrabInteractor.cs"
+    },
+    {
+      "guid": "ad2069ba7fe0238489d3531897cea8cf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Materials/OculusTouchForQuest2_MAT.fbx"
+    },
+    {
+      "guid": "ad374a43a946e7d4496818c6b194809f",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/ControllerButtonUsageActiveState.cs"
+    },
+    {
+      "guid": "adee424ac9576984da6cd4c044c80118",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Animation/MetaQuestTouchProLeftAnimation.controller"
+    },
+    {
+      "guid": "ae43f25c06eb2d9408a201216b4c3ed7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Grab/HandGrabAPI.cs"
+    },
+    {
+      "guid": "aebd5da9a8bd22243b407f1927f4965b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateGroup.cs"
+    },
+    {
+      "guid": "aed62bf3ae2456c408f247f96808ce96",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRControllerHelper.cs"
+    },
+    {
+      "guid": "af84e2e50e3ad6647af843ab31e9173b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/044.mat"
+    },
+    {
+      "guid": "b00f5335e9436b143b07d0884c1b35f7",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Eye_R Black.mat"
+    },
+    {
+      "guid": "b07be626a8e824a5aaed89fffbde2fc7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/HandGlow/HandPokeOvershootGlow.cs"
+    },
+    {
+      "guid": "b135890a798656946bf8c0e294d165c1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_012.jpg"
+    },
+    {
+      "guid": "b14164f8f23faae4293baeb84485b3d6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Hands/HandRef.cs"
+    },
+    {
+      "guid": "b1ac60afbe530f340b365e006c9a73f7",
+      "pathAtExport": "Assets/UI/Pi tech Logo/HealthOn XR Logo.png"
+    },
+    {
+      "guid": "b1f40c50ae24356469c6c6d4bfb2a2d6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/OculusTouchForQuest2/OculusTouchForQuest2_AlbedoRoughness.tga"
+    },
+    {
+      "guid": "b22f8420b43f1f04a99a624daaff84c4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_041.jpg"
+    },
+    {
+      "guid": "b33cf8a46dd93bb4684aefdbcef6039e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/050.mat"
+    },
+    {
+      "guid": "b3cc1beec779eb940b0647d70710dfcf",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_047.jpg"
+    },
+    {
+      "guid": "b509fde79093393479908a63060c39eb",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/HoverInteractorsGate.cs"
+    },
+    {
+      "guid": "b57382cdf665ee040aebb89301457bd2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/032.mat"
+    },
+    {
+      "guid": "b58fdf466c162d447913b955fc10ad96",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProLeft_Material.mat"
+    },
+    {
+      "guid": "b6874001bc694e24fba9e795d3e8dfa8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/woodcreator_1_roughness.jpg"
+    },
+    {
+      "guid": "b6b083f9268c1e541ab5ca759d135dbd",
+      "pathAtExport": "Assets/UI/Fonts/ZonaPro-Regular.otf"
+    },
+    {
+      "guid": "b78c8a8930f87054fb218eec9c8b506b",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Injured Female 30Y Secondary/Std_Eye_R_Normal.jpg"
+    },
+    {
+      "guid": "b7bcc2bec1614d244879455dc6715fd6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/ExceptHead.mask"
+    },
+    {
+      "guid": "b8667bbf66117438986bafc711f920ed",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/HandGlow/HandGrabGlow.cs"
+    },
+    {
+      "guid": "b895d3431e75dc345a72e171f82bfbea",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/OculusHand.shader"
+    },
+    {
+      "guid": "b942c16a6d6a4edaad7c18c7d5762cdf",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/FingerFeatureStateProvider.cs"
+    },
+    {
+      "guid": "bb3784615c7ffd94b8473513b6af1e19",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Ceramic.mat"
+    },
+    {
+      "guid": "bb47a589e64614546a225324519b0e99",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/019.mat"
+    },
+    {
+      "guid": "bb86ba9d4c5126e48bfef9b0c9550e9d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/RayInteractable.cs"
+    },
+    {
+      "guid": "bb9fe9d11e003b940b76eed8cf7dc617",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/015.mat"
+    },
+    {
+      "guid": "bbb35201095f6bf499fe2cd30ef3b6c7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Materials/MetaQuestTouchPlusRight_Material.fbx"
+    },
+    {
+      "guid": "bc51e5edc474da3469f9714e0a33566e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/leather30_roughness.jpg"
+    },
+    {
+      "guid": "bd96f518b3952ae48a90c2c79ba139c1",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Lower_Teeth 1.mat"
+    },
+    {
+      "guid": "be4c449aca736864f8db9110226868a6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/043.mat"
+    },
+    {
+      "guid": "be4f8a87204f80c46a1af01f7787fb0d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/TurnLocomotionBroadcaster.cs"
+    },
+    {
+      "guid": "be5585168c67af345b1074140733215b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Turn/TurnerEventBroadcaster.cs"
+    },
+    {
+      "guid": "bea6571c974f89440b3379b928084e50",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Ray/Visuals/RayInteractorPinchVisual.cs"
+    },
+    {
+      "guid": "beaa291afbb1df34b99d9c6b725c28ed",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Material #76.mat"
+    },
+    {
+      "guid": "bebfb74b97b000d4899abbd61f49aa40",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/HandActiveState.cs"
+    },
+    {
+      "guid": "bf59b10353515d4479c50bf628679733",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/TeleportReticleMaterial.mat"
+    },
+    {
+      "guid": "bf7605932bc514945adb3803a0be2ed9",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Input/Controllers/SyntheticControllerInHand.cs"
+    },
+    {
+      "guid": "bffe606b408599b4fad696ddc889a943",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/TransformFeatureStateProvider.cs"
+    },
+    {
+      "guid": "c0c346840cc8d6e43bb7a8dc0f86a540",
+      "pathAtExport": "Assets/Animations/Pharmacy/Standing Greeting.anim"
+    },
+    {
+      "guid": "c1c00dd171bfc6c4997412b2ceb32910",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_03.jpg"
+    },
+    {
+      "guid": "c24891f23e2b30340a21ca8dfbee0261",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/07.mat"
+    },
+    {
+      "guid": "c2ace68b1ed79454a8d2febfb98c4a2b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/TransparentStandard.mat"
+    },
+    {
+      "guid": "c2eb7b6fe6533ab438ba8e98587c020f",
+      "pathAtExport": "Assets/UI/Menu/Menu Button 384x384.png"
+    },
+    {
+      "guid": "c3798d66af7bbe54bbfe22a3b302300b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/right_touch_controller_model_skel.fbx"
+    },
+    {
+      "guid": "c3ba18e9fa5e9104098cbdbb3e23a5b4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/left_touch_controller_model_skel.fbx"
+    },
+    {
+      "guid": "c4cb6b1e688f33e4dba37148f3b0c742",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/042.mat"
+    },
+    {
+      "guid": "c5af6ab9d1bd4a47970ad151090281f3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/PoseDetection/FingerFeatureStateThresholds.cs"
+    },
+    {
+      "guid": "c6205320beaf25644968a9120395a1ad",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/Locomotion/Hotspot.shader"
+    },
+    {
+      "guid": "c62aefa44f5a8614bb49c5b2a6caaff0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/Teleport/TeleportArcGravity.cs"
+    },
+    {
+      "guid": "c675673b916122744b8a2e16faccc5ba",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/Ga_Skin_Body.mat"
+    },
+    {
+      "guid": "c933168a9a0f1e04bb793786b96e2f4b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/MetaQuestTouchPro_Right.fbx"
+    },
+    {
+      "guid": "c9baea8b9d474934191bc47580d2537c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/UseGrab/UseFingerCurlAPI.cs"
+    },
+    {
+      "guid": "cad3e46e20a27cf40aedeb65245608c1",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/leather30_diffuse.jpg"
+    },
+    {
+      "guid": "cb028ce99f9700e4197a49bfdcd525dd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Poke/Visuals/HandPokeLimiterVisual.cs"
+    },
+    {
+      "guid": "cb58f4c420291b94184c6e793352a3b2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Left_PC_Screen_Pharmacy_Store.png"
+    },
+    {
+      "guid": "cb7623a8f0b49cf4dbaa40aea4d4be64",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/Util/OVRHand.cs"
+    },
+    {
+      "guid": "cb8a198d9d0c18b4a90ddaab0e848e29",
+      "pathAtExport": "Assets/Animations/Pharmacy/FemaleCustomer LipSync/02_FemCust_Hello_v01.anim"
+    },
+    {
+      "guid": "cbb42d89761dedb4389ccbe0586af1bf",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Converted_vray_PVC FB Black.004.mat"
+    },
+    {
+      "guid": "cbe7c6ae69cf3f14f9ab310ae1de4366",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/leather30_opengl_normal.jpg"
+    },
+    {
+      "guid": "cc2c9533ccf9c9449a3d9ad994d34e7c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_019.jpg"
+    },
+    {
+      "guid": "cd78316b0f4ecc74fafa2782d4b52ce6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/04.mat"
+    },
+    {
+      "guid": "cdfdbb52603f1104198a278779e26b6d",
+      "pathAtExport": "Assets/Animations/Pharmacy/Side Glass.controller"
+    },
+    {
+      "guid": "ce67415a9a94bca45a6db7ec544cbd1b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPlus/MetaQuestTouchPlus_Normals.png"
+    },
+    {
+      "guid": "d0768fb9eb01f2c45bf3c79ace06f022",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Ga_Eyelash_Normal.png"
+    },
+    {
+      "guid": "d10096df612aa634ba25c460e4f76942",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/marble02_normal_opengl.jpg"
+    },
+    {
+      "guid": "d17425af5fc89a443bba05adbe10381a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/WristAngleActiveState.cs"
+    },
+    {
+      "guid": "d1d1171e33ecbf44fabeb65994beec97",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/UpperBody.mask"
+    },
+    {
+      "guid": "d1d241f42c2b26f4ebcbec04ea1a6a19",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/024.mat"
+    },
+    {
+      "guid": "d25f914eabe90be43bc3d5a67a84db15",
+      "pathAtExport": "Assets/Timelines/Aigaiou/Timeline 3 (2nd question)Timeline.playable"
+    },
+    {
+      "guid": "d39450781430dc74787c410c339e23b3",
+      "pathAtExport": "Assets/Voice Over/Pharmacy/wwham.mp3"
+    },
+    {
+      "guid": "d3ea8c2b38a2e4abbaaa9caec105388a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/HandGlow/HandRayPinchGlow.cs"
+    },
+    {
+      "guid": "d4a9567b63f402344be887b1a296bcc6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Sample/Objects/Props/Materials/DefaultMaterial.fbx"
+    },
+    {
+      "guid": "d4ad4f1ddee798f45a20be4efda35c8c",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionEventsConnection.cs"
+    },
+    {
+      "guid": "d5b82d16170d1384885b797db85154b9",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/marble02_diffuse.jpg"
+    },
+    {
+      "guid": "d5e48d93b64a9ae4f9fd5a728c8f51af",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/MaterialProperties/MaterialPropertyBlockEditor.cs"
+    },
+    {
+      "guid": "d61ea23b9fd13af40afe326bb23ac1cd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Selection/Hands/HandRootOffset.cs"
+    },
+    {
+      "guid": "d641a50c4fe4ee3489a64cf52b76ae79",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/OculusHand.mat"
+    },
+    {
+      "guid": "d64e3e939882fe448900322c2b3bea03",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_035.jpg"
+    },
+    {
+      "guid": "d660178ed2b38ec4d9b564be11e400cc",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/DPadUnityEventWrapper.cs"
+    },
+    {
+      "guid": "d6868fd33033e5040910df86d3052f67",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/03.mat"
+    },
+    {
+      "guid": "d7292a5e1ae17a64c95f3081d2c6be5a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuest2/Materials/OculusTouchForQuest2_MAT.mat"
+    },
+    {
+      "guid": "d8c288a5b9a1b374394a07d9e1566939",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Material #73.mat"
+    },
+    {
+      "guid": "d952c175ec3c6554199fd744548ce50a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Poke/PokeInteractor.cs"
+    },
+    {
+      "guid": "d9ad590bd590c2d47b7034bbfc26813b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_l_lo_BaseColor.png"
+    },
+    {
+      "guid": "dc7ab389150c95d4f8a23cf60cb5ffb6",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Injured Female 30Y Secondary/Ga_Eyelash_Diffuse.png"
+    },
+    {
+      "guid": "dc86962597472244c87e104289afd811",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Dipae/Slim_Jeans_Normal.png"
+    },
+    {
+      "guid": "dca3d72ce32048e409eaaf754210cfe8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/OculusHandPinchArrowBlended.fbx"
+    },
+    {
+      "guid": "dd6a0064e5dbb5643892a68dcad2320c",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Neon green.mat"
+    },
+    {
+      "guid": "de76f7169412b8f4896235a1585d8939",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Unity/SelectorUnityEventWrapper.cs"
+    },
+    {
+      "guid": "deb7533ca606ed241b3541310f39ba5d",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/UseGrab/UseFingerControllerAPI.cs"
+    },
+    {
+      "guid": "deed68a7fd2e9234899298cf80fae7ad",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/MetaQuestTouchPlus_Right.fbx"
+    },
+    {
+      "guid": "df9f338034892c44ebb62d97894772f1",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Scripts/OVRCameraRig.cs"
+    },
+    {
+      "guid": "dfac2051eefcc294fa53090f82fe30b4",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Motion Capture/X Bot@Sitting Talking.fbx"
+    },
+    {
+      "guid": "dfee80e1d2a38ea45a01698af1c06034",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPro/Materials/MetaQuestProRight_Material.mat"
+    },
+    {
+      "guid": "e00ff2c1207ec064cac7bc321bee406a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/LocomotionActiveState.cs"
+    },
+    {
+      "guid": "e06fe30fd4efa954b8f53ccc8da8f46b",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/BestHoverInteractorGroup.cs"
+    },
+    {
+      "guid": "e08ab46e8fb05dc46b34e54466dc11e3",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/BoundsClipper.cs"
+    },
+    {
+      "guid": "e0c493fb22c458946bd44e502efbecd7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/LocomotionIndicatorMaterial.mat"
+    },
+    {
+      "guid": "e14f8b65c2f647c48bd469caab16ee72",
+      "pathAtExport": "Assets/Animations/Pharmacy/FemaleCustomer LipSync/03_FemCust_Ask_v01.anim"
+    },
+    {
+      "guid": "e15d08f19078a8e45a1dfe1396845286",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/Canvas_shoes_Normal.jpg"
+    },
+    {
+      "guid": "e181e4e11f1067942aaec17aca97b961",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/glass dvere.mat"
+    },
+    {
+      "guid": "e48241eea5a449b4dbfee46ff64f83eb",
+      "pathAtExport": "Assets/Voice Over/Pharmacy/Female Customer.mp3"
+    },
+    {
+      "guid": "e65f1d953a085a34ca06eea500bc85e2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/028.mat"
+    },
+    {
+      "guid": "e6783ba0077039442966436ec489329b",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_023.jpg"
+    },
+    {
+      "guid": "e685d297497eaae4598badcf4e5d9515",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/027.mat"
+    },
+    {
+      "guid": "e721d13e13541ae43bccbf3640bfc5e5",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Ga_Eyelash_Diffuse 1.png"
+    },
+    {
+      "guid": "e878dcbefebb86f478a53130d09dd0ac",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForQuestAndRiftS/Materials/OculusTouchForQuestAndRiftS_Material.fbx"
+    },
+    {
+      "guid": "e91edcb1de86fc54ebf901f2ee91cf25",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_08.jpg"
+    },
+    {
+      "guid": "e970dee47e899a04786ace0f37d60a06",
+      "pathAtExport": "Assets/Timelines/Aigaiou/Timeline 5 (4th question)Timeline.playable"
+    },
+    {
+      "guid": "eacafe280fdfa6a44845c135057ae6a5",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/OculusTouchForRift/Materials/OculusTouchForRift_Material.mat"
+    },
+    {
+      "guid": "eacfbed6ed86b674fa213f5cf412ee2a",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_015.jpg"
+    },
+    {
+      "guid": "eb019fa6922e4ad4e8a5cdfc5de797d4",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Ga_Eyelash.mat"
+    },
+    {
+      "guid": "eb4380855b068ee469764c72a8087641",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/045.mat"
+    },
+    {
+      "guid": "ec6a2955cc1374944a4634c6f312985a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Models/Locomotion/FirstPersonLocomotor.cs"
+    },
+    {
+      "guid": "ed965723b6756dc4faaa410790e98e31",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/ProceduralArcMaterial.mat"
+    },
+    {
+      "guid": "eda7a0cee7634934b90fc95f988f4bc6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_022.jpg"
+    },
+    {
+      "guid": "ee6b94f7bc105c24ea3746dc4141a7eb",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/FromOVRControllerDataSource.cs"
+    },
+    {
+      "guid": "efd927768041afd4d90e5d822283f0f4",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Surfaces/ClippedPlaneSurface.cs"
+    },
+    {
+      "guid": "eff0fe5810605444d9e8a3a0960cc0ed",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Glossy Black.mat"
+    },
+    {
+      "guid": "f013761ab9c04324d8995f248ba6d87d",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Female Customer/Ga_Skin_Body_Diffuse.png"
+    },
+    {
+      "guid": "f026be10edaad42429c52aa2200881dd",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/DistanceGrab/Visuals/ReticleIconDrawer.cs"
+    },
+    {
+      "guid": "f08b90363e6615b4dbad107fc64564da",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Patient Delirium/Relative Female/Hair_Transparency_0_Diffuse.png"
+    },
+    {
+      "guid": "f0d16396e840d534aa085e8f2c700786",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/Unlit Material.mat"
+    },
+    {
+      "guid": "f1a03de1aafd166419d7fae7e1017875",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Scripts/Interaction/Core/ActiveStateGate.cs"
+    },
+    {
+      "guid": "f273abee0604ad2409c9bbc9a60e461e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction.ovr/Runtime/Scripts/Input/FromOVRHmdDataSource.cs"
+    },
+    {
+      "guid": "f2c8962b56403ba4ea5dcfbbf1abe5b6",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_037.jpg"
+    },
+    {
+      "guid": "f2e8677bac33bbf4eb43f0f1289803a7",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Shaders/MetaLit.shader"
+    },
+    {
+      "guid": "f2f73129ee283464ab31cba8510882f0",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/OculusRayVisual.shader"
+    },
+    {
+      "guid": "f4451ac67fb52f14a9abb2ab004760a2",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_04.jpg"
+    },
+    {
+      "guid": "f495fbdce1c17204b99514befbef5b6e",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Converted_vray_Aluminium Clean.001.mat"
+    },
+    {
+      "guid": "f52e985b12e44b54a87580aeb1470bb4",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_07.jpg"
+    },
+    {
+      "guid": "f76ac96be52ce764aa832df99e34d87a",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Materials/DistanceReticle.mat"
+    },
+    {
+      "guid": "f7f9fff18ec03e249bb672fbc909a2f3",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_050.jpg"
+    },
+    {
+      "guid": "f8257b66fb58a9f4f896bde982013da8",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_033.jpg"
+    },
+    {
+      "guid": "f8de7a05fff337a4f8bf4c30cd612b72",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/ruchki metal.mat"
+    },
+    {
+      "guid": "f9e7ff99f423f4b41ac82b51dc5b4591",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/Drugs Materials/Lekarstva_027.jpg"
+    },
+    {
+      "guid": "fa8575a6677a00846a9dbb626e69c3ca",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Lower_Teeth_Normal.jpg"
+    },
+    {
+      "guid": "faff192ad5862624d8a3be26ae4d15d6",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Shaders/Locomotion/TransparentVertexTexture.shader"
+    },
+    {
+      "guid": "fb7f415e68f97554b909f5131a88cc71",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/stainless.mat"
+    },
+    {
+      "guid": "fbb4aa3c0746db14c9f512882216cfdf",
+      "pathAtExport": "Assets/Animations/Pharmacy/FemaleCustomer LipSync/04_FemCust_Answer_v01.anim"
+    },
+    {
+      "guid": "fc0fd19b38dfb6a4ba0336bf7b518c8e",
+      "pathAtExport": "Packages/com.meta.xr.sdk.interaction/Runtime/Meshes/Locomotion/LocomotionPointer.fbx"
+    },
+    {
+      "guid": "fc8f9d10a11209b4987bbc0555cb5073",
+      "pathAtExport": "Assets/3D_Objects/_ENVIRONMENT/Pharmacy/vray_Map #2138624878_VRayColor_0001.png"
+    },
+    {
+      "guid": "fc948f57db734e74094dc532bdbbc3e8",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Meshes/MetaQuestTouchPlus/Animation/MetaQuestTouchPlusRightAnimation.controller"
+    },
+    {
+      "guid": "fe191e77fe03bf24ebaf706a19e9f14c",
+      "pathAtExport": "Assets/Audio/SFX/Door_Bell.mp3"
+    },
+    {
+      "guid": "fe6dffbda2f52bb4998faa03fee04336",
+      "pathAtExport": "Packages/com.meta.xr.sdk.core/Textures/MetaQuestTouchPro/controller_r_lo_Normal.png"
+    },
+    {
+      "guid": "ff2a2b163512a28409423c717434ece0",
+      "pathAtExport": "Assets/3D_Objects/_PATIENTS/Basic Materials/Single Material/Std_Upper_Teeth_Normal.jpg"
+    }
+  ]
+}

@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -362,14 +361,7 @@ namespace Pitech.XR.Scenario.Editor
 
         static Pitech.XR.Scenario.Scenario GetScenarioFromManager(Pitech.XR.Scenario.SceneManager gm)
         {
-            if (gm == null) return null;
-
-            var scField = gm.GetType().GetField("scenario",
-                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-            return scField != null
-                ? scField.GetValue(gm) as Pitech.XR.Scenario.Scenario
-                : null;
+            return gm != null ? gm.scenario : null;
         }
 
         // --------------------------------------------------------------------
@@ -463,18 +455,7 @@ namespace Pitech.XR.Scenario.Editor
                 int totalSteps = (sc != null && sc.steps != null) ? sc.steps.Count : 0;
 
                 // Current index
-                int currentIndex = -1;
-                var idxProp = gm.GetType().GetProperty("StepIndex",
-                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-                if (idxProp != null)
-                {
-                    try
-                    {
-                        var val = idxProp.GetValue(gm, null);
-                        if (val is int i) currentIndex = i;
-                    }
-                    catch { }
-                }
+                int currentIndex = gm.StepIndex;
 
                 // Status line
                 string status;
@@ -502,11 +483,8 @@ namespace Pitech.XR.Scenario.Editor
 
                 using (new EditorGUI.DisabledScope(!Application.isPlaying))
                 {
-                    var restart = gm.GetType().GetMethod("Restart",
-                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
-
-                    if (GUILayout.Button("Restart Scenario") && restart != null)
-                        restart.Invoke(gm, null);
+                    if (GUILayout.Button("Restart Scenario"))
+                        gm.Restart();
 
                     if (!Application.isPlaying)
                         EditorGUILayout.HelpBox("Enter Play mode to see live progress and restart.", MessageType.None);

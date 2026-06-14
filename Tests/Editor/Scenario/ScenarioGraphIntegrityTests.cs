@@ -11,99 +11,82 @@ namespace Pitech.XR.Scenario.Editor.Tests
 {
     /// <summary>
     /// Proof A - the primary net (Appendix I.0). Read-only, runs against the committed fixture prefabs
-    /// in Tests/Fixtures/Scenarios. Two assertions per corpus:
+    /// in Tests/Fixtures/Scenarios. PARAMETRIZED PER LAB (via <see cref="FixtureCorpus.Cases"/>): each
+    /// fixture is its own NUnit case, so the gate reports pass/fail/skip per lab - a red surfaces EVERY
+    /// affected lab, not just the first, and the passing labs are visible too. Two per-lab assertions:
     ///   (1) graph integrity INVARIANTS hold (no null entries, unique guids, routes resolve, no dangling
-    ///       object refs, no HALF-WIRED UnityEvent listeners - a method named at a missing target, or a
-    ///       dangling target. A fully empty listener row is a benign authored placeholder, not a failure);
+    ///       object refs; for UnityEvent listeners the ONLY violation is a DANGLING target - a reference
+    ///       that WAS assigned and whose object (or its script) is now gone. Fully-empty rows, a
+    ///       clean-null target with a method named, and a target with no method are benign authored
+    ///       detritus - recorded by the snapshot, never failed. See ScenarioGraphSnapshot.CheckInvariants);
     ///   (2) the per-lab SNAPSHOT (routing topology + object-ref identities + event fingerprint) matches
     ///       the committed baseline byte-for-byte - catching a dropped or silently rewired ref/listener.
+    /// Plus two SUITE-level checks: the orphaned-baseline / orphaned-deps reverse direction, and a
+    /// corpus-present backstop so an empty corpus reads Inconclusive, never silently green.
     ///
-    /// Bootstrap: a missing baseline is written once and the case reported Inconclusive ("captured -
-    /// re-run to enforce"); a deliberate change is re-captured via the Export tool's --regen, reviewed.
-    /// With no fixtures yet, both cases are Inconclusive - the net is green-able before the corpus lands
-    /// (WS A1 marked the labs) and enforces the moment a fixture is dropped in.
+    /// Baseline capture is NOT done here. A missing baseline is a per-lab Inconclusive that points at the
+    /// export tool (Export Lab as Test Fixture / Generate), the only sanctioned capture path - keeping
+    /// writes out of a multi-case run where execution order would make a mid-test capture unsafe.
+    ///
+    /// Step 12 (spec §7.1): a fixture whose committed deps declaration names &gt;=1 external dependency
+    /// that does NOT resolve in this project is SKIPPED per lab (Assert.Inconclusive, never counted
+    /// green). No or empty declaration = enforced. The declaration is written only by the export tool in
+    /// the project where the lab resolves (HealthOn VR), never inferred from an observed failure - so a
+    /// DevKit change that introduces a dangling ref can never hide behind the skip.
     /// </summary>
     public class ScenarioGraphIntegrityTests
     {
-        static List<(string path, GameObject go, Scenario scenario)> LoadFixtures()
+        [TestCaseSource(typeof(FixtureCorpus), nameof(FixtureCorpus.Cases))]
+        public void InvariantsHold(string fixtureName)
         {
-            var result = new List<(string, GameObject, Scenario)>();
-            string dir = TestPaths.FixturesDir();
-            if (string.IsNullOrEmpty(dir) || !AssetDatabase.IsValidFolder(dir))
-                return result;
+            FixtureCorpus.RequireFixture(fixtureName);
+            string path = FixtureCorpus.PathFor(fixtureName);
+            FixtureCorpus.SkipIfUnmetDeps(fixtureName, path);
+            var (_, _, scenario) = FixtureCorpus.Resolve(fixtureName);
 
-            foreach (var guid in AssetDatabase.FindAssets("t:GameObject", new[] { dir }))
-            {
-                string path = AssetDatabase.GUIDToAssetPath(guid);
-                var go = AssetDatabase.LoadAssetAtPath<GameObject>(path);
-                if (go == null) continue;
-                var scenario = ScenarioGraphSnapshot.FindScenario(go);
-                if (scenario != null)
-                    result.Add((path, go, scenario));
-            }
-            return result;
+            var violations = ScenarioGraphSnapshot.CheckInvariants(scenario);
+            if (violations.Count > 0)
+                Assert.Fail($"[{fixtureName}] graph-integrity violation(s):\n  "
+                            + string.Join("\n  ", violations));
         }
 
-        static string FixtureName(string assetPath) => Path.GetFileNameWithoutExtension(assetPath);
-
-        [Test]
-        public void InvariantsHold_ForEveryFixture()
+        [TestCaseSource(typeof(FixtureCorpus), nameof(FixtureCorpus.Cases))]
+        public void Snapshot_MatchesCommittedBaseline(string fixtureName)
         {
-            var fixtures = LoadFixtures();
-            if (fixtures.Count == 0)
-                Assert.Inconclusive("No scenario fixtures yet. Run 'Pi tech/Tools/Export Lab as Test Fixture' "
-                                    + "on the WS A1 corpus to populate Tests/Fixtures/Scenarios.");
+            FixtureCorpus.RequireFixture(fixtureName);
+            string path = FixtureCorpus.PathFor(fixtureName);
+            FixtureCorpus.SkipIfUnmetDeps(fixtureName, path);
+            var (_, _, scenario) = FixtureCorpus.Resolve(fixtureName);
 
-            var failures = new List<string>();
-            foreach (var (path, _, scenario) in fixtures)
-            {
-                var violations = ScenarioGraphSnapshot.CheckInvariants(scenario);
-                foreach (var v in violations)
-                    failures.Add($"[{FixtureName(path)}] {v}");
-            }
+            string actual = ScenarioGraphSnapshot.BuildSnapshotJson(scenario);
+            string baselineAsset = TestPaths.GraphSnapshotsDir() + "/" + fixtureName + ".graph.json";
+            string baselineDisk = TestPaths.DiskPath(baselineAsset);
 
-            Assert.IsEmpty(failures, "Scenario graph-integrity violations:\n  " + string.Join("\n  ", failures));
+            if (baselineDisk == null || !File.Exists(baselineDisk))
+                Assert.Inconclusive($"[{fixtureName}] has no committed baseline snapshot. Capture it via "
+                    + "'Export Lab as Test Fixture' (real lab) or 'Generate Synthetic Scenario Fixture' "
+                    + "(synthetic), commit the .graph.json, then re-run. Baselines are captured ONLY by "
+                    + "the export tool - never written mid-test.");
+
+            string expected = File.ReadAllText(baselineDisk);
+            if (!string.Equals(expected, actual, System.StringComparison.Ordinal))
+                Assert.Fail($"[{fixtureName}] graph snapshot drifted from its committed baseline. If the "
+                    + "change is intentional, re-capture via Export Lab as Test Fixture / Generate (--regen) "
+                    + "and review the git diff before committing.");
         }
 
+        // Reverse direction (suite-level): a committed baseline OR deps declaration whose fixture
+        // vanished (deleted/renamed) means reviewed protection silently dropped - fail, don't ignore.
+        // Mirrors the baseline-driven checks in ScriptGuidStabilityTests / PublicApiBaselineTests.
+        // Built from ALL discovered fixtures, skipped included - a skipped fixture still has its prefab
+        // + baseline present, so its baseline is NOT orphaned.
         [Test]
-        public void Snapshot_MatchesCommittedBaseline_ForEveryFixture()
+        public void NoOrphanedBaselineOrDepsDeclaration()
         {
-            var fixtures = LoadFixtures();
-            if (fixtures.Count == 0)
-                Assert.Inconclusive("No scenario fixtures yet - nothing to snapshot.");
+            var fixtureNames = new HashSet<string>(FixtureCorpus.AllFixtureNames(), System.StringComparer.Ordinal);
+            var orphans = new List<string>();
 
-            string snapDir = TestPaths.GraphSnapshotsDir();
-            var pendingBootstrap = new List<(string name, string baselineAsset, string json)>();
-            var mismatches = new List<string>();
-
-            foreach (var (path, _, scenario) in fixtures)
-            {
-                string name = FixtureName(path);
-                string actual = ScenarioGraphSnapshot.BuildSnapshotJson(scenario);
-                string baselineAsset = snapDir + "/" + name + ".graph.json";
-                string baselineDisk = TestPaths.DiskPath(baselineAsset);
-
-                if (baselineDisk == null || !File.Exists(baselineDisk))
-                {
-                    // Do NOT write yet - a run that detects drift in any sibling fixture must not
-                    // capture anything (the captured file would encode the demonstrably-drifted
-                    // code state as reviewed truth).
-                    pendingBootstrap.Add((name, baselineAsset, actual));
-                    continue;
-                }
-
-                string expected = File.ReadAllText(baselineDisk);
-                if (!string.Equals(expected, actual, System.StringComparison.Ordinal))
-                    mismatches.Add($"[{name}] graph snapshot drifted from baseline. If intentional, "
-                                   + $"re-capture via Export Lab as Test Fixture (--regen) and review the diff.");
-            }
-
-            // Reverse direction: a committed baseline whose fixture vanished (deleted/renamed) means
-            // reviewed protection silently dropped - fail, don't ignore. (Mirrors the baseline-driven
-            // direction checks in ScriptGuidStabilityTests / PublicApiBaselineTests.)
-            var fixtureNames = new HashSet<string>(System.StringComparer.Ordinal);
-            foreach (var (path, _, _) in fixtures) fixtureNames.Add(FixtureName(path));
-            string snapDiskDir = TestPaths.DiskPath(snapDir);
+            string snapDiskDir = TestPaths.DiskPath(TestPaths.GraphSnapshotsDir());
             if (snapDiskDir != null && Directory.Exists(snapDiskDir))
             {
                 foreach (var f in Directory.GetFiles(snapDiskDir, "*.graph.json"))
@@ -111,27 +94,30 @@ namespace Pitech.XR.Scenario.Editor.Tests
                     string baseName = Path.GetFileName(f);
                     string fixtureName = baseName.Substring(0, baseName.Length - ".graph.json".Length);
                     if (!fixtureNames.Contains(fixtureName))
-                        mismatches.Add($"[{fixtureName}] ORPHANED baseline: {baseName} has no matching fixture "
-                                       + "prefab. If the fixture was deliberately removed, delete its baseline "
-                                       + "in the same commit.");
+                        orphans.Add($"ORPHANED baseline: {baseName} has no matching fixture prefab. If the "
+                                    + "fixture was deliberately removed, delete its baseline in the same commit.");
                 }
             }
 
-            Assert.IsEmpty(mismatches, string.Join("\n", mismatches));
+            foreach (var declared in FixtureDependencies.DeclaredFixtureNames())
+                if (!fixtureNames.Contains(declared))
+                    orphans.Add($"ORPHANED deps declaration: {declared}.deps.json has no matching fixture "
+                                + "prefab. If the fixture was deliberately removed, delete it in the same commit.");
 
-            // Only a fully clean run may capture new baselines.
-            if (pendingBootstrap.Count > 0)
-            {
-                Directory.CreateDirectory(snapDiskDir);
-                foreach (var (name, baselineAsset, json) in pendingBootstrap)
-                {
-                    File.WriteAllText(TestPaths.DiskPath(baselineAsset), json);
-                    AssetDatabase.ImportAsset(baselineAsset);
-                }
-                Assert.Inconclusive("Captured baseline snapshot(s) for: "
-                                    + string.Join(", ", pendingBootstrap.ConvertAll(p => p.name))
-                                    + ". Commit them, then re-run to enforce.");
-            }
+            if (orphans.Count > 0)
+                Assert.Fail(string.Join("\n", orphans));
+        }
+
+        // Backstop (suite-level): an empty corpus reads Inconclusive, never silently green. The per-lab
+        // cases above carry the actual enforcement; this guarantees the gate is never green with nothing
+        // to test (the net is green-able before the corpus lands and enforces the moment a lab is added).
+        [Test]
+        public void Corpus_IsPresent()
+        {
+            if (FixtureCorpus.AllFixtureNames().Count == 0)
+                Assert.Inconclusive("No scenario fixtures under Tests/Fixtures/Scenarios. Run 'Generate "
+                    + "Synthetic Scenario Fixture' for the mega corpus and 'Export Lab as Test Fixture' "
+                    + "(or 'Export All Test Scenes') for the labs, then commit and re-run.");
         }
     }
 }
