@@ -6,6 +6,8 @@ formal release cadence is set (no version bump during Phase A).
 
 ## [Unreleased]
 
+## [0.11.0] - 2026-06-15
+
 ### Added
 - **EditMode safety net + `Evaluate Changes` gate (WS A3).** Scenario graph-integrity (Proof A), public-API
   additions-only + type-literal resolution (Proof B), MonoScript GUID stability + serialized round-trip
@@ -133,9 +135,11 @@ formal release cadence is set (no version bump during Phase A).
 
 ### Notes
 - Phase A is **behaviour-neutral**: no runtime logic changed, no serialized field renamed, no
-  `[SerializeReference]` type moved namespace/assembly, no `dependencies` block, no version bump, no
-  emission. The `unity`-field floor-bump + dependency declarations are a single **Phase D** (post-launch)
-  metadata cutover.
+  `[SerializeReference]` type moved namespace/assembly, no `dependencies` block, no emission. The package
+  **version is bumped 0.10.5 → 0.11.0** (semver minor: additive public surface — `ISceneRunnerControl`,
+  the DevKit Hub, the `Evaluate Changes` gate, `ScenarioFactKeys`) for distribution/cache correctness, since
+  git-URL consumers cache by `name@version`. That is distinct from the `unity`-field floor-bump + dependency
+  declarations, which remain a single **Phase D** (post-launch) metadata cutover.
 - The repo's LF renormalization (`.gitattributes`) is applied as its own deliberate commit, separate from
   the policy file landing here.
 - **Known UI-coverage gap (recorded 2026-06-12):** the equivalence proofs are EditMode serialization/API/GUID
