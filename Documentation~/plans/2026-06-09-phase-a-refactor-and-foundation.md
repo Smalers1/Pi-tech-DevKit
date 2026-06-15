@@ -1,6 +1,6 @@
 ---
 title: Phase A - Refactor & Foundation (behaviour-neutral)
-status: RATIFIED by Petros (board) 2026-06-10 - Stergios sign-off + DISPATCHED 2026-06-10; IN PROGRESS - WS A1/A2/A3/A4/A7-core/A8 DONE (WS A3 net VERIFIED GREEN 2026-06-11, 97 checks; A3 follow-on Steps 11-12 mega-fixture + missing-deps skip + per-lab/batch/quiet-window LANDED + user-confirmed green 2026-06-12); A5 (dead-code) + A6 (ALL 7 file splits, incl. the `ScenarioGraphWindow` partial-class split) + A7 Step 1 (XML docs) all LANDED + statically verified neutral + USER-VERIFIED GREEN 2026-06-12 (full batch COMPILED + `Evaluate Changes` GREEN in HealthOn VR; 6-lab corpus re-exported same day, content drift = the user's own authored lab edits); end-of-Phase-A hygiene fixes (legend/pluralization/orphan-usings/GuidedSetup assignable-type/scene-list collision) + record corrections LANDED 2026-06-12; remaining [HUMAN]: A6 Step 2 graph-window UI smoke + the A->B phase-exit declaration. DEFERRED: A6 namespace work -> Phase I (Proof B), A7 Step 2 (LogException, with-disposition), A6 Step 4(b) `Find*` unify (Proof-A-gated); A9 PROPOSED
+status: RATIFIED by Petros (board) 2026-06-10 - Stergios sign-off + DISPATCHED 2026-06-10; IN PROGRESS - WS A1/A2/A3/A4/A7-core/A8 DONE (WS A3 net VERIFIED GREEN 2026-06-11, 97 checks; A3 follow-on Steps 11-12 mega-fixture + missing-deps skip + per-lab/batch/quiet-window LANDED + user-confirmed green 2026-06-12); A5 (dead-code) + A6 (ALL 7 file splits, incl. the `ScenarioGraphWindow` partial-class split) + A7 Step 1 (XML docs) all LANDED + statically verified neutral + USER-VERIFIED GREEN 2026-06-12 (full batch COMPILED + `Evaluate Changes` GREEN in HealthOn VR; 6-lab corpus re-exported same day, content drift = the user's own authored lab edits); end-of-Phase-A hygiene fixes (legend/pluralization/orphan-usings/GuidedSetup assignable-type/scene-list collision) + record corrections LANDED 2026-06-12; A->B exit gates TICKED 2026-06-13; remaining [HUMAN]: the ~5-min graph-window UI smoke, then push. DEFERRED: A6 namespace work -> Phase I (Proof B), A7 Step 2 (LogException, with-disposition), A6 Step 4(b) `Find*` unify (Proof-A-gated); A9 PROPOSED
 date: 2026-06-09
 owner: Stergios & Alexandros
 reviewers:
@@ -863,13 +863,13 @@ shipped scenes + synthetic_routing_families.)*
 **Negative gates (must remain TRUE):** *(All hold for the full landed batch through 2026-06-12 - A2..A8 incl. A5/A6/A7 -
 proven live by the user's 2026-06-12 `Evaluate Changes` GREEN in HealthOn VR: Proof B = public API additions-only, Proof C =
 GUID + serialized-diff zero (mega/variant; the 6-lab `Tests/` drift is user-attributed authored lab edits, not code-induced),
-version 0.10.5 untouched, no emission. The four boxes below are READY to tick - left unchecked DELIBERATELY: ticking them is
-the formal Phase A->B exit declaration, which is the user's call (see the header's remaining [HUMAN] item).)*
-- [ ] `OnValidate` no-null-strip + `isCompiling` guard untouched.
-- [ ] No runner unification, no dispatch-registry change, no undo-routing change, no runtime reflection/`Find`
+version 0.10.5 untouched, no emission. The four boxes below are TICKED 2026-06-13 - the formal Phase A->B exit declaration;
+all four behaviour-neutral invariants hold for the full landed batch (confirmed by the green gate + both review passes).)*
+- [x] `OnValidate` no-null-strip + `isCompiling` guard untouched.
+- [x] No runner unification, no dispatch-registry change, no undo-routing change, no runtime reflection/`Find`
       removal, no rewriter fix, no `dependencies` resolution change, no version bump.
-- [ ] No serialized public field renamed/retyped; no `[SerializeReference]` type moved namespace/assembly.
-- [ ] No emission anywhere - only the consts vocabulary + reserved slots exist.
+- [x] No serialized public field renamed/retyped; no `[SerializeReference]` type moved namespace/assembly.
+- [x] No emission anywhere - only the consts vocabulary + reserved slots exist.
 
 ---
 
