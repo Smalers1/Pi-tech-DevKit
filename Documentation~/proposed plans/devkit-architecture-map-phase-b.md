@@ -1,7 +1,7 @@
 ---
 title: DevKit Architecture Map — current state (code-grounded) + Phase B target
 created: 2026-06-19
-updated: 2026-06-23
+updated: 2026-06-25
 status: developing      # inbox | developing | ready | promoted | parked
 surface: DevKit
 promotes_to: foundation for the two Phase B plans (B.1 structural + B.2 features); candidate to promote into DevKit docs/
@@ -70,6 +70,24 @@ references:
 > not per-participant docs; **tenant + user id** in `LaunchContext` + report envelope; role/attempt in-scene; cloud
 > wire-format = session-report schema (supersedes per-event `AnalyticsEventV1` — align Web-Portal before G2) — §11.
 
+> **Decision log (2026-06-25, analytics architecture session):** **(26)** analytics = a **four-layer hierarchy** —
+> **Objectives → Analytics (step + scene-wide) → Metrics → bus facts** — with the grade a **nested normalized weighted
+> mean + applicability mask** (§11.3). **(27)** analytics config is **NOT fields on `Step`** (this **supersedes** the old §11
+> "serialized `bool` + inspector analytics options" model): it's a **sidecar rubric keyed by `step.guid`, shown as a brick
+> tied to the step** in the scene graph. Load-bearing split = **measurement layer** (metrics, authored in Unity, fixed) vs
+> **grading layer** (objectives, teacher-tunable, **re-computable in the portal** from the bundled raw report). **(28)** a
+> metric = polymorphic **`AnalyticsMetric`** (duration/drops/wrongInteraction/order) with **scoring bands**
+> (none/warning/error → `penaltyWeight` + `notifyInScene`); **static weight at launch, curves deferred**. **(29)** a
+> **subjects registry** (`TrackedSubject` = `scenarioRelevant` + `ownerStepGuid`) on its own tab, **auto-detected from
+> `InsertStep` + `SelectionStep`** (the only interactable-bearing steps), powers **drops + wrong-interaction + order** from
+> one list. **(30)** **severity is derived** from registry attributes + interaction kind (relevant→error · distractor→
+> warning/none · out-of-order→warning · authored wrong-target→error), **author-overridable**; importance = `penaltyWeight`.
+> **(31)** `RuntimeTelemetryAdapter` is **reused as the egress scaffold** but B.1 must fix its **string-reflection coupling
+> to `SceneManager`** (the rename breaks telemetry), per-frame `FindObjectsOfType`, and lack of per-step duration — **the bus
+> subscription fixes all three**; its per-event contract is superseded by the session report. **(32)** launch-critical
+> metrics = **time (per-step + total) + items-dropped**; wrong-interaction cheap; order ready-but-off until owner-steps
+> tagged. **OPEN confirms:** penalty semantics · applicability masking · `target` = pass-bar · default severity table (§11.8).
+
 ---
 
 ## 0. Diagrams — target launch architecture
@@ -85,7 +103,7 @@ flowchart LR
   subgraph DKED["DevKit — authoring (Editor-only, never shipped)"]
     direction TB
     hub["DevKit Hub<br/>Setup · Author · Deliver · Localization · Maintain · Reference"]
-    sgraph["Scenario graph<br/>steps · branches (nextGuid)<br/>mark Action (+ dynamic analytics options)<br/>SessionStart / SessionStop"]
+    sgraph["Scenario graph<br/>steps · branches (nextGuid)<br/>analytics brick per step (metrics)<br/>SessionStart / SessionStop"]
     console["LabConsole editor<br/>typed params + actions<br/>declare + wire networked states"]
     wiz["Capability wizards<br/>MakeGrabbable · MakeSceneMultiplayer · MakeSceneLocalized"]
     locauth["Localization authoring<br/>key text · baked EL+EN StringTables · translate prompt"]
@@ -149,7 +167,7 @@ flowchart LR
       mpflow["FusionScenarioPath = IScenarioFlowStore impl<br/>FLOW sync = entered-step path<br/>branch records itself"]
       mpstate["ILabStateStore (scene-authored)<br/>Local/Networked · triggers · listeners"]
     end
-    analytics["Analytics emitter<br/>role-gated · select → standardize → cloud"]
+    analytics["Analytics emitter<br/>role-gated · assemble session report → cloud"]
     loc["Localization<br/>locale → merge baked + cloud tables"]
     vicky["VICKY observe / actuate<br/>post-launch"]
   end
@@ -187,7 +205,7 @@ flowchart LR
   mpstate -->|"listeners react"| scene
   mpflow <-->|"Fusion"| peers
   mpstate <-->|"Fusion"| peers
-  analytics -->|"AnalyticsEventV1"| ingest
+  analytics -->|"session report"| ingest
   ingest --> portal
   classDef control fill:#e6f0ff,stroke:#2b6cb0,color:#1a365d;
   classDef notify fill:#fff3e0,stroke:#dd6b20,color:#7b341e;
@@ -636,11 +654,192 @@ role** (instructor force-advance/override is post-launch with instructor tooling
 
 ---
 
-## 11. Analytics — analytics as part of the scenario
+## 11. Analytics — the measurement → grading hierarchy
 
-- **Per-step opt-in:** a serialized **`bool` on `Step`** ("track this step" = mark it an Action). When on, the inspector
-  **dynamically shows the analytics options** (title/target/weight · timing nudges · `onWrong`/critical tags — the
-  per-Action config). One row = one Action; off-step interactions auto-count as errors; the engine does the rest.
+> **Supersession (2026-06-25):** analytics config is **NOT** fields on `Step`. The earlier "serialized `bool` + inspector
+> analytics options on `Step`" model is **replaced** by the **sidecar rubric** below (keyed by `step.guid`, shown as a
+> **brick tied to the step**). Decision-log (26)–(32).
+
+### 11.0 The model — four layers, two ownership halves
+
+The load-bearing idea is the split between the **measurement layer** (authored in Unity, fixed) and the **grading layer**
+(teacher-owned, tunable, **re-computable in the portal**):
+
+| Layer | Is | Authored by | When |
+|---|---|---|---|
+| **Objectives** | the grading algorithm (weights + targets) | teacher | tunable anytime, incl. **post-hoc in the Web Portal** |
+| **Analytics** (step + scene-wide) | scored groupings of metrics | author | scene authoring |
+| **Metrics** | atomic measurement + scoring bands | author / dev | scene authoring |
+| **Mechanism / facts** | raw events on the `LabEventBus` | runtime | at play |
+
+Because the whole chain is **pure arithmetic over (raw events + rubric)**, the portal **re-computes** the identical grade
+from the bundled report (§11.5) — the Unity observers are the *live mirror* (in-scene notifications); the authoritative
+grade is the portal re-running the same reducers. This is *why* the report bundles raw, not pre-scored.
+
+```mermaid
+graph TD
+  G["GRADE — 100%"]
+  G --> O1["Objective: Procedure Correctness<br/>weight 70% · target 90%"]
+  G --> O2["Objective: Efficiency<br/>weight 20%"]
+  G --> O3["Objective: Safety<br/>weight 10%"]
+  O1 --> SA1["Step Analytic: Step 1"]
+  O1 --> SA2["Step Analytic: Step n"]
+  O2 --> CW1["Scene Analytic: Total Time"]
+  O3 --> CW2["Scene Analytic: Items Dropped"]
+  O3 --> CW3["Scene Analytic: Wrong Interaction"]
+  SA1 --> M1["Metric: Step Duration<br/>bands ok/warn/error"]
+  SA1 --> M2["Metric: Order Check"]
+  CW1 --> M3["Metric: Total Duration"]
+  CW2 --> M4["Metric: Drop Count"]
+  CW3 --> M5["Metric: Wrong-Target Count"]
+  M1 --> E["LabEventBus facts<br/>step.entered/completed · item.dropped · interaction.wrong"]
+  M2 --> E
+  M3 --> E
+  M4 --> E
+  M5 --> E
+```
+
+### 11.1 Metrics — the atomic measurement + scoring (the contract)
+
+Each metric, whatever its mechanism, honors **one contract:** emit `(rawValue, score ∈ [0,1] higher=better,
+applicable ∈ {0,1}, violations[])`. Below the line the mechanism is free; above it nothing knows the unit.
+
+- **Schema:** polymorphic `[SerializeReference] AnalyticsMetric { id, label, weight, Kind, ScoringBand[] bands }` (mirrors
+  `Step`, §9.2). Launch kinds: `StepDurationMetric`, `TotalDurationMetric`, `DropMetric`, `WrongInteractionMetric`,
+  `OrderMetric`. **Scope** = a `stepGuid` (step-scoped) or null (scene-wide).
+- **Reducer (events → rawValue)** = a pure function over the bus stream (count drops; sum step enter/exit deltas) —
+  **portable**, so the portal recomputes it.
+- **Normalization (rawValue → score):** `x = clamp01(1 − Penalty(rawValue))`. **Ceiling kinds** (duration): penalty =
+  `penaltyWeight` of the **highest band crossed** (step function now; **curve deferred — static weight at launch**).
+  **Count kinds** (drops/wrong/order): penalty = Σ per-occurrence `penaltyWeight`.
+- **Scoring bands = the warning/error mechanism.** `ScoringBand { name: none|warning|error, threshold, penaltyWeight,
+  notifyInScene }` does two things: subtract its penalty *and* (if `notifyInScene`) fire the in-scene UI notification.
+  Warning vs error are **two named tiers on one continuous penalty scale** — **importance = `penaltyWeight`**.
+- **Launch-critical kinds = time (per-step + total) + drops;** wrong-interaction is cheap (registry-driven); **order is
+  ready-but-off** until authors tag owner steps.
+
+### 11.2 Subjects registry — one list powers drops + wrong-interaction + order
+
+- **`TrackedSubject { id, label, target, scenarioRelevant, ownerStepGuid }`** — the catalog of trackable physical objects,
+  on its **own LabConsole tab**. `scenarioRelevant = false` = a distractor.
+- **Auto-detect (code-verified 2026-06-25):** the only steps that reference scene interactables are **`InsertStep`**
+  (`item` / `targetTrigger` / `attachTransform`, `InsertStep.cs:12-19`) and **`SelectionStep`** (via its `SelectionLists`
+  controller, `SelectionStep.cs:16-20`). The registry **pre-fills from those** (subject → ownerStep); distractors + free
+  grabbables are added by hand. So the mechanism is **for interactable-bearing steps + manual distractors**, not all steps.
+- **One registry → three classifications.** Each interaction is judged by *(in registry? · scenarioRelevant? · ownerStep ==
+  current?)*: not-in-registry / irrelevant → **wrong-interaction**; relevant & current → **correct**; relevant & a different
+  step → **order violation**.
+- **Severity is derived, not hardcoded.** Defaults from registry + interaction kind: distractor drop/grab → **warning** (or
+  none) · relevant item out-of-order → **warning** · relevant-item drop → **error** · **use/cut on the wrong target →
+  error** (an *authored* signal, §11.4). **Author-overridable** per metric; importance = `penaltyWeight`.
+
+### 11.3 Analytics + Objectives — aggregation + the final formula
+
+Above the metric contract it's the **same operation at every level — a normalized weighted mean with an applicability mask**
+(`a_* ∈ {0,1}`) — so it's bounded `[0,1]`, weights are *relative*, and skipped / non-applicable items drop out:
+
+```
+metric     x_m = clamp01(1 − Penalty_m(r_m))            r_m = Reduce_m(events)
+analytic   X_A = Σ(a_m·w_m·x_m) / Σ(a_m·w_m)            over the metrics in A (step or scene)
+objective  X_o = Σ(a_A·sw_A·X_A) / Σ(a_A·sw_A)          over the analytics feeding o
+           pass_o = (X_o ≥ target_o)                     ← label only, not a divisor
+grade      G   = Σ(a_o·W_o·X_o) / Σ(a_o·W_o)            ( = "incomplete" if Σ = 0 )
+```
+
+- **Analytic** = a scored grouping: **StepAnalytic** (one step's metrics → that step's score) or **SceneAnalytic** (a
+  scene-wide category — time, safety). **Step + scene analytics merge ONLY at the objective** (the objective is the join;
+  there is no physical merge in the scene).
+- **Objective** = a teacher's grading bucket: analytic inputs × sub-weights, a `target` (the pass bar — label only), and a
+  `weight` = its share of the grade (the 70 / 20 / 10).
+- **Applicability masking** is the robustness piece: a step never reached → its metrics `applicable = 0` → **excluded**, not
+  scored 0; "no drops occurred" → `applicable = 1, score = 1`; a **spectator** emits nothing → masked everywhere;
+  **all-masked → grade = incomplete, never 0** (ties to incomplete-never-lost, §11.5). A zero denominator *means*
+  non-applicable → no `0/0`.
+- **Equivalence check:** a shared **golden fixture** (events in → grade out) run in **both** Unity EditMode and the portal
+  keeps the two reducer implementations in lockstep.
+
+```mermaid
+classDiagram
+  class Objective {
+    +string id
+    +string label
+    +float weight
+    +float target
+    +ObjectiveInput[] inputs
+    +float Score()
+  }
+  class ObjectiveInput {
+    +Analytic analytic
+    +float subWeight
+  }
+  class Analytic {
+    <<abstract>>
+    +string id
+    +float Score()
+  }
+  class StepAnalytic { +string stepGuid }
+  class SceneAnalytic { +string category }
+  class AnalyticsMetric {
+    <<abstract>>
+    +string id
+    +string label
+    +float weight
+    +string Kind
+    +ScoringBand[] bands
+    +float Score()
+  }
+  class ScoringBand {
+    +string name
+    +float threshold
+    +float penaltyWeight
+    +bool notifyInScene
+  }
+  class TrackedSubject {
+    +string id
+    +string label
+    +GameObject target
+    +bool scenarioRelevant
+    +string ownerStepGuid
+  }
+  Objective "1" o-- "*" ObjectiveInput
+  ObjectiveInput --> Analytic
+  Analytic <|-- StepAnalytic
+  Analytic <|-- SceneAnalytic
+  Analytic "1" o-- "*" AnalyticsMetric
+  AnalyticsMetric <|-- StepDurationMetric
+  AnalyticsMetric <|-- TotalDurationMetric
+  AnalyticsMetric <|-- DropMetric
+  AnalyticsMetric <|-- WrongInteractionMetric
+  AnalyticsMetric <|-- OrderMetric
+  AnalyticsMetric "1" o-- "*" ScoringBand
+  DropMetric ..> TrackedSubject
+  WrongInteractionMetric ..> TrackedSubject
+  OrderMetric ..> TrackedSubject
+```
+
+### 11.4 Mechanism & wiring — facts in, report out
+
+- **The runner emits step/session facts** on the `LabEventBus` (§7); the **analytics emitter subscribes** (not
+  reflection-poll). The bus is the in-process plane; egress (§11.5) is separate.
+- **`RuntimeTelemetryAdapter` is the existing egress scaffold (code-reviewed 2026-06-25) — reuse, with fixes.** Keep:
+  idempotency keys (`:351`), per-attempt sequencing (`:474`), batched flush (`:300`), attempt-end validation (`:424`),
+  **abandon-on-destroy that flushes first** (`:161`/`:390`). **Fix in B.1:** (a) it finds the runner by **string reflection**
+  (`FullName == "Pitech.XR.Scenario.SceneManager"`, `:576`; reflects `scenario`/`steps`/`guid`/`StepIndex`, `:593-667`) →
+  **the B.1 rename silently kills telemetry** unless updated; (b) **per-frame full-scene `FindObjectsOfType`** until a runner
+  is found (`:567`); (c) **no per-step duration** (it diffs `StepIndex`, `:504-563`, never stamps enter-time → the #1 metric
+  isn't captured today); (d) a **per-event contract** (`contractVersion "1.2.0"`, `:75`) the session report supersedes.
+  **Subscribing to bus step facts fixes (a)+(b)+(c) at once** — no string coupling, no scan, accurate enter/exit timestamps.
+- **Drops:** "dropped" = fell below a Y-threshold; the hook is **`RespawnOnDrop.WhenRespawned`** — a Meta Interaction SDK
+  **sample** UnityEvent (`…/com.meta.xr.sdk.interaction/Runtime/Sample/Scripts/RespawnOnDrop.cs:50`/`:118`), **not** ours and
+  **not** in the DevKit. Wire it → `EmitSignal("item.dropped")`; the DevKit's own `TrackedSubject` does its own below-Y check
+  (or subscribes when the sample is present) — **don't hard-depend on a Meta sample path.**
+- **Authored signals:** a generic `AnalyticsSignalEmitter.EmitSignal(id)` (UnityEvent-callable) lets existing wiring carry
+  analytics — the scalpel's wrong-cut UnityEvent → `EmitSignal("wrong-incision")` (an authored = error signal). Reuses the
+  UnityEvent presentation layer; no per-object analytics code.
+- **Auto-wiring already exists:** `TelemetryAutoWirer` (`:25-64`) zero-configs the adapter in `Awake`; extend the same
+  pattern to auto-wire registry subjects to grab (Meta `Select`) + drop (`WhenRespawned`).
+
+### 11.5 The graded bracket, runtime binding & resolved feature decisions
 - **The graded bracket — `SessionStart` / `SessionStop` steps** (a.k.a. `AnalyticsStart`/`Stop`): new step types (or a
   section marker) that delimit where the graded part of the scenario begins/ends. **Completing the bracket is itself an
   analytics metric** (the attempt/session). These emit **session-started / session-completed** facts on the bus
@@ -648,9 +847,9 @@ role** (instructor force-advance/override is post-launch with instructor tooling
 - **Runtime:** the runner emits step + session lifecycle facts on the bus; the **analytics emitter subscribes** (not
   reflection-poll) and assembles the **session report** (see "The report" below) — the Flow-A rubric + Flow-B events are
   merged **on-device** into one document, not joined separately in the cloud.
-- **Binding:** structural hooks = the bus (§7) + the serialized Action config + the `SessionStart/Stop` step types (both
-  serialized-graph changes → Proof C / freeze at the DevKit SDK emit-API gate, 2026-07-07 — §13). The scoring/transport/cloud
-  is the feature (the `AnalyticsEventV1` emit contract freezes cross-surface at G2, 2026-06-29).
+- **Binding:** structural hooks = the bus (§7) + the **metric rubric** (§11.1) + the `SessionStart/Stop` step types (both
+  serialized-graph changes → Proof C / freeze at the DevKit SDK emit-API gate, 2026-07-07 — §13). The observers/scoring/transport
+  is the feature (the **session-report schema**, which supersedes per-event `AnalyticsEventV1`, freezes cross-surface at G2, 2026-06-29).
 - **Session roles gate analytics (NEW, decided 2026-06-23) — Professor / Participant / Spectator.** **Chosen in-scene, per
   attempt** (an in-lab role pick once the scene is up — *not* a pre-launch shell choice; role binds to the **attempt**,
   re-chosen each run, not a fixed user property). So `LaunchContext` carries tenant + user + session + lab/cohort; the
@@ -687,9 +886,41 @@ role** (instructor force-advance/override is post-launch with instructor tooling
 - **LMS interop is DEFERRED (2026-06-22).** No xAPI / SCORM / cmi5 / LTI at launch: **VICKY is the system of record**, not
   a plugin into a university's Moodle / Canvas. Low-regret precisely because any such translation would have lived at the
   **Web Portal edge**, never on-device — so the device fact contract is unaffected, and an xAPI / cmi5 edge-adapter can be
-  added later if a tenant contractually requires their LMS be the book of record. `AnalyticsEventV1` stays the launch
-  schema; the only near-free hedge is not picking fact names that are *impossible* to map later (no need to design *for*
-  xAPI).
+  added later if a tenant contractually requires their LMS be the book of record. The only near-free hedge is not picking
+  fact / metric names that are *impossible* to map later (no need to design *for* xAPI).
+
+### 11.6 Authoring workflow (end-to-end)
+
+1. **Build the scene graph** (the scenario authoring graph — rename *proposed*) — it holds the `SessionStart` / `SessionStop`
+   boundary steps (§14 #5). Per-step analytics is configured on a **brick attached to the step node** (the sidecar, stored
+   guid-keyed).
+2. **Subjects tab** (LabConsole) — auto-detected (Insert / Selection) + manually-added subjects & distractors (§11.2).
+3. **Analytics** (LabConsole) — per-step bricks (duration, order) + scene-wide metrics (total time, drops,
+   wrong-interaction) + **Objectives** (weights + targets = the grading algorithm).
+4. **Wiring is mostly automatic:** runner step/session facts auto-emit; registry subjects auto-wire to grab/drop; one-off
+   authored failures via `EmitSignal` on the existing UnityEvent.
+5. **Play-test:** bricks show live counts; the console warns on order / wrong-interaction (the in-scene notification). On
+   `SessionStop` / abandon → assemble the report → outbox → cloud → the portal joins rubric × events and applies the
+   (static) weights.
+
+### 11.7 Borrowed / rejected — ORamaVR MAGES
+
+MAGES (ORamaVR; **its core is already a VR-app dependency**) builds analytics into **Action prototypes** — networking +
+analytics baked into each action — capturing *hundreds of events/sec* for psychomotor surgical assessment, optionally to a
+cloud ML analytics server. **Borrow:** the *typed-signal* + *analytics-is-authored* philosophy (our `EmitSignal` vocabulary
++ the LabConsole rubric). **Reject:** analytics baked *into* the action (that's the settings-on-`Step` coupling we removed —
+our sidecar keeps authoring code-free); and the hundreds-of-events/sec + server-side ML (psychomotor-surgery fidelity, wrong
+fit for **discrete medical-education** labs — our discrete event stream is the right grain).
+
+### 11.8 Open confirms (2026-06-25 — proposed, pending an explicit yes)
+
+These originate from this session's design and are folded in as the working model, but were **not** yet explicitly ratified:
+- **Penalty semantics** — ceiling = highest-band-crossed (step function now); count = per-occurrence sum.
+- **Applicability masking** as the canonical rule (skipped / non-participant items leave the denominator; all-masked →
+  "incomplete").
+- **Objective `target` = pass-bar label**, not a grade divisor (the grade stays a continuous weighted mean).
+- **The default severity table** (relevant → error · distractor → warning/none · out-of-order → warning · authored
+  wrong-target → error), author-overridable.
 
 ---
 
@@ -739,7 +970,7 @@ on (belongs in B.2). The dedup of the divergent linear/group twins is **not** ne
 | Notification | build **`LabEventBus`** + step/session-fact emission; migrate reflection drivers onto it | analytics/mp/VICKY **subscribe** |
 | Params / state | **one** typed param store = **successor to Stats** (deprecated) + networked dimension + `ILabStateStore` bool-view | StatsUIController→param-driven UI; Vitals bindings; relative-op authority-apply |
 | Multiplayer infra | `ILabStateStore` + **scene-authored** Local/Networked stores (parent-scope-walk, no singleton) + the **path-store seam** (`Local*` = identical) | **step-sync FOLLOW + branch** on; declared-param wiring in LabConsole |
-| Analytics infra | Action `bool` + `SessionStart/Stop` + **role enum + per-lab capacities** + reconcile `ScenarioFactKeys` + tenant id in `LaunchContext` | tracking/scoring + **role-gated emitter** + standardize-for-cloud + **offline outbox** (LMS deferred — §11) |
+| Analytics infra | **metric/analytic/objective schema** (`AnalyticsMetric` + bands) + **subjects registry** + `SessionStart/Stop` + **role enum + per-lab capacities** + reconcile `ScenarioFactKeys` + tenant id in `LaunchContext` | **metric observers + the aggregation/grade math** + **role-gated emitter** + **session report** (supersedes `AnalyticsEventV1`) + **offline outbox** (LMS deferred — §11) |
 | Localization | `LaunchContext.locale` + **relocate** the existing VR keying pipeline into the module + **extend keying to data-asset + code-literal text** + **merge seam** | Greek+English content; cloud tables |
 | Scenario data | `[MovedFrom]` / `[FormerlySerializedAs]` migration + **dangling-guid lint** (§15); **freeze the `kind`-discriminated JSON contract shape** | bidirectional JSON **round-trip importer** → LLM / portal authoring (post-launch) |
 | Hygiene | `Stats.Editor.asmdef`; `FindObjectsOfType` → typed seam; **spec + fix `AddressablesRemoteUrlRewriter` global-clobber** (§5 — launch-critical for UaaL) | — |
@@ -803,7 +1034,9 @@ intended — consumers code against the frozen surface from each gate).
 > watch-items (not decisions): the migration upgraders (#3 + the Stats reshape, §8) and verifying no lab relied on a
 > now-clamped out-of-range param (§8). #6 (AgentSubstrate) stays out of launch. **b6 RESOLVED 2026-06-23** — analytics = one self-contained
 > session report (tenant+user stamped); see §11. *Cross-surface note:* the report-schema change must align with the
-> Web-Portal side before the G2 freeze.
+> Web-Portal side before the G2 freeze. **Analytics architecture fully specified 2026-06-25 (§11)** — the
+> metric → analytic → objective hierarchy + grade math; **§11.8 lists 4 open confirms** (penalty semantics · masking ·
+> `target` = pass-bar · severity table) that are folded in as the working model but not yet ratified.
 
 ## 15. Verified dependencies & prerequisites (code-checked 2026-06-19)
 
