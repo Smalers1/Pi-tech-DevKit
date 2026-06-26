@@ -18,6 +18,16 @@ companion: 2026-06-09-phase-a-refactor-and-foundation.md (the WS A3 net) + 2026-
 
 # Phase B - Analytics, Localization & Vitals Foundation (first behaviour-additive)
 
+> ⚠️ **SUPERSEDED (2026-06-26) by `../proposed plans/devkit-architecture-map-phase-b.md` (decision log 2026-06-26b).** This
+> 2026-06-09 plan predates the evolved architecture — **do NOT implement from it as-is.** Superseded on: (1) **analytics
+> wire** — the session-report schema replaces per-event `AnalyticsEventV1` + Flow-A/B; (2) **runner extraction** — FULL B.1
+> extracts + renames `SceneManager → LabConsole` at launch (this plan said "no extraction"); (3) **multiplayer** — the
+> path-list flow-store replaces the B9 bool-bridge; (4) **LabConsole** — ships at launch (this plan said post-launch);
+> (5) **analytics model** — sidecar metrics/objectives/bands/subjects-registry, NOT per-Action config on the `Step`;
+> (6) **Stats** — replaced by the param store. **KEPT (re-homed onto the map):** the cloud-lane structure (B4/B5/B6), the
+> queued transports (`DirectCloud`/`Bridge`), the **consent [HUMAN] step** (B4 Step 4), Greek+English localization (B7), the
+> exit-criteria format, the no-emoji hygiene. The map is the authority for B.1/B.2.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: `superpowers:executing-plans` (or `superpowers:subagent-driven-development`)
 > to implement WS-by-WS. Steps use `- [ ]` checkbox syntax for progress tracking. Every behaviour-additive change here is
 > validated by the Phase A **WS A3 net** before it is admitted.

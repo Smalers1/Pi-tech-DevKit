@@ -88,6 +88,44 @@ references:
 > metrics = **time (per-step + total) + items-dropped**; wrong-interaction cheap; order ready-but-off until owner-steps
 > tagged. **OPEN confirms:** penalty semantics · applicability masking · `target` = pass-bar · default severity table (§11.8).
 
+> **Decision log (2026-06-26, Stergios — cross-PC merge + resolutions):** **(33)** **param store = REPLACE** confirmed —
+> the divergent 2026-06-24 "extend, leave Stats untouched" take is **rejected**; Stats is superseded/deprecated + migrated
+> (§8). **(34)** **Runner ↔ LabConsole internal wiring = plain direct references** in the one `Pitech.XR.Scenario` assembly
+> (no internal Core interface); LabConsole owns + directly drives the inner runner and **hands it the param-store service it
+> needs** (dependency points runner→store, not runner→whole-console). `ISceneRunnerControl` (3 members) stays the
+> **cross-assembly ignition boundary only** (ContentDelivery → lab), **implemented by LabConsole, NOT widened** — internal
+> direct calls remove any pressure to add flow verbs to the seam (§9.1). **(35)** **Analytics authoring = in-lab via the
+> DevKit at launch; Web-Portal tuning post-launch** — launch authors the full rubric (metrics + objectives) in-lab; later the
+> Web Portal lets professors **pick from a DevKit-defined dropdown** and set **only weight + target** (no new metric types).
+> The grading layer becomes portal-editable; the bundled raw report keeps it re-computable (§11.0). **(36)** ported
+> gap-closures from the divergent 06-24 branch: **follower-suppression hook built INERT in B.1** (flip-on in B.2 — §10.1);
+> **the Evaluate-Changes gate stays scoped to the scenario engine** — relocated/new modules (Networking, Localization, param
+> store) are verified by **on-device play**, not by extending the gate (§15); **two outside-DevKit launch deps carried
+> explicitly in the plans** — app-supplied **consent state** (gates the analytics emit) + the **cloud/dashboard handoff**
+> (ingest + portal). **(37) fact fix:** `Scenario.cs:10` is a **`MonoBehaviour`** (data-holder component), not "pure data"
+> — §4 corrected. *(Source: merged the unique content from the divergent `_workbench/.../devkit-architecture-map copy.md`
+> 2026-06-24 branch; that branch's items already covered here — bus-on-lab-root, analytics-new-path, loc-move, JSON-kind —
+> were not re-added.)*
+
+> **Decision log (2026-06-26b, Stergios — open-decision close-out + freezes):** **(38)** **Analytics wire = the session
+> report** (Q1) — retire `AnalyticsEventV1`; cloud ingest/DDL/RLS/portal rebuild to the session-report schema before G2.
+> **Plus: the scoring engine (events + rubric → grade) lives in the DevKit** so the **lab-end screen renders on-device with
+> no cloud round-trip**; the same bundled raw goes up and the cloud **re-computes identically** (DevKit = canonical reducer,
+> cloud = mirror) — §11.0/§11.4. **(39)** **§11.8 grade math RATIFIED** (Q4): metric `x = clamp01(1 − Penalty)` · normalized
+> weighted mean at every level · applicability mask (skipped/non-participant drop from the denominator; all-masked →
+> "incomplete") · objective `target` = pass-bar label. **Default bands = `none 0 · warning 0.5 · error 1.0`** ("for start,"
+> author-overridable). **(40)** **JSON = full manual round-trip (export + import) at launch** (Q2) — resolves the
+> §9.2-vs-#7 contradiction; in-scene stays canonical; JSON-as-source-of-truth still post-launch. **(41)** **Vitals = B.2
+> slip-eligible foundation** (Q3) — typed `PatientVitals` (param-store-backed) + the 3D bindings `ControlOptionManager`
+> already does (slider→timeline-speed / animator-param / field) + `IAgentStateSource` seam; `ControlOptionManager`
+> (`Assets/Scripts/Interactions/Managers/ControlOptionManager.cs`, PUN) is the **concrete professor-panel / outside-in-door /
+> vitals-control prototype** — its PUN→Fusion + reflection→typed-param convergence is post-launch (§8/§13). **(42)** **freeze
+> hygiene:** scrubbed the stale "Step Action-config / serialized Action bool" residues (the frozen analytics surface = the
+> **rubric schema** `AnalyticsMetric`/bands/`TrackedSubject`/`Objective` + `SessionStart/Stop` + role enum, NOT a Step bool);
+> `AddressablesRemoteUrlRewriter` global-clobber given a concrete fix + acceptance (§13). **Old 2026-06-09 analytics plan =
+> SUPERSEDED** on wire-format, runner-extraction, MP, LabConsole, analytics model (kept only: cloud-lane structure,
+> transports, consent [HUMAN] step, loc, exit-criteria format).
+
 ---
 
 ## 0. Diagrams — target launch architecture
@@ -318,7 +356,7 @@ RUNTIME
 
 ## 4. The runner — placement answers (from code)
 
-- **(a)** The runner **is** `SceneManager` (`:21`), a MonoBehaviour — not a separate type. `Scenario.cs` is pure data.
+- **(a)** The runner **is** `SceneManager` (`:21`), a MonoBehaviour — not a separate type. `Scenario.cs` is **also a `MonoBehaviour`** (`Scenario.cs:10`) — a data-holder component (the steps live on it), **not** a non-MonoBehaviour data type (decision-log (37)).
 - **(b)** It lives **inside** `Pitech.XR.Scenario`, separate from the data model but **not its own type/module** — a god-class fusing run-loop + Stats/Quiz/Interactables/UI orchestration. The intended extraction line is the existing `Core.ISceneRunnerControl` seam (which SceneManager implements as forwarders, but **nobody calls**).
 - **(c)** LabConsole **does not exist** (one doc-comment). The runner self-drives; ContentDelivery + the editor drive it by reflection.
 - **(d)** **No EventBus** in code.
@@ -487,9 +525,16 @@ has no live writer until the post-launch door.
 
 ### 9.1 Runner extraction (behavior-neutral) + step execution
 
-- **Extract the run-engine** out of `SceneManager` into a dedicated type implementing `ISceneRunnerControl`; SceneManager
-  (→ LabConsole) keeps the serialized authoring + drives the engine via the seam. **Type-first within
-  `Pitech.XR.Scenario`**; its own assembly is a later, secondary step.
+- **Extract the run-engine** out of `SceneManager` into a dedicated inner runner type; SceneManager (→ LabConsole) keeps
+  the serialized authoring and **owns + directly drives** the runner. **Type-first within `Pitech.XR.Scenario`**; its own
+  assembly is a later, secondary step.
+- **Internal wiring = plain direct references, NOT an internal interface (decided 2026-06-26, decision-log (34)).** Runner
+  and LabConsole are two classes in the **one `Pitech.XR.Scenario` assembly**, so a Core interface between them is ceremony
+  with no decoupling payoff. LabConsole **hands the runner the param-store service it needs** (dependency points
+  runner→store, not runner→whole-console). **`ISceneRunnerControl` (3 members) stays the cross-assembly ignition boundary
+  ONLY** (ContentDelivery → lab: ignite/position/restart), **implemented by LabConsole and NOT widened** — keeping internal
+  flow control as direct calls removes any pressure to add `advance_step`/`branch_to` to the seam (forbidden until
+  post-launch, §7). Lowest-risk behavior-neutral extraction: it mirrors today's in-class calls.
 - **The cost/risk — the linear/group twins DIVERGE; do NOT dedup at launch.** The runner has **10 linear `RunX` + 8
   `RunXGroup` twins**, and they are **not** identical copy-paste: e.g. `RunQuestionGroup` has a first-click-wins guard
   `if (nextGuid != null) return;` (`SceneManager.cs:2165`) that linear `RunQuestion` (`:457-473`) **lacks** — so
@@ -533,11 +578,14 @@ Two layers, different timelines:
   authoring** (VICKY emits JSON → human reviews in the graph), and the Web Portal holding the scenario definition. The hard
   part is scene-independent **reference resolution** (refs are hierarchy-path + sibling-index today).
   - **Sequencing:** *freeze the contract shape now* (the `kind` vocabulary = each `Step.Kind`, `schemaVersion`,
-    enum-by-name, field naming) — cheap, and the precondition that keeps later authoring builds from churning. **Build the
-    round-trip importer post-launch** (~3–5d, net-new). **Once JSON is the source of truth, D largely retires** (migration
-    becomes the `kind` map).
-  - **OPEN (yours):** does JSON become the eventual *source of truth* (portal stores/edits it; scene imports — enables
-    no-code + LLM authoring) or stay an *export / interchange* format (in-scene stays canonical)? → §14 #7.
+    enum-by-name, field naming) — cheap, and the precondition that keeps later authoring builds from churning. **The full
+    manual round-trip (export + import) ships at launch in B.1 (RESOLVED 2026-06-26, decision-log (40))** — Q2 chose the
+    round-trip at launch over export-only; in-scene stays canonical, so this is an authoring/interchange aid, not a
+    source-of-truth flip. **Once JSON is the source of truth (post-launch), D largely retires** (migration becomes the
+    `kind` map).
+  - **Source-of-truth (post-launch, §14 #7):** at launch JSON is a manual round-trip *interchange* format with in-scene
+    canonical; whether JSON later becomes the authoritative store (portal edits it; scene imports — no-code + LLM
+    authoring) stays a post-launch decision.
 
 ---
 
@@ -565,6 +613,9 @@ is **effect-scope** (§10.4), not flow opt-in.
 - **Required runtime care:** synced **auto-resolving steps** (`ConditionsStep`, no-wait `Event`/`Timeline`) must be
   **suppressed on followers** so they wait for the list instead of self-resolving. Effects are **display-only** on
   followers (the driver's run owns the stats).
+- **Follower-suppression hook lands in B.1, inert (decided 2026-06-26, decision-log (36)).** Build the "if follower, pause
+  and wait for the appended guid" hook in the runner during B.1 — **inert in single-player** (always DRIVE) — so B.2
+  multiplayer is a true flip-on, not a runner change. Behavior-neutral: a single-player session never takes the follower path.
 
 ### 10.2 SCENE-STATE sync — the networked param store (relocated the right way; verified against VR 2026-06-23)
 The scene-state switchboard becomes the **networked half of the one param store** (§8), relocated from the VR app into the
@@ -672,9 +723,18 @@ The load-bearing idea is the split between the **measurement layer** (authored i
 | **Metrics** | atomic measurement + scoring bands | author / dev | scene authoring |
 | **Mechanism / facts** | raw events on the `LabEventBus` | runtime | at play |
 
-Because the whole chain is **pure arithmetic over (raw events + rubric)**, the portal **re-computes** the identical grade
-from the bundled report (§11.5) — the Unity observers are the *live mirror* (in-scene notifications); the authoritative
-grade is the portal re-running the same reducers. This is *why* the report bundles raw, not pre-scored.
+Because the whole chain is **pure arithmetic over (raw events + rubric)**, the **scoring engine lives in the DevKit** — it
+computes the grade **on-device** so the **lab-end screen renders results with no cloud round-trip** (RESOLVED 2026-06-26,
+decision-log (38)). The **same bundled raw** (events + rubric) is shipped, and the cloud **re-computes identically** (for the
+portal + post-hoc re-grading): **DevKit = the canonical reducer, cloud = the mirror.** This is *why* the report bundles raw,
+not pre-scored.
+
+**Authoring: in-lab now, Web-Portal-tunable later (decided 2026-06-26, decision-log (35)).** At launch the full rubric —
+metrics *and* objectives — is authored **in-lab via the DevKit / LabConsole** (Unity). **Post-launch**, the Web Portal
+exposes the **grading layer** to professors: pick a metric/objective from a **DevKit-defined dropdown** and set **only its
+weight + target** — they cannot define new metric *types* (those stay the fixed DevKit vocabulary). The measurement layer is
+untouched; only weights/targets change, and the bundled raw report (§11.5) makes every stored session **re-grade** under the
+new numbers — which is exactly why metrics vs objectives are split.
 
 ```mermaid
 graph TD
@@ -912,15 +972,18 @@ cloud ML analytics server. **Borrow:** the *typed-signal* + *analytics-is-author
 our sidecar keeps authoring code-free); and the hundreds-of-events/sec + server-side ML (psychomotor-surgery fidelity, wrong
 fit for **discrete medical-education** labs — our discrete event stream is the right grain).
 
-### 11.8 Open confirms (2026-06-25 — proposed, pending an explicit yes)
+### 11.8 Grade math — RATIFIED 2026-06-26 (decision-log (39))
 
-These originate from this session's design and are folded in as the working model, but were **not** yet explicitly ratified:
-- **Penalty semantics** — ceiling = highest-band-crossed (step function now); count = per-occurrence sum.
-- **Applicability masking** as the canonical rule (skipped / non-participant items leave the denominator; all-masked →
-  "incomplete").
-- **Objective `target` = pass-bar label**, not a grade divisor (the grade stays a continuous weighted mean).
-- **The default severity table** (relevant → error · distractor → warning/none · out-of-order → warning · authored
-  wrong-target → error), author-overridable.
+The §11.3 model is locked for the schema freeze:
+- **Penalty semantics** — ceiling kinds (duration) = highest-band-crossed (step function now; curve later); count kinds
+  (drops/wrong/order) = per-occurrence sum.
+- **Applicability masking** — skipped steps / non-participant roles → `applicable = 0` → drop from the denominator;
+  all-masked → **"incomplete"**, never 0.
+- **Objective `target` = pass-bar label**, not a grade divisor (the grade is a continuous weighted mean).
+- **Default bands = `none 0 · warning 0.5 · error 1.0`** ("for start," tune later). So one **error** zeroes a metric
+  (`1 − 1.0`), one **warning** halves it (`1 − 0.5`); for count kinds the per-occurrence penalties sum then clamp.
+  **Author-overridable per metric.** Default severity mapping (registry-derived): relevant-item drop → error · distractor
+  drop/grab → warning · out-of-order → warning · authored wrong-target → error.
 
 ---
 
@@ -970,15 +1033,18 @@ on (belongs in B.2). The dedup of the divergent linear/group twins is **not** ne
 | Notification | build **`LabEventBus`** + step/session-fact emission; migrate reflection drivers onto it | analytics/mp/VICKY **subscribe** |
 | Params / state | **one** typed param store = **successor to Stats** (deprecated) + networked dimension + `ILabStateStore` bool-view | StatsUIController→param-driven UI; Vitals bindings; relative-op authority-apply |
 | Multiplayer infra | `ILabStateStore` + **scene-authored** Local/Networked stores (parent-scope-walk, no singleton) + the **path-store seam** (`Local*` = identical) | **step-sync FOLLOW + branch** on; declared-param wiring in LabConsole |
-| Analytics infra | **metric/analytic/objective schema** (`AnalyticsMetric` + bands) + **subjects registry** + `SessionStart/Stop` + **role enum + per-lab capacities** + reconcile `ScenarioFactKeys` + tenant id in `LaunchContext` | **metric observers + the aggregation/grade math** + **role-gated emitter** + **session report** (supersedes `AnalyticsEventV1`) + **offline outbox** (LMS deferred — §11) |
+| Analytics infra | **metric/analytic/objective schema** (`AnalyticsMetric` + bands) + **subjects registry** + `SessionStart/Stop` + **role enum + per-lab capacities** + reconcile `ScenarioFactKeys` + tenant id in `LaunchContext` | **metric observers + the aggregation/grade math** + **on-device scoring/readout engine** (lab-end display, no cloud round-trip) + **role-gated emitter** + **session report** (supersedes `AnalyticsEventV1`) + **offline outbox** (LMS deferred — §11) |
 | Localization | `LaunchContext.locale` + **relocate** the existing VR keying pipeline into the module + **extend keying to data-asset + code-literal text** + **merge seam** | Greek+English content; cloud tables |
-| Scenario data | `[MovedFrom]` / `[FormerlySerializedAs]` migration + **dangling-guid lint** (§15); **freeze the `kind`-discriminated JSON contract shape** | bidirectional JSON **round-trip importer** → LLM / portal authoring (post-launch) |
-| Hygiene | `Stats.Editor.asmdef`; `FindObjectsOfType` → typed seam; **spec + fix `AddressablesRemoteUrlRewriter` global-clobber** (§5 — launch-critical for UaaL) | — |
+| Vitals (SLIP-ELIGIBLE) | — | typed `PatientVitals` (param-store-backed) + 3D bindings (timeline-speed / animator-param / field, per `ControlOptionManager`) + `IAgentStateSource` seam; **slip-eligible, never blocks B1–B6**; PUN→Fusion convergence post-launch (decision-log (41)) |
+| Scenario data | `[MovedFrom]` / `[FormerlySerializedAs]` migration + **dangling-guid lint** (§15); freeze the `kind`-discriminated JSON shape + **full manual JSON round-trip (export + import)** at launch (decision-log (40)) | JSON-as-source-of-truth + LLM / portal authoring (post-launch) |
+| Hygiene | `Stats.Editor.asmdef`; `FindObjectsOfType` → typed seam; **fix `AddressablesRemoteUrlRewriter` global-clobber** — on `Install` **capture** the prior `InternalIdTransformFunc` and **chain** to it (don't overwrite); on `Uninstall`/`Clear` **restore the captured prior** (never null unconditionally). Acceptance = a UaaL regression test: the host RN app's Addressables transform survives a DevKit install→uninstall cycle (`AddressablesRemoteUrlRewriter.cs:118`, §5 — launch-critical for UaaL) | — |
 
 **Sequencing & the TWO freeze gates** (per `VICKY_1_0_LAUNCH.md` §2 — verified): B.1 freezes across **two** gates, not
-one. **G2 (2026-06-29)** = *cross-surface* contracts: the analytics **emit** contract (`AnalyticsEventV1`), consent, and
-`LaunchContext` (incl. `.locale`). **DevKit SDK emit-API freeze (2026-07-07)** = the DevKit's own serialized/SDK surface
-consumers code against: bus fact shape, Step Action-config, `SessionStart/Stop`, effect-scope shapes (`AllClients`/`AuthorityOnly`, §10.4), `ConsoleParameter`.
+one. **G2 (2026-06-29)** = *cross-surface* contracts: the analytics **session-report schema** (supersedes per-event
+`AnalyticsEventV1` — Web-Portal must align), consent, and `LaunchContext` (incl. `.locale`). **DevKit SDK emit-API freeze
+(2026-07-07)** = the DevKit's own serialized/SDK surface consumers code against: bus fact shape, the **analytics rubric
+schema** (`AnalyticsMetric` + bands + `TrackedSubject` + `Objective`, NOT a Step bool), `SessionStart/Stop`, effect-scope
+shapes (`AllClients`/`AuthorityOnly`, §10.4), `ConsoleParameter`.
 (Per-shape gate assignment to confirm against the launch plan when authoring B.1.) B.2 builds on the frozen,
 Evaluate-Changes-proven foundation. DevKit window **2026-06-20 → 07-14** (freezing a contract before the window closes is
 intended — consumers code against the frozen surface from each gate).
@@ -998,7 +1064,7 @@ intended — consumers code against the frozen surface from each gate).
 - **Pre-launch forwarding reverses ratified canon** (§S4 of the forwarding draft) → conscious Petros override.
 - **Cross-repo:** NetworkStateManager relocation + the VR-side bridge touch the VR repo (ask-first) and add Fusion to the
   DevKit.
-- **Serialized changes** (Action config, `SessionStart/Stop`, effect-scope shapes, typed params) must clear Proof C + freeze at the
+- **Serialized changes** (the analytics rubric schema — `AnalyticsMetric`/bands/`TrackedSubject`/`Objective` — `SessionStart/Stop`, effect-scope shapes, typed params) must clear Proof C + freeze at the
   **DevKit SDK emit-API gate (2026-07-07)**; cross-surface contracts (analytics emit, consent, `LaunchContext`) freeze at
   **G2 (2026-06-29)** — §13.
 - **On-device proofs:** two-client sync + branch + loop + late-join + authority-drop; AR no-Fusion trace-identity.
@@ -1050,6 +1116,10 @@ against the `.cs`/`.meta`/`.xml` — promote into the eventual B.1 plan.
   golden-trace (Proof D) is NOT operational** — `Tests/PlayMode/GoldenTraceTests.cs` is a Phase-D-prep *seed* (Ignored,
   no committed traces, records only step-index transitions with empty `sideEffects`). → **gate B.1 on Evaluate-Changes,
   not golden-trace.**
+- **The gate stays scoped to the scenario engine (decided 2026-06-26, decision-log (36)).** Evaluate-Changes guards the
+  scenario-engine restructure (where breaking existing labs is the risk); the **relocated / new modules** (Networking,
+  Localization, the param store) are **verified by playing the labs on-device**, **not** by extending the Evaluate-Changes
+  net to them. Don't over-invest in gate coverage for modules whose correctness is a runtime / on-device property.
 - **Serialization safety (verified, no golden-trace needed).** `Scenario.OnValidate` must **not** strip null
   `[SerializeReference]` entries + early-returns during compile (`Scenario.cs:106-124`) — stripping permanently deletes
   the step graph. **`.meta` GUID stability on split:** `SceneManager.cs.meta` = `2d431a49d183e9c428369f7f758f75cd`

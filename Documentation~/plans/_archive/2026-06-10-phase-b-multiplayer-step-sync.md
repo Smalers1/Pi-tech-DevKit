@@ -19,6 +19,13 @@ companion: 2026-06-09-phase-b-analytics.md (the phase this addendum extends)
 
 # Phase B (addendum) - Multiplayer step-sync
 
+> ⚠️ **SUPERSEDED (2026-06-26) — ARCHIVED.** The launch MP solution is the **path-list flow-store** (`IScenarioFlowStore`),
+> NOT this B9 guid-keyed bool-bridge over `NetworkStateManager` (map decision 1 explicitly rejects the bool bridge).
+> Everything still needed from this doc is already in `../proposed plans/devkit-architecture-map-phase-b.md` §10: the
+> measured 16/64 state-budget baseline, the read-gate-forbidden invariant, the AR no-Fusion trace-identity proof, and the
+> `NetworkStateManager`→DevKit relocation. Kept here only as historical rationale. **Authority = the map + the B.1/B.2
+> implementation plans.**
+
 > **For agentic workers:** this addendum follows the same completion discipline as the Phase B umbrella - every
 > small step ticked, none skipped, [HUMAN] steps actively surfaced. Every change here is behaviour-additive and is
 > validated by the Phase A **WS A3 net** before it lands.
