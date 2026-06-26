@@ -43,9 +43,9 @@ namespace Pitech.XR.Core.Editor
             var uiRoot = EnsureRoot(scene, "--- UI ---");
             var quizCanvas = EnsureQuizCanvas(uiRoot, scene);
 
-            var sm = setup.FindFirstInScene("Pitech.XR.Scenario.SceneManager") as Component;
+            var sm = setup.FindFirstInScene("Pitech.XR.Scenario.LabConsole") as Component;
             if (!sm)
-                sm = setup.CreateUnderManagersRoot("Pitech.XR.Scenario.SceneManager", "Scene Manager", "Create Scene Manager");
+                sm = setup.CreateUnderManagersRoot("Pitech.XR.Scenario.LabConsole", "Lab Console", "Create Lab Console");
 
             // Load default UI prefabs shipped *inside the package* and instantiate them into the scene.
             var quizPanelPrefab = LoadDevkitPrefab("Editor/Quiz.Editor/DefaultUIPrefabs/QuizPanel.prefab");

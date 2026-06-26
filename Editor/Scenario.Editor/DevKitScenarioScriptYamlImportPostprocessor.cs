@@ -10,7 +10,7 @@ namespace Pitech.XR.Scenario.Editor
     /// <summary>
     /// Root-cause mitigation: Unity sometimes writes a prefab/scene with a <c>m_Script</c> GUID that does not resolve
     /// (package refresh, domain reload edge cases, or stale GUIDs). That surfaces as "Missing (Mono Script)" on
-    /// <see cref="Scenario"/> / <see cref="SceneManager"/> even though the rest of the YAML (including SerializeReference
+    /// <see cref="Scenario"/> / <see cref="LabConsole"/> even though the rest of the YAML (including SerializeReference
     /// steps) is still present. We normalize those two component types on import so labs under <c>Assets/</c> self-heal
     /// without a manual repair step.
     /// </summary>

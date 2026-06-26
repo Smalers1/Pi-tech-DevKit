@@ -27,7 +27,7 @@ namespace Pitech.XR.Scenario
         }
 
         [Header("Quiz Source")]
-        [Tooltip("Optional quiz override. If empty, SceneManager.defaultQuiz is used.")]
+        [Tooltip("Optional quiz override. If empty, LabConsole.defaultQuiz is used.")]
         public QuizAsset quiz;
 
         [Tooltip("Stable Question ID (preferred).")]

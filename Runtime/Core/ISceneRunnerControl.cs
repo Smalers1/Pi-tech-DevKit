@@ -12,13 +12,13 @@ namespace Pitech.XR.Core
     /// </summary>
     public interface ISceneRunnerControl
     {
-        /// <summary>Current step index while running; -1 when idle or finished. Forwards SceneManager.StepIndex.</summary>
+        /// <summary>Current step index while running; -1 when idle or finished. Forwards LabConsole.StepIndex.</summary>
         int CurrentStepIndex { get; }
 
-        /// <summary>Whether the runner auto-starts from Start(). Forwards SceneManager.autoStart.</summary>
+        /// <summary>Whether the runner auto-starts from Start(). Forwards LabConsole.autoStart.</summary>
         bool AutoStart { get; set; }
 
-        /// <summary>Restart the scenario from the beginning. Forwards SceneManager.Restart().</summary>
+        /// <summary>Restart the scenario from the beginning. Forwards LabConsole.Restart().</summary>
         void Restart();
     }
 }

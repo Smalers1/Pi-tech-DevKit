@@ -20,45 +20,22 @@ namespace Pitech.XR.Core
     {
         // ---- Fact / event names (what happened; not a per-step key) ----
 
+        /// <summary>A scenario step was entered. Paired with <see cref="StepCompleted"/>: the
+        /// StepDuration metric (map sec-11.1) diffs this fact's emit tick (LabEvent.Tick) against the
+        /// completed fact's tick. Added 2026-06-26 (WS B1.1) - the enter-time the old telemetry never
+        /// stamped (map sec-11.4); additive, no consumer binds yet.</summary>
+        public const string StepEntered = "step.entered";
+
         /// <summary>A scenario step was completed.</summary>
         public const string StepCompleted = "step.completed";
 
-        // ---- Per-step rich-fact keys: "scenario.step.<guid>.<field>" ----
-        // The facts the after-launch flow store records and Phase B analytics reads.
-        // Replicate the FACTS, never the runner's current step index (spec sec-1.4).
-
-        /// <summary>Prefix for per-step fact keys: <c>scenario.step.&lt;guid&gt;</c>.</summary>
-        public const string StepKeyPrefix = "scenario.step.";
-
-        public const string DoneSuffix = ".done";
-        public const string OutcomeSuffix = ".outcome";
-        public const string CompletedBySuffix = ".completedBy";
-        public const string CompletedAtTickSuffix = ".completedAtTick";
-
-        /// <summary><c>scenario.step.&lt;guid&gt;.done</c> - the step's completion fact.</summary>
-        public static string StepDone(string stepGuid) => StepKeyPrefix + stepGuid + DoneSuffix;
-
-        /// <summary><c>scenario.step.&lt;guid&gt;.outcome</c> - the step's recorded outcome.</summary>
-        public static string StepOutcome(string stepGuid) => StepKeyPrefix + stepGuid + OutcomeSuffix;
-
-        /// <summary><c>scenario.step.&lt;guid&gt;.completedBy</c> - who completed the step.</summary>
-        public static string StepCompletedBy(string stepGuid) => StepKeyPrefix + stepGuid + CompletedBySuffix;
-
-        /// <summary><c>scenario.step.&lt;guid&gt;.completedAtTick</c> - when the step completed.</summary>
-        public static string StepCompletedAtTick(string stepGuid) => StepKeyPrefix + stepGuid + CompletedAtTickSuffix;
-
-        // ---- Multiplayer step-sync bridge key: "flow.step.<guid>" (WS B9 seam) ----
-        // The launch-minimal boolean completion fact the WS B9 bridge syncs over the
-        // consumer-side NetworkStateManager. A separate namespace from authored scene
-        // states (e.g. "PuzzleSolved") so the two can never collide. For a 32-char Unity
-        // GUID this is ~42 chars - under the NetworkString<_64> cap. The const is INERT
-        // until a consumer reads it; it lives here so the bridge never hand-types the prefix.
-        // (WS B9 is pending board ratification - see the Phase B plan.)
-
-        /// <summary>Prefix for the multiplayer step-sync bridge key: <c>flow.step.&lt;guid&gt;</c>.</summary>
-        public const string FlowStepKeyPrefix = "flow.step.";
-
-        /// <summary><c>flow.step.&lt;guid&gt;</c> - the synced boolean completion fact for a step.</summary>
-        public static string FlowStep(string stepGuid) => FlowStepKeyPrefix + stepGuid;
+        // WS B1.1 Step 4 (2026-06-26): the dead per-step-bool keys were removed here -
+        // "scenario.step.<guid>.{done,outcome,completedBy,completedAtTick}" and the MP step-sync
+        // bridge prefix "flow.step.<guid>". They had ZERO consumers in the codebase (verified by
+        // grep): the IScenarioFlowStore append-only ENTERED-guid path (map sec-7 / sec-10) supersedes
+        // them - it replicates the FACTS / the frontier, never a per-step boolean. Removed pre-07-07
+        // while still free; if a future need arises, re-adding a key is an additive (non-breaking)
+        // change. Only the two fact NAMES above (step.entered / step.completed) survive - the bus
+        // facts the analytics layer (map sec-11) actually binds to.
     }
 }

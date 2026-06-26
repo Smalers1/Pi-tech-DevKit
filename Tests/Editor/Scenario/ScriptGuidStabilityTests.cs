@@ -12,7 +12,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
     /// Proof C (first half) - MonoScript GUID stability (Appendix I.7). Lab scenes/prefabs bind
     /// components by their MonoScript GUID; a regenerated .meta GUID during a WS A6 split would silently
     /// null every shipped lab's graph. This pins the GUID of every type referenced by m_Script and
-    /// fails if any drifts. SceneManager's GUID is asserted against the load-bearing constant directly
+    /// fails if any drifts. LabConsole's GUID is asserted against the load-bearing constant directly
     /// (Appendix B); the rest are pinned by a self-bootstrapping baseline.
     ///
     /// Types are resolved by FullName + matched to their MonoScript by class (no compile-time ref to
@@ -21,14 +21,15 @@ namespace Pitech.XR.Scenario.Editor.Tests
     public class ScriptGuidStabilityTests
     {
         // Pinned in Appendix B / I.7 as the load-bearing GUID every lab scene references.
-        const string SceneManagerType = "Pitech.XR.Scenario.SceneManager";
-        const string SceneManagerGuid = "2d431a49d183e9c428369f7f758f75cd";
+        // (Renamed SceneManager -> LabConsole in WS B1.7; the GUID is unchanged - the whole point.)
+        const string LabConsoleType = "Pitech.XR.Scenario.LabConsole";
+        const string LabConsoleGuid = "2d431a49d183e9c428369f7f758f75cd";
 
         // Every type referenced by m_Script in shipped prefabs/scenes (Appendix I.7).
         static readonly string[] PinnedTypes =
         {
             "Pitech.XR.Scenario.Scenario",
-            "Pitech.XR.Scenario.SceneManager",
+            "Pitech.XR.Scenario.LabConsole",
             "Pitech.XR.Quiz.QuizUIController",
             "Pitech.XR.Quiz.QuizResultsUIController",
             "Pitech.XR.Quiz.QuizAsset",
@@ -42,14 +43,14 @@ namespace Pitech.XR.Scenario.Editor.Tests
         };
 
         [Test]
-        public void SceneManager_KeepsItsLoadBearingScriptGuid()
+        public void LabConsole_KeepsItsLoadBearingScriptGuid()
         {
-            var type = ResolveType(SceneManagerType);
-            Assert.IsNotNull(type, $"Type '{SceneManagerType}' did not resolve in any loaded assembly.");
+            var type = ResolveType(LabConsoleType);
+            Assert.IsNotNull(type, $"Type '{LabConsoleType}' did not resolve in any loaded assembly.");
             string guid = FindScriptGuid(type);
-            Assert.IsNotNull(guid, $"No MonoScript found for {SceneManagerType}.");
-            Assert.AreEqual(SceneManagerGuid, guid,
-                "SceneManager MonoScript GUID changed - shipped lab scenes bind by this GUID and would be severed.");
+            Assert.IsNotNull(guid, $"No MonoScript found for {LabConsoleType}.");
+            Assert.AreEqual(LabConsoleGuid, guid,
+                "LabConsole MonoScript GUID changed - shipped lab scenes bind by this GUID and would be severed.");
         }
 
         [Test]

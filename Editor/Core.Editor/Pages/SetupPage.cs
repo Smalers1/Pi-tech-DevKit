@@ -110,7 +110,7 @@ namespace Pitech.XR.Core.Editor
                     DevkitWidgets.Actions(
                         DevkitTheme.Secondary("Create Main scene", psvc.CreateMainScene),
                         DevkitTheme.Secondary("Create Scene Categories…", SceneCategoriesWindow.Open),
-                        DevkitTheme.Secondary("Create Scene Manager", mgr.CreateSceneManager)
+                        DevkitTheme.Secondary("Create Lab Console", mgr.CreateSceneManager)
                     )
                 ));
 

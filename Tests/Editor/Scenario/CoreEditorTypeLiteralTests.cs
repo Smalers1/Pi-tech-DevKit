@@ -25,7 +25,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
             "Pitech.XR.Quiz.QuizUIController",
             "Pitech.XR.Quiz.QuizResultsUIController",
             "Pitech.XR.Stats.StatsUIController",
-            "Pitech.XR.Scenario.SceneManager",
+            "Pitech.XR.Scenario.LabConsole",
             "Pitech.XR.Scenario.Scenario",
         };
 

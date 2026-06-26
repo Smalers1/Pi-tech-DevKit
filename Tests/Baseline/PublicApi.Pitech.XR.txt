@@ -668,18 +668,7 @@ Pitech.XR.Core.ISceneRunnerControl :: property Boolean AutoStart { get; set; }
 Pitech.XR.Core.ISceneRunnerControl :: property Int32 CurrentStepIndex { get; }
 Pitech.XR.Core.IXRService :: method Void Initialize()
 Pitech.XR.Core.IXRService :: method Void Shutdown()
-Pitech.XR.Core.ScenarioFactKeys :: static field String CompletedAtTickSuffix
-Pitech.XR.Core.ScenarioFactKeys :: static field String CompletedBySuffix
-Pitech.XR.Core.ScenarioFactKeys :: static field String DoneSuffix
-Pitech.XR.Core.ScenarioFactKeys :: static field String FlowStepKeyPrefix
-Pitech.XR.Core.ScenarioFactKeys :: static field String OutcomeSuffix
 Pitech.XR.Core.ScenarioFactKeys :: static field String StepCompleted
-Pitech.XR.Core.ScenarioFactKeys :: static field String StepKeyPrefix
-Pitech.XR.Core.ScenarioFactKeys :: static method String FlowStep(String)
-Pitech.XR.Core.ScenarioFactKeys :: static method String StepCompletedAtTick(String)
-Pitech.XR.Core.ScenarioFactKeys :: static method String StepCompletedBy(String)
-Pitech.XR.Core.ScenarioFactKeys :: static method String StepDone(String)
-Pitech.XR.Core.ScenarioFactKeys :: static method String StepOutcome(String)
 Pitech.XR.Core.XRServices :: static method Boolean TryGet(T&)
 Pitech.XR.Core.XRServices :: static method T Get()
 Pitech.XR.Core.XRServices :: static method Void InitializeAll()
@@ -990,6 +979,30 @@ Pitech.XR.Scenario.InsertStep :: field String nextGuid
 Pitech.XR.Scenario.InsertStep :: field Transform attachTransform
 Pitech.XR.Scenario.InsertStep :: field Transform item
 Pitech.XR.Scenario.InsertStep :: property String Kind { get; }
+Pitech.XR.Scenario.LabConsole :: ctor()
+Pitech.XR.Scenario.LabConsole :: field Boolean autoStart
+Pitech.XR.Scenario.LabConsole :: field MonoBehaviour contentDelivery
+Pitech.XR.Scenario.LabConsole :: field QuizAsset defaultQuiz
+Pitech.XR.Scenario.LabConsole :: field QuizResultsUIController quizResultsPanel
+Pitech.XR.Scenario.LabConsole :: field QuizSession quizSession
+Pitech.XR.Scenario.LabConsole :: field QuizUIController quizPanel
+Pitech.XR.Scenario.LabConsole :: field Scenario scenario
+Pitech.XR.Scenario.LabConsole :: field SelectablesManager selectables
+Pitech.XR.Scenario.LabConsole :: field SelectionLists selectionLists
+Pitech.XR.Scenario.LabConsole :: field StatsConfig statsConfig
+Pitech.XR.Scenario.LabConsole :: field StatsRuntime runtime
+Pitech.XR.Scenario.LabConsole :: field StatsUIController statsUI
+Pitech.XR.Scenario.LabConsole :: field Transform labContentRoot
+Pitech.XR.Scenario.LabConsole :: method QuizSession GetOrCreateQuizSession(QuizAsset)
+Pitech.XR.Scenario.LabConsole :: method Void ActivateSelectionList(Int32)
+Pitech.XR.Scenario.LabConsole :: method Void ActivateSelectionListByName(String)
+Pitech.XR.Scenario.LabConsole :: method Void CompleteSelection()
+Pitech.XR.Scenario.LabConsole :: method Void EditorSkipFromGraph(String, Int32)
+Pitech.XR.Scenario.LabConsole :: method Void Restart()
+Pitech.XR.Scenario.LabConsole :: method Void RetrySelection()
+Pitech.XR.Scenario.LabConsole :: property Boolean AutoStart { get; set; }
+Pitech.XR.Scenario.LabConsole :: property Int32 CurrentStepIndex { get; }
+Pitech.XR.Scenario.LabConsole :: property Int32 StepIndex { get; }
 Pitech.XR.Scenario.MiniQuizChoice :: ctor()
 Pitech.XR.Scenario.MiniQuizChoice :: field Boolean isCorrect
 Pitech.XR.Scenario.MiniQuizChoice :: field Button button
@@ -1097,30 +1110,6 @@ Pitech.XR.Scenario.Scenario+StepGraphDisplay :: ctor()
 Pitech.XR.Scenario.Scenario+StepGraphDisplay :: field String displayName
 Pitech.XR.Scenario.Scenario+StepGraphDisplay :: field String stepGuid
 Pitech.XR.Scenario.Scenario+StepGraphDisplay :: field Vector2 size
-Pitech.XR.Scenario.SceneManager :: ctor()
-Pitech.XR.Scenario.SceneManager :: field Boolean autoStart
-Pitech.XR.Scenario.SceneManager :: field MonoBehaviour contentDelivery
-Pitech.XR.Scenario.SceneManager :: field QuizAsset defaultQuiz
-Pitech.XR.Scenario.SceneManager :: field QuizResultsUIController quizResultsPanel
-Pitech.XR.Scenario.SceneManager :: field QuizSession quizSession
-Pitech.XR.Scenario.SceneManager :: field QuizUIController quizPanel
-Pitech.XR.Scenario.SceneManager :: field Scenario scenario
-Pitech.XR.Scenario.SceneManager :: field SelectablesManager selectables
-Pitech.XR.Scenario.SceneManager :: field SelectionLists selectionLists
-Pitech.XR.Scenario.SceneManager :: field StatsConfig statsConfig
-Pitech.XR.Scenario.SceneManager :: field StatsRuntime runtime
-Pitech.XR.Scenario.SceneManager :: field StatsUIController statsUI
-Pitech.XR.Scenario.SceneManager :: field Transform labContentRoot
-Pitech.XR.Scenario.SceneManager :: method QuizSession GetOrCreateQuizSession(QuizAsset)
-Pitech.XR.Scenario.SceneManager :: method Void ActivateSelectionList(Int32)
-Pitech.XR.Scenario.SceneManager :: method Void ActivateSelectionListByName(String)
-Pitech.XR.Scenario.SceneManager :: method Void CompleteSelection()
-Pitech.XR.Scenario.SceneManager :: method Void EditorSkipFromGraph(String, Int32)
-Pitech.XR.Scenario.SceneManager :: method Void Restart()
-Pitech.XR.Scenario.SceneManager :: method Void RetrySelection()
-Pitech.XR.Scenario.SceneManager :: property Boolean AutoStart { get; set; }
-Pitech.XR.Scenario.SceneManager :: property Int32 CurrentStepIndex { get; }
-Pitech.XR.Scenario.SceneManager :: property Int32 StepIndex { get; }
 Pitech.XR.Scenario.SelectionStep :: ctor()
 Pitech.XR.Scenario.SelectionStep :: field Animator panelAnimator
 Pitech.XR.Scenario.SelectionStep :: field Boolean requireExactCount

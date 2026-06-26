@@ -28,7 +28,7 @@ namespace Pitech.XR.Stats
 
         StatsRuntime runtime;
 
-        /// Call from SceneManager. syncNow=true paints current values immediately.
+        /// Call from LabConsole. syncNow=true paints current values immediately.
         public void Init(StatsRuntime rt, bool syncNow = true)
         {
             runtime = rt;

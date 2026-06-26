@@ -6,6 +6,26 @@ formal release cadence is set (no version bump during Phase A).
 
 ## [Unreleased]
 
+### Changed
+- **Runner host renamed `Pitech.XR.Scenario.SceneManager` → `Pitech.XR.Scenario.LabConsole` (WS B1.7).** The
+  MonoBehaviour's MonoScript **GUID is unchanged** (`2d431a49…`), so every shipped lab scene/prefab binds
+  unchanged (Unity rewrites each prefab's `m_EditorClassIdentifier` to the new name on next save). The public
+  member surface is byte-identical apart from the type name; the public-API baseline was regenerated as the one
+  sanctioned non-additive diff. All reflection/string sites (ContentDelivery spawn + telemetry, Hub
+  string-resolvers, GUID-repair tools) updated to the new FullName. Designed behaviour-neutral and verified
+  structurally by `Evaluate Changes` (Proofs A/B/C); SP runtime equivalence is confirmed by the dev-playtest.
+- **Run engine extracted into an internal `ScenarioRunner` owned and directly driven by `LabConsole` (WS B1.7).**
+  Method bodies moved verbatim (divergent linear/group twins kept); the `Run*` logic is unchanged. The runner
+  now carries two **dormant** outputs (inert at launch): step facts onto the `LabEventBus` and an entered-guid
+  path on `IScenarioFlowStore` (driver-only, behind the follower-suppression hook) — both no-op until B.2 wires
+  the context/store.
+
+### Removed
+- **Dead `ScenarioFactKeys` per-step-bool keys (WS B1.1).** Removed `StepKeyPrefix`, the `Done`/`Outcome`/
+  `CompletedBy`/`CompletedAtTick` suffixes and their key builders, and the `flow.step.<guid>` bridge
+  (`FlowStepKeyPrefix`/`FlowStep`) — superseded by the append-only `IScenarioFlowStore` entered-guid path and
+  with zero consumers. The two fact names `step.entered` / `step.completed` remain. Public-API baseline updated.
+
 ## [0.11.0] - 2026-06-15
 
 ### Added

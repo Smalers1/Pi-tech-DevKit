@@ -15,7 +15,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
     /// fixture discovery BY DESIGN, so these prefabs never enter the green gate - and proves the only
     /// [FormerlySerializedAs] surface in the model still lands:
     ///   (1) the legacy twin's pre-rename YAML (quiz:/quizUI:/quizResultsUI:) deserializes into the
-    ///       NEW SceneManager members (defaultQuiz/quizPanel/quizResultsPanel);
+    ///       NEW LabConsole members (defaultQuiz/quizPanel/quizResultsPanel);
     ///   (2) the three editor-only Scenario lists, whose YAML lines the legacy twin strips
     ///       (pre-448301b form), default cleanly to present-but-empty;
     ///   (3) BuildSnapshotJson(legacy) == BuildSnapshotJson(current) - same graph, two serialized
@@ -74,7 +74,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
                 + "[FormerlySerializedAs] mapping check would be vacuous. Fix the generator first.");
             Assert.IsTrue(legacyValue != null,
                 $"Legacy twin's '{field}' is null - the pre-rename YAML name did not land in the new "
-                + "member, i.e. the [FormerlySerializedAs] mapping on SceneManager is broken.");
+                + "member, i.e. the [FormerlySerializedAs] mapping on LabConsole is broken.");
             Assert.AreEqual(Describe(currentValue), Describe(legacyValue),
                 $"'{field}' resolved to a different object on the legacy twin than on the current twin.");
         }
@@ -86,10 +86,10 @@ namespace Pitech.XR.Scenario.Editor.Tests
         {
             var (_, legacy, _, current) = LoadTwins();
 
-            var legacySm = legacy.GetComponentInChildren<SceneManager>(true);
-            var currentSm = current.GetComponentInChildren<SceneManager>(true);
-            Assert.IsTrue(legacySm != null, "No SceneManager on the legacy twin.");
-            Assert.IsTrue(currentSm != null, "No SceneManager on the current twin.");
+            var legacySm = legacy.GetComponentInChildren<LabConsole>(true);
+            var currentSm = current.GetComponentInChildren<LabConsole>(true);
+            Assert.IsTrue(legacySm != null, "No LabConsole on the legacy twin.");
+            Assert.IsTrue(currentSm != null, "No LabConsole on the current twin.");
 
             // The three renames are the model's entire [FormerlySerializedAs] surface (spec §1.11):
             // quiz -> defaultQuiz, quizUI -> quizPanel, quizResultsUI -> quizResultsPanel.
@@ -170,7 +170,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
             if (legacyScenario != null) ScenarioGraphSnapshot.BuildSnapshotJson(legacyScenario);
             if (currentScenario != null) ScenarioGraphSnapshot.BuildSnapshotJson(currentScenario);
 
-            var legacySm = legacy.GetComponentInChildren<SceneManager>(true);
+            var legacySm = legacy.GetComponentInChildren<LabConsole>(true);
             if (legacySm != null)
             {
                 _ = legacySm.defaultQuiz;
@@ -191,7 +191,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
             if (EditorUtility.IsDirty(current)) dirty.Add(CurrentPrefabName + " (root)");
             if (legacyScenario != null && EditorUtility.IsDirty(legacyScenario)) dirty.Add(LegacyPrefabName + " (Scenario)");
             if (currentScenario != null && EditorUtility.IsDirty(currentScenario)) dirty.Add(CurrentPrefabName + " (Scenario)");
-            if (legacySm != null && EditorUtility.IsDirty(legacySm)) dirty.Add(LegacyPrefabName + " (SceneManager)");
+            if (legacySm != null && EditorUtility.IsDirty(legacySm)) dirty.Add(LegacyPrefabName + " (LabConsole)");
             Assert.IsEmpty(dirty, "Read paths dirtied the LegacyForms twin(s) - a later save would "
                                   + "rewrite the legacy serialized form:\n  " + string.Join("\n  ", dirty));
 

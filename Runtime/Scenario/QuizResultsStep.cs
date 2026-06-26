@@ -12,7 +12,7 @@ namespace Pitech.XR.Scenario
     public sealed class QuizResultsStep : Step
     {
         [Header("Quiz Source")]
-        [Tooltip("Optional quiz override. If empty, SceneManager.quiz is used.")]
+        [Tooltip("Optional quiz override. If empty, LabConsole.quiz is used.")]
         public QuizAsset quiz;
 
         public enum WhenComplete

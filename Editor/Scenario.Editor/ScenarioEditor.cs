@@ -191,6 +191,8 @@ namespace Pitech.XR.Scenario.Editor
                 menu.AddItem(new GUIContent("Add Event"), false, () => AddStep(typeof(Runtime.EventStep)));
                 menu.AddItem(new GUIContent("Add Conditions"), false, () => AddStep(typeof(Runtime.ConditionsStep)));
                 menu.AddItem(new GUIContent("Add Group"), false, () => AddStep(typeof(Runtime.GroupStep)));
+                menu.AddItem(new GUIContent("Add Session Start"), false, () => AddStep(typeof(Runtime.SessionStartStep)));
+                menu.AddItem(new GUIContent("Add Session Stop"), false, () => AddStep(typeof(Runtime.SessionStopStep)));
                 menu.ShowAsContext();
             };
 
@@ -241,6 +243,8 @@ namespace Pitech.XR.Scenario.Editor
                     full.Contains(nameof(Runtime.EventStep)) ? "Event" :
                     full.Contains(nameof(Runtime.ConditionsStep)) ? "Conditions" :
                     full.Contains(nameof(Runtime.GroupStep)) ? "Group" :
+                    full.Contains(nameof(Runtime.SessionStartStep)) ? "Session Start" :
+                    full.Contains(nameof(Runtime.SessionStopStep)) ? "Session Stop" :
                     "Step";
 
 
@@ -620,7 +624,7 @@ namespace Pitech.XR.Scenario.Editor
                 else if (s is Runtime.QuizStep qz)
                 {
                     if (qz.quiz == null)
-                        Styles.Info($"Step {i}: Quiz has no QuizAsset assigned (will use SceneManager quiz if set).");
+                        Styles.Info($"Step {i}: Quiz has no QuizAsset assigned (will use LabConsole quiz if set).");
                     if (string.IsNullOrEmpty(qz.questionId) && qz.questionIndex < 0)
                         Styles.Info($"Step {i}: Quiz has no Question ID or Index set.");
                     if (qz.completion == Runtime.QuizStep.CompleteMode.BranchOnCorrectness)
@@ -632,7 +636,7 @@ namespace Pitech.XR.Scenario.Editor
                 else if (s is Runtime.QuizResultsStep qrs)
                 {
                     if (qrs.quiz == null)
-                        Styles.Info($"Step {i}: Quiz Results has no QuizAsset assigned (will use SceneManager quiz if set).");
+                        Styles.Info($"Step {i}: Quiz Results has no QuizAsset assigned (will use LabConsole quiz if set).");
 
                     if (qrs.whenComplete == Runtime.QuizResultsStep.WhenComplete.AfterSeconds && qrs.completeAfterSeconds <= 0f)
                         Styles.Info($"Step {i}: Quiz Results is set to AfterSeconds but Complete After Seconds is 0 (will advance immediately).");
@@ -759,6 +763,30 @@ namespace Pitech.XR.Scenario.Editor
                             else if (g.requiredCount > count)
                                 Styles.Warn($"Step {i}: Group N-of-M completion has N > child count.");
                         }
+                    }
+                }
+            }
+
+            // WS B1.6 Step 1: surface dangling ROUTE guids (the gate's Proof-A lint) + a safe one-click repair.
+            int danglingRoutes = ScenarioGraphSnapshot.CountDanglingRoutes(sc);
+            if (danglingRoutes > 0)
+            {
+                EditorGUILayout.Space(4);
+                EditorGUILayout.HelpBox(
+                    $"{danglingRoutes} route connection(s) point to a step that no longer exists. They fall through "
+                    + "to the next step in list at runtime.", MessageType.Warning);
+                if (GUILayout.Button("Clear Dangling Routes"))
+                {
+                    if (EditorUtility.DisplayDialog(
+                        "Clear Dangling Route GUIDs",
+                        "Clears Next / branch route guids that point to non-existent steps, so they fall through to "
+                        + "the next step in list. Use only after you confirm those steps are truly gone. Undo-able. "
+                        + "The step list and group requirements are not touched.",
+                        "Clear dangling", "Cancel"))
+                    {
+                        int cleared = ScenarioGraphSnapshot.RepairDanglingRoutes(sc);
+                        Debug.Log($"[Scenario] Cleared {cleared} dangling route guid(s).");
+                        serializedObject.Update();
                     }
                 }
             }

@@ -28,6 +28,12 @@ namespace Pitech.XR.ContentDelivery
         static string _runtimeBucketId;
         static string _runtimeReleaseBase;
         static bool _installed;
+#if PITECH_ADDR
+        // The transform installed before us (e.g. the host RN app's). Captured on Install and restored
+        // on Uninstall, so a DevKit install/uninstall cycle never clobbers the host's transform (P0 for
+        // UaaL - this rewriter must COMPOSE with, not overwrite, the host's InternalIdTransformFunc).
+        static System.Func<IResourceLocation, string> _priorTransform;
+#endif
 
         public static bool IsInstalled
         {
@@ -118,6 +124,10 @@ namespace Pitech.XR.ContentDelivery
         static void Install()
         {
 #if PITECH_ADDR
+            // CHAIN, don't clobber: capture any previously-installed transform and call it from ours.
+            // Guarded by _installed (Install runs only when not already installed), so the captured
+            // prior is never our own TransformLocation.
+            _priorTransform = Addressables.ResourceManager.InternalIdTransformFunc;
             Addressables.ResourceManager.InternalIdTransformFunc = TransformLocation;
             _installed = true;
 #else
@@ -131,7 +141,10 @@ namespace Pitech.XR.ContentDelivery
 #if PITECH_ADDR
             if (_installed)
             {
-                Addressables.ResourceManager.InternalIdTransformFunc = null;
+                // RESTORE the captured prior transform - never null unconditionally (nulling was the
+                // clobber bug: a DevKit uninstall erased the host app's transform).
+                Addressables.ResourceManager.InternalIdTransformFunc = _priorTransform;
+                _priorTransform = null;
             }
 #endif
             _installed = false;
@@ -140,18 +153,25 @@ namespace Pitech.XR.ContentDelivery
 #if PITECH_ADDR
         static string TransformLocation(IResourceLocation location)
         {
-            string id = location?.InternalId;
-            if (string.IsNullOrEmpty(id))
-            {
-                return id;
-            }
-
+            // Snapshot state under the lock, then invoke the prior transform + our rewrite OUTSIDE the
+            // lock (never hold Sync across an external delegate call).
+            System.Func<IResourceLocation, string> prior;
             string bucket;
             string releaseBase;
             lock (Sync)
             {
+                prior = _priorTransform;
                 bucket = _runtimeBucketId;
                 releaseBase = _runtimeReleaseBase;
+            }
+
+            // CHAIN: let the previously-installed transform (the host app) run first, then apply our CCD
+            // release-base pin to its result. With NO prior installed this is identical to the pre-fix
+            // behaviour (location.InternalId -> RewriteUrl); a non-CCD / non-matching url passes through.
+            string id = prior != null ? prior(location) : location?.InternalId;
+            if (string.IsNullOrEmpty(id))
+            {
+                return id;
             }
 
             return RewriteUrl(id, bucket, releaseBase);

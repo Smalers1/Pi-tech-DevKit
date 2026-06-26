@@ -188,7 +188,7 @@ namespace Pitech.XR.ContentDelivery.Editor
         private void DrawSceneManagerSection(int stepNumber)
         {
             EditorGUILayout.Space(8);
-            EditorGUILayout.LabelField($"{stepNumber}) SceneManager Coordination", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField($"{stepNumber}) Lab Console Coordination", EditorStyles.boldLabel);
             EditorGUILayout.PropertyField(sceneManagerProp);
             EditorGUILayout.PropertyField(deferSceneManagerUntilSpawnProp);
             EditorGUILayout.PropertyField(restartSceneManagerAfterSpawnProp);

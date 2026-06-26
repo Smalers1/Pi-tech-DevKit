@@ -38,19 +38,19 @@ namespace Pitech.XR.Core.Editor
         {
             var t = AppDomain.CurrentDomain.GetAssemblies()
                     .SelectMany(a => a.GetTypes())
-                    .FirstOrDefault(x => x.FullName == "Pitech.XR.Scenario.SceneManager" ||    // runtime type
-                                         (x.Name == "SceneManager" && x.Namespace == "Pitech.XR.Scenario"));
+                    .FirstOrDefault(x => x.FullName == "Pitech.XR.Scenario.LabConsole" ||    // runtime type
+                                         (x.Name == "LabConsole" && x.Namespace == "Pitech.XR.Scenario"));
             if (t == null)
             {
-                EditorUtility.DisplayDialog("Scene Manager", "Runtime component 'Pitech.XR.Scenario.SceneManager' not found.", "OK");
+                EditorUtility.DisplayDialog("Lab Console", "Runtime component 'Pitech.XR.Scenario.LabConsole' not found.", "OK");
                 return;
             }
 
             var parent = EnsureManagersRoot();
             if (!parent) return;
 
-            var go = new GameObject("Scene Manager");
-            Undo.RegisterCreatedObjectUndo(go, "Create Scene Manager");
+            var go = new GameObject("Lab Console");
+            Undo.RegisterCreatedObjectUndo(go, "Create Lab Console");
             go.AddComponent(t);
             go.transform.SetParent(parent, false);
             Selection.activeGameObject = go;

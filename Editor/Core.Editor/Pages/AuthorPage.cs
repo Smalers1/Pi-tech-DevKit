@@ -15,7 +15,7 @@ namespace Pitech.XR.Core.Editor
         public string Title => "Author";
 
         // Runtime type names (reflection so Core.Editor stays decoupled) - verbatim from GuidedSetupPage.
-        const string TSceneManager = "Pitech.XR.Scenario.SceneManager";
+        const string TSceneManager = "Pitech.XR.Scenario.LabConsole";
         const string TStatsUI = "Pitech.XR.Stats.StatsUIController";
         const string TStatsConfig = "Pitech.XR.Stats.StatsConfig";
         const string TSelectables = "Pitech.XR.Interactables.SelectablesManager";
@@ -144,17 +144,17 @@ namespace Pitech.XR.Core.Editor
 
             var pills = DevkitWidgets.PillsRow(
                 (ok ? DevkitWidgets.PillKind.Success : DevkitWidgets.PillKind.Warning, ok ? "Ready" : "Missing"),
-                (DevkitWidgets.PillKind.Neutral, "SceneManager")
+                (DevkitWidgets.PillKind.Neutral, "LabConsole")
             );
 
             return DevkitWidgets.Card(
-                "Scene Manager",
+                "Lab Console",
                 "Orchestrates Scenario and optional modules (Stats / Interactables).",
                 DevkitWidgets.Actions(
                     DevkitTheme.Primary(ok ? "Ping" : "Create", () =>
                     {
                         if (!ok)
-                            sm = svc.CreateUnderManagersRoot(TSceneManager, "Scene Manager", "Create Scene Manager");
+                            sm = svc.CreateUnderManagersRoot(TSceneManager, "Lab Console", "Create Lab Console");
                         if (sm) EditorGUIUtility.PingObject(sm.gameObject);
                     })
                 ),
@@ -187,7 +187,7 @@ namespace Pitech.XR.Core.Editor
 
             return DevkitWidgets.Card(
                 "Stats (optional)",
-                "Create StatsUIController and optionally assign a StatsConfig asset to the Scene Manager.",
+                "Create StatsUIController and optionally assign a StatsConfig asset to the Lab Console.",
                 DevkitWidgets.Actions(
                     DevkitTheme.Secondary(hasUI ? "Ping StatsUIController" : "Create StatsUIController", () =>
                     {
@@ -199,12 +199,12 @@ namespace Pitech.XR.Core.Editor
                     {
                         new StatsService().CreateConfig();
                     }),
-                    DevkitTheme.Primary("Assign to Scene Manager", () =>
+                    DevkitTheme.Primary("Assign to Lab Console", () =>
                     {
                         sm = svc.FindFirstInScene(TSceneManager) as Component;
                         if (!sm)
                         {
-                            EditorUtility.DisplayDialog("DevKit", "Scene Manager not found in this scene.", "OK");
+                            EditorUtility.DisplayDialog("DevKit", "Lab Console not found in this scene.", "OK");
                             return;
                         }
 
@@ -241,7 +241,7 @@ namespace Pitech.XR.Core.Editor
 
             return DevkitWidgets.Card(
                 "Interactables (optional)",
-                "Create SelectablesManager + SelectionLists and assign them to the Scene Manager.",
+                "Create SelectablesManager + SelectionLists and assign them to the Lab Console.",
                 DevkitWidgets.Actions(
                     DevkitTheme.Secondary(selMgr ? "Ping SelectablesManager" : "Create SelectablesManager", () =>
                     {
@@ -255,12 +255,12 @@ namespace Pitech.XR.Core.Editor
                             lists = svc.CreateUnderManagersRoot(TSelectionLists, "Selection Lists", "Create Selection Lists");
                         if (lists) EditorGUIUtility.PingObject(lists.gameObject);
                     }),
-                    DevkitTheme.Primary("Assign to Scene Manager", () =>
+                    DevkitTheme.Primary("Assign to Lab Console", () =>
                     {
                         sm = svc.FindFirstInScene(TSceneManager) as Component;
                         if (!sm)
                         {
-                            EditorUtility.DisplayDialog("DevKit", "Scene Manager not found in this scene.", "OK");
+                            EditorUtility.DisplayDialog("DevKit", "Lab Console not found in this scene.", "OK");
                             return;
                         }
 
@@ -297,7 +297,7 @@ namespace Pitech.XR.Core.Editor
 
             return DevkitWidgets.Card(
                 "Quiz (optional)",
-                "Installs the default Quiz UI prefabs (TMP) into the current scene and wires the UI panels to the Scene Manager.",
+                "Installs the default Quiz UI prefabs (TMP) into the current scene and wires the UI panels to the Lab Console.",
                 DevkitWidgets.Actions(
                     DevkitTheme.Secondary("Install Quiz UI + Wire Panels", () =>
                     {
@@ -309,12 +309,12 @@ namespace Pitech.XR.Core.Editor
                         new QuizService().CreateAsset();
                         DevkitHubWindow.TryRefresh();
                     }),
-                    DevkitTheme.Primary("Assign Panels to Scene Manager", () =>
+                    DevkitTheme.Primary("Assign Panels to Lab Console", () =>
                     {
                         sm = svc.FindFirstInScene(TSceneManager) as Component;
                         if (!sm)
                         {
-                            EditorUtility.DisplayDialog("DevKit", "Scene Manager not found in this scene.", "OK");
+                            EditorUtility.DisplayDialog("DevKit", "Lab Console not found in this scene.", "OK");
                             return;
                         }
 

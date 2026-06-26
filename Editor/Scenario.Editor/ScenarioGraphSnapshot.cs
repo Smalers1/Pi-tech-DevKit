@@ -143,6 +143,72 @@ namespace Pitech.XR.Scenario.Editor
             return violations;
         }
 
+        // ---- WS B1.6 Step 1: dangling-ROUTE auto-repair (the optional half; the LINT lives in
+        // CheckInvariants above). Mirrors that detection EXACTLY (same Walk + node-guid set), restricted
+        // to the nextGuid family - clearing one to "" means "fall through to the next step in list" (the
+        // neutral default). Deliberately does NOT touch specificStepGuid / childRequirement.guid
+        // (structural group refs - fixed by hand) nor any [SerializeReference]/object data. -----------
+
+        // Route guids that mean "go to this step next" - safe to clear to "" (fall-through). Excludes
+        // specificStepGuid + childRequirement.guid (those are structural, not fall-through-safe).
+        static bool IsRouteGuidField(string name)
+            => name == "nextGuid" || (name != null && name.EndsWith("NextGuid", System.StringComparison.Ordinal));
+
+        static List<string> FindDanglingRouteGuidPaths(SerializedObject so)
+        {
+            var paths = new List<string>();
+            var stepsRoot = so?.FindProperty("steps");
+            if (stepsRoot == null) return paths;
+
+            // Pass 1: every Step.guid (NOT the reference guids under childRequirements) - same as CheckInvariants.
+            var nodeGuids = new HashSet<string>();
+            Walk(stepsRoot, p =>
+            {
+                if (p.propertyType == SerializedPropertyType.String && p.name == "guid" && !IsUnderRequirementList(p.propertyPath))
+                {
+                    string g = p.stringValue;
+                    if (!string.IsNullOrEmpty(g)) nodeGuids.Add(g);
+                }
+            });
+
+            // Pass 2: route guids whose value is non-empty and resolves to no step = dangling.
+            Walk(stepsRoot, p =>
+            {
+                if (p.propertyType == SerializedPropertyType.String && IsRouteGuidField(p.name))
+                {
+                    string v = p.stringValue;
+                    if (!string.IsNullOrEmpty(v) && !nodeGuids.Contains(v))
+                        paths.Add(p.propertyPath);
+                }
+            });
+            return paths;
+        }
+
+        /// <summary>Editor read-only: how many dangling ROUTE guids (nextGuid family) the repair would clear.</summary>
+        public static int CountDanglingRoutes(Scenario scenario)
+            => scenario == null ? 0 : FindDanglingRouteGuidPaths(new SerializedObject(scenario)).Count;
+
+        /// <summary>
+        /// Editor repair (undo-able): clears dangling ROUTE guids (nextGuid family) to "" so they fall
+        /// through to the next step in list. Clears EXACTLY the dangling routes <see cref="CheckInvariants"/>
+        /// flags - never the step list, group requirements, or object refs. Returns the count cleared.
+        /// </summary>
+        public static int RepairDanglingRoutes(Scenario scenario)
+        {
+            if (scenario == null) return 0;
+            var so = new SerializedObject(scenario);
+            var paths = FindDanglingRouteGuidPaths(so);
+            if (paths.Count == 0) return 0;
+
+            foreach (var path in paths)
+            {
+                var pr = so.FindProperty(path);
+                if (pr != null) pr.stringValue = "";
+            }
+            so.ApplyModifiedProperties();   // registers Undo + marks the Scenario dirty
+            return paths.Count;
+        }
+
         // ---- per-listener accumulation + friendly-message helpers ---------------------------
 
         sealed class CallInfo { public bool targetDangling; }

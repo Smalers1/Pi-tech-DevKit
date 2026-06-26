@@ -82,16 +82,16 @@ namespace Pitech.XR.ContentDelivery
         [Tooltip("Optional runtime analytics adapter for batched telemetry payloads.")]
         public RuntimeTelemetryAdapter analyticsAdapter;
 
-        [Header("SceneManager Coordination (optional)")]
+        [Header("Lab Console Coordination (optional)")]
         [Tooltip(
-            "Optional SceneManager reference. If unset, resolves under spawn parent (before spawn) then under spawned lab root. " +
-            "Does not scan the whole loaded world — avoids binding a shell SceneManager by mistake.")]
+            "Optional LabConsole reference. If unset, resolves under spawn parent (before spawn) then under spawned lab root. " +
+            "Does not scan the whole loaded world — avoids binding a shell LabConsole by mistake.")]
         public MonoBehaviour sceneManager;
 
-        [Tooltip("Disable SceneManager autoStart until content has spawned.")]
+        [Tooltip("Disable LabConsole autoStart until content has spawned.")]
         public bool deferSceneManagerUntilSpawn = true;
 
-        [Tooltip("Call SceneManager.Restart() after content is spawned.")]
+        [Tooltip("Call LabConsole.Restart() after content is spawned.")]
         public bool restartSceneManagerAfterSpawn = true;
 
         private GameObject spawnedInstance;
@@ -609,6 +609,20 @@ namespace Pitech.XR.ContentDelivery
             spawnedInstance.transform.localRotation = Quaternion.identity;
             Debug.Log("[ContentDelivery] Content spawned successfully.");
 
+            // WS B1.1 Step 2: attach the per-attempt LabRuntimeContext to the spawned lab ROOT so the
+            // runner's step facts (WS B1.7 Increment 3) have a lab-scoped bus to publish on. ContentDelivery
+            // owns the attempt lifecycle, so the ids come from the LaunchContext. ADDITIVE + INERT at launch:
+            // the bus has no subscribers, so LabEventBus.Publish early-returns (no-op) until the analytics/
+            // telemetry consumers subscribe (B1.1 Step 3 / B.2). Attached BEFORE the post-spawn Restart()
+            // below, so the runner's per-run LabRuntimeContext.Find(this) resolves it. Skipped when there is
+            // no LaunchContext (menu/direct tests) - then Find returns null and the emits stay inert as before.
+            if (spawnedInstance != null && context != null)
+            {
+                var labContext = spawnedInstance.GetComponent<Pitech.XR.Core.LabRuntimeContext>()
+                                 ?? spawnedInstance.AddComponent<Pitech.XR.Core.LabRuntimeContext>();
+                labContext.Initialize(context.attemptId, System.Guid.NewGuid().ToString("N"));
+            }
+
             MonoBehaviour labSceneManager = sceneManager;
             if (labSceneManager == null)
             {
@@ -1104,7 +1118,7 @@ namespace Pitech.XR.ContentDelivery
 #endif
 
         /// <summary>
-        /// Resolves <c>Pitech.XR.Scenario.SceneManager</c> only under <paramref name="root"/> (no global scan),
+        /// Resolves <c>Pitech.XR.Scenario.LabConsole</c> only under <paramref name="root"/> (no global scan),
         /// so host/shell scenes with decoy managers do not steal Addressable lab instances.
         /// </summary>
         private static MonoBehaviour FindFirstSceneManagerUnderTransform(Transform root)
@@ -1118,7 +1132,7 @@ namespace Pitech.XR.ContentDelivery
             for (int i = 0; i < behaviours.Length; i++)
             {
                 MonoBehaviour behaviour = behaviours[i];
-                if (behaviour != null && behaviour.GetType().FullName == "Pitech.XR.Scenario.SceneManager")
+                if (behaviour != null && behaviour.GetType().FullName == "Pitech.XR.Scenario.LabConsole")
                 {
                     return behaviour;
                 }

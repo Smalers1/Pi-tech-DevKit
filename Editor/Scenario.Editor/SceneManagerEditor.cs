@@ -10,7 +10,7 @@ using USceneManager = UnityEngine.SceneManagement.SceneManager; // avoid name cl
 
 namespace Pitech.XR.Scenario.Editor
 {
-    [CustomEditor(typeof(Pitech.XR.Scenario.SceneManager), true)]
+    [CustomEditor(typeof(Pitech.XR.Scenario.LabConsole), true)]
     public class SceneManagerEditor : UnityEditor.Editor
     {
         // Bind to your runtime fields here (adjust names if needed)
@@ -49,7 +49,7 @@ namespace Pitech.XR.Scenario.Editor
         {
             serializedObject.Update();
 
-            var gm = (Pitech.XR.Scenario.SceneManager)target;
+            var gm = (Pitech.XR.Scenario.LabConsole)target;
 
             DrawHeaderHelp();
             EditorGUILayout.Space(6);
@@ -235,7 +235,7 @@ namespace Pitech.XR.Scenario.Editor
                 if (_contentDeliveryProp == null)
                 {
                     EditorGUILayout.HelpBox(
-                        "SceneManager.contentDelivery property was not found. Recompile scripts and reopen inspector.",
+                        "LabConsole.contentDelivery property was not found. Recompile scripts and reopen inspector.",
                         MessageType.Warning);
                     return;
                 }
@@ -295,8 +295,8 @@ namespace Pitech.XR.Scenario.Editor
             var comp = go.AddComponent(t) as Component;
             go.transform.SetParent(parent, false);
 
-            // If Scene Manager already has a SelectablesManager, auto-link it
-            var sm = (Pitech.XR.Scenario.SceneManager)target;
+            // If Lab Console already has a SelectablesManager, auto-link it
+            var sm = (Pitech.XR.Scenario.LabConsole)target;
             var lists = comp as Pitech.XR.Interactables.SelectionLists;
             if (lists && sm.selectables) lists.selectables = sm.selectables;
 
@@ -359,7 +359,7 @@ namespace Pitech.XR.Scenario.Editor
 
         // Deprecated manual creator kept only for older versions; install via QuizService for best UX.
 
-        static Pitech.XR.Scenario.Scenario GetScenarioFromManager(Pitech.XR.Scenario.SceneManager gm)
+        static Pitech.XR.Scenario.Scenario GetScenarioFromManager(Pitech.XR.Scenario.LabConsole gm)
         {
             return gm != null ? gm.scenario : null;
         }
@@ -367,7 +367,7 @@ namespace Pitech.XR.Scenario.Editor
         // --------------------------------------------------------------------
         // Overview (restored)
         // --------------------------------------------------------------------
-        void DrawScenarioOverview(Pitech.XR.Scenario.SceneManager gm)
+        void DrawScenarioOverview(Pitech.XR.Scenario.LabConsole gm)
         {
             var sc = GetScenarioFromManager(gm);
             if (!sc) return;
@@ -446,7 +446,7 @@ namespace Pitech.XR.Scenario.Editor
         // --------------------------------------------------------------------
         // Runtime (restored)
         // --------------------------------------------------------------------
-        void DrawRuntimeControls(Pitech.XR.Scenario.SceneManager gm)
+        void DrawRuntimeControls(Pitech.XR.Scenario.LabConsole gm)
         {
             EditorGUILayout.LabelField("Runtime", TitleStyle);
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))

@@ -6,7 +6,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
     /// <summary>
     /// Proof-of-behaviour lock for <see cref="ConditionsEvaluator.EvalCompare"/> on UNMODIFIED code
     /// (WS A3 Step 2). This is the live comparison used by every ConditionsStep outcome and every
-    /// GroupStep MultiCondition branch (SceneManager.cs:1042 / :2226). The runner unification deferred
+    /// GroupStep MultiCondition branch (ScenarioRunner.cs:1042 / :2226). The runner unification deferred
     /// to Phase D must reproduce this table byte-for-byte; these cases are the contract it inherits.
     /// </summary>
     public class ConditionsEvaluatorTests

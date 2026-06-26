@@ -5,4 +5,8 @@
   <assembly fullname="Pitech.XR.Interactables" preserve="all"/>
   <assembly fullname="Pitech.XR.Stats" preserve="all"/>
   <assembly fullname="Pitech.XR.Quiz" preserve="all"/>
+  <!-- B1.4: the analytics rubric is a polymorphic [SerializeReference] hierarchy
+       (AnalyticsMetric / Analytic subclasses) instantiated by type name on deserialize,
+       so IL2CPP must not strip it. SessionStart/StopStep are covered by Pitech.XR.Scenario above. -->
+  <assembly fullname="Pitech.XR.Analytics" preserve="all"/>
 </linker>

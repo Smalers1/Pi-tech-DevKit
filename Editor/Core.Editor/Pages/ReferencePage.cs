@@ -59,14 +59,14 @@ namespace Pitech.XR.Core.Editor
                 "Minimal setup to run a Scenario.",
                 DevkitWidgets.Actions(
                     DevkitTheme.Secondary("Create Managers Root", () => setup.EnsureManagersRoot()),
-                    DevkitTheme.Secondary("Create Scene Manager", () => setup.CreateUnderManagersRoot("Pitech.XR.Scenario.SceneManager", "Scene Manager", "Create Scene Manager")),
+                    DevkitTheme.Secondary("Create Lab Console", () => setup.CreateUnderManagersRoot("Pitech.XR.Scenario.LabConsole", "Lab Console", "Create Lab Console")),
                     DevkitTheme.Secondary("Create Scenario", () => setup.CreateUnderManagersRoot("Pitech.XR.Scenario.Scenario", "Scenario", "Create Scenario")),
                     DevkitTheme.Primary("Open Scenario Graph", () => EditorApplication.ExecuteMenuItem("Pi tech/Scenario Graph"))
                 ),
                 HowTo(
                     "Open a scene (e.g. `Assets/Scenes/Testing`).",
                     "Create `--- SCENE MANAGERS ---` root.",
-                    "Create Scene Manager and Scenario, then assign Scenario in the SceneManager inspector.",
+                    "Create Lab Console and Scenario, then assign Scenario in the LabConsole inspector.",
                     "Open Scenario Graph and author steps.",
                     "Press Play to test flow."
                 )
@@ -76,13 +76,13 @@ namespace Pitech.XR.Core.Editor
         static VisualElement SceneManagerDoc()
         {
             return DevkitWidgets.Card(
-                "Scene Manager",
+                "Lab Console",
                 "Orchestrates Scenario and optional modules.",
                 DevkitWidgets.Actions(
-                    DevkitTheme.Secondary("Select in scene", () => PingFirst("Pitech.XR.Scenario.SceneManager"))
+                    DevkitTheme.Secondary("Select in scene", () => PingFirst("Pitech.XR.Scenario.LabConsole"))
                 ),
                 HowTo(
-                    "Add one Scene Manager per scene (recommended).",
+                    "Add one Lab Console per scene (recommended).",
                     "Assign a `Scenario` to the `scenario` field.",
                     "Optional: assign Stats, Interactables, and/or Quiz fields only if you use those step types.",
                     "Use `Auto Start` to run immediately on Play; otherwise call `Restart()`."
@@ -119,7 +119,7 @@ namespace Pitech.XR.Core.Editor
                 HowTo(
                     "Create a `StatsConfig` asset and define ranges/defaults.",
                     "Add a `StatsUIController` if you want UI sliders/text.",
-                    "Assign `statsConfig` and/or `statsUI` on SceneManager (optional).",
+                    "Assign `statsConfig` and/or `statsUI` on LabConsole (optional).",
                     "In Question/Selection/Quiz steps, add StatEffects or use Quiz stats keys.",
                     "If you leave Stats unassigned, Scenario still runs normally."
                 )
@@ -155,7 +155,7 @@ namespace Pitech.XR.Core.Editor
                 HowTo(
                     "Create a `QuizAsset` and add questions + answers.",
                     "Use the DevKit Hub's Author page → Quiz → Install Quiz UI + Wire to add default UI panels.",
-                    "Or manually assign `defaultQuiz`, `quizPanel`, and `quizResultsPanel` on the SceneManager.",
+                    "Or manually assign `defaultQuiz`, `quizPanel`, and `quizResultsPanel` on the LabConsole.",
                     "In Scenario, add a `Quiz` step and pick a Question from the dropdown.",
                     "Use 'When Complete' to choose single Next or Correct/Wrong branching.",
                     "Add a `Quiz Results` step after quiz questions to show score/pass/fail.",

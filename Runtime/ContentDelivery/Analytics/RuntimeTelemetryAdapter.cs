@@ -573,7 +573,7 @@ namespace Pitech.XR.ContentDelivery
                     continue;
                 }
 
-                if (behaviour.GetType().FullName == "Pitech.XR.Scenario.SceneManager")
+                if (behaviour.GetType().FullName == "Pitech.XR.Scenario.LabConsole")
                 {
                     return behaviour;
                 }

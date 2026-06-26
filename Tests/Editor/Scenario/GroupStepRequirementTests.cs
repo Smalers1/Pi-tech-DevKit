@@ -6,7 +6,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
 {
     /// <summary>
     /// Locks GroupStep's child-requirement bookkeeping on UNMODIFIED code (WS A3 Step 2): the helpers
-    /// the runner (SceneManager) and the inspector/graph rely on for Required / N-of-M / MultiCondition
+    /// the runner (LabConsole) and the inspector/graph rely on for Required / N-of-M / MultiCondition
     /// completion. Pure data logic - no scene, no serialization. The Step base ctor seeds each step a
     /// fresh guid, so nested steps are valid by construction.
     /// </summary>

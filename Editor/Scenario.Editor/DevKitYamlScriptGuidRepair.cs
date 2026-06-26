@@ -27,7 +27,7 @@ namespace Pitech.XR.Scenario.Editor
             @"m_Script:\s*\{fileID:\s*0\}",
             RegexOptions.Compiled);
 
-        /// <summary>SceneManager YAML fields may use 2+ spaces indent depending on nesting / Unity version.</summary>
+        /// <summary>LabConsole YAML fields may use 2+ spaces indent depending on nesting / Unity version.</summary>
         static readonly Regex YamlSmScenarioFileId = new Regex(
             @"^\s+scenario\s*:\s*\{fileID:",
             RegexOptions.Multiline | RegexOptions.Compiled);
@@ -112,7 +112,7 @@ namespace Pitech.XR.Scenario.Editor
                 return true;
             }
 
-            // Looser SceneManager fingerprint (indent / line ending differences vs strict "\n  scenario:" above).
+            // Looser LabConsole fingerprint (indent / line ending differences vs strict "\n  scenario:" above).
             if (YamlSmScenarioFileId.IsMatch(text) &&
                 (YamlSmAutoStart.IsMatch(text) || YamlSmStatsUi.IsMatch(text) || YamlSmStatsConfig.IsMatch(text)))
             {
@@ -122,7 +122,7 @@ namespace Pitech.XR.Scenario.Editor
             return false;
         }
 
-        /// <summary>True for lab content under <c>Assets/</c> that can carry Scenario / SceneManager.</summary>
+        /// <summary>True for lab content under <c>Assets/</c> that can carry Scenario / LabConsole.</summary>
         public static bool IsEligibleUserContentAssetPath(string assetPath)
         {
             if (string.IsNullOrEmpty(assetPath))
@@ -140,7 +140,7 @@ namespace Pitech.XR.Scenario.Editor
                    ext.Equals(".unity", StringComparison.OrdinalIgnoreCase);
         }
 
-        /// <summary>Repairs all Scenario / SceneManager MonoBehaviour blocks in one .prefab or .unity asset.</summary>
+        /// <summary>Repairs all Scenario / LabConsole MonoBehaviour blocks in one .prefab or .unity asset.</summary>
         /// <returns>Number of m_Script lines updated.</returns>
         public static int RepairPrefabOrSceneAsset(string assetPath)
         {
@@ -163,21 +163,21 @@ namespace Pitech.XR.Scenario.Editor
             }
 
             MonoScript scenarioMs = DevKitFixMissingScriptRefs.FindMonoScript(typeof(Scenario));
-            MonoScript sceneManagerMs = DevKitFixMissingScriptRefs.FindMonoScript(typeof(SceneManager));
+            MonoScript sceneManagerMs = DevKitFixMissingScriptRefs.FindMonoScript(typeof(LabConsole));
             if (scenarioMs == null || sceneManagerMs == null)
             {
                 if (EditorApplication.isCompiling)
                 {
                     Debug.LogWarning(
-                        "[DevKit] YAML script repair skipped: Scenario/SceneManager MonoScript not resolved while scripts are compiling. " +
+                        "[DevKit] YAML script repair skipped: Scenario/LabConsole MonoScript not resolved while scripts are compiling. " +
                         "It will retry on the next import after compilation finishes.");
                 }
                 else
                 {
                     Debug.LogError(
-                        "[DevKit] YAML script repair: could not resolve MonoScript for Scenario or SceneManager. " +
+                        "[DevKit] YAML script repair: could not resolve MonoScript for Scenario or LabConsole. " +
                         "Usually the Pitech.XR.Scenario assembly has compile errors (check Console), the devkit package is incomplete, " +
-                        "or you have a duplicate Scenario.cs/SceneManager.cs path that hides the package scripts.");
+                        "or you have a duplicate Scenario.cs/LabConsole.cs path that hides the package scripts.");
                 }
 
                 return 0;
@@ -272,7 +272,7 @@ namespace Pitech.XR.Scenario.Editor
             return section;
         }
 
-        /// <summary>SceneManager serializes a reference field <c>scenario</c> and <c>autoStart</c>; fingerprint is specific enough for lab prefabs.</summary>
+        /// <summary>LabConsole serializes a reference field <c>scenario</c> and <c>autoStart</c>; fingerprint is specific enough for lab prefabs.</summary>
         static bool LooksLikeSceneManagerYamlSection(string section)
         {
             if (section.IndexOf("m_Script:", StringComparison.Ordinal) < 0)

@@ -14,73 +14,71 @@ using UnityEngine.Serialization;
 using UnityEngine.InputSystem;
 #endif
 
-
 namespace Pitech.XR.Scenario
 {
-    [AddComponentMenu("Pi tech/Scenario/Scene Manager")]
-    public class SceneManager : MonoBehaviour, Pitech.XR.Core.ISceneRunnerControl
+    // WS B1.7 (extraction + rename): the run-engine lifted out of the host (LabConsole, formerly
+    // SceneManager) into a dedicated inner runner type (decision 34). LabConsole OWNS and directly
+    // drives this runner; the runner reads the host's authoring state through the forwarding members
+    // below, so the engine method BODIES are moved verbatim (behaviour-neutral - proven by the
+    // dev-playtest, never the gate). The Run*/RunXGroup TWINS are intentionally kept divergent (no
+    // dedup). Internal: off the Proof-B public surface; graduates to its own assembly later.
+    internal sealed class ScenarioRunner
     {
-        /// <summary>The scenario graph this manager runs (the ordered <c>[SerializeReference]</c> step list). Required for step flow.</summary>
-        [Header("Scenario")]
-        [Tooltip("Required for step flow. For Addressable lab prefabs, assign on the prefab asset (CCD bundle), not only in a scene instance.")]
-        public Scenario scenario;
-        /// <summary>When true, <see cref="Restart"/> runs automatically from <c>Start()</c>. ContentDeliverySpawner clears this until the lab prefab has spawned.</summary>
-        [Tooltip("If true, Restart() runs from Start(). When using ContentDeliverySpawner with defer SceneManager, autoStart is turned off until after spawn.")]
-        public bool autoStart = true;
+        readonly LabConsole _console;
+        public ScenarioRunner(LabConsole console) { _console = console; }
 
-        /// <summary>Optional UI controller that displays the live stat values.</summary>
-        public StatsUIController statsUI;
-        /// <summary>Optional stat definitions (keys, ranges, defaults) for this lab.</summary>
-        public StatsConfig statsConfig;
-        bool _statsBound;
+        // --- forwarding to the host's authoring state (so the moved bodies resolve their bare names) ---
+        Scenario scenario => _console.scenario;
+        QuizAsset defaultQuiz => _console.defaultQuiz;
+        QuizUIController quizPanel => _console.quizPanel;
+        QuizResultsUIController quizResultsPanel => _console.quizResultsPanel;
+        StatsRuntime runtime { get => _console.runtime; set => _console.runtime = value; }
+        StatsUIController statsUI => _console.statsUI;
+        StatsConfig statsConfig => _console.statsConfig;
+        bool _statsBound { get => _console._statsBound; set => _console._statsBound = value; }
+        SelectionLists selectionLists => _console.selectionLists;
+        QuizSession GetOrCreateQuizSession(QuizAsset asset) => _console.GetOrCreateQuizSession(asset);
+        Coroutine StartCoroutine(IEnumerator routine) => _console.StartCoroutine(routine);
+        void StopCoroutine(Coroutine routine) => _console.StopCoroutine(routine);
 
-        /// <summary>Optional shared stats store. If null, a plain instance is created on demand.</summary>
-        [Header("Stats (optional)")]
-        public StatsRuntime runtime;   // assign if you have one. if null we create a plain instance
-
-        /// <summary>Default quiz asset used when a step does not specify its own.</summary>
-        [Header("Quiz (optional)")]
-        [FormerlySerializedAs("quiz")]
-        public QuizAsset defaultQuiz;
-
-        /// <summary>UI controller that presents quiz questions.</summary>
-        [FormerlySerializedAs("quizUI")]
-        public QuizUIController quizPanel;
-
-        /// <summary>UI controller that presents the quiz results screen.</summary>
-        [FormerlySerializedAs("quizResultsUI")]
-        public QuizResultsUIController quizResultsPanel;
-        /// <summary>The active quiz session (scoring/state). Created lazily via <see cref="GetOrCreateQuizSession"/>.</summary>
-        public QuizSession quizSession;
-
-        /// <summary>Catalog of selectable colliders/targets in the scene.</summary>
-        [Header("Interactables (optional)")]
-        public SelectablesManager selectables;     // the catalog of clickable colliders
-        /// <summary>The selection quiz/controller that drives <see cref="selectables"/>.</summary>
-        public SelectionLists selectionLists;      // the quiz/controller using that catalog
-
-        /// <summary>Optional reference to the ContentDeliverySpawner (or compatible component) that spawned this lab.</summary>
-        [Header("Content Delivery (optional)")]
-        [Tooltip("Optional reference to ContentDeliverySpawner (or compatible component).")]
-        public MonoBehaviour contentDelivery;
-
-        /// <summary>Optional root for auto-finding Quiz UI controllers. Falls back to <c>transform.root</c> so discovery stays within this lab prefab instance (never binds shell UI).</summary>
-        [Header("Prefab / Addressables lab")]
-        [Tooltip(
-            "Optional root for auto-finding Quiz UI controllers. If null, uses transform.root so discovery stays within this lab prefab instance (never binds shell UI).")]
-        public Transform labContentRoot;
-
-        /// <summary>Current step index while running; <c>-1</c> when idle or finished.</summary>
+        // --- engine state owned by the runner ---
         public int StepIndex { get; private set; } = -1;
 
-        // --- ISceneRunnerControl (WS A8): behaviour-neutral typed seam. Forwards to existing members;
-        // no field renamed, nothing made non-public, behaviour identical. Restart() (below) already
-        // satisfies the interface's Restart(). ---
-        /// <summary>Forwards <see cref="StepIndex"/> for the <see cref="Pitech.XR.Core.ISceneRunnerControl"/> seam.</summary>
-        public int CurrentStepIndex => StepIndex;
-        /// <summary>Forwards <see cref="autoStart"/> for the <see cref="Pitech.XR.Core.ISceneRunnerControl"/> seam.</summary>
-        public bool AutoStart { get => autoStart; set => autoStart = value; }
+        // --- WS B1.7 Increment 3 (decision 34/36): the runner's two DORMANT outputs (map sec-7) ---
+        // (1) facts onto the LabEventBus; (2) the entered-guid path on IScenarioFlowStore. BOTH are
+        // neutral BY CONSTRUCTION at launch, not by assumption:
+        //   * the bus resolves via LabRuntimeContext.Find(_console), which returns null until
+        //     ContentDelivery attaches the context (WS B1.1 Step 2) -> Publish never runs (resolved
+        //     ONCE then cached, so it is not a per-step GetComponentInParent);
+        //   * no flow store is injected yet (_flow == null) -> AppendEntered never runs; the IsDriver
+        //     guard is the INERT follower-suppression hook (decision 36) - in single-player the runner
+        //     always DRIVES, never follows. B.2 turn-on injects a store (BindFlowStore) and adds the
+        //     follower frontier-jump WITHOUT editing this engine. The LabEvent payload (step.guid in
+        //     Text + a monotonic tick) is refined additively at the 2026-07-07 analytics freeze.
+        Pitech.XR.Core.LabRuntimeContext _ctx;   // re-resolved each run in Run() (never cached-null-forever)
+        Pitech.XR.Core.IScenarioFlowStore _flow;   // injected by B.2; null at launch (inert)
 
+        /// <summary>B.2 injection seam: bind the flow store without editing the engine. Unbound at launch.</summary>
+        internal void BindFlowStore(Pitech.XR.Core.IScenarioFlowStore flow) => _flow = flow;
+
+        void EmitStepFact(string factName, string stepGuid)
+        {
+            if (_ctx == null) return;   // inert at launch: no LabRuntimeContext attached (resolved per-run in Run())
+            _ctx.Bus.Publish(new Pitech.XR.Core.LabEvent(
+                factName, _ctx.AttemptId, _ctx.LabInstanceId,
+                tick: System.Diagnostics.Stopwatch.GetTimestamp(),   // monotonic host tick (for StepDuration deltas)
+                number: Pitech.XR.Core.LabEvent.NoNumber, text: stepGuid));
+        }
+
+        // Ignition: LabConsole.Restart()/Start() forward here (body identical to the old Restart()).
+        public void Restart()
+        {
+            if (_run != null) StopCoroutine(_run);
+            _run = StartCoroutine(Run());
+        }
+
+        // ===== engine state + methods below are MOVED VERBATIM from the host (only `this` ->
+        // `_console` for Debug-context args). Do not edit logic here. =====
         Coroutine _run;
         sealed class StepRunContext
         {
@@ -100,76 +98,15 @@ namespace Pitech.XR.Scenario
 
         bool _groupExitBranchResolved;
         string _groupExitNextGuid;
-
-        void Awake()
-        {
-            // Only set up stats if the feature is present (UI or config).
-            // Only if feature present
-            if (statsUI != null || statsConfig != null)
-            {
-                if (runtime == null) runtime = new StatsRuntime();
-                if (statsConfig != null) runtime.Reset(statsConfig);      // seed defaults
-
-                if (statsUI != null)
-                {
-                    if (statsConfig != null) statsUI.ApplyConfig(statsConfig, alsoSetDefaultsToUI: true); // ranges + default paint
-                    statsUI.Init(runtime, syncNow: true);                                                  // subscribe + ensure paint
-                    _statsBound = true;
-                }
-            }
-
-            if (selectionLists != null)
-            {
-                if (selectionLists.selectables == null && selectables != null)
-                    selectionLists.selectables = selectables;
-            }
-            if (selectables != null)
-                selectables.pickingEnabled = false;
-
-            DeactivateAllVisuals();
-
-            Transform quizDiscoveryRoot = labContentRoot != null ? labContentRoot : transform.root;
-            if (quizPanel == null)
-            {
-                quizPanel = quizDiscoveryRoot.GetComponentInChildren<QuizUIController>(true);
-            }
-
-            if (quizResultsPanel == null)
-            {
-                quizResultsPanel = quizDiscoveryRoot.GetComponentInChildren<QuizResultsUIController>(true);
-            }
-
-            // Hide (without disabling, if CanvasGroup is present)
-            if (quizPanel != null) quizPanel.Hide();
-            if (quizResultsPanel != null) quizResultsPanel.Hide();
-        }
-
-        // ------ Convenience bridges (so Timeline/UI can talk only to SceneManager) ------
-        /// <summary>Activate the selection list at <paramref name="index"/> (no-op if no <see cref="selectionLists"/>).</summary>
-        public void ActivateSelectionList(int index) => selectionLists?.ActivateList(index);
-        /// <summary>Activate the selection list named <paramref name="listName"/> (no-op if no <see cref="selectionLists"/>).</summary>
-        public void ActivateSelectionListByName(string listName) => selectionLists?.ActivateListByName(listName);
-        /// <summary>Mark the active selection list complete (no-op if no <see cref="selectionLists"/>).</summary>
-        public void CompleteSelection() => selectionLists?.CompleteActive();
-        /// <summary>Reset/retry the active selection list (no-op if no <see cref="selectionLists"/>).</summary>
-        public void RetrySelection() => selectionLists?.RetryActive();
-
-        void Start()
-        {
-            if (autoStart) Restart();
-        }
-
-        /// <summary>Restart the scenario from the first step: stops any running coroutine and re-runs the graph from the top.</summary>
-        public void Restart()
-        {
-            if (_run != null) StopCoroutine(_run);
-            _run = StartCoroutine(Run());
-        }
-
         IEnumerator Run()
         {
             if (scenario == null || scenario.steps == null || scenario.steps.Count == 0)
                 yield break;
+
+            // WS B1.7 Increment 3: resolve the lab context ONCE per run (cheap; not per-step). Null at
+            // launch (ContentDelivery attaches it in B1.1 Step 2) -> the step-fact emits stay inert.
+            // Re-resolved on each Restart() so a context attached between runs is picked up (no stale null).
+            _ctx = Pitech.XR.Core.LabRuntimeContext.Find(_console);
 
             int idx = 0;
 
@@ -178,6 +115,10 @@ namespace Pitech.XR.Scenario
                 StepIndex = idx;
                 var step = scenario.steps[idx];
                 if (step == null) { idx++; continue; }
+
+                // WS B1.7 Increment 3: dormant outputs (both no-op at launch - see the region above).
+                EmitStepFact(Pitech.XR.Core.ScenarioFactKeys.StepEntered, step.guid);
+                if (_flow != null && _flow.IsDriver) _flow.AppendEntered(step.guid);
 
                 // make sure only visuals of the current step can be seen or clicked
                 DeactivateAllVisuals();
@@ -235,6 +176,9 @@ namespace Pitech.XR.Scenario
                 {
                     yield return RunConditions(cnd, guid => branchGuid = guid);
                 }
+
+                // WS B1.7 Increment 3: step-completed fact (dormant - no-op at launch).
+                EmitStepFact(Pitech.XR.Core.ScenarioFactKeys.StepCompleted, step.guid);
 
                 // compute next index. empty guid means "next in list"
                 if (string.IsNullOrEmpty(branchGuid))
@@ -330,7 +274,7 @@ namespace Pitech.XR.Scenario
             bool advanceRequested = false;
             UnityAction nextCb = null;
             if (cc.advanceMode == CueCardsStep.AdvanceMode.OnButton && cc.nextButton == null)
-                Debug.LogWarning("[Scenario] CueCardsStep: Advance Mode is OnButton but Next Button is not assigned. Falling back to TapAnywhere.", this);
+                Debug.LogWarning("[Scenario] CueCardsStep: Advance Mode is OnButton but Next Button is not assigned. Falling back to TapAnywhere.", _console);
             if (useButton)
             {
                 nextCb = () => advanceRequested = true;
@@ -643,7 +587,7 @@ namespace Pitech.XR.Scenario
                 }
                 catch (System.Exception ex)
                 {
-                    Debug.LogException(ex, this);
+                    Debug.LogException(ex, _console);
                 }
 
                 // (Optional) Stats lists – still supported if you didn’t remove them
@@ -991,7 +935,7 @@ namespace Pitech.XR.Scenario
                 nextGuid = s.defaultNextGuid;
 
             if (!string.IsNullOrEmpty(nextGuid))
-                Debug.Log($"[Scenario] MiniQuiz: correct={correct}/{(s.questions != null ? s.questions.Count : 0)} -> next={nextGuid}", this);
+                Debug.Log($"[Scenario] MiniQuiz: correct={correct}/{(s.questions != null ? s.questions.Count : 0)} -> next={nextGuid}", _console);
 
             Cleanup();
 
@@ -999,19 +943,6 @@ namespace Pitech.XR.Scenario
 
             // debounce so last click doesn't also hit something behind
             yield return WaitForPointerRelease();
-        }
-
-        /// <summary>Return the active <see cref="quizSession"/>, creating one bound to <paramref name="asset"/> if needed. A null asset returns the existing session unchanged.</summary>
-        public QuizSession GetOrCreateQuizSession(QuizAsset asset)
-        {
-            if (asset == null) return quizSession;
-
-            if (quizSession == null)
-                quizSession = new QuizSession(asset);
-            else
-                quizSession.SetAsset(asset);
-
-            return quizSession;
         }
 
         IEnumerator HideSelectionUI(SelectionStep s)
@@ -1221,7 +1152,7 @@ namespace Pitech.XR.Scenario
         {
             if (ins == null || ins.item == null || ins.targetTrigger == null)
             {
-                Debug.LogWarning("[Scenario] InsertStep requires Item and TargetTrigger.", this);
+                Debug.LogWarning("[Scenario] InsertStep requires Item and TargetTrigger.", _console);
                 yield break;
             }
 
@@ -1236,7 +1167,7 @@ namespace Pitech.XR.Scenario
             var itemColliders = ins.item.GetComponentsInChildren<Collider>();
             if (itemColliders == null || itemColliders.Length == 0)
             {
-                Debug.LogWarning("[Scenario] InsertStep: Item has no Colliders. Completing immediately.", this);
+                Debug.LogWarning("[Scenario] InsertStep: Item has no Colliders. Completing immediately.", _console);
             }
             else
             {
@@ -1337,7 +1268,7 @@ namespace Pitech.XR.Scenario
             }
             catch (System.Exception ex)
             {
-                Debug.LogException(ex, this);
+                Debug.LogException(ex, _console);
             }
 
             // Optional wait after onEnter (real-time seconds; not affected by Time.timeScale)
@@ -1490,7 +1421,7 @@ namespace Pitech.XR.Scenario
         }
 
         /// Disable all visuals of all steps so nothing is interactable until its turn
-        void DeactivateAllVisuals()
+        internal void DeactivateAllVisuals()   // internal: LabConsole.Awake() drives the initial reset cross-class
         {
             if (scenario?.steps == null) return;
 
@@ -2065,7 +1996,7 @@ namespace Pitech.XR.Scenario
             bool advanceRequested = false;
             UnityAction nextCb = null;
             if (cc.advanceMode == CueCardsStep.AdvanceMode.OnButton && cc.nextButton == null)
-                Debug.LogWarning("[Scenario] CueCardsStep (Group): Advance Mode is OnButton but Next Button is not assigned. Falling back to TapAnywhere.", this);
+                Debug.LogWarning("[Scenario] CueCardsStep (Group): Advance Mode is OnButton but Next Button is not assigned. Falling back to TapAnywhere.", _console);
             if (useButton)
             {
                 nextCb = () => advanceRequested = true;
@@ -2252,7 +2183,7 @@ namespace Pitech.XR.Scenario
             var lists = s.lists != null ? s.lists : selectionLists;
             if (lists == null)
             {
-                Debug.LogWarning("[Scenario] SelectionStep (Group): no SelectionLists assigned.", this);
+                Debug.LogWarning("[Scenario] SelectionStep (Group): no SelectionLists assigned.", _console);
                 yield break;
             }
 
@@ -2349,7 +2280,7 @@ namespace Pitech.XR.Scenario
             }
             catch (System.Exception ex)
             {
-                Debug.LogException(ex, this);
+                Debug.LogException(ex, _console);
             }
 
             if (isCorrect) ApplyEffects(s.onCorrectEffects);
@@ -2362,7 +2293,7 @@ namespace Pitech.XR.Scenario
         {
             if (ins == null || ins.item == null || ins.targetTrigger == null)
             {
-                Debug.LogWarning("[Scenario] InsertStep requires Item and TargetTrigger.", this);
+                Debug.LogWarning("[Scenario] InsertStep requires Item and TargetTrigger.", _console);
                 yield break;
             }
 
@@ -2374,7 +2305,7 @@ namespace Pitech.XR.Scenario
             var itemColliders = ins.item.GetComponentsInChildren<Collider>();
             if (itemColliders == null || itemColliders.Length == 0)
             {
-                Debug.LogWarning("[Scenario] InsertStep: Item has no Colliders. Completing immediately.", this);
+                Debug.LogWarning("[Scenario] InsertStep: Item has no Colliders. Completing immediately.", _console);
             }
             else
             {
@@ -2463,7 +2394,7 @@ namespace Pitech.XR.Scenario
             }
             catch (System.Exception ex)
             {
-                Debug.LogException(ex, this);
+                Debug.LogException(ex, _console);
             }
 
             float wait = Mathf.Max(0f, ev.waitSeconds);
@@ -2495,24 +2426,5 @@ namespace Pitech.XR.Scenario
                 out _, out _
             );
         }
-
-#if UNITY_EDITOR
-        private void OnValidate()
-        {
-            if (scenario != null)
-            {
-                return;
-            }
-
-            if (UnityEditor.SceneManagement.PrefabStageUtility.GetPrefabStage(gameObject) == null)
-            {
-                return;
-            }
-
-            Debug.LogWarning(
-                "[Scenario] SceneManager has no Scenario assigned. For Addressable lab prefabs, assign a Scenario on the prefab and wire Selectables / Selection Lists / Quiz as needed.",
-                this);
-        }
-#endif
     }
 }

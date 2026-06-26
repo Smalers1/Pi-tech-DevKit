@@ -15,16 +15,16 @@ namespace Pitech.XR.ContentDelivery
         public string internalResolvedVersionId = string.Empty;
         public string internalRuntimeUrl = string.Empty;
 
-        [Header("Scene Manager Integration (optional)")]
+        [Header("Lab Console Integration (optional)")]
         [Tooltip(
-            "Optional SceneManager reference. If null, auto-detect searches only under this GameObject (not the whole loaded world). " +
+            "Optional LabConsole reference. If null, auto-detect searches only under this GameObject (not the whole loaded world). " +
             "For shell + Addressable lab, leave null or assign the lab instance explicitly.")]
         public MonoBehaviour sceneManager;
 
-        [Tooltip("Disable SceneManager autoStart until launch context resolves.")]
+        [Tooltip("Disable LabConsole autoStart until launch context resolves.")]
         public bool deferSceneManagerAutoStart = true;
 
-        [Tooltip("Call Restart() on SceneManager after context resolution.")]
+        [Tooltip("Call Restart() on LabConsole after context resolution.")]
         public bool restartSceneManagerAfterContext = true;
 
         private IContentDeliveryService service;
@@ -110,7 +110,7 @@ namespace Pitech.XR.ContentDelivery
                     continue;
                 }
 
-                if (behaviour.GetType().FullName == "Pitech.XR.Scenario.SceneManager")
+                if (behaviour.GetType().FullName == "Pitech.XR.Scenario.LabConsole")
                 {
                     return behaviour;
                 }

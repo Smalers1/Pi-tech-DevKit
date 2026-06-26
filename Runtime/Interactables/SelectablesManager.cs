@@ -41,7 +41,7 @@ namespace Pitech.XR.Interactables
         public List<Entry> items = new();
 
         [Header("Runtime Gating")]
-        [Tooltip("When false, HandlePointerDown ignores events. Used by SelectionLists / SceneManager to enable picking only while a question is active.")]
+        [Tooltip("When false, HandlePointerDown ignores events. Used by SelectionLists / LabConsole to enable picking only while a question is active.")]
         public bool pickingEnabled = true;
 
         [Header("Visuals (fallback)")]
@@ -204,7 +204,7 @@ namespace Pitech.XR.Interactables
         /// </summary>
         public void HandlePointerDown(Collider col)
         {
-            if (!pickingEnabled) return; // gated by SelectionLists / SceneManager during quiz flow
+            if (!pickingEnabled) return; // gated by SelectionLists / LabConsole during quiz flow
             if (IsVR) return; // VR uses MetaSelect instead
             if (!col) return;
             Toggle(col);

@@ -7,11 +7,11 @@ owner: Claude Code (DevKit repo + the Web Portal / cloud lane)
 phase: B.2
 gate: EditMode "DevKit > Evaluate Changes" net (Proofs A/B/C) on every change + the dev-playtest checklist (single-player) + on-device 2-client proofs (multiplayer) + the analytics equivalence golden fixture (events -> grade, identical in Unity and the portal)
 references:
-  - devkit-architecture-map-phase-b.md (the architecture map = SINGLE SOURCE OF TRUTH; decision log 2026-06-19 -> 2026-06-26b)
-  - devkit-phase-b1-structural-implementation-plan.md (B.1 - the behaviour-neutral foundation this builds on; the frozen schema + the DRIVE/FOLLOW table)
-  - ../plans/2026-06-09-phase-c-integration-and-ship.md (Phase C - roll into AR/VR + ship)
-  - ../plans/_archive/2026-06-09-phase-b-analytics.md (SUPERSEDED - mined only for: cloud-lane structure, queued transports, consent state, exit-criteria format)
-companion: devkit-phase-b1-structural-implementation-plan.md
+  - ../proposed plans/devkit-architecture-map-phase-b.md (the architecture map = SINGLE SOURCE OF TRUTH; decision log 2026-06-19 -> 2026-06-26b)
+  - 2026-06-26-phase-b1-structural.md (B.1 - the behaviour-neutral foundation this builds on; the frozen schema + the DRIVE/FOLLOW table)
+  - 2026-06-09-phase-c-integration-and-ship.md (Phase C - roll into AR/VR + ship)
+  - _archive/2026-06-09-phase-b-analytics.md (SUPERSEDED - mined only for: cloud-lane structure, queued transports, consent state, exit-criteria format)
+companion: 2026-06-26-phase-b1-structural.md
 ---
 
 # Phase B.2 - Features (behaviour-additive)

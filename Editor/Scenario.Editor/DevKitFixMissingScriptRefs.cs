@@ -63,7 +63,7 @@ namespace Pitech.XR.Scenario.Editor
                     "Nothing was changed.\n\n" +
                     "Typical causes:\n" +
                     "• Console compile errors — fix those first.\n" +
-                    "• The broken components are not Scenario / SceneManager (YAML fingerprints did not match).\n" +
+                    "• The broken components are not Scenario / LabConsole (YAML fingerprints did not match).\n" +
                     "• You already removed the missing slot and added a new component — the old serialized data is gone; restore from version control.\n\n" +
                     "Why prefabs \"break\": Unity stores a script file GUID on each component. If that GUID does not match the DevKit copy " +
                     "in this project (package moved, duplicate scripts under Assets, or a bad save while compiling), the Inspector shows " +
@@ -167,7 +167,7 @@ namespace Pitech.XR.Scenario.Editor
                     $"GameObject '{go.name}' has one missing script. Which DevKit type should be assigned?",
                     "Scenario",
                     "Cancel",
-                    "Scene Manager");
+                    "Lab Console");
                 if (choice == 0)
                 {
                     return TryAssignScript(go, typeof(Scenario)) ? 1 : 0;
@@ -175,7 +175,7 @@ namespace Pitech.XR.Scenario.Editor
 
                 if (choice == 2)
                 {
-                    return TryAssignScript(go, typeof(SceneManager)) ? 1 : 0;
+                    return TryAssignScript(go, typeof(LabConsole)) ? 1 : 0;
                 }
 
                 return 0;
@@ -198,10 +198,12 @@ namespace Pitech.XR.Scenario.Editor
             }
 
             string n = objectName.Trim();
-            if (n.IndexOf("scene manager", StringComparison.OrdinalIgnoreCase) >= 0 ||
+            if (n.IndexOf("lab console", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                n.IndexOf("labconsole", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                n.IndexOf("scene manager", StringComparison.OrdinalIgnoreCase) >= 0 ||   // back-compat: pre-rename object name
                 n.IndexOf("scenemanager", StringComparison.OrdinalIgnoreCase) >= 0)
             {
-                return typeof(SceneManager);
+                return typeof(LabConsole);
             }
 
             if (n.IndexOf("scenario", StringComparison.OrdinalIgnoreCase) >= 0)
@@ -365,9 +367,9 @@ namespace Pitech.XR.Scenario.Editor
             {
                 pathSuffix = "Scenario/Scenario.cs";
             }
-            else if (behaviourType == typeof(SceneManager))
+            else if (behaviourType == typeof(LabConsole))
             {
-                pathSuffix = "Scenario/SceneManager.cs";
+                pathSuffix = "Scenario/LabConsole.cs";
             }
             else
             {

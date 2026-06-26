@@ -33,12 +33,12 @@
             "guid": "6f7a1a8d1c4b4f3a9c7e2f4b9d1a3f2c"
         },
         {
-            "type": "Pitech.XR.Scenario.Scenario",
-            "guid": "3ac8609ffa1765b4487f1b8ec195e70c"
+            "type": "Pitech.XR.Scenario.LabConsole",
+            "guid": "2d431a49d183e9c428369f7f758f75cd"
         },
         {
-            "type": "Pitech.XR.Scenario.SceneManager",
-            "guid": "2d431a49d183e9c428369f7f758f75cd"
+            "type": "Pitech.XR.Scenario.Scenario",
+            "guid": "3ac8609ffa1765b4487f1b8ec195e70c"
         },
         {
             "type": "Pitech.XR.Stats.StatsConfig",

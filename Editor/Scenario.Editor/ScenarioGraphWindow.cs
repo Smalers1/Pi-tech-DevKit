@@ -1593,18 +1593,18 @@ public partial class ScenarioGraphWindow : EditorWindow
     {
         if (!Application.isPlaying) return;
 
-        Pitech.XR.Scenario.SceneManager mgr = null;
+        Pitech.XR.Scenario.LabConsole mgr = null;
 #if UNITY_2023_1_OR_NEWER
         mgr = UnityEngine.Object
-            .FindObjectsByType<Pitech.XR.Scenario.SceneManager>(FindObjectsSortMode.None)
+            .FindObjectsByType<Pitech.XR.Scenario.LabConsole>(FindObjectsSortMode.None)
             .FirstOrDefault(m => m && m.scenario == scenario)
-            ?? UnityEngine.Object.FindObjectsByType<Pitech.XR.Scenario.SceneManager>(FindObjectsSortMode.None)
+            ?? UnityEngine.Object.FindObjectsByType<Pitech.XR.Scenario.LabConsole>(FindObjectsSortMode.None)
                 .FirstOrDefault();
 #else
         mgr = UnityEngine.Object
-            .FindObjectsOfType<Pitech.XR.Scenario.SceneManager>()
+            .FindObjectsOfType<Pitech.XR.Scenario.LabConsole>()
             .FirstOrDefault(m => m && m.scenario == scenario)
-            ?? UnityEngine.Object.FindObjectsOfType<Pitech.XR.Scenario.SceneManager>()
+            ?? UnityEngine.Object.FindObjectsOfType<Pitech.XR.Scenario.LabConsole>()
                 .FirstOrDefault();
 #endif
 
@@ -1878,11 +1878,11 @@ public partial class ScenarioGraphWindow : EditorWindow
             return;
         }
 
-        // Find any SceneManager in the scene
+        // Find any LabConsole in the scene
 #if UNITY_2023_1_OR_NEWER
-        var managers = UnityEngine.Object.FindObjectsByType<Pitech.XR.Scenario.SceneManager>(FindObjectsSortMode.None);
+        var managers = UnityEngine.Object.FindObjectsByType<Pitech.XR.Scenario.LabConsole>(FindObjectsSortMode.None);
 #else
-        var managers = UnityEngine.Object.FindObjectsOfType<Pitech.XR.Scenario.SceneManager>();
+        var managers = UnityEngine.Object.FindObjectsOfType<Pitech.XR.Scenario.LabConsole>();
 #endif
         if (managers == null || managers.Length == 0)
         {
@@ -2155,6 +2155,8 @@ public partial class ScenarioGraphWindow : EditorWindow
         evt.menu.AppendAction("Add/Event", _ => CreateStep(typeof(EventStep)));
         evt.menu.AppendAction("Add/Group", _ => CreateStep(typeof(GroupStep)));
         evt.menu.AppendAction("Add/Conditions", _ => CreateStep(typeof(ConditionsStep)));
+        evt.menu.AppendAction("Add/Session Start", _ => CreateStep(typeof(SessionStartStep)));
+        evt.menu.AppendAction("Add/Session Stop", _ => CreateStep(typeof(SessionStopStep)));
         evt.menu.AppendSeparator();
         evt.menu.AppendAction("Add/Note", _ => CreateNote());
         evt.menu.AppendAction("Add/Group Box", _ => CreateGroupBox());

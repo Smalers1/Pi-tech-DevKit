@@ -182,16 +182,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pitech.XR.Scenario::Pitech.XR.Scenario.Scenario
   title: Main Scenario
   steps:
-  - rid: 5790947702476636304
-  - rid: 5790947702476636305
-  - rid: 5790947702476636306
+  - rid: 2879008024847974678
+  - rid: 2879008024847974679
+  - rid: 2879008024847974680
   graphNotes: []
   graphGroups: []
   stepGraphDisplays: []
   references:
     version: 2
     RefIds:
-    - rid: 5790947702476636304
+    - rid: 2879008024847974678
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: legacy-step-01
@@ -201,7 +201,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: legacy-step-02
-    - rid: 5790947702476636305
+    - rid: 2879008024847974679
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: legacy-step-02
@@ -211,7 +211,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 5790947702476636306
+    - rid: 2879008024847974680
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: legacy-step-03

@@ -12,7 +12,7 @@ namespace Pitech.XR.Scenario.PlayMode.Tests
     /// <summary>
     /// Phase D-prep SEED (Appendix I.4/I.5) - NOT a Phase A gate. Proves the golden-trace HARNESS on one
     /// happy-path fixture: load the fixture prefab, instantiate into the play-mode scene, drive the runner
-    /// deterministically via SceneManager.EditorSkipFromGraph (called DIRECTLY - it is unconditional
+    /// deterministically via LabConsole.EditorSkipFromGraph (called DIRECTLY - it is unconditional
     /// public API, so a rename fails compilation instead of silently un-driving the trace), poll
     /// StepIndex per frame to emit a transition row, and serialize a deterministic trace (stable order,
     /// InvariantCulture, LF, trailing newline) for a byte-compare.
@@ -49,7 +49,7 @@ namespace Pitech.XR.Scenario.PlayMode.Tests
             var instance = Object.Instantiate(prefab);
             try
             {
-                var sm = instance.GetComponentInChildren<SceneManager>(true);
+                var sm = instance.GetComponentInChildren<LabConsole>(true);
                 if (sm == null) yield break;
 
                 var steps = sm.scenario != null ? sm.scenario.steps : null;

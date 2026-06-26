@@ -1218,7 +1218,7 @@ namespace Pitech.XR.Scenario.Editor
             GameObject root = null;
             try
             {
-                // The current-form slice: a SceneManager wired to the package QuizAsset + the two
+                // The current-form slice: a LabConsole wired to the package QuizAsset + the two
                 // Quiz UI controller components, plus a Scenario host with 3 simple steps. The
                 // Scenario's editor-only lists stay EMPTY by construction, so each serializes as a
                 // single "name: []" line the legacy twin then strips.
@@ -1242,7 +1242,7 @@ namespace Pitech.XR.Scenario.Editor
                 var quizResultsUi = quizResultsGo.AddComponent<QuizResultsUIController>();
 
                 var smGo = NewChild(root, "Legacy Scene Manager");
-                var sm = smGo.AddComponent<SceneManager>();
+                var sm = smGo.AddComponent<LabConsole>();
                 sm.scenario = scenario;
                 sm.defaultQuiz = quiz;                  // pre-FSA name: quiz
                 sm.quizPanel = quizUi;                  // pre-FSA name: quizUI
@@ -1267,7 +1267,7 @@ namespace Pitech.XR.Scenario.Editor
             return DeriveLegacyTwinTextually(currentPath, legacyPath);
         }
 
-        // Textual derivation: rename exactly the three SceneManager fields to their
+        // Textual derivation: rename exactly the three LabConsole fields to their
         // pre-FormerlySerializedAs names and strip the three (empty) editor-only list lines.
         static bool DeriveLegacyTwinTextually(string currentPath, string legacyPath)
         {
