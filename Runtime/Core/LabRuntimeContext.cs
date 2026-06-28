@@ -11,9 +11,12 @@ namespace Pitech.XR.Core
     /// a global bus reintroduces the multi-runner mis-bind class (map sec-5 / sec-7), true even for a
     /// single lab (stray / editor / additive runner objects).
     ///
-    /// INERT in Phase B.1: the type exists and compiles, but ContentDelivery does not attach it yet
-    /// (WS B1.1 Step 2) and nothing publishes (WS B1.7 / Phase B.2). No global lookups, so it is safe
-    /// in the runtime package per the no-Find/-FindObjectsOfType rule.
+    /// INERT in Phase B.1: ContentDelivery now DOES attach this on every spawned lab root (WS B1.1
+    /// Step 2 has landed), and the runner DOES publish step.entered/step.completed facts to the bus
+    /// (WS B1.7). It stays behaviour-neutral because the bus has ZERO subscribers at launch, so
+    /// <see cref="LabEventBus.Publish"/> early-returns - the first subscriber (telemetry-on-bus,
+    /// WS B1.1 Step 3 / Phase B.2) is what turns it live. No global lookups, so it is safe in the
+    /// runtime package per the no-Find/-FindObjectsOfType rule.
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class LabRuntimeContext : MonoBehaviour

@@ -43,9 +43,58 @@ namespace Pitech.XR.Core.Editor
             var parent = EnsureManagersRoot();
             var go = new GameObject("Scenario");
             Undo.RegisterCreatedObjectUndo(go, "Create Scenario");
-            go.AddComponent(t);
+            var scenarioComponent = go.AddComponent(t);
             if (parent) go.transform.SetParent(parent, false);
+
+            // Mirror the inspector flow (SceneManagerEditor.CreateAndAssignScenario): if a LabConsole
+            // exists in the scene, wire the new Scenario onto its 'scenario' field so the lab is ready
+            // to run. Resolve LabConsole by FullName via reflection so Core.Editor keeps no hard
+            // compile reference to the Pitech.XR.Scenario assembly; assign through SerializedObject for
+            // free Undo + prefab-override correctness. If no LabConsole exists, fall back to today's
+            // behaviour (an orphan Scenario) - never throw.
+            var labConsole = FindFirstComponentInActiveScene("Pitech.XR.Scenario.LabConsole");
+            if (labConsole)
+            {
+                var so = new SerializedObject(labConsole);
+                var prop = so.FindProperty("scenario");
+                if (prop != null)
+                {
+                    Undo.RecordObject(labConsole, "Assign Scenario");
+                    so.Update();
+                    prop.objectReferenceValue = scenarioComponent;
+                    so.ApplyModifiedProperties();
+                    EditorUtility.SetDirty(labConsole);
+                }
+            }
+
             Selection.activeGameObject = go;
+        }
+
+        // Resolves the first component of the given type (by reflection FullName) in the active scene.
+        // Kept self-contained and string-typed so Core.Editor takes no compile reference to the
+        // Pitech.XR.Scenario assembly. Returns null if the type is absent or no instance is in-scene.
+        static Component FindFirstComponentInActiveScene(string fullTypeName)
+        {
+            if (string.IsNullOrEmpty(fullTypeName)) return null;
+
+            var type = AppDomain.CurrentDomain.GetAssemblies()
+                .SelectMany(a =>
+                {
+                    try { return a.GetTypes(); }
+                    catch { return Array.Empty<Type>(); }
+                })
+                .FirstOrDefault(x => x.FullName == fullTypeName);
+            if (type == null) return null;
+
+            var s = SceneManager.GetActiveScene();
+            if (!s.IsValid() || !s.isLoaded) return null;
+
+            foreach (var root in s.GetRootGameObjects())
+            {
+                var comp = root.GetComponentInChildren(type, true);
+                if (comp) return comp;
+            }
+            return null;
         }
 
         public void OpenGraph()

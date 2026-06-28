@@ -182,13 +182,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pitech.XR.Scenario::Pitech.XR.Scenario.Scenario
   title: Main Scenario
   steps:
-  - rid: 2879008024847974678
-  - rid: 2879008024847974679
-  - rid: 2879008024847974680
+  - rid: 5790948050804408509
+  - rid: 5790948050804408510
+  - rid: 5790948050804408511
   references:
     version: 2
     RefIds:
-    - rid: 2879008024847974678
+    - rid: 5790948050804408509
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: legacy-step-01
@@ -198,7 +198,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: legacy-step-02
-    - rid: 2879008024847974679
+    - rid: 5790948050804408510
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: legacy-step-02
@@ -208,7 +208,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974680
+    - rid: 5790948050804408511
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: legacy-step-03
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d431a49d183e9c428369f7f758f75cd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Pitech.XR.Scenario::Pitech.XR.Scenario.SceneManager
+  m_EditorClassIdentifier: Pitech.XR.Scenario::Pitech.XR.Scenario.LabConsole
   scenario: {fileID: 2251616629551826942}
   autoStart: 1
   statsUI: {fileID: 0}

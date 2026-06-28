@@ -2564,6 +2564,26 @@ public partial class ScenarioGraphWindow : EditorWindow
 
     void CreateStep(Type t)
     {
+        // Crash guard: adding a step on a graph window that is not bound to a Scenario (e.g. the user
+        // picked Add > <step> on an unlinked graph) used to NullReferenceException on scenario.steps.
+        // Best-effort auto-resolve the open scene's Scenario, then bind via Load before proceeding. If
+        // nothing can be resolved, explain and return - never throw. Happy path (already bound) is
+        // unchanged.
+        if (!scenario)
+        {
+            var resolved = TryResolveSceneScenario();
+            if (!resolved)
+            {
+                EditorUtility.DisplayDialog(
+                    "Scenario Graph",
+                    "This graph is not linked to a Scenario, and none could be found in the open scene.\n\n" +
+                    "Open or select a Scenario first (or add a Scenario + LabConsole to the scene), then try again.",
+                    "OK");
+                return;
+            }
+            Load(resolved);
+        }
+
         var inst = (Step)Activator.CreateInstance(t);
         inst.guid = Guid.NewGuid().ToString();
         inst.graphPos = mouseWorld;
@@ -2571,6 +2591,28 @@ public partial class ScenarioGraphWindow : EditorWindow
         Dirty(scenario, "Add Step");
         scenario.steps.Add(inst);
         Load(scenario);
+    }
+
+    /// <summary>
+    /// Best-effort resolution of a Scenario in the open scene for an unlinked graph window. Prefers a
+    /// scene LabConsole's assigned scenario, then any scene Scenario. Returns null if none is reachable.
+    /// </summary>
+    Scenario TryResolveSceneScenario()
+    {
+#if UNITY_2023_1_OR_NEWER
+        var labConsoles = UnityEngine.Object.FindObjectsByType<Pitech.XR.Scenario.LabConsole>(FindObjectsSortMode.None);
+#else
+        var labConsoles = UnityEngine.Object.FindObjectsOfType<Pitech.XR.Scenario.LabConsole>();
+#endif
+        var fromConsole = labConsoles?.FirstOrDefault(m => m && m.scenario != null)?.scenario;
+        if (fromConsole) return fromConsole;
+
+#if UNITY_2023_1_OR_NEWER
+        var scenarios = UnityEngine.Object.FindObjectsByType<Scenario>(FindObjectsSortMode.None);
+#else
+        var scenarios = UnityEngine.Object.FindObjectsOfType<Scenario>();
+#endif
+        return scenarios?.FirstOrDefault();
     }
 
 }

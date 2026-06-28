@@ -160,6 +160,43 @@ Transform:
   - {fileID: 3251281568456493279}
   m_Father: {fileID: 2344896777004559842}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1640935882709628855
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6287623012209532119}
+  m_Layer: 0
+  m_Name: Buttons Parent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6287623012209532119
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1640935882709628855}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 922273432334537510}
+  - {fileID: 5560976869480331944}
+  m_Father: {fileID: 3769165778035968624}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1682591194017834139
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,6 +833,86 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5473126319791833110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4908038548373354741
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 922273432334537510}
+  - component: {fileID: 4788136201539586090}
+  m_Layer: 0
+  m_Name: Btn Nai
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &922273432334537510
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4908038548373354741}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6287623012209532119}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4788136201539586090
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4908038548373354741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &5084688519858930309
 GameObject:
   m_ObjectHideFlags: 0
@@ -842,38 +959,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pitech.XR.Scenario::Pitech.XR.Scenario.Scenario
   title: Mega Fixture
   steps:
-  - rid: 2879008024847974625
-  - rid: 2879008024847974626
-  - rid: 2879008024847974627
-  - rid: 2879008024847974628
-  - rid: 2879008024847974629
-  - rid: 2879008024847974630
-  - rid: 2879008024847974631
-  - rid: 2879008024847974632
-  - rid: 2879008024847974633
-  - rid: 2879008024847974634
-  - rid: 2879008024847974635
-  - rid: 2879008024847974636
-  - rid: 2879008024847974637
-  - rid: 2879008024847974638
-  - rid: 2879008024847974639
-  - rid: 2879008024847974640
-  - rid: 2879008024847974641
-  - rid: 2879008024847974642
-  - rid: 2879008024847974643
-  - rid: 2879008024847974644
-  - rid: 2879008024847974645
-  - rid: 2879008024847974646
-  - rid: 2879008024847974647
-  - rid: 2879008024847974648
-  - rid: 2879008024847974649
-  - rid: 2879008024847974650
-  - rid: 2879008024847974651
-  - rid: 2879008024847974652
-  - rid: 2879008024847974653
-  - rid: 2879008024847974654
-  - rid: 2879008024847974655
-  - rid: 2879008024847974656
+  - rid: 5790948050804408456
+  - rid: 5790948050804408457
+  - rid: 5790948050804408458
+  - rid: 5790948050804408459
+  - rid: 5790948050804408460
+  - rid: 5790948050804408461
+  - rid: 5790948050804408462
+  - rid: 5790948050804408463
+  - rid: 5790948050804408464
+  - rid: 5790948050804408465
+  - rid: 5790948050804408466
+  - rid: 5790948050804408467
+  - rid: 5790948050804408468
+  - rid: 5790948050804408469
+  - rid: 5790948050804408470
+  - rid: 5790948050804408471
+  - rid: 5790948050804408472
+  - rid: 5790948050804408473
+  - rid: 5790948050804408474
+  - rid: 5790948050804408475
+  - rid: 5790948050804408476
+  - rid: 5790948050804408477
+  - rid: 5790948050804408478
+  - rid: 5790948050804408479
+  - rid: 5790948050804408480
+  - rid: 5790948050804408481
+  - rid: 5790948050804408482
+  - rid: 5790948050804408483
+  - rid: 5790948050804408484
+  - rid: 5790948050804408485
+  - rid: 5790948050804408486
+  - rid: 5790948050804408487
   graphNotes:
   - guid: mega-note-01
     rect:
@@ -915,7 +1032,7 @@ MonoBehaviour:
   references:
     version: 2
     RefIds:
-    - rid: 2879008024847974625
+    - rid: 5790948050804408456
       type: {class: TimelineStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-timeline-01
@@ -924,7 +1041,7 @@ MonoBehaviour:
         rewindOnEnter: 0
         waitForEnd: 0
         nextGuid: mega-cuecards-01
-    - rid: 2879008024847974626
+    - rid: 5790948050804408457
       type: {class: CueCardsStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-cuecards-01
@@ -980,7 +1097,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
         nextGuid: mega-question-01
-    - rid: 2879008024847974627
+    - rid: 5790948050804408458
       type: {class: QuestionStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-question-01
@@ -1033,7 +1150,7 @@ MonoBehaviour:
               m_Calls: []
           effects: []
           nextGuid: mega-event-hub
-    - rid: 2879008024847974628
+    - rid: 5790948050804408459
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-event-hub
@@ -1055,7 +1172,7 @@ MonoBehaviour:
               m_CallState: 2
         waitSeconds: 0
         nextGuid: mega-miniquiz-01
-    - rid: 2879008024847974629
+    - rid: 5790948050804408460
       type: {class: MiniQuizStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-miniquiz-01
@@ -1073,7 +1190,7 @@ MonoBehaviour:
               m_PersistentCalls:
                 m_Calls: []
             effects: []
-          - button: {fileID: 2481878087717706693}
+          - button: {fileID: 6219312924375571766}
             isCorrect: 0
             onSelected:
               m_PersistentCalls:
@@ -1081,13 +1198,13 @@ MonoBehaviour:
             effects: []
         - label: Erotisi 2
           choices:
-          - button: {fileID: 1017627328022369797}
+          - button: {fileID: 4788136201539586090}
             isCorrect: 0
             onSelected:
               m_PersistentCalls:
                 m_Calls: []
             effects: []
-          - button: {fileID: 6219312924375571766}
+          - button: {fileID: 3465086661931916123}
             isCorrect: 0
             onSelected:
               m_PersistentCalls:
@@ -1106,7 +1223,7 @@ MonoBehaviour:
           maxCorrect: 1
           nextGuid: mega-question-01
         defaultNextGuid: mega-selection-01
-    - rid: 2879008024847974630
+    - rid: 5790948050804408461
       type: {class: SelectionStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-selection-01
@@ -1190,7 +1307,7 @@ MonoBehaviour:
         - key: Asfaleia
           op: 3
           value: 2
-    - rid: 2879008024847974631
+    - rid: 5790948050804408462
       type: {class: InsertStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-insert-01
@@ -1205,7 +1322,7 @@ MonoBehaviour:
         positionTolerance: 0.05
         angleTolerance: 0
         nextGuid: mega-conditions-stat
-    - rid: 2879008024847974632
+    - rid: 5790948050804408463
       type: {class: ConditionsStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-conditions-stat
@@ -1231,7 +1348,7 @@ MonoBehaviour:
           compareOp: 2
           compareValue: 75
           nextGuid: 
-    - rid: 2879008024847974633
+    - rid: 5790948050804408464
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-event-carrier
@@ -1335,7 +1452,7 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 0
-            - m_Target: {fileID: 6325936751157987919}
+            - m_Target: {fileID: 8761591304759641598}
               m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
               m_MethodName: SetActive
               m_Mode: 6
@@ -1373,7 +1490,7 @@ MonoBehaviour:
               m_CallState: 2
         waitSeconds: 2.5
         nextGuid: mega-quiz-01
-    - rid: 2879008024847974634
+    - rid: 5790948050804408465
       type: {class: QuizStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-quiz-01
@@ -1388,7 +1505,7 @@ MonoBehaviour:
         nextGuid: 
         correctNextGuid: mega-quizresults-01
         wrongNextGuid: mega-event-carrier
-    - rid: 2879008024847974635
+    - rid: 5790948050804408466
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-event-unreachable
@@ -1398,7 +1515,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: mega-event-final
-    - rid: 2879008024847974636
+    - rid: 5790948050804408467
       type: {class: QuizResultsStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-quizresults-01
@@ -1410,7 +1527,7 @@ MonoBehaviour:
         nextGuid: 
         passedNextGuid: mega-group-all
         failedNextGuid: mega-event-hub
-    - rid: 2879008024847974637
+    - rid: 5790948050804408468
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-event-island-01
@@ -1420,7 +1537,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974638
+    - rid: 5790948050804408469
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-event-island-02
@@ -1430,15 +1547,15 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974639
+    - rid: 5790948050804408470
       type: {class: GroupStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-all
         graphPos: {x: 4480, y: 0}
         steps:
-        - rid: 2879008024847974657
-        - rid: 2879008024847974658
-        - rid: 2879008024847974659
+        - rid: 5790948050804408488
+        - rid: 5790948050804408489
+        - rid: 5790948050804408490
         completeWhen: 0
         requiredCount: 1
         specificStepGuid: 
@@ -1452,14 +1569,14 @@ MonoBehaviour:
           required: 1
         multiConditionBranches: []
         nextGuid: mega-group-any
-    - rid: 2879008024847974640
+    - rid: 5790948050804408471
       type: {class: GroupStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-any
         graphPos: {x: 4800, y: 0}
         steps:
-        - rid: 2879008024847974660
-        - rid: 2879008024847974661
+        - rid: 5790948050804408491
+        - rid: 5790948050804408492
         completeWhen: 1
         requiredCount: 1
         specificStepGuid: 
@@ -1471,14 +1588,14 @@ MonoBehaviour:
           required: 1
         multiConditionBranches: []
         nextGuid: mega-group-specific
-    - rid: 2879008024847974641
+    - rid: 5790948050804408472
       type: {class: GroupStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-specific
         graphPos: {x: 5120, y: 0}
         steps:
-        - rid: 2879008024847974662
-        - rid: 2879008024847974663
+        - rid: 5790948050804408493
+        - rid: 5790948050804408494
         completeWhen: 2
         requiredCount: 1
         specificStepGuid: mega-group-specific-child-02
@@ -1490,15 +1607,15 @@ MonoBehaviour:
           required: 1
         multiConditionBranches: []
         nextGuid: mega-group-required
-    - rid: 2879008024847974642
+    - rid: 5790948050804408473
       type: {class: GroupStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-required
         graphPos: {x: 5440, y: 0}
         steps:
-        - rid: 2879008024847974664
-        - rid: 2879008024847974665
-        - rid: 2879008024847974666
+        - rid: 5790948050804408495
+        - rid: 5790948050804408496
+        - rid: 5790948050804408497
         completeWhen: 3
         requiredCount: 1
         specificStepGuid: 
@@ -1512,15 +1629,15 @@ MonoBehaviour:
           required: 1
         multiConditionBranches: []
         nextGuid: mega-group-nofm
-    - rid: 2879008024847974643
+    - rid: 5790948050804408474
       type: {class: GroupStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-nofm
         graphPos: {x: 5760, y: 0}
         steps:
-        - rid: 2879008024847974667
-        - rid: 2879008024847974668
-        - rid: 2879008024847974669
+        - rid: 5790948050804408498
+        - rid: 5790948050804408499
+        - rid: 5790948050804408500
         completeWhen: 4
         requiredCount: 2
         specificStepGuid: 
@@ -1534,16 +1651,16 @@ MonoBehaviour:
           required: 1
         multiConditionBranches: []
         nextGuid: mega-group-multi
-    - rid: 2879008024847974644
+    - rid: 5790948050804408475
       type: {class: GroupStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-multi
         graphPos: {x: 6080, y: 0}
         steps:
-        - rid: 2879008024847974670
-        - rid: 2879008024847974671
-        - rid: 2879008024847974672
-        - rid: 2879008024847974673
+        - rid: 5790948050804408501
+        - rid: 5790948050804408502
+        - rid: 5790948050804408503
+        - rid: 5790948050804408504
         completeWhen: 5
         requiredCount: 1
         specificStepGuid: 
@@ -1587,14 +1704,14 @@ MonoBehaviour:
             required: 1
           nextGuid: mega-group-multi-2
         nextGuid: 
-    - rid: 2879008024847974645
+    - rid: 5790948050804408476
       type: {class: GroupStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-multi-2
         graphPos: {x: 6400, y: 0}
         steps:
-        - rid: 2879008024847974674
-        - rid: 2879008024847974675
+        - rid: 5790948050804408505
+        - rid: 5790948050804408506
         completeWhen: 5
         requiredCount: 1
         specificStepGuid: 
@@ -1616,7 +1733,7 @@ MonoBehaviour:
             required: 1
           nextGuid: mega-conditions-comp
         nextGuid: 
-    - rid: 2879008024847974646
+    - rid: 5790948050804408477
       type: {class: ConditionsStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-conditions-comp
@@ -1642,7 +1759,7 @@ MonoBehaviour:
           compareOp: 5
           compareValue: 0.25
           nextGuid: mega-quiz-02
-    - rid: 2879008024847974647
+    - rid: 5790948050804408478
       type: {class: ConditionsStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-conditions-list
@@ -1664,7 +1781,7 @@ MonoBehaviour:
           compareOp: 7
           compareValue: 0
           nextGuid: mega-event-hub
-    - rid: 2879008024847974648
+    - rid: 5790948050804408479
       type: {class: QuizStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-quiz-02
@@ -1679,7 +1796,7 @@ MonoBehaviour:
         nextGuid: mega-quizresults-02
         correctNextGuid: 
         wrongNextGuid: 
-    - rid: 2879008024847974649
+    - rid: 5790948050804408480
       type: {class: QuizResultsStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-quizresults-02
@@ -1691,7 +1808,7 @@ MonoBehaviour:
         nextGuid: mega-cuecards-02
         passedNextGuid: 
         failedNextGuid: 
-    - rid: 2879008024847974650
+    - rid: 5790948050804408481
       type: {class: CueCardsStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-cuecards-02
@@ -1727,7 +1844,7 @@ MonoBehaviour:
           m_PostInfinity: 2
           m_RotationOrder: 4
         nextGuid: mega-question-02
-    - rid: 2879008024847974651
+    - rid: 5790948050804408482
       type: {class: QuestionStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-question-02
@@ -1750,7 +1867,7 @@ MonoBehaviour:
               m_Calls: []
           effects: []
           nextGuid: mega-miniquiz-02
-    - rid: 2879008024847974652
+    - rid: 5790948050804408483
       type: {class: MiniQuizStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-miniquiz-02
@@ -1794,7 +1911,7 @@ MonoBehaviour:
         lockQuestionAfterAnswer: 1
         outcomes: []
         defaultNextGuid: 
-    - rid: 2879008024847974653
+    - rid: 5790948050804408484
       type: {class: SelectionStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-selection-02
@@ -1824,7 +1941,7 @@ MonoBehaviour:
             m_Calls: []
         onCorrectEffects: []
         onWrongEffects: []
-    - rid: 2879008024847974654
+    - rid: 5790948050804408485
       type: {class: InsertStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-insert-02
@@ -1839,7 +1956,7 @@ MonoBehaviour:
         positionTolerance: 0.02
         angleTolerance: 10
         nextGuid: mega-timeline-02
-    - rid: 2879008024847974655
+    - rid: 5790948050804408486
       type: {class: TimelineStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-timeline-02
@@ -1848,7 +1965,7 @@ MonoBehaviour:
         rewindOnEnter: 1
         waitForEnd: 1
         nextGuid: mega-event-final
-    - rid: 2879008024847974656
+    - rid: 5790948050804408487
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-event-final
@@ -1858,7 +1975,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974657
+    - rid: 5790948050804408488
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-all-child-01
@@ -1868,7 +1985,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974658
+    - rid: 5790948050804408489
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-all-child-02
@@ -1878,14 +1995,14 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974659
+    - rid: 5790948050804408490
       type: {class: GroupStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-nested
         graphPos: {x: 640, y: 200}
         steps:
-        - rid: 2879008024847974676
-        - rid: 2879008024847974677
+        - rid: 5790948050804408507
+        - rid: 5790948050804408508
         completeWhen: 0
         requiredCount: 1
         specificStepGuid: 
@@ -1897,7 +2014,7 @@ MonoBehaviour:
           required: 1
         multiConditionBranches: []
         nextGuid: 
-    - rid: 2879008024847974660
+    - rid: 5790948050804408491
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-any-child-01
@@ -1907,7 +2024,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974661
+    - rid: 5790948050804408492
       type: {class: QuizStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-quiz-03
@@ -1922,7 +2039,7 @@ MonoBehaviour:
         nextGuid: 
         correctNextGuid: 
         wrongNextGuid: 
-    - rid: 2879008024847974662
+    - rid: 5790948050804408493
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-specific-child-01
@@ -1932,7 +2049,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974663
+    - rid: 5790948050804408494
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-specific-child-02
@@ -1942,7 +2059,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974664
+    - rid: 5790948050804408495
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-required-child-01
@@ -1952,7 +2069,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974665
+    - rid: 5790948050804408496
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-required-child-02
@@ -1962,7 +2079,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974666
+    - rid: 5790948050804408497
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-required-child-03
@@ -1972,7 +2089,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974667
+    - rid: 5790948050804408498
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-nofm-child-01
@@ -1982,7 +2099,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974668
+    - rid: 5790948050804408499
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-nofm-child-02
@@ -1992,7 +2109,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974669
+    - rid: 5790948050804408500
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-nofm-child-03
@@ -2002,7 +2119,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974670
+    - rid: 5790948050804408501
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-multi-child-01
@@ -2012,7 +2129,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974671
+    - rid: 5790948050804408502
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-multi-child-02
@@ -2022,7 +2139,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974672
+    - rid: 5790948050804408503
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-multi-child-03
@@ -2032,7 +2149,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974673
+    - rid: 5790948050804408504
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-multi-child-04
@@ -2042,7 +2159,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974674
+    - rid: 5790948050804408505
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-multi-2-child-01
@@ -2052,7 +2169,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974675
+    - rid: 5790948050804408506
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-multi-2-child-02
@@ -2062,7 +2179,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974676
+    - rid: 5790948050804408507
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-nested-child-01
@@ -2072,7 +2189,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 2879008024847974677
+    - rid: 5790948050804408508
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: mega-group-nested-child-02
@@ -2111,7 +2228,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3121896707763290715}
-  - {fileID: 4506066616224450550}
+  - {fileID: 829532699134642195}
   m_Father: {fileID: 3769165778035968624}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -2150,86 +2267,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5473126319791833110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &5705749781488653590
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4506066616224450550}
-  - component: {fileID: 2481878087717706693}
-  m_Layer: 0
-  m_Name: Btn Oxi
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &4506066616224450550
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705749781488653590}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1089663070042900644}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2481878087717706693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5705749781488653590}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &5744472525482205169
 GameObject:
   m_ObjectHideFlags: 0
@@ -2341,74 +2378,6 @@ Transform:
   m_Children:
   - {fileID: 2735423442160248354}
   m_Father: {fileID: 3251281568456493279}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &6268264922008160478
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 3677221448924432021}
-  m_Layer: 0
-  m_Name: Buttons Parent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &3677221448924432021
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6268264922008160478}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6254648917008677999}
-  - {fileID: 829532699134642195}
-  m_Father: {fileID: 3769165778035968624}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &6325936751157987919
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5854613182559173591}
-  m_Layer: 0
-  m_Name: Panel epomeno domatio
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5854613182559173591
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6325936751157987919}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5473126319791833110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6462915554324027245
 GameObject:
@@ -2817,6 +2786,86 @@ Transform:
   - {fileID: 916469476683614796}
   m_Father: {fileID: 437683930821040298}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6649061866604532615
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5560976869480331944}
+  - component: {fileID: 3465086661931916123}
+  m_Layer: 0
+  m_Name: Btn Oxi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5560976869480331944
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6649061866604532615}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6287623012209532119}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &3465086661931916123
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6649061866604532615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 0}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6651964266578964960
 GameObject:
   m_ObjectHideFlags: 0
@@ -3057,7 +3106,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1089663070042900644}
-  - {fileID: 3677221448924432021}
+  - {fileID: 6287623012209532119}
   m_Father: {fileID: 5473126319791833110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -3128,86 +3177,6 @@ Transform:
   - {fileID: 8230835340936364760}
   m_Father: {fileID: 393973062661276252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &8329995071564570807
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6254648917008677999}
-  - component: {fileID: 1017627328022369797}
-  m_Layer: 0
-  m_Name: Btn Nai
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &6254648917008677999
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8329995071564570807}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 3677221448924432021}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1017627328022369797
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8329995071564570807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
-  m_Navigation:
-    m_Mode: 3
-    m_WrapAround: 0
-    m_SelectOnUp: {fileID: 0}
-    m_SelectOnDown: {fileID: 0}
-    m_SelectOnLeft: {fileID: 0}
-    m_SelectOnRight: {fileID: 0}
-  m_Transition: 1
-  m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
-    m_ColorMultiplier: 1
-    m_FadeDuration: 0.1
-  m_SpriteState:
-    m_HighlightedSprite: {fileID: 0}
-    m_PressedSprite: {fileID: 0}
-    m_SelectedSprite: {fileID: 0}
-    m_DisabledSprite: {fileID: 0}
-  m_AnimationTriggers:
-    m_NormalTrigger: Normal
-    m_HighlightedTrigger: Highlighted
-    m_PressedTrigger: Pressed
-    m_SelectedTrigger: Selected
-    m_DisabledTrigger: Disabled
-  m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
-  m_OnClick:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &8347342587980696096
 GameObject:
   m_ObjectHideFlags: 0
@@ -3243,7 +3212,7 @@ Transform:
   - {fileID: 6592958104046862540}
   - {fileID: 7631374345765114393}
   - {fileID: 972903717847021875}
-  - {fileID: 5854613182559173591}
+  - {fileID: 7558162488649768313}
   - {fileID: 4395040880229171432}
   - {fileID: 1072959594550561829}
   - {fileID: 1753495476230677587}
@@ -3421,6 +3390,37 @@ MonoBehaviour:
   buttonSelectedColor: {r: 0.2, g: 0.55, b: 1, a: 1}
   buttonCompletedColor: {r: 0.2, g: 0.8, b: 0.25, a: 1}
   activeIndex: -1
+--- !u!1 &8761591304759641598
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7558162488649768313}
+  m_Layer: 0
+  m_Name: Panel epomeno domatio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7558162488649768313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8761591304759641598}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5473126319791833110}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8767736112666750164
 GameObject:
   m_ObjectHideFlags: 0
@@ -3450,7 +3450,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3677221448924432021}
+  m_Father: {fileID: 1089663070042900644}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

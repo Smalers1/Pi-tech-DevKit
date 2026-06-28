@@ -9,6 +9,8 @@
         "Pitech.XR.Stats",
         "Pitech.XR.Scenario.Editor",
         "Pitech.XR.Core.Editor",
+        "Pitech.XR.Analytics",
+        "Pitech.XR.Networking",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

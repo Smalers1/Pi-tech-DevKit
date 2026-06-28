@@ -44,12 +44,19 @@ namespace Pitech.XR.Scenario
         // --- engine state owned by the runner ---
         public int StepIndex { get; private set; } = -1;
 
-        // --- WS B1.7 Increment 3 (decision 34/36): the runner's two DORMANT outputs (map sec-7) ---
+        // --- WS B1.7 Increment 3 (decision 34/36): the runner's two outputs (map sec-7) ---
         // (1) facts onto the LabEventBus; (2) the entered-guid path on IScenarioFlowStore. BOTH are
-        // neutral BY CONSTRUCTION at launch, not by assumption:
-        //   * the bus resolves via LabRuntimeContext.Find(_console), which returns null until
-        //     ContentDelivery attaches the context (WS B1.1 Step 2) -> Publish never runs (resolved
-        //     ONCE then cached, so it is not a per-step GetComponentInParent);
+        // behaviour-neutral at launch, but for DIFFERENT reasons now that WS B1.1 Step 2 has landed:
+        //   * the bus resolves via LabRuntimeContext.Find(_console). ContentDeliverySpawner now
+        //     attaches a LabRuntimeContext to every spawned lab root, so for ContentDelivery-spawned
+        //     (Addressable) labs _ctx is NON-null and _ctx.Bus.Publish(...) DOES execute on every
+        //     step entered/completed. It is still inert because the bus has ZERO subscribers at
+        //     launch, so LabEventBus.Publish early-returns immediately (LabEventBus.cs: count == 0).
+        //     For menu/direct labs (NOT ContentDelivery-spawned) _ctx resolves null and EmitStepFact
+        //     returns at its null guard before touching the bus. (Resolved ONCE per run then cached,
+        //     so it is not a per-step GetComponentInParent.) WS B1.1 Step 3 adds the first subscriber
+        //     (telemetry-on-bus) - that flips the emit LIVE for spawned labs (the intended flip; its
+        //     runtime equivalence is the deferred SP dev-playtest, never the gate);
         //   * no flow store is injected yet (_flow == null) -> AppendEntered never runs; the IsDriver
         //     guard is the INERT follower-suppression hook (decision 36) - in single-player the runner
         //     always DRIVES, never follows. B.2 turn-on injects a store (BindFlowStore) and adds the
@@ -63,7 +70,7 @@ namespace Pitech.XR.Scenario
 
         void EmitStepFact(string factName, string stepGuid)
         {
-            if (_ctx == null) return;   // inert at launch: no LabRuntimeContext attached (resolved per-run in Run())
+            if (_ctx == null) return;   // null only for menu/direct labs (not ContentDelivery-spawned); spawned labs have _ctx but the bus has no subscribers at launch (see field region)
             _ctx.Bus.Publish(new Pitech.XR.Core.LabEvent(
                 factName, _ctx.AttemptId, _ctx.LabInstanceId,
                 tick: System.Diagnostics.Stopwatch.GetTimestamp(),   // monotonic host tick (for StepDuration deltas)
@@ -103,9 +110,11 @@ namespace Pitech.XR.Scenario
             if (scenario == null || scenario.steps == null || scenario.steps.Count == 0)
                 yield break;
 
-            // WS B1.7 Increment 3: resolve the lab context ONCE per run (cheap; not per-step). Null at
-            // launch (ContentDelivery attaches it in B1.1 Step 2) -> the step-fact emits stay inert.
-            // Re-resolved on each Restart() so a context attached between runs is picked up (no stale null).
+            // WS B1.7 Increment 3: resolve the lab context ONCE per run (cheap; not per-step). NON-null
+            // for ContentDelivery-spawned labs (the spawner attaches it, WS B1.1 Step 2 landed); null for
+            // menu/direct labs. Either way step-fact emits stay inert at launch - the bus has no
+            // subscribers yet (see the field region above). Re-resolved on each Restart() so a context
+            // attached between runs is picked up (no stale null).
             _ctx = Pitech.XR.Core.LabRuntimeContext.Find(_console);
 
             int idx = 0;
