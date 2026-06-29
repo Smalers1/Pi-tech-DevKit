@@ -34,9 +34,18 @@ namespace Pitech.XR.Scenario
         public StatsConfig statsConfig;
         internal bool _statsBound;   // internal so the extracted ScenarioRunner (same assembly) can read/set it
 
-        /// <summary>Optional shared stats store. If null, a plain instance is created on demand.</summary>
+        /// <summary>Optional shared stats store. RETAINED as a display mirror for <see cref="statsUI"/>
+        /// (the param store is the source of truth - see <see cref="Params"/>). If null, a plain instance
+        /// is created on demand.</summary>
         [Header("Stats (optional)")]
         public StatsRuntime runtime;   // assign if you have one. if null we create a plain instance
+
+        /// <summary>WS B1.2 Step 4 (map sec-8): typed parameter declarations for this lab - the successor
+        /// to <see cref="statsConfig"/>. Seeds the runtime param store (<see cref="Params"/>); the
+        /// multiplayer validators read these. Empty on legacy labs (the store falls back to
+        /// <see cref="statsConfig"/>). Migrate a StatsConfig with the editor upgrader. Serialized
+        /// (SerializedObject-visible to tooling) but not public, so the public-API surface is unchanged.</summary>
+        [SerializeField] List<Pitech.XR.Core.ConsoleParameter> parameters = new List<Pitech.XR.Core.ConsoleParameter>();
 
         /// <summary>Default quiz asset used when a step does not specify its own.</summary>
         [Header("Quiz (optional)")]
@@ -73,6 +82,19 @@ namespace Pitech.XR.Scenario
         /// <summary>The extracted run-engine this console owns and directly drives (WS B1.7, decision 34).</summary>
         ScenarioRunner _runner;
 
+        /// <summary>WS B1.2 Step 4 (map sec-8): the runtime typed parameter store - the SOURCE OF TRUTH
+        /// that supersedes the Stats system. Seeded from <see cref="parameters"/> (and, for back-compat,
+        /// any legacy <see cref="statsConfig"/> entry not already declared) in <see cref="Awake"/>; the
+        /// legacy <see cref="runtime"/> is kept only as a display mirror via the ParamChanged bridge.</summary>
+        Pitech.XR.Core.LocalParamStore _params;
+        /// <summary>Read-only view of the runtime param store (<see cref="_params"/>). Internal: read by
+        /// the same-assembly runner; the public-API surface is unchanged.</summary>
+        internal Pitech.XR.Core.IParamStore Params => _params;
+        /// <summary>True when this lab has any stats/param feature wired (UI, legacy config, or declared
+        /// parameters). The runner gates effect application on this - preserving the legacy "no stats
+        /// feature -> skip" behaviour (additive for the new declared-parameters case).</summary>
+        internal bool HasStatsFeature => statsUI != null || statsConfig != null || (parameters != null && parameters.Count > 0);
+
         /// <summary>Current step index while running; <c>-1</c> when idle or finished. Forwards the run-engine's index.</summary>
         public int StepIndex => _runner != null ? _runner.StepIndex : -1;
 
@@ -90,6 +112,30 @@ namespace Pitech.XR.Scenario
             // WS B1.7: build the run-engine first - DeactivateAllVisuals() (below) and Start() drive it.
             _runner = new ScenarioRunner(this);
 
+            // WS B1.2 Step 4 (map sec-8): build the typed param store (the Stats successor) - the runtime
+            // source of truth for parameters/effects/conditions. Declare authored parameters, then (for
+            // back-compat) any legacy StatsConfig entry not already declared, so an un-upgraded lab keeps
+            // working AND gains range clamp (min/max ENFORCED). Seeded ONCE here - Restart() never
+            // re-seeds, matching the legacy StatsRuntime (seeded in Awake, not per-run).
+            _params = new Pitech.XR.Core.LocalParamStore();
+            if (parameters != null)
+                foreach (var p in parameters)
+                    _params.Declare(p);
+            if (statsConfig != null)
+                foreach (var kv in statsConfig.All())
+                {
+                    if (_params.IsDeclared(kv.Key)) continue;
+                    _params.Declare(new Pitech.XR.Core.ConsoleParameter
+                    {
+                        id = kv.Key,
+                        type = Pitech.XR.Core.ParamType.Float,
+                        defaultNumber = kv.Value.defaultValue,
+                        min = kv.Value.min,
+                        max = kv.Value.max,
+                        scope = Pitech.XR.Core.ParamScope.Local
+                    });
+                }
+
             // Only set up stats if the feature is present (UI or config).
             // Only if feature present
             if (statsUI != null || statsConfig != null)
@@ -104,6 +150,11 @@ namespace Pitech.XR.Scenario
                     _statsBound = true;
                 }
             }
+
+            // WS B1.2 Step 4: bridge the param store (source of truth) into the legacy StatsRuntime so the
+            // stats UI (which subscribes to StatsRuntime.OnChanged) keeps animating. One-way (store ->
+            // runtime); no cycle, since runtime writes never feed back into the store.
+            _params.ParamChanged += OnParamChangedMirror;
 
             if (selectionLists != null)
             {
@@ -166,6 +217,17 @@ namespace Pitech.XR.Scenario
                 quizSession.SetAsset(asset);
 
             return quizSession;
+        }
+
+        // WS B1.2 Step 4: mirror a param-store change into the legacy StatsRuntime so the stats UI updates.
+        void OnParamChangedMirror(string id)
+        {
+            if (runtime != null) runtime[id] = _params.GetFloat(id);
+        }
+
+        void OnDestroy()
+        {
+            if (_params != null) _params.ParamChanged -= OnParamChangedMirror;
         }
 
 

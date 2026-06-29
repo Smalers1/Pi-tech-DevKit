@@ -182,16 +182,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: Pitech.XR.Scenario::Pitech.XR.Scenario.Scenario
   title: Main Scenario
   steps:
-  - rid: 5790948050804408509
-  - rid: 5790948050804408510
-  - rid: 5790948050804408511
+  - rid: 2879008089943572661
+  - rid: 2879008089943572662
+  - rid: 2879008089943572663
   graphNotes: []
   graphGroups: []
   stepGraphDisplays: []
   references:
     version: 2
     RefIds:
-    - rid: 5790948050804408509
+    - rid: 2879008089943572661
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: legacy-step-01
@@ -201,7 +201,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: legacy-step-02
-    - rid: 5790948050804408510
+    - rid: 2879008089943572662
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: legacy-step-02
@@ -211,7 +211,7 @@ MonoBehaviour:
             m_Calls: []
         waitSeconds: 0
         nextGuid: 
-    - rid: 5790948050804408511
+    - rid: 2879008089943572663
       type: {class: EventStep, ns: Pitech.XR.Scenario, asm: Pitech.XR.Scenario}
       data:
         guid: legacy-step-03
@@ -269,6 +269,7 @@ MonoBehaviour:
   autoStart: 1
   statsUI: {fileID: 0}
   statsConfig: {fileID: 0}
+  parameters: []
   defaultQuiz: {fileID: 11400000, guid: 05f1d8a5815c05e489136b5dab9c85ec, type: 2}
   quizPanel: {fileID: 7363368977091132884}
   quizResultsPanel: {fileID: 1913011277188087831}

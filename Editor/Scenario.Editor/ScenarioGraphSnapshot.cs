@@ -209,6 +209,144 @@ namespace Pitech.XR.Scenario.Editor
             return paths.Count;
         }
 
+        // ---- WS B1.3 Step 6 (map sec-10): the two multiplayer validators. INERT BY CONSTRUCTION at
+        // launch (no launch lab declares a Networked param; declared-param counts are ~16, well under the
+        // WARN/FAIL thresholds). Parameters live on LabConsole, NOT on the Scenario, so these take the
+        // prefab ROOT (the object Proof A already loads) and resolve the LabConsole from it. A prefab with
+        // no LabConsole (the synthetic corpus) yields zero findings. Internal: not on the public API
+        // baseline (Proof B). Severity carried so the test maps FAIL -> Assert.Fail, WARN -> a logged note.
+        //
+        // NOTE on enum reads: the Pitech.XR.Scenario.Editor asmdef references Pitech.XR.Scenario (so
+        // ConditionsStep / ConditionValueSource are nameable) but NOT the Pitech.XR.Core RUNTIME assembly
+        // (only Pitech.XR.Core.Editor) - assembly refs are not transitive. So the Core enum ParamScope is
+        // read by its locked serialized index (ParamScope {Local=0, Networked=1}, ParamTypes.cs), the same
+        // technique StatsConfigToParametersUpgrader.cs uses, to avoid widening the asmdef references.
+
+        // ParamScope serialized index (Pitech.XR.Core.ParamScope, ParamTypes.cs): {Local=0, Networked=1}.
+        // Read by index because the Core RUNTIME assembly is not referenced here (see note above).
+        const int ParamScopeNetworked = 1;
+
+        internal enum LabValidationSeverity { Warn, Fail }
+
+        internal struct LabValidationFinding
+        {
+            public LabValidationSeverity severity;
+            public string message;
+        }
+
+        // WARN/FAIL budget thresholds (map sec-10). Measured baseline ~16; cap 64.
+        internal const int StateBudgetWarnAt = 48;
+        internal const int StateBudgetFailAt = 64;
+
+        /// <summary>WS B1.3 Step 6: run the two launch validators against a loaded lab prefab ROOT.
+        /// READ-GATE-FORBIDDEN: a ConditionsStep that gates on a Networked-scoped declared parameter is a
+        /// FAIL (an AR/single-player client with no peer would hang). STATE-BUDGET: count declared
+        /// parameters; WARN at 48, FAIL at 64. Returns one finding per violation; empty = clean. Reads the
+        /// LabConsole's private 'parameters' list via SerializedObject (the field is [SerializeField] but
+        /// not public). No LabConsole on the root -> empty (synthetic fixtures).</summary>
+        internal static List<LabValidationFinding> RunLabValidators(GameObject prefabRoot)
+        {
+            var findings = new List<LabValidationFinding>();
+            if (prefabRoot == null) return findings;
+
+            var console = prefabRoot.GetComponentInChildren<LabConsole>(true);
+            if (console == null) return findings;   // no params on this lab -> nothing to validate
+
+            // Build the declared-parameter table from the private serialized list.
+            var declaredScopeById = ReadDeclaredParamScopes(console, out int declaredCount);
+
+            // --- STATE-BUDGET ---
+            if (declaredCount >= StateBudgetFailAt)
+                findings.Add(new LabValidationFinding
+                {
+                    severity = LabValidationSeverity.Fail,
+                    message = $"State budget exceeded: this lab declares {declaredCount} parameters "
+                        + $"(hard cap {StateBudgetFailAt}). Reduce the number of declared parameters."
+                });
+            else if (declaredCount >= StateBudgetWarnAt)
+                findings.Add(new LabValidationFinding
+                {
+                    severity = LabValidationSeverity.Warn,
+                    message = $"State budget high: this lab declares {declaredCount} parameters "
+                        + $"(warning at {StateBudgetWarnAt}, hard cap {StateBudgetFailAt}). Consider reducing them."
+                });
+
+            // --- READ-GATE-FORBIDDEN ---
+            var scenario = FindScenario(prefabRoot);
+            if (scenario != null && declaredScopeById.Count > 0)
+            {
+                var so = new SerializedObject(scenario);
+                var stepsRoot = so.FindProperty("steps");
+                if (stepsRoot != null)
+                {
+                    Walk(stepsRoot, p =>
+                    {
+                        // A ConditionsStep gating on a Stat-sourced value: valueSource == Stat (enum
+                        // index 0), read statKey, resolve to a declared param, FAIL if Networked-scoped.
+                        if (p.propertyType != SerializedPropertyType.ManagedReference) return;
+                        if (!IsConditionsStep(p)) return;
+
+                        var vs = p.FindPropertyRelative("valueSource");
+                        if (vs == null || vs.propertyType != SerializedPropertyType.Enum) return;
+                        if (vs.enumValueIndex != (int)Pitech.XR.Scenario.ConditionValueSource.Stat) return;
+
+                        // Resolve the key exactly like the runtime does (statKey, else memberName) and
+                        // normalize with the same StatsConfig.NormalizeKey (Trim) the store/read use, so the
+                        // validator matches what the lab will actually look up at runtime (Stats asmdef is referenced).
+                        string key = p.FindPropertyRelative("statKey")?.stringValue;
+                        if (string.IsNullOrEmpty(key)) key = p.FindPropertyRelative("memberName")?.stringValue;
+                        key = Pitech.XR.Stats.StatsConfig.NormalizeKey(key);
+                        if (string.IsNullOrEmpty(key)) return;
+                        if (declaredScopeById.TryGetValue(key, out int scopeIndex)
+                            && scopeIndex == ParamScopeNetworked)
+                        {
+                            findings.Add(new LabValidationFinding
+                            {
+                                severity = LabValidationSeverity.Fail,
+                                message = $"{StepLocator(so, p.propertyPath)}: a step advance gates on the "
+                                    + $"Networked parameter '{key}'. A client with no peer (AR / single-player) "
+                                    + "would never receive a value and the lab would hang. Change the parameter "
+                                    + "scope to Local, or gate on a Local value."
+                            });
+                        }
+                    });
+                }
+            }
+
+            return findings;
+        }
+
+        // Read the LabConsole's private [SerializeField] List<ConsoleParameter> 'parameters' via
+        // SerializedObject (it is serialized but not public - LabConsole.cs). Returns {id -> scope index}
+        // for declared params with a non-empty id; out 'count' is the raw declared count (state budget).
+        // Scope is the serialized enum INDEX (ParamScope {Local=0, Networked=1}) - the Core runtime enum
+        // type is not referenced by this asmdef (see note above), so it is carried as an int.
+        static Dictionary<string, int> ReadDeclaredParamScopes(LabConsole console, out int count)
+        {
+            var byId = new Dictionary<string, int>(System.StringComparer.Ordinal);
+            count = 0;
+            var so = new SerializedObject(console);
+            var list = so.FindProperty("parameters");
+            if (list == null || !list.isArray) return byId;
+            count = list.arraySize;
+            for (int i = 0; i < list.arraySize; i++)
+            {
+                var el = list.GetArrayElementAtIndex(i);
+                string id = el.FindPropertyRelative("id")?.stringValue;
+                var scopeProp = el.FindPropertyRelative("scope");
+                int scopeIndex = scopeProp != null && scopeProp.propertyType == SerializedPropertyType.Enum
+                    ? scopeProp.enumValueIndex
+                    : 0;   // default Local
+                if (!string.IsNullOrEmpty(id)) byId[id] = scopeIndex;   // last wins on dup id (matches LocalParamStore.Declare)
+            }
+            return byId;
+        }
+
+        // True when a [SerializeReference] element's managed type is ConditionsStep (matched on the
+        // type name in managedReferenceFullTypename, same technique ShortTypeName uses).
+        static bool IsConditionsStep(SerializedProperty p)
+            => ShortTypeName(p.managedReferenceFullTypename) == nameof(Pitech.XR.Scenario.ConditionsStep);
+
         // ---- per-listener accumulation + friendly-message helpers ---------------------------
 
         sealed class CallInfo { public bool targetDangling; }

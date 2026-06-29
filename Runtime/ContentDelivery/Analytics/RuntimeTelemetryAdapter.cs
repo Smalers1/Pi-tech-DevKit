@@ -125,6 +125,13 @@ namespace Pitech.XR.ContentDelivery
         [Tooltip("Emit attempt completed when Scenario runner transitions from active step to finished (-1).")]
         public bool autoEmitCompletedOnScenarioFinish = true;
 
+        [SerializeField]
+        [Tooltip("OFF (default) = the legacy per-frame reflection poll drives step telemetry - the launch " +
+                 "path, identical to today. ON = the LabEventBus subscription drives it - a HIGHER-FIDELITY " +
+                 "trace (captures fast/intermediate transitions the poll drops), NOT byte-identical. The bus " +
+                 "path is a Phase B.2 seam: keep OFF until the bind is finished and Vicky-ingestion signs off.")]
+        private bool useEventBusStepTracking = false;
+
         private readonly List<RuntimeTelemetryStepEventPayload> pendingStepEvents = new List<RuntimeTelemetryStepEventPayload>();
         private readonly Dictionary<string, int> sequenceByAttemptId = new Dictionary<string, int>(StringComparer.Ordinal);
         private readonly HashSet<string> finalizedAttemptIds = new HashSet<string>(StringComparer.Ordinal);
@@ -141,9 +148,44 @@ namespace Pitech.XR.ContentDelivery
         private int lastScenarioStepIndex = int.MinValue;
         private bool scenarioRunObserved;
 
+        // WS B1.1 Step 3: bus-driven step tracking state. Resolved once at bind; the subscription
+        // replaces the per-frame FindObjectsOfType poll when useEventBusStepTracking is true.
+        private Pitech.XR.Core.LabRuntimeContext labContext;
+        private IDisposable busSubscription;
+        private bool busBound;
+        // guid -> (stepType, index) registry, built ONCE from the root scenario.steps via reflection
+        // (Scenario/Step types are not visible to this assembly - see asmdef note). Root steps only,
+        // matching the runner's root-only StepIndex/EmitStepFact coverage (GroupStep children excluded).
+        private readonly Dictionary<string, RuntimeTelemetryStepInfo> stepRegistryByGuid =
+            new Dictionary<string, RuntimeTelemetryStepInfo>(StringComparer.Ordinal);
+        // Tracks whether we have seen at least one entered fact, to mirror scenarioRunObserved and
+        // drive EmitAttemptCompleted on finish.
+        private bool busRunObserved;
+        private string busLastEnteredGuid = string.Empty;
+        private bool finishCheckPending;
+
+        private struct RuntimeTelemetryStepInfo
+        {
+            public string stepType;
+            public int index;
+        }
+
         private void Start()
         {
             nextStepFlushAt = Time.unscaledTime + Mathf.Max(0.5f, stepFlushIntervalSeconds);
+        }
+
+        private void OnEnable()
+        {
+            // Only bind the bus when the bus path is selected; with the flag OFF (launch default) the
+            // legacy poll in Update() is the sole telemetry source - binding here too would double-emit
+            // if the bus ever resolved. UnbindEventBus() in OnDisable stays unconditional (idempotent).
+            if (useEventBusStepTracking) TryBindEventBus();
+        }
+
+        private void OnDisable()
+        {
+            UnbindEventBus();
         }
 
         private void Update()
@@ -155,7 +197,32 @@ namespace Pitech.XR.ContentDelivery
                 FlushStepEvents();
             }
 
-            AutoTrackScenarioSteps();
+            if (useEventBusStepTracking)
+            {
+                // Bus path: no per-frame FindObjectsOfType, no per-frame StepIndex poll. Retry bind only
+                // while unbound (context may attach after a deferred spawn), then run the deferred finish check.
+                if (!busBound)
+                {
+                    TryBindEventBus();
+                }
+
+                if (finishCheckPending)
+                {
+                    finishCheckPending = false;
+                    if (busRunObserved &&
+                        autoEmitCompletedOnScenarioFinish &&
+                        TryGetScenarioStepIndex(scenarioRunner, out int idxNow) &&
+                        idxNow == -1)
+                    {
+                        EmitAttemptCompleted();
+                        busRunObserved = false;
+                    }
+                }
+            }
+            else
+            {
+                AutoTrackScenarioSteps();   // legacy reflection-poll fallback (unchanged)
+            }
         }
 
         private void OnDestroy()
@@ -560,6 +627,181 @@ namespace Pitech.XR.ContentDelivery
             }
 
             lastScenarioStepIndex = currentStepIndex;
+        }
+
+        private void TryBindEventBus()
+        {
+            if (!useEventBusStepTracking || !autoTrackScenarioSteps)
+            {
+                return;
+            }
+
+            if (busBound)
+            {
+                return;
+            }
+
+            // Resolve the per-attempt context. ContentDelivery attaches LabRuntimeContext on the spawned
+            // lab root (WS B1.1 Step 2). For menu/direct labs there is no context -> stay unbound; Update
+            // retries (cheap GetComponentInParent walk, not FindObjectsOfType). We walk up from THIS
+            // adapter, which ContentDeliverySpawner parents under the lab root alongside the runner.
+            if (labContext == null)
+            {
+                labContext = Pitech.XR.Core.LabRuntimeContext.Find(this);
+            }
+
+            if (labContext == null)
+            {
+                return;
+            }
+
+            // Build the guid -> {type,index} registry ONCE from the scenario runner found on the lab root.
+            // Still reflection (Scenario/Step types live in Pitech.XR.Scenario which this assembly does not
+            // reference), but iterated once at bind instead of indexed per frame.
+            if (scenarioRunner == null)
+            {
+                scenarioRunner = FindScenarioManagerLike();   // one-shot; kept for legacy fallback parity
+            }
+
+            BuildStepRegistry(scenarioRunner);
+
+            busSubscription = labContext.Bus.Subscribe(OnLabFact);
+            busBound = true;
+            busRunObserved = false;
+            busLastEnteredGuid = string.Empty;
+        }
+
+        private void UnbindEventBus()
+        {
+            if (busSubscription != null)
+            {
+                busSubscription.Dispose();   // idempotent (LabEventBus.Subscription.Dispose)
+                busSubscription = null;
+            }
+
+            busBound = false;
+            labContext = null;
+        }
+
+        private void BuildStepRegistry(MonoBehaviour runner)
+        {
+            stepRegistryByGuid.Clear();
+            if (runner == null)
+            {
+                return;
+            }
+
+            FieldInfo scenarioField = runner.GetType().GetField(
+                "scenario",
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (scenarioField == null)
+            {
+                return;
+            }
+
+            object scenario = scenarioField.GetValue(runner);
+            if (scenario == null)
+            {
+                return;
+            }
+
+            FieldInfo stepsField = scenario.GetType().GetField(
+                "steps",
+                BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+            if (stepsField == null)
+            {
+                return;
+            }
+
+            if (!(stepsField.GetValue(scenario) is IList steps))
+            {
+                return;
+            }
+
+            for (int i = 0; i < steps.Count; i++)
+            {
+                object step = steps[i];
+                if (step == null)
+                {
+                    continue;   // mirror the runner's null-skip (Run() line 130)
+                }
+
+                string stepType = step.GetType().Name;
+                string stepGuid = string.Empty;
+                FieldInfo guidField = step.GetType().GetField(
+                    "guid",
+                    BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic);
+                if (guidField != null && guidField.GetValue(step) is string guid)
+                {
+                    stepGuid = FirstNonEmpty(guid);
+                }
+
+                if (string.IsNullOrEmpty(stepGuid))
+                {
+                    continue;
+                }
+
+                // First-wins on duplicate guids: the runner's FindIndexByGuid also returns the FIRST match
+                // (ScenarioRunner.cs:224-226), so index semantics match.
+                if (!stepRegistryByGuid.ContainsKey(stepGuid))
+                {
+                    stepRegistryByGuid[stepGuid] = new RuntimeTelemetryStepInfo { stepType = stepType, index = i };
+                }
+            }
+        }
+
+        private void OnLabFact(in Pitech.XR.Core.LabEvent fact)
+        {
+            // Bus facts carry guid in Text (ScenarioRunner.cs:81). Rebuild type+index from the registry.
+            string stepGuid = fact.Text;
+            RuntimeTelemetryStepInfo info = default;   // definitely-assigned on every path (the && short-circuit leaves the out-arg unset when the guid is empty)
+            bool known = !string.IsNullOrEmpty(stepGuid) && stepRegistryByGuid.TryGetValue(stepGuid, out info);
+            if (!known)
+            {
+                // Registry may have been empty at bind (scenario assigned late) - rebuild once and retry.
+                if (stepRegistryByGuid.Count == 0)
+                {
+                    if (scenarioRunner == null)
+                    {
+                        scenarioRunner = FindScenarioManagerLike();
+                    }
+
+                    BuildStepRegistry(scenarioRunner);
+                    known = stepRegistryByGuid.TryGetValue(stepGuid, out info);
+                }
+                else
+                {
+                    info = default;
+                }
+            }
+
+            string stepType = known ? info.stepType : string.Empty;
+
+            if (string.Equals(fact.Key, Pitech.XR.Core.ScenarioFactKeys.StepEntered, StringComparison.Ordinal))
+            {
+                busRunObserved = true;
+                busLastEnteredGuid = stepGuid;
+                // detail MUST be "index=N" with N = root list index, no spaces, invariant int formatting -
+                // identical to $"index={currentStepIndex}" (legacy). Fallback "index=-1" only if the guid
+                // is unknown (registry miss) - not expected for spawned labs. See behaviour contract.
+                int indexValue = known ? info.index : -1;
+                string detail = "index=" + indexValue.ToString(CultureInfo.InvariantCulture);
+                TrackInteraction("step_entered", stepGuid, stepType, detail);
+            }
+            else if (string.Equals(fact.Key, Pitech.XR.Core.ScenarioFactKeys.StepCompleted, StringComparison.Ordinal))
+            {
+                TrackStepCompleted(stepGuid, stepType);
+                // Finish detection: the runner publishes no "-1" / "scenario finished" fact (it only emits
+                // entered/completed, ScenarioRunner.cs:133/194). The OLD poll fired EmitAttemptCompleted when
+                // StepIndex flipped to -1 after the final completed. To preserve that we watch StepIndex
+                // going -1 right after a completed fact, on the next Update frame.
+                ScheduleFinishCheck();
+            }
+        }
+
+        private void ScheduleFinishCheck()
+        {
+            finishCheckPending = true;   // evaluated in Update next frame (StepIndex settles to -1 after Run() exits)
         }
 
         private static MonoBehaviour FindScenarioManagerLike()

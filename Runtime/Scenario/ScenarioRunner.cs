@@ -36,6 +36,10 @@ namespace Pitech.XR.Scenario
         StatsUIController statsUI => _console.statsUI;
         StatsConfig statsConfig => _console.statsConfig;
         bool _statsBound { get => _console._statsBound; set => _console._statsBound = value; }
+        // WS B1.2 Step 4: the typed param store (the Stats successor) + its feature gate, forwarded from
+        // the host. Effects/quiz/conditions read/write this; the legacy StatsRuntime is the UI mirror.
+        Pitech.XR.Core.IParamStore Params => _console.Params;
+        bool HasStatsFeature => _console.HasStatsFeature;
         SelectionLists selectionLists => _console.selectionLists;
         QuizSession GetOrCreateQuizSession(QuizAsset asset) => _console.GetOrCreateQuizSession(asset);
         Coroutine StartCoroutine(IEnumerator routine) => _console.StartCoroutine(routine);
@@ -688,25 +692,28 @@ namespace Pitech.XR.Scenario
 
         void ApplyQuizStats(QuizSession session, QuizAsset asset)
         {
-            if ((statsUI == null && statsConfig == null) || session == null) return;
+            // WS B1.2 Step 4: quiz magic keys now write to the param store (the Stats successor); the
+            // legacy StatsRuntime mirrors them for the UI via LabConsole's bridge. Same gate as before.
+            if (!HasStatsFeature || session == null) return;
 
-            if (runtime == null)
-                runtime = new StatsRuntime();
+            var store = Params;
+            if (store == null) return;
 
             if (statsUI != null && !_statsBound)
             {
+                if (runtime == null) runtime = new StatsRuntime();
                 statsUI.Init(runtime, syncNow: true);
                 _statsBound = true;
             }
 
             // Update stats frequently, but don't spam "quiz completed" events.
             var summary = session.BuildSummary(invokeEvent: false);
-            runtime["Quiz.Score"] = summary.totalScore;
-            runtime["Quiz.MaxScore"] = summary.maxScore;
-            runtime["Quiz.CorrectCount"] = summary.correctCount;
-            runtime["Quiz.WrongCount"] = summary.wrongCount;
-            runtime["Quiz.AnsweredCount"] = summary.answeredCount;
-            runtime["Quiz.TotalQuestions"] = asset != null && asset.questions != null ? asset.questions.Count : 0;
+            store.SetFloat("Quiz.Score", summary.totalScore);
+            store.SetFloat("Quiz.MaxScore", summary.maxScore);
+            store.SetFloat("Quiz.CorrectCount", summary.correctCount);
+            store.SetFloat("Quiz.WrongCount", summary.wrongCount);
+            store.SetFloat("Quiz.AnsweredCount", summary.answeredCount);
+            store.SetFloat("Quiz.TotalQuestions", asset != null && asset.questions != null ? asset.questions.Count : 0);
         }
 
         IEnumerator RunQuizResults(QuizResultsStep rs, System.Action<string> onComplete)
@@ -1021,9 +1028,12 @@ namespace Pitech.XR.Scenario
         {
             if (step.valueSource == ConditionValueSource.Stat)
             {
-                if (runtime == null) return 0f;
+                // WS B1.2 Step 4: read from the param store (the Stats successor). GetFloat returns the
+                // fallback for an unset key - same result as the legacy runtime.TryGet(...) ? v : 0f.
                 var key = string.IsNullOrEmpty(step.statKey) ? step.memberName : step.statKey;
-                return runtime.TryGet(key, out var v) ? v : 0f;
+                var store = Params;
+                // Normalize like the legacy runtime.TryGet did (StatsRuntime trimmed via NormalizeKey).
+                return store != null ? store.GetFloat(StatsConfig.NormalizeKey(key), 0f) : 0f;
             }
             if (step.valueSource == ConditionValueSource.ListByLabel)
             {
@@ -1134,15 +1144,21 @@ namespace Pitech.XR.Scenario
 
         void ApplyEffects(List<StatEffect> effects)
         {
-            // Only do stats work if feature is present (UI or Config).
-            if ((statsUI == null && statsConfig == null) || effects == null || effects.Count == 0)
+            // WS B1.2 Step 4: effects now drive the typed param store (the Stats successor; map sec-8) -
+            // the source of truth. The legacy StatsRuntime is a display mirror, fed by LabConsole's
+            // ParamChanged bridge. ParamOp's member order == StatOp's, so the op migrates by value (a
+            // rename, not a behaviour change); range clamp is enforced when the param is declared. Same
+            // gate as before ("no stats feature -> skip"), now also true when parameters are declared.
+            if (!HasStatsFeature || effects == null || effects.Count == 0)
                 return;
 
-            if (runtime == null)
-                runtime = new StatsRuntime();
+            var store = Params;
+            if (store == null) return;
 
+            // Keep the legacy stats UI bound (display mirror) - idempotent via _statsBound.
             if (statsUI != null && !_statsBound)
             {
+                if (runtime == null) runtime = new StatsRuntime();
                 statsUI.Init(runtime, syncNow: true);
                 _statsBound = true;
             }
@@ -1150,9 +1166,9 @@ namespace Pitech.XR.Scenario
             foreach (var eff in effects)
             {
                 if (eff == null) continue;
-                var cur = runtime[eff.key];
-                var nxt = eff.Apply(cur);
-                runtime[eff.key] = nxt;
+                // Normalize the key with the SAME normalizer the legacy StatsRuntime used (Trim), so a
+                // key authored with stray whitespace still matches its declaration (behaviour parity).
+                store.Apply(StatsConfig.NormalizeKey(eff.key), (Pitech.XR.Core.ParamOp)(int)eff.op, eff.value);
             }
         }
 

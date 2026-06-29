@@ -29,6 +29,7 @@ namespace Pitech.XR.Core.Editor
         static readonly Dictionary<string, string> CheckLabels = new Dictionary<string, string>
         {
             { "InvariantsHold", "Graph integrity (invariants)" },
+            { "LabValidators_Pass", "Lab validators (multiplayer / state budget)" },
             { "Snapshot_MatchesCommittedBaseline", "Snapshot vs committed baseline" },
             { "Reserialize_IsIdempotent", "Reserialize idempotence + committed bytes" },
             { "PrefabInstanceOverride_DoesNotChurnTheGraph", "Prefab-override does not churn the graph" },

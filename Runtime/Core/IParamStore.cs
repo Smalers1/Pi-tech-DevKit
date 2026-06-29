@@ -8,7 +8,8 @@ namespace Pitech.XR.Core
     /// <see cref="ConsoleParameter"/>s; writes are clamped to the declaration's range; relative ops
     /// (<see cref="ParamOp"/>) are the StatEffect successor. Two impls: a Local <c>Dictionary</c> and
     /// a Networked Fusion-backed one (map sec-10); a Networked param auto-degrades to Local with no
-    /// Fusion. <see cref="ILabStateStore"/> is the narrow bool-view over this. INERT in Phase B.1.
+    /// Fusion. <see cref="ILabStateStore"/> is the narrow bool-view over this. LIVE as of WS B1.2 Step 4
+    /// (the Local impl is LabConsole's runtime source of truth, superseding Stats).
     /// </summary>
     public interface IParamStore
     {

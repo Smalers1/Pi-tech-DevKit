@@ -3,8 +3,9 @@ namespace Pitech.XR.Core
     // ---------- Param-store type vocabulary (map sec-8) ----------
     // The one typed param store supersedes Stats (StatsConfig/StatEffect). These enums are the
     // shared vocabulary the declaration (ConsoleParameter), the value union (ParamValue), and the
-    // store (IParamStore) build on. INERT in Phase B.1 (additive types; no live writer until the
-    // post-launch door). The bus/emit surface freezes 2026-07-07.
+    // store (IParamStore) build on. As of WS B1.2 Step 4 the Local store is the LIVE writer (LabConsole
+    // routes effects/quiz/conditions through it; the Stats system is demoted to a UI display mirror).
+    // The Networked impl + scope replication remain deferred (Fusion pass). Emit surface freezes 2026-07-07.
 
     /// <summary>The kind a <see cref="ParamValue"/> carries. Bool/Int/Enum/Float pack into the
     /// numeric slot; String uses the text slot (map sec-8 union).</summary>

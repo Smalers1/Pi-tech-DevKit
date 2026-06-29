@@ -9,7 +9,8 @@ namespace Pitech.XR.Core
     /// replication. A Networked declaration auto-degrades to this in a no-Fusion / single-player
     /// session, so a co-op lab and its AR/single-player build are the same asset. The Networked impl
     /// (one <c>[Networked] NetworkDictionary</c>) lives in Pitech.XR.Networking under
-    /// <c>#if PITECH_HAS_FUSION</c>. Main-thread only. INERT in Phase B.1 (no live writer yet).
+    /// <c>#if PITECH_HAS_FUSION</c>. Main-thread only. LIVE as of WS B1.2 Step 4 (LabConsole owns one and
+    /// the runner writes effects/quiz/conditions to it; the Networked impl is the deferred Fusion pass).
     /// </summary>
     public sealed class LocalParamStore : IParamStore
     {

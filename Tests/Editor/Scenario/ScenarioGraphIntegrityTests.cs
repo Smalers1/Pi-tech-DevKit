@@ -50,6 +50,33 @@ namespace Pitech.XR.Scenario.Editor.Tests
                             + string.Join("\n  ", violations));
         }
 
+        // WS B1.3 Step 6 (map sec-10): the two launch validators - READ-GATE-FORBIDDEN (a step advance
+        // must not gate on a Networked-scoped parameter; an AR/single-player client with no peer would
+        // hang) and STATE-BUDGET (declared-parameter count; WARN at 48, FAIL at 64). Parameters live on
+        // LabConsole, so this case keeps the prefab ROOT (go) the corpus loaded - the same object Proof A
+        // already scans - and resolves the LabConsole from it. INERT BY CONSTRUCTION at launch: no lab
+        // authors a Networked param and counts are ~16, so this is a green-by-default backstop that only
+        // bites if someone introduces a hanging multiplayer gate or blows the state budget.
+        [TestCaseSource(typeof(FixtureCorpus), nameof(FixtureCorpus.Cases))]
+        public void LabValidators_Pass(string fixtureName)
+        {
+            FixtureCorpus.RequireFixture(fixtureName);
+            string path = FixtureCorpus.PathFor(fixtureName);
+            FixtureCorpus.SkipIfUnmetDeps(fixtureName, path);
+            var (_, go, _) = FixtureCorpus.Resolve(fixtureName);
+
+            var findings = ScenarioGraphSnapshot.RunLabValidators(go);
+
+            var fails = new List<string>();
+            foreach (var f in findings)
+            {
+                if (f.severity == ScenarioGraphSnapshot.LabValidationSeverity.Fail) fails.Add(f.message);
+                else UnityEngine.Debug.LogWarning($"[{fixtureName}] lab-validator WARNING: {f.message}");
+            }
+            if (fails.Count > 0)
+                Assert.Fail($"[{fixtureName}] lab-validator failure(s):\n  " + string.Join("\n  ", fails));
+        }
+
         [TestCaseSource(typeof(FixtureCorpus), nameof(FixtureCorpus.Cases))]
         public void Snapshot_MatchesCommittedBaseline(string fixtureName)
         {

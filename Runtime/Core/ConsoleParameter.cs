@@ -7,7 +7,8 @@ namespace Pitech.XR.Core
     /// The edit-time declaration of a parameter (map sec-8): id, type, default, range, scope. The
     /// typed superset of a legacy <c>StatsConfig.Entry</c> (key + default + min/max), adding a
     /// <see cref="type"/>, a string default, and a replication <see cref="scope"/>. Declared/listed/
-    /// edited in the LabConsole window. Authored serialized data - INERT in Phase B.1.
+    /// edited in the LabConsole window. Authored serialized data; LIVE as of WS B1.2 Step 4 (seeds the
+    /// runtime param store on LabConsole, which now drives effects/conditions).
     ///
     /// <see cref="min"/>/<see cref="max"/> are ENFORCED (clamp on write) whenever a real range is
     /// declared (max &gt; min) - an upgrade over Stats' display-only range, so migration must verify no
