@@ -1,4 +1,4 @@
-#if PITECH_HAS_FUSION
+#if PITECH_HAS_FUSION || FUSION_WEAVER
 using System;
 using System.Collections.Generic;
 using Fusion;
@@ -18,8 +18,11 @@ namespace Pitech.XR.Networking
     /// readers (listeners) subscribe to <see cref="StateChanged"/> (raised on EVERY client in Render
     /// when a value actually changes - no polling).
     ///
-    /// Gated <c>#if PITECH_HAS_FUSION</c> (Fusion is optional; the type compiles out when absent, and
-    /// the <c>Fusion.Unity</c> assembly is autoReferenced so no asmdef change is needed). Resolved via
+    /// Gated <c>#if PITECH_HAS_FUSION || FUSION_WEAVER</c> so it enables wherever Fusion is present: a
+    /// UPM package install defines PITECH_HAS_FUSION, and VR's EMBEDDED Fusion defines FUSION_WEAVER
+    /// (the flag VR's own XRShared.Core.asmdef gates on). The Fusion runtime DLLs are auto-referenced
+    /// (asmdef overrideReferences:false) so no asmdef reference is needed; the type compiles out where
+    /// Fusion is absent (bare gate / AR). Resolved via
     /// <c>GetComponentInParent&lt;ILabStateStore&gt;()</c> / <see cref="LocalLabStateStore.Find"/> -
     /// NO static Instance (the map's "kill the static Instance"; the VR <c>[Obsolete]</c> facade keeps
     /// an Instance forwarding here for hand-wired callers during migration). INERT at launch
