@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Pitech.XR.Localization;
 
 namespace Pitech.XR.Quiz
 {
@@ -12,9 +13,11 @@ namespace Pitech.XR.Quiz
         [Serializable]
         public sealed class Answer
         {
-            public string text;
+            // WS B1.5 Step 3(b): data-asset text marked for the [Localize] keying scan. The attribute
+            // is metadata only - it does not change serialization (Proof C clean).
+            [Localize] public string text;
             public bool isCorrect;
-            [TextArea] public string explanation;
+            [Localize] [TextArea] public string explanation;
         }
 
         [Serializable]
@@ -22,7 +25,7 @@ namespace Pitech.XR.Quiz
         {
             [Tooltip("Stable identifier for this question (string).")]
             public string id;
-            [TextArea] public string prompt;
+            [Localize] [TextArea] public string prompt;
             public QuestionType type = QuestionType.SingleChoice;
             [Min(0f)] public float points = 1f;
             public bool allowPartialCredit = false;

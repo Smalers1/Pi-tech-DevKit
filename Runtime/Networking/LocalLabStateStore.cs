@@ -8,8 +8,9 @@ namespace Pitech.XR.Networking
     /// The Local (single-client) <see cref="ILabStateStore"/> impl (map sec-10.2): a scene-authored
     /// component on the scene-managers root, a narrow bool-view over a <see cref="LocalParamStore"/>.
     /// Lives in Pitech.XR.Networking (map sec-10.2), the always-compiled Local flavour alongside
-    /// <c>LocalScenarioPath</c>; the Networked twin (<c>NetworkedLabStateStore : NetworkBehaviour</c>)
-    /// is the <c>#if PITECH_HAS_FUSION</c> flavour here too. Resolve via <see cref="Find"/>
+    /// <c>LocalScenarioPath</c>. The Networked twin is <c>NetworkedLabStateStore : NetworkBehaviour</c>
+    /// (<c>#if PITECH_HAS_FUSION</c>) in this same module (decision B1.3 S5 (b): graduate the Fusion
+    /// store into the package; it supersedes VR's NetworkStateManager). Resolve via <see cref="Find"/>
     /// (parent-walk, interface-typed so it finds either flavour). INERT in Phase B.1 - the type exists
     /// and compiles but is not wired into any scene.
     /// </summary>

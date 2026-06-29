@@ -8,9 +8,15 @@ namespace Pitech.XR.Core
     /// listeners) unifies into this - a "WaterFlowing" bool is a networked boolean param, a trigger
     /// is a writer, a listener subscribes to <see cref="StateChanged"/>. Scene-authored: one store
     /// per lab on the scene-managers root, resolved via <c>GetComponentInParent&lt;ILabStateStore&gt;()</c>
-    /// (never a static Instance). Impls: <c>LocalLabStateStore</c> (always compiled) +
-    /// <c>NetworkedLabStateStore : NetworkBehaviour</c> (<c>#if PITECH_HAS_FUSION</c>). INERT in
-    /// Phase B.1 - no live writer until the post-launch door.
+    /// (never a static Instance). Local impl: <c>LocalLabStateStore</c> (always compiled, this package).
+    ///
+    /// The NETWORKED impl GRADUATES INTO THIS PACKAGE (decision B1.3 S5, 2026-06-29 - (b)):
+    /// <c>NetworkedLabStateStore : NetworkBehaviour</c> (<c>#if PITECH_HAS_FUSION</c>, in
+    /// Pitech.XR.Networking) is the one canonical Fusion store every consumer shares - the same way
+    /// labs already compose Scenario / Stats / Quiz from the DevKit (map sec-10.2). It supersedes VR's
+    /// <c>NetworkStateManager</c>; the VR copy ships a <c>[Obsolete]</c> facade forwarding to the
+    /// resolved store during scene migration. INERT at launch (multiplayer turns on in B.2) - no live
+    /// writer until then.
     /// </summary>
     public interface ILabStateStore
     {

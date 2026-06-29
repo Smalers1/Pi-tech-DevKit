@@ -9,4 +9,8 @@
        (AnalyticsMetric / Analytic subclasses) instantiated by type name on deserialize,
        so IL2CPP must not strip it. SessionStart/StopStep are covered by Pitech.XR.Scenario above. -->
   <assembly fullname="Pitech.XR.Analytics" preserve="all"/>
+  <!-- B1.3 S5 (b): NetworkedLabStateStore is a Fusion NetworkBehaviour (#if PITECH_HAS_FUSION)
+       referenced by spawned prefabs + reached by Fusion codegen; preserve so IL2CPP keeps it.
+       Always-compiled LocalScenarioPath / LocalLabStateStore live here too. -->
+  <assembly fullname="Pitech.XR.Networking" preserve="all"/>
 </linker>

@@ -103,6 +103,84 @@ Pitech.XR.AgentSubstrate.Observation.IAgentObservationTransport :: method Void S
 Pitech.XR.AgentSubstrate.Observation.IAgentStateSource :: event Action<AgentStateSnapshot> ObservationReady
 Pitech.XR.AgentSubstrate.Observation.IAgentStateSource :: method AgentStateSnapshot GetCurrentState()
 Pitech.XR.AgentSubstrate.Observation.IConsentGate :: method Boolean IsConsentGranted()
+Pitech.XR.Analytics.Analytic :: ctor()
+Pitech.XR.Analytics.Analytic :: field List<AnalyticsMetric> metrics
+Pitech.XR.Analytics.Analytic :: field String id
+Pitech.XR.Analytics.Analytic :: field String label
+Pitech.XR.Analytics.Analytic :: property String Kind { get; }
+Pitech.XR.Analytics.AnalyticsMetric :: ctor()
+Pitech.XR.Analytics.AnalyticsMetric :: field List<ScoringBand> bands
+Pitech.XR.Analytics.AnalyticsMetric :: field Single weight
+Pitech.XR.Analytics.AnalyticsMetric :: field String id
+Pitech.XR.Analytics.AnalyticsMetric :: field String label
+Pitech.XR.Analytics.AnalyticsMetric :: property String Kind { get; }
+Pitech.XR.Analytics.BandSeverity :: field Int32 value__
+Pitech.XR.Analytics.BandSeverity :: static field BandSeverity Error
+Pitech.XR.Analytics.BandSeverity :: static field BandSeverity None
+Pitech.XR.Analytics.BandSeverity :: static field BandSeverity Warning
+Pitech.XR.Analytics.DropMetric :: ctor()
+Pitech.XR.Analytics.DropMetric :: property String Kind { get; }
+Pitech.XR.Analytics.DropMetric :: static field String KindId
+Pitech.XR.Analytics.LabRubric :: ctor()
+Pitech.XR.Analytics.LabRubric :: field Int32 schemaVersion
+Pitech.XR.Analytics.LabRubric :: field List<Analytic> analytics
+Pitech.XR.Analytics.LabRubric :: field List<Objective> objectives
+Pitech.XR.Analytics.LabRubric :: field List<TrackedSubject> subjects
+Pitech.XR.Analytics.LabRubric :: field SessionRoleCapacities roleCapacities
+Pitech.XR.Analytics.Objective :: ctor()
+Pitech.XR.Analytics.Objective :: field List<ObjectiveInput> inputs
+Pitech.XR.Analytics.Objective :: field Single target
+Pitech.XR.Analytics.Objective :: field Single weight
+Pitech.XR.Analytics.Objective :: field String id
+Pitech.XR.Analytics.Objective :: field String label
+Pitech.XR.Analytics.ObjectiveInput :: ctor()
+Pitech.XR.Analytics.ObjectiveInput :: field Single subWeight
+Pitech.XR.Analytics.ObjectiveInput :: field String analyticId
+Pitech.XR.Analytics.OrderMetric :: ctor()
+Pitech.XR.Analytics.OrderMetric :: property String Kind { get; }
+Pitech.XR.Analytics.OrderMetric :: static field String KindId
+Pitech.XR.Analytics.SceneAnalytic :: ctor()
+Pitech.XR.Analytics.SceneAnalytic :: field String category
+Pitech.XR.Analytics.SceneAnalytic :: property String Kind { get; }
+Pitech.XR.Analytics.SceneAnalytic :: static field String KindId
+Pitech.XR.Analytics.ScoringBand :: ctor()
+Pitech.XR.Analytics.ScoringBand :: ctor(BandSeverity, Single, Single, Boolean)
+Pitech.XR.Analytics.ScoringBand :: field BandSeverity name
+Pitech.XR.Analytics.ScoringBand :: field Boolean notifyInScene
+Pitech.XR.Analytics.ScoringBand :: field Single penaltyWeight
+Pitech.XR.Analytics.ScoringBand :: field Single threshold
+Pitech.XR.Analytics.ScoringBand :: static method List<ScoringBand> DefaultBands()
+Pitech.XR.Analytics.SessionRole :: field Int32 value__
+Pitech.XR.Analytics.SessionRole :: static field SessionRole Participant
+Pitech.XR.Analytics.SessionRole :: static field SessionRole Professor
+Pitech.XR.Analytics.SessionRole :: static field SessionRole Spectator
+Pitech.XR.Analytics.SessionRoleCapacities :: ctor()
+Pitech.XR.Analytics.SessionRoleCapacities :: field Int32 maxParticipants
+Pitech.XR.Analytics.SessionRoleCapacities :: field Int32 maxProfessors
+Pitech.XR.Analytics.SessionRoleCapacities :: field Int32 maxSpectators
+Pitech.XR.Analytics.SessionRoleCapacities :: field Int32 minParticipants
+Pitech.XR.Analytics.SessionRoleCapacities :: field Int32 minProfessors
+Pitech.XR.Analytics.SessionRoleCapacities :: field Int32 minSpectators
+Pitech.XR.Analytics.SessionRoleCapacities :: static field Int32 Unlimited
+Pitech.XR.Analytics.StepAnalytic :: ctor()
+Pitech.XR.Analytics.StepAnalytic :: field String stepGuid
+Pitech.XR.Analytics.StepAnalytic :: property String Kind { get; }
+Pitech.XR.Analytics.StepAnalytic :: static field String KindId
+Pitech.XR.Analytics.StepDurationMetric :: ctor()
+Pitech.XR.Analytics.StepDurationMetric :: property String Kind { get; }
+Pitech.XR.Analytics.StepDurationMetric :: static field String KindId
+Pitech.XR.Analytics.TotalDurationMetric :: ctor()
+Pitech.XR.Analytics.TotalDurationMetric :: property String Kind { get; }
+Pitech.XR.Analytics.TotalDurationMetric :: static field String KindId
+Pitech.XR.Analytics.TrackedSubject :: ctor()
+Pitech.XR.Analytics.TrackedSubject :: field Boolean scenarioRelevant
+Pitech.XR.Analytics.TrackedSubject :: field GameObject target
+Pitech.XR.Analytics.TrackedSubject :: field String id
+Pitech.XR.Analytics.TrackedSubject :: field String label
+Pitech.XR.Analytics.TrackedSubject :: field String ownerStepGuid
+Pitech.XR.Analytics.WrongInteractionMetric :: ctor()
+Pitech.XR.Analytics.WrongInteractionMetric :: property String Kind { get; }
+Pitech.XR.Analytics.WrongInteractionMetric :: static field String KindId
 Pitech.XR.ContentDelivery.AddressablesBootstrapper :: ctor()
 Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field AddressablesModuleConfig config
 Pitech.XR.ContentDelivery.AddressablesBootstrapper :: field Boolean deferSceneManagerAutoStart
@@ -385,9 +463,12 @@ Pitech.XR.ContentDelivery.LaunchContext :: field String contractVersion
 Pitech.XR.ContentDelivery.LaunchContext :: field String idempotencyKey
 Pitech.XR.ContentDelivery.LaunchContext :: field String labId
 Pitech.XR.ContentDelivery.LaunchContext :: field String launchRequestId
+Pitech.XR.ContentDelivery.LaunchContext :: field String locale
 Pitech.XR.ContentDelivery.LaunchContext :: field String requestedAt
 Pitech.XR.ContentDelivery.LaunchContext :: field String resolvedVersionId
 Pitech.XR.ContentDelivery.LaunchContext :: field String runtimeUrl
+Pitech.XR.ContentDelivery.LaunchContext :: field String tenantId
+Pitech.XR.ContentDelivery.LaunchContext :: field String userId
 Pitech.XR.ContentDelivery.LaunchContextFactory :: static method LaunchContext CreateDirectContext(AddressablesModuleConfig)
 Pitech.XR.ContentDelivery.LaunchContextFactory :: static method LaunchContext CreateUnityMenuContext(String, String, String, AddressablesModuleConfig)
 Pitech.XR.ContentDelivery.LaunchContextRegistry :: static method Boolean TryConsumeExternalContext(LaunchContext&)
@@ -605,6 +686,16 @@ Pitech.XR.ContentDelivery.TelemetryAutoWirer :: field Boolean emitAbandonedOnDes
 Pitech.XR.ContentDelivery.TelemetryAutoWirer :: field Boolean logPayloads
 Pitech.XR.ContentDelivery.TelemetryAutoWirer :: field String deviceType
 Pitech.XR.ContentDelivery.Timestamp :: static method String UtcNowIso8601()
+Pitech.XR.Core.ConsoleParameter :: ctor()
+Pitech.XR.Core.ConsoleParameter :: field ParamScope scope
+Pitech.XR.Core.ConsoleParameter :: field ParamType type
+Pitech.XR.Core.ConsoleParameter :: field Single defaultNumber
+Pitech.XR.Core.ConsoleParameter :: field Single max
+Pitech.XR.Core.ConsoleParameter :: field Single min
+Pitech.XR.Core.ConsoleParameter :: field String defaultText
+Pitech.XR.Core.ConsoleParameter :: field String id
+Pitech.XR.Core.ConsoleParameter :: method ParamValue Clamp(ParamValue&)
+Pitech.XR.Core.ConsoleParameter :: method ParamValue DefaultValue()
 Pitech.XR.Core.Editor.AddressablesBuilderWindow :: ctor()
 Pitech.XR.Core.Editor.AddressablesBuilderWindow :: static method Void Open()
 Pitech.XR.Core.Editor.AuthorPage :: ctor()
@@ -663,12 +754,102 @@ Pitech.XR.Core.Editor.SceneCategoriesWindow :: static method Void Open()
 Pitech.XR.Core.Editor.SetupPage :: ctor()
 Pitech.XR.Core.Editor.SetupPage :: method Void BuildUI(VisualElement)
 Pitech.XR.Core.Editor.SetupPage :: property String Title { get; }
+Pitech.XR.Core.ILabEventBus :: method IDisposable Subscribe(LabFactHandler)
+Pitech.XR.Core.ILabEventBus :: method Void Publish(LabEvent&)
+Pitech.XR.Core.ILabStateStore :: event Action<String> StateChanged
+Pitech.XR.Core.ILabStateStore :: method Boolean GetState(String)
+Pitech.XR.Core.ILabStateStore :: method Void SetState(String, Boolean)
+Pitech.XR.Core.ILabStateStore :: method Void Toggle(String)
+Pitech.XR.Core.IParamStore :: event Action<String> ParamChanged
+Pitech.XR.Core.IParamStore :: method Boolean GetBool(String, Boolean)
+Pitech.XR.Core.IParamStore :: method Boolean IsDeclared(String)
+Pitech.XR.Core.IParamStore :: method Boolean TryGet(String, ParamValue&)
+Pitech.XR.Core.IParamStore :: method Int32 GetInt(String, Int32)
+Pitech.XR.Core.IParamStore :: method Single GetFloat(String, Single)
+Pitech.XR.Core.IParamStore :: method String GetString(String, String)
+Pitech.XR.Core.IParamStore :: method T GetEnum(String, T)
+Pitech.XR.Core.IParamStore :: method Void Apply(String, ParamOp, Single)
+Pitech.XR.Core.IParamStore :: method Void Declare(ConsoleParameter)
+Pitech.XR.Core.IParamStore :: method Void Set(String, ParamValue&)
+Pitech.XR.Core.IParamStore :: method Void SetBool(String, Boolean)
+Pitech.XR.Core.IParamStore :: method Void SetEnum(String, T)
+Pitech.XR.Core.IParamStore :: method Void SetFloat(String, Single)
+Pitech.XR.Core.IParamStore :: method Void SetInt(String, Int32)
+Pitech.XR.Core.IParamStore :: method Void SetString(String, String)
 Pitech.XR.Core.ISceneRunnerControl :: method Void Restart()
 Pitech.XR.Core.ISceneRunnerControl :: property Boolean AutoStart { get; set; }
 Pitech.XR.Core.ISceneRunnerControl :: property Int32 CurrentStepIndex { get; }
 Pitech.XR.Core.IXRService :: method Void Initialize()
 Pitech.XR.Core.IXRService :: method Void Shutdown()
+Pitech.XR.Core.LabEvent :: ctor(String, String, String, Int64, Double, String)
+Pitech.XR.Core.LabEvent :: field Double Number
+Pitech.XR.Core.LabEvent :: field Int64 Tick
+Pitech.XR.Core.LabEvent :: field String AttemptId
+Pitech.XR.Core.LabEvent :: field String Key
+Pitech.XR.Core.LabEvent :: field String LabInstanceId
+Pitech.XR.Core.LabEvent :: field String Text
+Pitech.XR.Core.LabEvent :: property Boolean HasNumber { get; }
+Pitech.XR.Core.LabEvent :: static field Double NoNumber
+Pitech.XR.Core.LabEventBus :: ctor()
+Pitech.XR.Core.LabEventBus :: method IDisposable Subscribe(LabFactHandler)
+Pitech.XR.Core.LabEventBus :: method Void Publish(LabEvent&)
+Pitech.XR.Core.LabFactHandler :: ctor(Object, IntPtr)
+Pitech.XR.Core.LabFactHandler :: method IAsyncResult BeginInvoke(LabEvent&, AsyncCallback, Object)
+Pitech.XR.Core.LabFactHandler :: method Void EndInvoke(LabEvent&, IAsyncResult)
+Pitech.XR.Core.LabFactHandler :: method Void Invoke(LabEvent&)
+Pitech.XR.Core.LabRuntimeContext :: ctor()
+Pitech.XR.Core.LabRuntimeContext :: method Void Initialize(String, String)
+Pitech.XR.Core.LabRuntimeContext :: property ILabEventBus Bus { get; }
+Pitech.XR.Core.LabRuntimeContext :: property String AttemptId { get; }
+Pitech.XR.Core.LabRuntimeContext :: property String LabInstanceId { get; }
+Pitech.XR.Core.LabRuntimeContext :: static method LabRuntimeContext Find(Component)
+Pitech.XR.Core.LocalParamStore :: ctor()
+Pitech.XR.Core.LocalParamStore :: event Action<String> ParamChanged
+Pitech.XR.Core.LocalParamStore :: method Boolean GetBool(String, Boolean)
+Pitech.XR.Core.LocalParamStore :: method Boolean IsDeclared(String)
+Pitech.XR.Core.LocalParamStore :: method Boolean TryGet(String, ParamValue&)
+Pitech.XR.Core.LocalParamStore :: method Int32 GetInt(String, Int32)
+Pitech.XR.Core.LocalParamStore :: method Single GetFloat(String, Single)
+Pitech.XR.Core.LocalParamStore :: method String GetString(String, String)
+Pitech.XR.Core.LocalParamStore :: method T GetEnum(String, T)
+Pitech.XR.Core.LocalParamStore :: method Void Apply(String, ParamOp, Single)
+Pitech.XR.Core.LocalParamStore :: method Void Declare(ConsoleParameter)
+Pitech.XR.Core.LocalParamStore :: method Void Set(String, ParamValue&)
+Pitech.XR.Core.LocalParamStore :: method Void SetBool(String, Boolean)
+Pitech.XR.Core.LocalParamStore :: method Void SetEnum(String, T)
+Pitech.XR.Core.LocalParamStore :: method Void SetFloat(String, Single)
+Pitech.XR.Core.LocalParamStore :: method Void SetInt(String, Int32)
+Pitech.XR.Core.LocalParamStore :: method Void SetString(String, String)
+Pitech.XR.Core.ParamOp :: field Int32 value__
+Pitech.XR.Core.ParamOp :: static field ParamOp Add
+Pitech.XR.Core.ParamOp :: static field ParamOp Divide
+Pitech.XR.Core.ParamOp :: static field ParamOp Multiply
+Pitech.XR.Core.ParamOp :: static field ParamOp Set
+Pitech.XR.Core.ParamOp :: static field ParamOp Subtract
+Pitech.XR.Core.ParamScope :: field Int32 value__
+Pitech.XR.Core.ParamScope :: static field ParamScope Local
+Pitech.XR.Core.ParamScope :: static field ParamScope Networked
+Pitech.XR.Core.ParamType :: field Int32 value__
+Pitech.XR.Core.ParamType :: static field ParamType Bool
+Pitech.XR.Core.ParamType :: static field ParamType Enum
+Pitech.XR.Core.ParamType :: static field ParamType Float
+Pitech.XR.Core.ParamType :: static field ParamType Int
+Pitech.XR.Core.ParamType :: static field ParamType String
+Pitech.XR.Core.ParamValue :: ctor(ParamType, Single, String)
+Pitech.XR.Core.ParamValue :: field ParamType Type
+Pitech.XR.Core.ParamValue :: field Single Number
+Pitech.XR.Core.ParamValue :: field String Text
+Pitech.XR.Core.ParamValue :: method Boolean AsBool()
+Pitech.XR.Core.ParamValue :: method Int32 AsInt()
+Pitech.XR.Core.ParamValue :: method Single AsFloat()
+Pitech.XR.Core.ParamValue :: method String AsString()
+Pitech.XR.Core.ParamValue :: static method ParamValue Bool(Boolean)
+Pitech.XR.Core.ParamValue :: static method ParamValue Enum(Int32)
+Pitech.XR.Core.ParamValue :: static method ParamValue Float(Single)
+Pitech.XR.Core.ParamValue :: static method ParamValue Int(Int32)
+Pitech.XR.Core.ParamValue :: static method ParamValue Str(String)
 Pitech.XR.Core.ScenarioFactKeys :: static field String StepCompleted
+Pitech.XR.Core.ScenarioFactKeys :: static field String StepEntered
 Pitech.XR.Core.XRServices :: static method Boolean TryGet(T&)
 Pitech.XR.Core.XRServices :: static method T Get()
 Pitech.XR.Core.XRServices :: static method Void InitializeAll()
@@ -777,6 +958,23 @@ Pitech.XR.Interactables.SelectionLists+Evaluation :: field Int32 selectedCorrect
 Pitech.XR.Interactables.SelectionLists+Evaluation :: field Int32 selectedTotal
 Pitech.XR.Interactables.SelectionLists+Evaluation :: field Int32 selectedWrong
 Pitech.XR.Interactables.SelectionLists+Evaluation :: field Int32 totalCorrect
+Pitech.XR.Localization.CompositeLocalizationLookup :: ctor(ILocalizationLookup[])
+Pitech.XR.Localization.CompositeLocalizationLookup :: method Boolean TryResolve(String, String&)
+Pitech.XR.Localization.ILocalizationLookup :: method Boolean TryResolve(String, String&)
+Pitech.XR.Localization.LocalizationServices :: property Boolean HasLookup { get; }
+Pitech.XR.Localization.LocalizationServices :: static method String Resolve(String, String)
+Pitech.XR.Localization.LocalizationServices :: static method Void Install(ILocalizationLookup)
+Pitech.XR.Localization.LocalizationServices :: static method Void Reset()
+Pitech.XR.Localization.LocalizeAttribute :: ctor()
+Pitech.XR.Localization.LocalizeAttribute :: ctor(String)
+Pitech.XR.Localization.LocalizeAttribute :: property String Key { get; }
+Pitech.XR.Networking.LocalLabStateStore :: ctor()
+Pitech.XR.Networking.LocalLabStateStore :: event Action<String> StateChanged
+Pitech.XR.Networking.LocalLabStateStore :: method Boolean GetState(String)
+Pitech.XR.Networking.LocalLabStateStore :: method Void Initialize(IParamStore)
+Pitech.XR.Networking.LocalLabStateStore :: method Void SetState(String, Boolean)
+Pitech.XR.Networking.LocalLabStateStore :: method Void Toggle(String)
+Pitech.XR.Networking.LocalLabStateStore :: static method ILabStateStore Find(Component)
 Pitech.XR.Quiz.Editor.QuizAssetEditor :: ctor()
 Pitech.XR.Quiz.Editor.QuizAssetEditor :: method Void OnInspectorGUI()
 Pitech.XR.Quiz.QuizAsset :: ctor()
@@ -920,14 +1118,38 @@ Pitech.XR.Scenario.Editor.DevKitYamlScriptGuidRepair :: static method Int32 Repa
 Pitech.XR.Scenario.Editor.DevKitYamlScriptGuidRepair :: static method Void CollectBackingAssetPaths(GameObject, HashSet<String>)
 Pitech.XR.Scenario.Editor.ExportLabAsTestFixture :: static method Void ExportOpenScene()
 Pitech.XR.Scenario.Editor.ExportLabAsTestFixture :: static method Void GenerateSyntheticFixture()
+Pitech.XR.Scenario.Editor.LeafDto :: ctor()
+Pitech.XR.Scenario.Editor.LeafDto :: field String kind
+Pitech.XR.Scenario.Editor.LeafDto :: field String path
+Pitech.XR.Scenario.Editor.LeafDto :: field String value
+Pitech.XR.Scenario.Editor.ScenarioDto :: ctor()
+Pitech.XR.Scenario.Editor.ScenarioDto :: field Int32 schemaVersion
+Pitech.XR.Scenario.Editor.ScenarioDto :: field List<Int32> rootIndices
+Pitech.XR.Scenario.Editor.ScenarioDto :: field List<StepDto> steps
+Pitech.XR.Scenario.Editor.ScenarioDto :: field String title
 Pitech.XR.Scenario.Editor.ScenarioEditor :: ctor()
 Pitech.XR.Scenario.Editor.ScenarioEditor :: method Void OnInspectorGUI()
 Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static field Int32 SchemaVersion
+Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static method Int32 CountDanglingRoutes(Scenario)
+Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static method Int32 RepairDanglingRoutes(Scenario)
 Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static method List<String> CheckInvariants(Scenario)
 Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static method Scenario FindScenario(GameObject)
 Pitech.XR.Scenario.Editor.ScenarioGraphSnapshot :: static method String BuildSnapshotJson(Scenario)
+Pitech.XR.Scenario.Editor.ScenarioJsonExporter :: static field Int32 SchemaVersion
+Pitech.XR.Scenario.Editor.ScenarioJsonExporter :: static method ScenarioDto ToDto(Scenario)
+Pitech.XR.Scenario.Editor.ScenarioJsonExporter :: static method String ToJson(Scenario)
+Pitech.XR.Scenario.Editor.ScenarioJsonImporter :: static method Void Apply(String, Scenario)
+Pitech.XR.Scenario.Editor.ScenarioJsonImporter :: static method Void ApplyDto(ScenarioDto, Scenario)
 Pitech.XR.Scenario.Editor.SceneManagerEditor :: ctor()
 Pitech.XR.Scenario.Editor.SceneManagerEditor :: method Void OnInspectorGUI()
+Pitech.XR.Scenario.Editor.StepDto :: ctor()
+Pitech.XR.Scenario.Editor.StepDto :: field List<Int32> childIndices
+Pitech.XR.Scenario.Editor.StepDto :: field List<LeafDto> routes
+Pitech.XR.Scenario.Editor.StepDto :: field List<LeafDto> scalars
+Pitech.XR.Scenario.Editor.StepDto :: field Single graphPosX
+Pitech.XR.Scenario.Editor.StepDto :: field Single graphPosY
+Pitech.XR.Scenario.Editor.StepDto :: field String guid
+Pitech.XR.Scenario.Editor.StepDto :: field String type
 Pitech.XR.Scenario.EventStep :: ctor()
 Pitech.XR.Scenario.EventStep :: field Single waitSeconds
 Pitech.XR.Scenario.EventStep :: field String nextGuid
@@ -1137,6 +1359,12 @@ Pitech.XR.Scenario.SelectionStep :: property String Kind { get; }
 Pitech.XR.Scenario.SelectionStep+CompleteMode :: field Int32 value__
 Pitech.XR.Scenario.SelectionStep+CompleteMode :: static field CompleteMode AutoWhenRequirementMet
 Pitech.XR.Scenario.SelectionStep+CompleteMode :: static field CompleteMode OnSubmitButton
+Pitech.XR.Scenario.SessionStartStep :: ctor()
+Pitech.XR.Scenario.SessionStartStep :: field String nextGuid
+Pitech.XR.Scenario.SessionStartStep :: property String Kind { get; }
+Pitech.XR.Scenario.SessionStopStep :: ctor()
+Pitech.XR.Scenario.SessionStopStep :: field String nextGuid
+Pitech.XR.Scenario.SessionStopStep :: property String Kind { get; }
 Pitech.XR.Scenario.Step :: ctor()
 Pitech.XR.Scenario.Step :: field String guid
 Pitech.XR.Scenario.Step :: field Vector2 graphPos
@@ -1147,6 +1375,10 @@ Pitech.XR.Scenario.TimelineStep :: field Boolean waitForEnd
 Pitech.XR.Scenario.TimelineStep :: field PlayableDirector director
 Pitech.XR.Scenario.TimelineStep :: field String nextGuid
 Pitech.XR.Scenario.TimelineStep :: property String Kind { get; }
+Pitech.XR.Stats.Editor.StatsConfigEditor :: ctor()
+Pitech.XR.Stats.Editor.StatsConfigEditor :: method Void OnInspectorGUI()
+Pitech.XR.Stats.Editor.StatsUIControllerEditor :: ctor()
+Pitech.XR.Stats.Editor.StatsUIControllerEditor :: method Void OnInspectorGUI()
 Pitech.XR.Stats.StatEffect :: ctor()
 Pitech.XR.Stats.StatEffect :: field Single value
 Pitech.XR.Stats.StatEffect :: field StatOp op

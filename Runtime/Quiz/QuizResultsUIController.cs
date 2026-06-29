@@ -2,6 +2,7 @@ using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Pitech.XR.Localization;
 
 namespace Pitech.XR.Quiz
 {
@@ -62,13 +63,17 @@ namespace Pitech.XR.Quiz
 
                 string passLine = "";
                 if (asset != null && asset.passThresholdPercent > 0f)
-                    passLine = (summary != null && summary.passed) ? "Passed" : "Failed";
+                    passLine = (summary != null && summary.passed)
+                        ? LocalizationServices.Resolve("quiz.results.passed", "Passed")
+                        : LocalizationServices.Resolve("quiz.results.failed", "Failed");
 
+                // WS B1.5 Step 3(c): result labels resolve through the localization seam (passthrough
+                // at launch -> identical text). {0} placeholders preserved for translator word-order.
                 detailText.text =
-                    $"Answered: {answered}\n" +
-                    $"Correct: {correct}\n" +
-                    $"Wrong: {wrong}" +
-                    (!string.IsNullOrEmpty(passLine) ? $"\n{passLine}" : "");
+                    string.Format(LocalizationServices.Resolve("quiz.results.answered", "Answered: {0}"), answered) + "\n" +
+                    string.Format(LocalizationServices.Resolve("quiz.results.correct", "Correct: {0}"), correct) + "\n" +
+                    string.Format(LocalizationServices.Resolve("quiz.results.wrong", "Wrong: {0}"), wrong) +
+                    (!string.IsNullOrEmpty(passLine) ? "\n" + passLine : "");
             }
         }
 

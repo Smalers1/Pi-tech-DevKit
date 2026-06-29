@@ -113,7 +113,7 @@ The DevKit is the **canonical reducer**; the cloud is a **mirror** that must com
 ### 3.8 Graded bracket step types (`Runtime/Scenario/Steps/`)
 `SessionStartStep` (`Kind => "Session Start"`) and `SessionStopStep` (`Kind => "Session Stop"`), each with `nextGuid`. Delimit the graded part; emit session-started / session-completed bus facts in B.2.
 
-> **Open discriminator decision (settles at WS B1.6, before 07-07):** does the portable JSON `kind` key on the `Kind`/`KindId` string (e.g. "StepDuration") or on the CLR type name Unity already serializes? The cloud parser must not hard-code either until B1.6 settles it. Flagged so the cloud builds tolerant.
+> **Discriminator decision RESOLVED (WS B1.6 Step 2, ratified 2026-06-26, implemented commit `d49bb64`):** the portable JSON `kind` keys on the **CLR short type name** (e.g. `"StepDurationMetric"`, `"SessionStartStep"`), NOT the mutable `Kind`/`KindId` display string - the `SessionStart -> "Session Start"` rename proved `Kind` is display copy. The scenario-step DTO already implements this (`ScenarioJsonDto`, `schemaVersion=1`); the **analytics-rubric emit serializer is B.2** and MUST follow the same convention. The `Kind`/`KindId` strings in sections 3.2-3.3 are display tags, carried as an optional `label`. **Cloud: key on the CLR short type name.**
 
 ---
 
@@ -146,7 +146,7 @@ The session-report / analytics path has **no consent field** in any frozen type 
 | Session-report envelope/payload type | Phase B.2 |
 | Reducer (events -> rawValue -> score) + emit/outbox | Phase B.2 |
 | DevKit SDK emit-API surface freeze (rubric, bus fact shape, SessionStart/Stop, effect-scope, ConsoleParameter) | 2026-07-07 |
-| JSON `kind` discriminator (string vs CLR type) | WS B1.6 |
+| JSON `kind` discriminator | **RESOLVED** - CLR short type name (sec 3.8, B1.6 Step 2) |
 | Consent mechanism | section 5 |
 
 ---

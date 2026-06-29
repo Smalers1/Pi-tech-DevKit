@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Pitech.XR.Localization;
 
 namespace Pitech.XR.Quiz
 {
@@ -365,9 +366,12 @@ namespace Pitech.XR.Quiz
 
             if (feedbackText)
             {
+                // WS B1.5 Step 3(c): user-facing feedback resolves through the localization seam.
+                // Passthrough until a lookup is installed -> identical text at launch. The {0}
+                // placeholder is preserved so a translator controls word order around the score.
                 feedbackText.text = result.isCorrect
-                    ? $"Correct (+{result.score:0.#})"
-                    : "Wrong";
+                    ? string.Format(LocalizationServices.Resolve("quiz.feedback.correct", "Correct (+{0})"), result.score.ToString("0.#"))
+                    : LocalizationServices.Resolve("quiz.feedback.wrong", "Wrong");
             }
 
             if (explanationText && _current != null && _current.answers != null)
