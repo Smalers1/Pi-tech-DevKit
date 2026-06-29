@@ -398,6 +398,12 @@ public partial class ScenarioGraphWindow : EditorWindow
             if (s is EventStep ev && !string.IsNullOrEmpty(ev.nextGuid) && nodes.TryGetValue(ev.guid, out var evNode))
                 Connect(evNode.outNext, ev.nextGuid);
 
+            if (s is SessionStartStep sss && !string.IsNullOrEmpty(sss.nextGuid) && nodes.TryGetValue(sss.guid, out var sssNode))
+                Connect(sssNode.outNext, sss.nextGuid);
+
+            if (s is SessionStopStep sssp && !string.IsNullOrEmpty(sssp.nextGuid) && nodes.TryGetValue(sssp.guid, out var ssspNode))
+                Connect(ssspNode.outNext, sssp.nextGuid);
+
             if (s is GroupStep grp && nodes.TryGetValue(grp.guid, out var grpNode))
             {
                 if (GroupUsesMultiConditionPorts(grp))
@@ -671,6 +677,8 @@ public partial class ScenarioGraphWindow : EditorWindow
         if (s is CueCardsStep cc) return cc.nextGuid;
         if (s is InsertStep ins) return ins.nextGuid;
         if (s is EventStep ev) return ev.nextGuid;
+        if (s is SessionStartStep sss) return sss.nextGuid;
+        if (s is SessionStopStep sssp) return sssp.nextGuid;
         return null;
     }
 
@@ -687,6 +695,8 @@ public partial class ScenarioGraphWindow : EditorWindow
             else if (st is CueCardsStep cc && cc.nextGuid == fromGuid) cc.nextGuid = toGuid;
             else if (st is InsertStep ins && ins.nextGuid == fromGuid) ins.nextGuid = toGuid;
             else if (st is EventStep ev && ev.nextGuid == fromGuid) ev.nextGuid = toGuid;
+            else if (st is SessionStartStep sss && sss.nextGuid == fromGuid) sss.nextGuid = toGuid;
+            else if (st is SessionStopStep sssp && sssp.nextGuid == fromGuid) sssp.nextGuid = toGuid;
             else if (st is GroupStep g && g.nextGuid == fromGuid) g.nextGuid = toGuid;
             else if (st is QuestionStep q && q.choices != null)
             {
@@ -1031,6 +1041,8 @@ public partial class ScenarioGraphWindow : EditorWindow
             else if (st is CueCardsStep cc) cc.nextGuid = "";
             else if (st is InsertStep ins) ins.nextGuid = "";
             else if (st is EventStep ev) ev.nextGuid = "";
+            else if (st is SessionStartStep sss) sss.nextGuid = "";
+            else if (st is SessionStopStep sssp) sssp.nextGuid = "";
             else if (st is GroupStep g)
             {
                 g.nextGuid = "";
@@ -1135,6 +1147,14 @@ public partial class ScenarioGraphWindow : EditorWindow
         else if (outMeta.owner is EventStep oev)
         {
             if (oev.nextGuid != dstGuid) { oev.nextGuid = dstGuid; changed = true; }
+        }
+        else if (outMeta.owner is SessionStartStep osss)
+        {
+            if (osss.nextGuid != dstGuid) { osss.nextGuid = dstGuid; changed = true; }
+        }
+        else if (outMeta.owner is SessionStopStep osssp)
+        {
+            if (osssp.nextGuid != dstGuid) { osssp.nextGuid = dstGuid; changed = true; }
         }
         else if (outMeta.owner is GroupStep og)
         {
@@ -2155,6 +2175,7 @@ public partial class ScenarioGraphWindow : EditorWindow
         evt.menu.AppendAction("Add/Event", _ => CreateStep(typeof(EventStep)));
         evt.menu.AppendAction("Add/Group", _ => CreateStep(typeof(GroupStep)));
         evt.menu.AppendAction("Add/Conditions", _ => CreateStep(typeof(ConditionsStep)));
+        evt.menu.AppendSeparator("Add/");
         evt.menu.AppendAction("Add/Session Start", _ => CreateStep(typeof(SessionStartStep)));
         evt.menu.AppendAction("Add/Session Stop", _ => CreateStep(typeof(SessionStopStep)));
         evt.menu.AppendSeparator();

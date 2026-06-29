@@ -10,11 +10,15 @@ using UnityEditor;
 namespace Pitech.XR.Scenario.Editor.Tests
 {
     /// <summary>
-    /// Proof B - the public surface over Pitech.XR.* may only GAIN members (Appendix I.8). Reflects every
-    /// Pitech.XR.* assembly (test assemblies excluded), enumerates public (+ protected-on-non-sealed)
-    /// members as one stable sorted line each, and asserts every baseline line is still present. Removals
-    /// fail (a serialized public field renamed, a reflected member gone); additions pass. The baseline
-    /// (Tests/Baseline/PublicApi.Pitech.XR.txt) is updated only as a reviewed commit.
+    /// Proof B - the public surface over Pitech.XR.* is a TWO-WAY LOCK against a reviewed baseline
+    /// (Appendix I.8). Reflects every Pitech.XR.* assembly (test assemblies excluded), enumerates public
+    /// (+ protected-on-non-sealed) members as one stable sorted line each, and asserts the current surface
+    /// MATCHES the baseline exactly: REMOVED lines fail (a breaking change - a serialized public field
+    /// renamed, a reflected member gone); ADDED lines also fail (a public surface change that has not been
+    /// captured in a reviewed baseline). Every public-API change - add or remove - must therefore land as
+    /// a reviewed update to Tests/Baseline/PublicApi.Pitech.XR.txt. To (re)capture: delete the baseline
+    /// file and run this test once (it writes the current surface + returns Inconclusive), inspect the
+    /// diff, then commit.
     /// </summary>
     public class PublicApiBaselineTests
     {
@@ -38,16 +42,24 @@ namespace Pitech.XR.Scenario.Editor.Tests
                                     + current.Count + " members). Commit it, then re-run to enforce.");
             }
 
-            var removed = new List<string>();
-            foreach (var line in File.ReadAllLines(baselineDisk))
-            {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-                if (!current.Contains(line)) removed.Add(line);
-            }
+            var baseline = new HashSet<string>(
+                File.ReadAllLines(baselineDisk).Where(l => !string.IsNullOrWhiteSpace(l)),
+                StringComparer.Ordinal);
+
+            // Two-way lock: REMOVED = in baseline, gone now (a breaking change). ADDED = present now, not
+            // in the baseline (a public surface change not yet captured in a reviewed baseline).
+            var removed = baseline.Where(l => !current.Contains(l)).OrderBy(s => s, StringComparer.Ordinal).ToList();
+            var added = current.Where(l => !baseline.Contains(l)).OrderBy(s => s, StringComparer.Ordinal).ToList();
 
             Assert.IsEmpty(removed,
-                "Public API members REMOVED since baseline (not additions-only). If intentional, update the "
-                + "baseline as a reviewed commit:\n  " + string.Join("\n  ", removed));
+                "Public API members REMOVED since baseline (a BREAKING change, not additions-only). If "
+                + "intentional, update the baseline as a reviewed commit:\n  " + string.Join("\n  ", removed));
+
+            Assert.IsEmpty(added,
+                "Public API members ADDED that are NOT in the baseline. Proof B is a two-way lock: every "
+                + "public-surface change must land as a reviewed baseline update. Delete "
+                + "Tests/Baseline/PublicApi.Pitech.XR.txt, re-run this test to recapture, inspect the diff, "
+                + "and commit:\n  " + string.Join("\n  ", added));
         }
 
         // ---- surface extraction -------------------------------------------------------------

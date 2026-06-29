@@ -164,12 +164,19 @@ public partial class ScenarioGraphWindow
                 if (titleLabel != null)
                     titleLabel.style.color = Color.black;
             }
+            if (s is SessionStartStep || s is SessionStopStep)
+            {
+                // Analytics-related steps: a very distinguishing near-white header (black text).
+                tbox.style.backgroundColor = new Color(0.93f, 0.93f, 0.96f);
+                if (titleLabel != null)
+                    titleLabel.style.color = Color.black;
+            }
 
             // Always-editable custom name, shown in the header right after the type.
             // Type away to name the node (e.g. "01. Question" + "testing path"); empty = type only.
             if (tbox != null)
             {
-                bool darkHeaderText = s is InsertStep || s is EventStep || s is ConditionsStep;
+                bool darkHeaderText = s is InsertStep || s is EventStep || s is ConditionsStep || s is SessionStartStep || s is SessionStopStep;
                 var headerName = new TextField { isDelayed = false, value = sc.FindStepGraphDisplay(s.guid)?.displayName ?? "" };
                 headerName.style.flexGrow = 1;
                 headerName.style.marginLeft = 6;
@@ -670,6 +677,23 @@ public partial class ScenarioGraphWindow
                 }));
 
                 // Normal Next output like the other linear steps
+                outNext = MakePort(Direction.Output, Port.Capacity.Single, "Next", -1);
+                outputContainer.Add(outNext);
+            }
+            else if (s is SessionStartStep || s is SessionStopStep)
+            {
+                // WS B1.4 graded-bracket markers. Linear single-output steps (only nextGuid), so they
+                // render and route exactly like the other linear steps (Timeline/Event): one "Next" port
+                // the edge writes back through, and the runner honours nextGuid.
+                fold.contentContainer.Add(new IMGUIContainer(() =>
+                {
+                    EditorGUILayout.HelpBox(
+                        s is SessionStartStep
+                            ? "Marks the START of the graded session bracket. Connect 'Next' to the first graded step."
+                            : "Marks the END of the graded session bracket. Connect 'Next' to continue.",
+                        MessageType.None);
+                }));
+
                 outNext = MakePort(Direction.Output, Port.Capacity.Single, "Next", -1);
                 outputContainer.Add(outNext);
             }

@@ -189,6 +189,27 @@ namespace Pitech.XR.Scenario
                 {
                     yield return RunConditions(cnd, guid => branchGuid = guid);
                 }
+                else if (step is SessionStartStep sss)
+                {
+                    // WS B1.4 graded-bracket marker (open). Linear: honour nextGuid so graph routing off
+                    // this node works. The generic StepEntered/StepCompleted facts already bracket it on
+                    // the bus; the session-started fact + report assembly are B.2 (bus has no subscribers
+                    // at launch -> inert today). No coroutine: nothing to play.
+                    branchGuid = sss.nextGuid;
+                }
+                else if (step is SessionStopStep sssp)
+                {
+                    // WS B1.4 graded-bracket marker (close). Linear; B.2 wires the session-completed fact
+                    // + report emit. Inert at launch.
+                    branchGuid = sssp.nextGuid;
+                }
+                else
+                {
+                    // No dispatch case for this step type. Do NOT silently stall: warn loudly and advance
+                    // linearly (branchGuid stays null -> "next in list" below), so an unhandled or new Step
+                    // subclass surfaces instead of hiding. Replaces the prior silent fall-through.
+                    Debug.LogWarning($"[Scenario] No runner case for step type '{step.GetType().Name}' at index {idx}; advancing to the next step. Add a dispatch case if it should run.", _console);
+                }
 
                 // WS B1.7 Increment 3: step-completed fact (dormant - no-op at launch).
                 EmitStepFact(Pitech.XR.Core.ScenarioFactKeys.StepCompleted, step.guid);

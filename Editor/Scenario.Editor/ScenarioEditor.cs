@@ -191,6 +191,7 @@ namespace Pitech.XR.Scenario.Editor
                 menu.AddItem(new GUIContent("Add Event"), false, () => AddStep(typeof(Runtime.EventStep)));
                 menu.AddItem(new GUIContent("Add Conditions"), false, () => AddStep(typeof(Runtime.ConditionsStep)));
                 menu.AddItem(new GUIContent("Add Group"), false, () => AddStep(typeof(Runtime.GroupStep)));
+                menu.AddSeparator("");
                 menu.AddItem(new GUIContent("Add Session Start"), false, () => AddStep(typeof(Runtime.SessionStartStep)));
                 menu.AddItem(new GUIContent("Add Session Stop"), false, () => AddStep(typeof(Runtime.SessionStopStep)));
                 menu.ShowAsContext();
@@ -200,6 +201,10 @@ namespace Pitech.XR.Scenario.Editor
             {
                 var p = stepsProp.GetArrayElementAtIndex(i);
                 if (p == null || p.managedReferenceValue == null)
+                    return EditorGUIUtility.singleLineHeight * 2 + 12;
+
+                // Session bracket markers show only a header + one info line (no editable body).
+                if (IsSessionMarker(p))
                     return EditorGUIUtility.singleLineHeight * 2 + 12;
 
                 float inner = EditorGUI.GetPropertyHeight(p, true);
@@ -254,11 +259,21 @@ namespace Pitech.XR.Scenario.Editor
                 string displayName = (target as Runtime.Scenario)?.FindStepGraphDisplay(stepGuid)?.displayName;
                 DrawStepHeader(header2, index, kind, displayName);
 
-                var body = new Rect(
-                    rect.x + 4, header2.y + header2.height + 3,
-                    rect.width - 8, EditorGUI.GetPropertyHeight(el, true));
+                if (IsSessionMarker(el))
+                {
+                    // Analytics bracket markers carry NO manually editable options - routing ("Next") is
+                    // authored in the Scenario Graph. Show an info line instead of the default body.
+                    var info = new Rect(rect.x + 4, header2.y + header2.height + 3, rect.width - 8, EditorGUIUtility.singleLineHeight);
+                    EditorGUI.LabelField(info, "No editable options - routing is set in the Scenario Graph.", Styles.Muted);
+                }
+                else
+                {
+                    var body = new Rect(
+                        rect.x + 4, header2.y + header2.height + 3,
+                        rect.width - 8, EditorGUI.GetPropertyHeight(el, true));
 
-                EditorGUI.PropertyField(body, el, GUIContent.none, true);
+                    EditorGUI.PropertyField(body, el, GUIContent.none, true);
+                }
 
                 var xRect = new Rect(rect.xMax - 22, rect.y + 2, 18, EditorGUIUtility.singleLineHeight - 2);
                 if (GUI.Button(xRect, "✕", EditorStyles.miniButton))
@@ -286,6 +301,12 @@ namespace Pitech.XR.Scenario.Editor
                 var nameRect = new Rect(badge.xMax + 6, r.y, r.width - (badge.xMax - r.x) - 6, r.height);
                 EditorGUI.LabelField(nameRect, displayName, Styles.Bold);
             }
+        }
+
+        static bool IsSessionMarker(SerializedProperty p)
+        {
+            string full = p?.managedReferenceFullTypename ?? "";
+            return full.Contains(nameof(Runtime.SessionStartStep)) || full.Contains(nameof(Runtime.SessionStopStep));
         }
 
         void AddStep(Type t)
@@ -809,6 +830,8 @@ namespace Pitech.XR.Scenario.Editor
             static readonly Color cBadgeEvent = new Color(0.30f, 0.70f, 0.75f);
             static readonly Color cBadgeGroup = new Color(0.55f, 0.55f, 0.60f);
             static readonly Color cBadgeConditions = new Color(0.95f, 0.55f, 0.15f);
+            // Analytics-related steps (Session Start/Stop) get a very distinguishing near-white badge.
+            static readonly Color cBadgeAnalytics = new Color(0.93f, 0.93f, 0.96f);
 
             static bool _inited;
 
@@ -893,6 +916,7 @@ namespace Pitech.XR.Scenario.Editor
             {
                 Ensure();
                 var col = cBadgeTimeline;
+                bool lightBadge = false;
                 if (kind == "Cue Cards") col = cBadgeCards;
                 else if (kind == "Question") col = cBadgeQuestion;
                 else if (kind == "Selection") col = cBadgeSelection;
@@ -900,11 +924,14 @@ namespace Pitech.XR.Scenario.Editor
                 else if (kind == "Event") col = cBadgeEvent;
                 else if (kind == "Group") col = cBadgeGroup;
                 else if (kind == "Conditions") col = cBadgeConditions;
+                else if (kind == "Session Start" || kind == "Session Stop") { col = cBadgeAnalytics; lightBadge = true; }
 
                 var bg = new Rect(r.x, r.y, r.width, r.height);
                 EditorGUI.DrawRect(bg, col);
                 var txt = new Rect(r.x + 6, r.y, r.width - 12, r.height);
-                EditorGUI.LabelField(txt, kind, new GUIStyle(EditorStyles.whiteBoldLabel) { alignment = TextAnchor.MiddleLeft });
+                var labelStyle = new GUIStyle(lightBadge ? EditorStyles.boldLabel : EditorStyles.whiteBoldLabel) { alignment = TextAnchor.MiddleLeft };
+                if (lightBadge) labelStyle.normal.textColor = Color.black;
+                EditorGUI.LabelField(txt, kind, labelStyle);
             }
 
             public static void Warn(string msg) => EditorGUILayout.HelpBox(msg, MessageType.Warning);

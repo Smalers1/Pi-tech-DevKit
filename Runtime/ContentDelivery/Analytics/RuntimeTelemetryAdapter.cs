@@ -643,8 +643,12 @@ namespace Pitech.XR.ContentDelivery
 
             // Resolve the per-attempt context. ContentDelivery attaches LabRuntimeContext on the spawned
             // lab root (WS B1.1 Step 2). For menu/direct labs there is no context -> stay unbound; Update
-            // retries (cheap GetComponentInParent walk, not FindObjectsOfType). We walk up from THIS
-            // adapter, which ContentDeliverySpawner parents under the lab root alongside the runner.
+            // retries (cheap GetComponentInParent walk, not FindObjectsOfType). KNOWN GAP (B.2): the spawner
+            // resolves this adapter as a pre-existing child of ITSELF (ContentDeliverySpawner Awake), so the
+            // adapter is an ANCESTOR/SIBLING of the lab root, not a descendant - this upward Find cannot yet
+            // resolve a context that lives DOWN on the lab root. The B.2 bus flip must inject the context
+            // (spawner push) or down-resolve; until then this stays unbound (launch path is the legacy poll,
+            // flag default-OFF, so this code never runs at launch).
             if (labContext == null)
             {
                 labContext = Pitech.XR.Core.LabRuntimeContext.Find(this);

@@ -21,29 +21,35 @@ namespace Pitech.XR.Core
 
         public void Declare(ConsoleParameter declaration)
         {
-            if (declaration == null || string.IsNullOrEmpty(declaration.id)) return;
-            _declarations[declaration.id] = declaration;
+            if (declaration == null) return;
+            string id = NormKey(declaration.id);
+            if (id.Length == 0) return;
+            _declarations[id] = declaration;
             // Seed the default only if the parameter has no value yet (re-declaring never clobbers
             // live state).
-            if (!_values.ContainsKey(declaration.id))
-                _values[declaration.id] = declaration.DefaultValue();
+            if (!_values.ContainsKey(id))
+                _values[id] = declaration.DefaultValue();
         }
 
-        public bool IsDeclared(string id) => id != null && _declarations.ContainsKey(id);
+        public bool IsDeclared(string id) => _declarations.ContainsKey(NormKey(id));
 
         public bool TryGet(string id, out ParamValue value)
         {
-            if (id != null && _values.TryGetValue(id, out value)) return true;
+            if (_values.TryGetValue(NormKey(id), out value)) return true;
             value = default;
             return false;
         }
 
         public void Set(string id, in ParamValue value)
         {
-            if (string.IsNullOrEmpty(id)) return;
+            id = NormKey(id);
+            if (id.Length == 0) return;
             ParamValue toStore = _declarations.TryGetValue(id, out var decl) ? decl.Clamp(value) : value;
-            // Change-only semantics (mirrors the legacy StatsRuntime no-op suppression): an unchanged
-            // write neither stores nor fans out, so analytics/bus listeners only see real changes.
+            // Change-only semantics: an unchanged write to an EXISTING key neither stores nor fans out, so
+            // analytics/bus listeners only see real changes. This mirrors the legacy StatsRuntime no-op
+            // suppression for keys that already hold a value. NOTE: unlike legacy, a FIRST write to an
+            // absent key stores+fires even when the value is the type's zero (legacy suppressed that) -
+            // trace-neutral today; revisit for exact parity if the B.2 lossless ParamChanged bus needs it.
             if (_values.TryGetValue(id, out var prev) && SameValue(prev, toStore)) return;
             _values[id] = toStore;
             ParamChanged?.Invoke(id);
@@ -51,7 +57,8 @@ namespace Pitech.XR.Core
 
         public void Apply(string id, ParamOp op, float operand)
         {
-            if (string.IsNullOrEmpty(id)) return;
+            id = NormKey(id);
+            if (id.Length == 0) return;
             ParamType type = ParamType.Float;
             float current = 0f;
             if (_values.TryGetValue(id, out var existing))
@@ -75,6 +82,14 @@ namespace Pitech.XR.Core
         public void SetFloat(string id, float value) => Set(id, ParamValue.Float(value));
         public void SetString(string id, string value) => Set(id, ParamValue.Str(value));
         public void SetEnum<T>(string id, T value) where T : struct, Enum => Set(id, ParamValue.Enum(Convert.ToInt32(value)));
+
+        // Key normalization: trim so a declared id and every runtime access resolve to the SAME slot.
+        // The runner already trims each effect/quiz/condition key via StatsConfig.NormalizeKey; Core
+        // cannot reference Pitech.XR.Stats, so the identical trim is inlined here - this store is the
+        // single source of truth for its own keying. Behaviour-neutral for existing labs (their keys are
+        // already trimmed -> Trim is a no-op identity); closes the whitespace-id footgun for a
+        // hand-authored ConsoleParameter id with stray leading/trailing whitespace.
+        static string NormKey(string id) => string.IsNullOrWhiteSpace(id) ? string.Empty : id.Trim();
 
         // Mirrors the legacy StatEffect.Apply 1:1 (Divide-by-zero is a no-op, as in Stats).
         static float ApplyOp(float current, ParamOp op, float operand)
