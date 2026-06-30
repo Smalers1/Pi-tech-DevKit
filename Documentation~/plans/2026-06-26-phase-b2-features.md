@@ -1,6 +1,6 @@
 ---
 title: Phase B.2 - Features (behaviour-additive) - analytics, multiplayer turn-on, localization, vitals
-status: READY to dispatch 2026-06-26 (derived from the architecture map; builds on the B.1 foundation). Pending final sign-off.
+status: CODE IMPLEMENTED 2026-06-29; POST-REVIEW FIXES 2026-06-30 (Stergios' 6-item review: state<->param store unification #1, LabConsole params UI + live values #2, explicit SignalMetric #3, Greek mojibake->code-points #4, NetworkedParamStore pre-spawn guards #6, + a CS0118 fix; #5 metas were Unity-generated). All DevKit WSs B2.1/B2.2/B2.4/B2.5/B2.6/B2.7 authored + reviewed. Verification = Stergios' Unity pass (guides/2026-06-29-B2-unity-testing-guide.md). NOT done: B2.3 cloud (gated G2+ownership); post-B2 items + the 6-item review details in guides/2026-06-29-B2-open-decisions.md (section F).
 date: 2026-06-26
 author: Claude Code
 owner: Claude Code (DevKit repo + the Web Portal / cloud lane)
@@ -67,6 +67,7 @@ the G2 schema freeze (06-29)**. On-device end-to-end smoke folds into the Phase 
 | B2.4 | Multiplayer turn-on: path-list FOLLOW + branch on + declared-param wiring | B1.3 seams | map §10 |
 | B2.5 | Localization content: Greek + English authored on the keyed source | B1.5 infra | map §12 |
 | B2.6 | Vitals FOUNDATION: typed `PatientVitals` (param-backed) + 3D bindings + `IAgentStateSource` | B1.2 params | map §8 |
+| B2.7 | Authoring UX: visual params editor + graduate the networked-state trigger/listener components | B1.2 params, B1.3 stores | Stergios request 2026-06-29 |
 
 > **WS tags.** **B2.1-B2.5 = LAUNCH_BLOCKER · B2.6 = CAN_TRAIL** (slip-eligible foundation - never blocks B2.1-B2.5,
 > decision 41). B2.4's two-client on-device proof folds into the Phase C window. A tagged slip is **dispositioned in the
@@ -79,6 +80,13 @@ the G2 schema freeze (06-29)**. On-device end-to-end smoke folds into the Phase 
 
 > **Parallelism.** B2.3 (cloud) runs from the G2 freeze in parallel with B2.1/B2.2 (DevKit analytics). B2.4 (MP), B2.5 (loc
 > content), B2.6 (vitals) are disjoint and run concurrently once their B.1 seam is in.
+
+> **Carried over from B.1 (deferred -> now in B.2 scope).** B.1 landed these inert/partial; B.2 turns them on. Each folds into the WS noted:
+> - **Telemetry onto the bus** (B1.1 S3 + B1.8 S4): flip `useEventBusStepTracking` ON - first push the lab context to `RuntimeTelemetryAdapter` (a spawner `BindContext`; it sits ABOVE the spawned root so `LabRuntimeContext.Find` never binds it), move finish-detection onto a terminal bus fact, get Vicky-ingestion sign-off on the higher-fidelity trace, THEN delete the legacy per-frame `FindObjectsOfType` scan. -> **B2.1**.
+> - **Networked param store** (B1.2 S1/S5): the Fusion `NetworkDictionary<id, ParamValue>` impl + authority-only **sequenced** relative ops (`Add`/`Multiply`) + provenance/actor. -> **B2.4**.
+> - **`FusionScenarioPath`** (B1.3 S1): the `#if`-gated `[Networked, Capacity(256)]` flow-store ring - **not authored yet**, so B2.4 Step 1 must BUILD it before it can "turn it on". -> **B2.4**.
+> - **Fusion weaver coverage** (B1.3): confirm Fusion's weaver processes `Pitech.XR.Networking` so `NetworkedLabStateStore`'s `[Networked]` dict works on device (VR's XRShared asmdefs get woven, so it should). -> **B2.4 prerequisite**.
+> - **Localization runtime + pipeline** (B1.5 S2/S3): the StringTable-backed `ILocalizationLookup` impl + the `[Localize]` reflection scan + the pipeline relocation - B2.5 content depends on these. -> **B2.5 prerequisite** (or the post-B2 migration).
 
 ---
 
@@ -101,15 +109,15 @@ math -> an **on-device lab-end readout** -> the **session report** at `SessionSt
 **Scope / files.** `Runtime/Analytics/` (observers + the reducer/grade engine + the report assembler); the role-pick runtime
 UI; the offline outbox (host-owned, verified).
 
-**Steps (progress tracking):**
-- [ ] Step 1: Implement the per-kind **metric observers** (StepDuration / TotalDuration / Drop / WrongInteraction / Order) as pure **reducers** over the bus event stream (`Reduce(events) -> rawValue`).
-- [ ] Step 2: Implement the **grade engine** = the ratified §11.8 math: `x = clamp01(1 - Penalty)`; **ceiling kinds** = highest-band-crossed, **count kinds** = per-occurrence sum; normalized weighted mean at metric -> analytic -> objective -> grade; **applicability mask** (skipped/non-participant drop from the denominator; all-masked -> "incomplete"); objective `target` = pass-bar label. **Default bands `none 0 / warning 0.5 / error 1.0`**, author-overridable.
-- [ ] Step 3: Implement the **on-device scoring/readout engine** - render the lab-end results from `(events + rubric)` with **no cloud round-trip** (DevKit = the canonical reducer; decision 38).
-- [ ] Step 4: Implement bands -> **in-scene notification** (warning/error fire the UI nudge per `notifyInScene`).
-- [ ] Step 5: **Role gating** - in-scene per-attempt role pick (Professor/Participant/Spectator) within per-lab capacities; emitter runs **full** for Participants, **presence only** for Professors, **nothing** for Spectators.
-- [ ] Step 6: Assemble the **ONE self-contained session report** = users + roles + the timed event stream + the **bundled raw rubric** (not pre-scored, so it re-computes); merge on-device; ship at **`SessionStop`** (+ flush on reconnect / next launch).
-- [ ] Step 7: **Offline durability** - the report builds incrementally to a **host-owned disk-backed outbox**; an unfinished session stores as **incomplete** (never lost, never "passed"). Verify: survives restart; retries on reconnect.
-- [ ] Step 8: Author the **equivalence golden fixture** (events -> grade) and assert it green in EditMode (the portal mirror is B2.3).
+**Steps (progress tracking):** *(code 2026-06-29; verification = Stergios' Unity pass)*
+- [x] Step 1: per-kind reducers (StepDuration / TotalDuration / Drop / WrongInteraction / Order) over the captured bus stream - `AnalyticsGradeEngine.ComputeMetric/ComputeCount` + `AnalyticsEvent`/`SessionEventStream`.
+- [x] Step 2: the §11.8 grade engine - `AnalyticsGradeEngine` (ceiling=highest band crossed w/ threshold<=0 inactive; count=per-occurrence sum; weighted means; applicability mask; "incomplete" if all-masked OR unclosed bracket; target=pass-bar). Hand-verified to 0.25 on the fixture.
+- [x] Step 3: on-device readout - `GradeResult` from (events + rubric), raised via `LabAnalytics.onReadout`, no cloud round-trip.
+- [x] Step 4: bands -> in-scene notification - `LabAnalytics.NotifyForCount/NotifyForSignal` -> `onNotification` (per `notifyInScene`). *(duration-band notify fires at step-complete; live mid-step nudge = noted refinement.)*
+- [x] Step 5: role gating - `SessionRoleSelector` (in-scene pick) + `Finalize` (Participant full / Professor presence / Spectator none).
+- [x] Step 6: the ONE session report (`SessionReport` + `SessionReportJson`) shipped at SessionStop with users+roles+timed stream+bundled raw rubric. *(SP done; cross-peer MERGE + flush-on-reconnect = host/post-B2.)*
+- [ ] Step 7: offline durability - **DevKit seam done** (`ISessionReportSink`; submit-at-stop + submit-incomplete-on-disable; "incomplete never passed"). **[HUMAN/host]** the disk-backed outbox impl + survives-restart/retries verification is HOST-OWNED (VR Shell / mobile).
+- [x] Step 8: equivalence golden fixture (`AnalyticsEquivalenceFixture`) green in EditMode (`AnalyticsGradeEngineTests`, 5 tests). *(portal mirror is B2.3.)*
 
 **Acceptance.** A real lab produces the on-device readout + a session report at `SessionStop`; role gating + capacities work; incomplete sessions are preserved; the grade matches the golden fixture.
 
@@ -123,13 +131,13 @@ UI; the offline outbox (host-owned, verified).
 
 **Scope / files.** `Runtime/Analytics/` (the registry runtime + `AnalyticsSignalEmitter` + the auto-wirer extension); the `TrackedGrabbable`/subject component.
 
-**Steps (progress tracking):**
-- [ ] Step 1: Runtime resolution of `TrackedSubject` (`scenarioRelevant`, `ownerStepGuid`); classify each interaction by *(in registry? / relevant? / ownerStep == current?)* -> correct / wrong-interaction / order violation (map §11.2).
-- [ ] Step 2: **Auto-detect** the registry from the scenario - `InsertStep` (`item` / `targetTrigger`) + `SelectionStep` (its `SelectionLists`) pre-fill subject -> ownerStep; distractors + free grabbables added by hand.
-- [ ] Step 3: **Auto-wire** subjects to grab (Meta `Select`) + drop (`RespawnOnDrop.WhenRespawned` - a Meta **sample** UnityEvent; don't hard-depend on the sample path, do the below-Y check in the DevKit's own subject component) - emit `item.grabbed` / `item.dropped` facts.
-- [ ] Step 4: `AnalyticsSignalEmitter.EmitSignal(id)` (UnityEvent-callable) for authored failures - e.g. the scalpel's wrong-cut UnityEvent -> `EmitSignal("wrong-incision")` (an authored = error signal). Reuses the existing UnityEvent layer; no per-object analytics code.
-- [ ] Step 5: Apply the **derived default severity** (relevant drop -> error / distractor -> warning/none / out-of-order -> warning / authored wrong-target -> error), author-overridable per metric.
-- [ ] Step 6: Verify drops + wrong-interaction land in the event stream and score via B2.1.
+**Steps (progress tracking):** *(code 2026-06-29)*
+- [x] Step 1: runtime classification - facts emit raw (`interaction.used`/`item.dropped`); the **recorder is the single classifier** (`LabAnalytics.ClassifyUse`: in-registry? relevant? ownerStep==current? -> correct / wrong / order).
+- [x] Step 2: auto-detect - **InsertStep + SelectionStep done** (`LabAnalyticsEditor` pulls `InsertStep.item` AND each `SelectionStep`'s correct colliders -> relevant subjects, owner=that step; list resolved by `listIndex` else `listKey`, deduped by target/id). Distractors / free grabbables stay by-hand (the map's split). *(Closed 2026-06-30; needed adding `Pitech.XR.Interactables` to the `Analytics.Editor` asmdef - editor-only, no public API.)*
+- [x] Step 3: subject runtime - `AnalyticsSubject` (below-Y drop check, dependency-free; `ReportGrabbed/Dropped/Used` UnityEvent-callable) + the editor auto-wire adds the component & sets `subjectId`. *(Hooking Meta `Select` / `RespawnOnDrop` to those methods is author-side UnityEvent wiring, per "don't hard-depend on the sample path".)*
+- [x] Step 4: `AnalyticsSignalEmitter.EmitSignal(id)` / `Emit()` (UnityEvent-callable) -> `analytics.signal` -> routes to the metric whose id matches.
+- [x] Step 5: derived default severity in the engine (`DeriveSeverity`) + the recorder (relevant drop->error / distractor->warning / out-of-order->warning / signal->error), author-overridable via band weights.
+- [ ] Step 6: **[HUMAN verify]** drops + wrong land in the stream and score via B2.1 (SP playtest).
 
 **Acceptance.** Drops / wrong / order are captured from one registry; auto-detect + auto-wire work; authored signals fire; default severities apply.
 
@@ -145,7 +153,7 @@ UI; the offline outbox (host-owned, verified).
 **Scope / files.** Web Portal repo: a `session-report-ingest` edge fn + a tenant-scoped `session_reports` table + RLS; the
 portal readout/render; the org-level consent flag.
 
-**Steps (progress tracking):**
+**Steps (progress tracking):** *(NOT BUILT - intentionally gated; the DevKit emit shape `SessionReport`/`SessionReportJson` is ready to hand over. Blocked on: (a) Stergios' G2 schema confirm; (b) cloud-lane ownership. Do not build against an unconfirmed wire format. See open-decisions doc A1/A4.)*
 - [ ] Step 1: **[G2 - 2026-06-29]** Lock the session-report wire schema from B2.1 (users + roles + timed events + bundled rubric + tenant/session/lab/version envelope). This is the **cross-surface freeze** - do it FIRST.
 - [ ] Step 2: `session_reports` DDL (tenant-scoped) + RLS; the report is **stored once per session** (group/session-level, not per-participant docs).
 - [ ] Step 3: `session-report-ingest` edge fn: validate uuid / size / surface / **consent**; assert **report tenant == auth tenant** (RLS); reject paths covered.
@@ -165,12 +173,12 @@ portal readout/render; the org-level consent flag.
 
 **Scope / files.** `Runtime/Networking/` (turn on `FusionScenarioPath` follow); the runner follower path (B.1 inert hook); LabConsole declared-param wiring.
 
-**Steps (progress tracking):**
-- [ ] Step 1: Turn on the **follower path** - in a networked session, followers jump to the appended frontier guid (`FindIndexByGuid`); auto-resolving steps (ConditionsStep, no-wait Event/Timeline) **suppressed on followers** per the B.1 DRIVE/FOLLOW table.
-- [ ] Step 2: **Branch + loop** ride the path-list (the appended guid IS the resolved branch); first-completion-wins, no decider (map §10.5).
-- [ ] Step 3: Effects are **display-only on followers** (the driver owns the param writes).
-- [ ] Step 4: Wire the declared networked params (the ex-switchboard states) from the LabConsole list (no hand-typed `stateID`).
-- [ ] Step 5: **[HUMAN - on-device]** two-client VR proof: AnyCompletes + branch + loop + late-join + authority-drop. AR / no-Fusion: assert trace-identical to the Phase A golden (the Local passthrough).
+**Steps (progress tracking):** *(DATA PLANE built 2026-06-29; full interactive co-op = post-B2 on-device.)*
+- [~] Step 1: follower path - **built:** `FusionScenarioPath` (replicated entered-guid ring) + `LabConsole` binds it (SP binds nothing -> runner byte-identical) + `ScenarioRunner.RunFollower` mirrors the frontier (jump + display-only AV + matching step facts), only reachable when bound AND `!IsDriver`. **post-B2 on-device:** full auto-resolving suppression for interactive steps + first-completion-wins.
+- [~] Step 2: branch + loop ride the path-list - the driver appends the entered guid (the resolved branch); the follower follows it. **post-B2:** first-completion-wins RPC across peers.
+- [~] Step 3: effects display-only on followers - `DisplayOnlyForFollower` (Timeline play / Event onEnter / session facts); followers never append (driver owns writes).
+- [~] Step 4: declared-param wiring - **wired (2026-06-30):** LabConsole resolves an optional networked `IParamStore` component (self+children) and, when present, fronts the local store with `RoutedParamStore` - a scope router that sends **Networked-scope** ids to `NetworkedParamStore` (replicated + authority-sequenced Add/Multiply via its RPCs) and keeps **Local-scope** ids client-local; `ParamChanged` aggregates both for the StatsUI mirror. Resolves via Core's `IParamStore` so no Scenario->Networking asmdef dep; SP/no-Fusion resolves null -> store IS the LocalParamStore -> **byte-identical to B.1** (no new serialized field on LabConsole; router is `internal` -> no public API). **post-B2 on-device:** verification needs a 2-client Fusion lab; provenance/actor tracking is a follow-up. See open-decisions C3.
+- [ ] Step 5: **[HUMAN - on-device]** two-client VR proof (AnyCompletes + branch + loop + late-join + authority-drop); AR no-Fusion trace-identical (binds nothing).
 
 **Acceptance.** Two-client VR sync (AnyCompletes + branch + late-join) green; AR no-Fusion trace-identical; followers never re-decide.
 
@@ -184,11 +192,11 @@ portal readout/render; the org-level consent flag.
 
 **Scope / files.** The DevKit Localization module (B1.5); the baked StringTables.
 
-**Steps (progress tracking):**
-- [ ] Step 1: Key the remaining lab + analytics-facing strings (rubric labels, `notifyInScene` text) via the B1.5 pipeline.
-- [ ] Step 2: Author the Greek + English string sets through the relocated translate prompt (drafted, human-reviewed).
-- [ ] Step 3: Build-bake the StringTables as the launch source (cloud resolver is post-launch; baked = the offline fallback).
-- [ ] Step 4: Verify Greek + English render at runtime on **VR + AR** from the same keyed source.
+**Steps (progress tracking):** *(RUNTIME built 2026-06-29; running the pipeline ON REAL LABS = post-B2, per Stergios.)*
+- [~] Step 1: keying - the `[Localize]` **scan tool is built** (`LocalizeScan`, menu item, recurses data-asset fields). **post-B2:** running it on the real lab strings (rubric labels / `notifyInScene` text) + de-hardcoding `SelectionLists`. (Quiz strings already keyed in B1.5.)
+- [~] Step 2: Greek + English - **sample EN/EL provided** (`SampleLocalizationStrings`) to verify rendering now. **post-B2:** authoring the full content through the translate round-trip.
+- [ ] Step 3: build-bake StringTables - **resolver built** (`StringTableLocalizationLookup`, gated `PITECH_HAS_LOCALIZATION`, reads the baked tables). **post-B2:** baking the actual tables (the pipeline-on-labs).
+- [~] Step 4: verify render - verifiable NOW via the sample (`LocalizationServices.Install(new DictionaryLocalizationLookup(SampleLocalizationStrings.Greek))` -> Quiz renders Greek). Full VR+AR from baked tables = post-B2.
 
 **Acceptance.** Greek + English render on AR + VR from the keyed, build-baked source.
 
@@ -202,16 +210,38 @@ portal readout/render; the org-level consent flag.
 
 **Scope / files.** `Runtime/Vitals/` (typed `PatientVitals` + the `Vital` binding); `IAgentStateSource`.
 
-**Steps (progress tracking):**
-- [ ] Step 1: `Vital` = a typed `ConsoleParameter` (param-store-backed) + a **3D binding** (the binding kinds `ControlOptionManager` already does: slider->timeline-speed / animator-param / field).
-- [ ] Step 2: `PatientVitals` as the single typed model (pulse / breathing / BP / temp ...), additive alongside the existing scattered VR logic (not a cutover).
-- [ ] Step 3: Wire at least one real 3D binding through the typed model (e.g. the breathing-blendshape timeline-speed vital).
-- [ ] Step 4: Implement `IAgentStateSource` on `PatientVitals` so VICKY-observe reads structured state off the seam.
-- [ ] Step 5: Evaluate-Changes - additive, no lab regressed.
+**Steps (progress tracking):** *(code 2026-06-29)*
+- [x] Step 1: `Vital` = typed value + 3D binding (TimelineSpeed / AnimatorParameter / Field - the `ControlOptionManager` kinds).
+- [x] Step 2: `PatientVitals` - the single typed model, owns its own `LocalParamStore` (decoupled from LabConsole), additive.
+- [ ] Step 3: wire >=1 real 3D binding through the model (e.g. breathing-blendshape Timeline-speed) - **code supports it; the real scene binding is author-side/post-B2.**
+- [x] Step 4: `IAgentStateSource` on `PatientVitals` (`Core/IAgentStateSource`) - VICKY-observe reads structured state.
+- [ ] Step 5: **[HUMAN verify]** Evaluate-Changes - additive, no lab regressed.
 
 **Acceptance.** Typed `PatientVitals` drives >=1 real binding + exposes `IAgentStateSource`. (Full twin + the `ControlOptionManager` PUN->Fusion convergence = post-launch.)
 
 **Gate.** B1.2; Evaluate-Changes. **(Slip-eligible: never blocks B2.1-B2.5.)**
+
+---
+
+## WS B2.7 - Authoring UX: visual params + networked-state components
+
+**Goal.** Make the B.1 systems AUTHORABLE - B.1 landed the inert data + runtime; this is the editor/visual layer authors actually use. (Stergios request 2026-06-29)
+
+**Scope / files.** `Editor/Scenario.Editor/` (LabConsole params authoring); `Runtime/Networking/` + an editor folder (graduate the state trigger/listener components + their inspectors).
+
+**Steps (progress tracking):** *(code 2026-06-29)*
+- [x] Step 1: visual params editor - `ConsoleParameterDrawer` (type-aware row: id/type/conditional default/min-max/scope + inline validation: empty id, max<=min) + **`LabConsoleEditor`** (2026-06-30): a first-class **Parameters** section over the private `parameters` list (add/remove/reorder via the drawer). *(cross-sibling unique-id not enforced - minor.)*
+- [x] Step 2: **play-mode live values - DONE 2026-06-30.** `LabConsoleEditor` shows each declared parameter's live runtime value in Play Mode, read from the internal `LabConsole.Params` via an editor `InternalsVisibleTo` grant (no public accessor needed). Closes the prior deferral (open-decisions C7/F7).
+- [x] Step 3: graduate triggers - DevKit `PhysicsStateTrigger` + `UIStateTrigger` resolve `GetComponentInParent<ILabStateStore>()`, no static Instance.
+- [x] Step 4: graduate listeners - DevKit `EventStateListener` (subscribes to `StateChanged`, no polling) + `TimelineStateListener` (Fusion-gated NetworkBehaviour, resolves the store).
+- [x] Step 5: dropdown inspectors - `StateComponentEditors` pick `stateID` from the nearest LabConsole's declared **bool** params (free-text fallback).
+- [ ] Step 6: **[HUMAN verify]** Evaluate-Changes - additive; AR (no Fusion) compiles (triggers/listeners resolve the Local store; Timeline listener compiles out).
+
+**Acceptance.** Authors declare params and wire named states through DevKit components with dropdowns (no hand-typed ids); works in SP (Local store) and networked (Fusion store).
+
+**Gate.** B1.2 params + B1.3 stores; Evaluate-Changes.
+
+> **WS tag.** The component graduation (Steps 3-5) is LAUNCH-relevant - the post-B2 VR migration re-wires labs onto these; the params editor + live readout (Steps 1-2) are usability polish (CAN_TRAIL). This GRADUATES the components into the DevKit (makes them available + visual); RE-WIRING the existing VR labs onto them is the **post-B2 migration** (below).
 
 ---
 
@@ -230,6 +260,14 @@ the grade is **re-computed** from `(rubric + events)` - never shipped pre-scored
 - **Cloud lane (B2.3)** runs in parallel from G2; **DevKit analytics (B2.1/B2.2)** after 07-07; they meet at the equivalence fixture.
 - **On-device end-to-end + the 2-client MP proof** fold into the **Phase C** integration window before the store gate.
 
+## Post-B2: HealthOn VR migration (the actual switch - Phase C window)
+
+Per Stergios (2026-06-29): the **full HealthOn VR migration happens ONCE, after B1+B2** - not piecemeal. Until then VR consumes the DevKit but keeps its own components; B1/B2 are verified by test. The migration is **ask-first** (VR repo), in a Unity loop:
+- **Networked state:** replace VR `NetworkStateManager` with a thin `[Obsolete]` facade forwarding to the resolved DevKit store; re-point the 4 networked scenes (AMEA / MoMt / Ioanninon / DIPAE) to `NetworkedLabStateStore` + re-enter `defaultStates`; re-wire triggers/listeners to the graduated B2.7 components. (closes B1.3 S5)
+- **Localization:** GUID-carry the VR `Editor/Localization` pipeline + `LanguageSwitcher` / `DoNotLocalize` into the DevKit module; delete the VR copies; run the `[Localize]` scan. (closes B1.5 S2)
+- **Params / analytics:** run the StatsConfig upgrader on the launch labs + author the rubric; wire labs onto the new systems.
+- Confirm Fusion's weaver covers `Pitech.XR.Networking` on device.
+
 ## Deferred to post-launch
 
 - **AI-JUDGING / VICKY-observe** (an additive subscriber on the same events; augments, never replaces the deterministic grade).
@@ -241,14 +279,18 @@ the grade is **re-computed** from `(rubric + events)` - never shipped pre-scored
 
 ## Exit checklist + gate
 
-- [ ] **B2.1** On-device readout + session report at `SessionStop`; grade math = ratified; role gating + capacities; incomplete-never-lost; equivalence fixture green.
-- [ ] **B2.2** Drops / wrong / order from one registry; auto-detect + auto-wire; authored signals; default severities.
-- [ ] **B2.3** Session-report ingest + RLS; portal re-computes from raw; portal reducer == Unity reducer on the fixture; consent enforced.
-- [ ] **B2.4** Two-client VR (AnyCompletes + branch + late-join) green; AR no-Fusion trace-identical.
-- [ ] **B2.5** Greek + English render on AR + VR.
-- [ ] **B2.6** Typed `PatientVitals` + >=1 binding + `IAgentStateSource` (or dispositioned slip).
-- [ ] **End-to-end** one real lab, AR + VR, from the same scenario: author -> run -> on-device readout -> ingest -> portal readout.
-- [ ] **Gates** every change passed "DevKit > Evaluate Changes"; G2 + 07-07 surfaces honoured. No emoji/mojibake.
+> Legend: `[x]` code complete + (where possible) reviewed · `[~]` code complete, Unity/on-device verify pending · `[ ]` not done / deferred. Code authored 2026-06-29; **verification is Stergios' Unity pass.**
+
+- [~] **B2.1** On-device readout + session report at `SessionStop`; grade math = ratified; role gating + capacities; incomplete-never-lost; equivalence fixture green. *(code done + reviewed; host outbox impl = HUMAN/host; SP playtest pending.)*
+- [~] **B2.2** Drops / wrong / order from one registry; auto-wire; authored signals; default severities; auto-detect (InsertStep + SelectionStep). *(All code done; SP playtest pending.)*
+- [ ] **B2.3** Cloud ingest + RLS + portal. **NOT BUILT** - gated on G2 confirm + ownership.
+- [~] **B2.4** Data plane (`FusionScenarioPath` + `NetworkedParamStore`) + follower mirror + declared-param wiring (`RoutedParamStore` in LabConsole) built. *(Two-client VR proof + interactive co-op = post-B2 on-device; SP byte-identical.)*
+- [~] **B2.5** Runtime (resolver + dictionary + sample EN/EL + scan) built; Greek renders via the sample. *(Pipeline-on-real-labs + baked tables = post-B2.)*
+- [~] **B2.6** Typed `PatientVitals` + `IAgentStateSource` + binding kinds. *(Real scene binding = author-side/post-B2.)*
+- [~] **B2.7** Visual params drawer + the 4 components graduated (dropdown-wired; SP + networked). *(Play-mode live values deferred.)*
+- [~] **B.1 carry-overs** Networked param store + `FusionScenarioPath` **built** (B1.2 / B1.3); localization runtime + scan **built** (B1.5). **telemetry-on-bus NOT flipped** (B1.1 S3 / B1.8 S4) - gated on Vicky-ingestion sign-off.
+- [ ] **End-to-end** one real lab, AR + VR (author -> run -> readout -> ingest -> portal). **Pending** B2.3 + the Unity/on-device passes.
+- [ ] **Gates** **[HUMAN]** every change through "Evaluate Changes" (regen Proof B baseline; Proof C may be Inconclusive = OK for additive B.2). No emoji/mojibake (Greek sample = correct UTF-8).
 
 ## Plan self-review (coverage check)
 
@@ -278,4 +320,6 @@ run `Evaluate Changes` before every commit.
 
 | Date | WS | Event | By |
 |---|---|---|---|
+| 2026-06-29 | B2.1/B2.2/B2.4/B2.5/B2.6/B2.7 | **B.2 CODE IMPLEMENTED (Stergios: "implement all of b2, loop till done").** All DevKit-repo workstreams authored + adversarially reviewed (5-dimension workflow + verify pass: 0 confirmed blockers/majors; §11.8 math hand-verified to 0.25; SP byte-identical; asmdef topology sound). **B2.1:** AnalyticsGradeEngine (§11.8) + AnalyticsEvent/SessionEventStream + GradeResult readout + SessionReport/SessionReportJson + ISessionReportSink outbox + LabAnalytics recorder (opt-in component, NOT a LabConsole field -> Proof C safe) + in-scene notifications + AnalyticsEquivalenceFixture + EditMode test. Bracket facts (session.started/stopped) wired in the runner; report identity added to LabRuntimeContext (Core, additive) + stamped by the spawner. **Roles:** SessionRoleSelector (UI by Stergios). **B2.2:** AnalyticsSubject + AnalyticsSignalEmitter (raw facts) + recorder classification (interaction.used -> correct/wrong/order) + LabAnalyticsEditor auto-detect/auto-wire. **B2.4:** FusionScenarioPath + NetworkedParamStore (Fusion-gated, proven NetworkedLabStateStore patterns) + LabConsole flow-store bind (SP-safe) + RunFollower mirror (full interactive co-op = post-B2 on-device). **B2.7:** 4 graduated state components (resolve ILabStateStore, no static Instance) + dropdown inspectors + ConsoleParameter drawer (S2 live-values deferred). **B2.5:** StringTableLocalizationLookup (gated) + DictionaryLocalizationLookup + sample EN/EL + [Localize] scan (pipeline-on-labs = post-B2). **B2.6:** Vital + PatientVitals + IAgentStateSource. **NOT done:** B2.3 cloud (gated on G2 confirm + ownership); telemetry-on-bus carry-over left OFF (Vicky-ingestion sign-off). Verification = Stergios' Unity pass (guides/2026-06-29-B2-unity-testing-guide.md); open calls in guides/2026-06-29-B2-open-decisions.md. | Claude Code |
+| 2026-06-29 | scope | **B.1 deferrals + visual-authoring folded into B.2 (Stergios).** Added the "Carried over from B.1" list (telemetry-on-bus B1.1 S3 + B1.8 S4 -> B2.1; Networked param store B1.2 -> B2.4; `FusionScenarioPath` must be BUILT B1.3 -> B2.4; Fusion weaver coverage; localization runtime/scan B1.5 -> B2.5). Added **WS B2.7 - Authoring UX** (visual params editor + live values; graduate the networked-state trigger/listener components with dropdown inspectors; work in SP via the Local store + networked via the Fusion store). Added the **Post-B2 HealthOn VR migration** section (the deferred one-shot switch: NetworkStateManager facade + 4-scene re-point, localization GUID-carry, lab param/rubric authoring, weaver check). | Claude Code |
 | 2026-06-26 | - | Plan authored from the architecture map (decision log -> 2026-06-26b); B.2 column projected to WS B2.1-B2.6; the session-report schema is the G2 cross-surface freeze; built on the B.1 foundation. | Claude Code |

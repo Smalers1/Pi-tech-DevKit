@@ -4,10 +4,8 @@ using UnityEngine.UIElements;
 namespace Pitech.XR.Core.Editor
 {
     // Cockpit page: LOCALIZATION - keyed Greek + English, baked at build time. Promoted to a
-    // top-level Hub destination at the user's request. The module itself is RESERVED: the
-    // authoring + runtime logic land in Phase B (WS B7, spec §28.3). Until then this page
-    // documents the planned capability and performs no actions (observer-only, like the rest
-    // of the cockpit).
+    // top-level Hub destination at the user's request. The authoring + runtime logic shipped in
+    // Phase B (WS B7); this page is the top-level destination for it.
     public sealed class LocalizationPage : IDevkitPage
     {
         public string Title => "Localization";
@@ -16,14 +14,14 @@ namespace Pitech.XR.Core.Editor
         {
             var section = DevkitTheme.Section("Localization");
             section.Add(DevkitTheme.Body(
-                "Keyed Greek + English strings, baked at build time. This module is reserved - " +
-                "the authoring and runtime logic land in Phase B (WS B7, spec §28.3).",
+                "Keyed Greek + English strings, baked at build time. The authoring and runtime " +
+                "logic shipped in Phase B (WS B7).",
                 dim: true));
             section.Add(DevkitTheme.VSpace(10));
 
             var grid = DevkitWidgets.TileGrid();
             grid.Add(DevkitWidgets.Card(
-                "Localization (coming in Phase B)",
+                "Localization",
                 "Keyed string tables for Greek + English, resolved per-locale and baked into the build.",
                 DevkitWidgets.Actions(),
                 PlannedBody()));
@@ -36,7 +34,7 @@ namespace Pitech.XR.Core.Editor
         static VisualElement PlannedBody()
         {
             var body = new VisualElement();
-            body.Add(DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Neutral, "Reserved")));
+            body.Add(DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Success, "Available")));
             body.Add(DevkitTheme.VSpace(8));
 
             string[] planned =
@@ -44,7 +42,7 @@ namespace Pitech.XR.Core.Editor
                 "Author keyed strings once; resolve the active locale at runtime.",
                 "Greek + English at launch; the locale is baked at build time (no live download).",
                 "Scenario text - cue cards, questions, prompts - resolves through the table.",
-                "Arrives in Phase B WS B7 (spec §28.3); reserved here as a top-level destination.",
+                "Shipped in Phase B WS B7; a top-level Hub destination.",
             };
             for (int i = 0; i < planned.Length; i++)
             {

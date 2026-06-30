@@ -31,8 +31,8 @@ namespace Pitech.XR.Analytics
         [Tooltip("Human-readable label shown in LabConsole and on the lab-end readout.")]
         public string label;
 
-        [Tooltip("Relative weight of this metric within its analytic (a normalized weighted mean - weights are relative, not percentages).")]
-        public float weight = 1f;
+        [Tooltip("Relative weight (0-1) of this metric within its analytic (a normalized weighted mean - weights are relative, not percentages).")]
+        [Range(0f, 1f)] public float weight = 1f;
 
         [Tooltip("Scoring bands - the warning/error mechanism. Default scale: none 0 / warning 0.5 / error 1.0 (author-overridable).")]
         public List<ScoringBand> bands = ScoringBand.DefaultBands();
@@ -87,6 +87,21 @@ namespace Pitech.XR.Analytics
     public sealed class OrderMetric : AnalyticsMetric
     {
         public const string KindId = "Order";
+        public override string Kind => KindId;
+    }
+
+    /// <summary>Count of authored failure SIGNALS that fire for this metric (a count kind). Unlike the
+    /// DERIVED kinds (drop / wrong / order, which the recorder classifies from interactions), a signal is
+    /// an EXPLICIT authored event raised via <c>AnalyticsSignalEmitter</c>. It is matched to THIS metric by
+    /// id - an event counts only when its <c>signalId</c> equals this metric's <see cref="AnalyticsMetric.id"/>
+    /// - so authored-failure scoring is its OWN typed kind, not piggy-backed on an unrelated count metric.
+    /// Default per-occurrence severity is Error (author-overridable via the bands). Scope under a
+    /// <see cref="StepAnalytic"/> (signals raised while that step is current) or a <see cref="SceneAnalytic"/>
+    /// (all signals in the bracket).</summary>
+    [Serializable]
+    public sealed class SignalMetric : AnalyticsMetric
+    {
+        public const string KindId = "Signal";
         public override string Kind => KindId;
     }
 }

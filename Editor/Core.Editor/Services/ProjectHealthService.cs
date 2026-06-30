@@ -22,7 +22,7 @@ namespace Pitech.XR.Core.Editor
 
         static readonly string[] RecommendedSceneRoots = new[]
         {
-            "--- LIGHTING ---","--- SCENE MANAGERS ---","--- ENVIRONMENT ---","--- INTERACTABLES ---",
+            "--- LIGHTING ---",SceneRootNames.ManagersRoot,"--- ENVIRONMENT ---","--- INTERACTABLES ---",
             "--- TIMELINES ---","--- UI ---","--- AUDIO ---","--- VFX ---","--- CAMERAS ---","--- DEBUG ---"
         };
 
@@ -37,7 +37,11 @@ namespace Pitech.XR.Core.Editor
             var s = SceneManager.GetActiveScene();
             if (!s.IsValid() || !s.isLoaded) return (0, RecommendedSceneRoots.Length, RecommendedSceneRoots);
             var names = s.GetRootGameObjects().Select(g => g.name).ToHashSet();
-            var missing = RecommendedSceneRoots.Where(n => !names.Contains(n)).ToArray();
+            // Backward-compat: the managers root counts as present under either its canonical or legacy name.
+            var missing = RecommendedSceneRoots
+                .Where(n => !names.Contains(n)
+                    && !(SceneRootNames.IsManagersRoot(n) && names.Any(SceneRootNames.IsManagersRoot)))
+                .ToArray();
             return (RecommendedSceneRoots.Length - missing.Length, RecommendedSceneRoots.Length, missing);
         }
 

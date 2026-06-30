@@ -2,7 +2,8 @@
     "name": "Pitech.XR.Analytics",
     "rootNamespace": "Pitech.XR.Analytics",
     "references": [
-        "Pitech.XR.Core"
+        "Pitech.XR.Core",
+        "Unity.TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

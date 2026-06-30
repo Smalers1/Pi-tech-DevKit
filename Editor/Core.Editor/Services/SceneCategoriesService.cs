@@ -13,7 +13,7 @@ namespace Pitech.XR.Core.Editor
         public static readonly string[] DefaultCategories = new[]
         {
             "--- LIGHTING ---",
-            "--- SCENE MANAGERS ---",
+            SceneRootNames.ManagersRoot,
             "--- ENVIRONMENT ---",
             "--- INTERACTABLES ---",
             "--- TIMELINES ---",

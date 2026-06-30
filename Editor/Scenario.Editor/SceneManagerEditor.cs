@@ -24,7 +24,9 @@ namespace Pitech.XR.Scenario.Editor
         SerializedProperty _quizPanelProp;        // Pitech.XR.Quiz.QuizUIController
         SerializedProperty _quizResultsPanelProp; // Pitech.XR.Quiz.QuizResultsUIController
         SerializedProperty _contentDeliveryProp;  // Pitech.XR.ContentDelivery.ContentDeliverySpawner (as MonoBehaviour)
-        const string ManagersRootName = "--- SCENE MANAGERS ---";
+        SerializedProperty _parametersProp;        // Pitech.XR.Core.ConsoleParameter list (the typed param store)
+        const string ManagersRootName = "--- SCENE SETUP ---";              // canonical (2026-06-30 rename)
+        const string LegacyManagersRootName = "--- SCENE MANAGERS ---";     // pre-rename name, still resolved
 
         // ❌ DO NOT cache EditorStyles in static fields — causes NREs on domain reload
         static GUIStyle TitleStyle => EditorStyles.boldLabel;
@@ -42,6 +44,7 @@ namespace Pitech.XR.Scenario.Editor
             _quizPanelProp = serializedObject.FindProperty("quizPanel");
             _quizResultsPanelProp = serializedObject.FindProperty("quizResultsPanel");
             _contentDeliveryProp = serializedObject.FindProperty("contentDelivery");
+            _parametersProp = serializedObject.FindProperty("parameters");
 
         }
 
@@ -61,7 +64,10 @@ namespace Pitech.XR.Scenario.Editor
             DrawScenarioFeature();
             EditorGUILayout.Space(6);
             DrawStatsFeature();
-            
+
+            EditorGUILayout.Space(6);
+            DrawParametersFeature();
+
             EditorGUILayout.Space(6);
             DrawInteractablesFeature();
             
@@ -70,6 +76,9 @@ namespace Pitech.XR.Scenario.Editor
 
             EditorGUILayout.Space(6);
             DrawContentDeliveryFeature();
+
+            EditorGUILayout.Space(6);
+            DrawAnalyticsFeature(gm);
 
             EditorGUILayout.Space(8);
             if (_autoStartProp != null)
@@ -153,6 +162,69 @@ namespace Pitech.XR.Scenario.Editor
                     if (GUILayout.Button("Create & assign StatsConfig asset", GUILayout.Height(22)))
                         CreateAndAssignStatsConfig();
                 }
+            }
+        }
+
+        // --------------------------------------------------------------------
+        // Features: Parameters (the typed param store - Stats successor; bool params double as lab states)
+        // --------------------------------------------------------------------
+        void DrawParametersFeature()
+        {
+            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+            {
+                EditorGUILayout.LabelField("Parameters", TitleStyle);
+                if (_parametersProp == null)
+                {
+                    EditorGUILayout.HelpBox("LabConsole.parameters not found. Recompile scripts and reopen the inspector.", MessageType.Warning);
+                    return;
+                }
+
+                EditorGUILayout.PropertyField(_parametersProp,
+                    new GUIContent("Parameters",
+                        "Typed parameters for this lab (the Stats successor). They seed the runtime store; bool params double as lab states for triggers/listeners."),
+                    true);
+
+                if (Application.isPlaying) DrawLiveParamValues();
+                else EditorGUILayout.HelpBox("Enter Play mode to see each parameter's live runtime value.", MessageType.None);
+            }
+        }
+
+        void DrawLiveParamValues()
+        {
+            var console = (Pitech.XR.Scenario.LabConsole)target;
+            Pitech.XR.Core.IParamStore store = console.Params;   // internal; visible via InternalsVisibleTo
+            if (store == null) return;
+
+            EditorGUILayout.Space(2);
+            EditorGUILayout.LabelField("Live values (runtime)", EditorStyles.miniBoldLabel);
+            using (new EditorGUI.IndentLevelScope())
+            using (new EditorGUI.DisabledScope(true))
+            {
+                if (_parametersProp.arraySize == 0)
+                    EditorGUILayout.LabelField("(no parameters declared)");
+
+                for (int i = 0; i < _parametersProp.arraySize; i++)
+                {
+                    SerializedProperty idProp = _parametersProp.GetArrayElementAtIndex(i).FindPropertyRelative("id");
+                    string id = idProp != null ? idProp.stringValue : null;
+                    if (string.IsNullOrEmpty(id)) continue;
+                    string shown = store.TryGet(id, out Pitech.XR.Core.ParamValue v) ? FormatParamValue(v) : "(unset)";
+                    EditorGUILayout.LabelField(id, shown);
+                }
+            }
+            Repaint();   // keep the live values refreshing while playing
+        }
+
+        static string FormatParamValue(in Pitech.XR.Core.ParamValue v)
+        {
+            switch (v.Type)
+            {
+                case Pitech.XR.Core.ParamType.Bool: return v.AsBool() ? "true" : "false";
+                case Pitech.XR.Core.ParamType.Int: return v.AsInt().ToString();
+                case Pitech.XR.Core.ParamType.Float: return v.AsFloat().ToString("0.###");
+                case Pitech.XR.Core.ParamType.Enum: return "enum " + v.AsInt();
+                case Pitech.XR.Core.ParamType.String: return "\"" + v.AsString() + "\"";
+                default: return v.AsString();
             }
         }
 
@@ -263,6 +335,90 @@ namespace Pitech.XR.Scenario.Editor
                         MessageType.Info);
                 }
             }
+        }
+
+        // --------------------------------------------------------------------
+        // Features: Analytics (the lab's LabAnalytics recorder - a SIBLING "Analytics" object, not on this console).
+        // LabConsole holds no serialized link to it (the recorder self-resolves the bus), so this is a RESOLVED
+        // navigation link: find it anywhere under the lab root and offer Select/Ping, or an Add button if absent.
+        // --------------------------------------------------------------------
+        void DrawAnalyticsFeature(Pitech.XR.Scenario.LabConsole console)
+        {
+            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+            {
+                EditorGUILayout.LabelField("Analytics", TitleStyle);
+
+                Pitech.XR.Analytics.LabAnalytics la = ResolveLabAnalytics(console);
+
+                MiniCaption("Lab Analytics recorder");
+                using (new EditorGUI.DisabledScope(true))
+                    EditorGUILayout.ObjectField(GUIContent.none, la, typeof(Pitech.XR.Analytics.LabAnalytics), true);
+
+                if (la != null)
+                {
+                    using (new EditorGUILayout.HorizontalScope())
+                    {
+                        if (GUILayout.Button("Select", GUILayout.Height(20)))
+                        {
+                            Selection.activeObject = la.gameObject;
+                            EditorGUIUtility.PingObject(la.gameObject);
+                        }
+                        if (GUILayout.Button("Ping", GUILayout.Height(20)))
+                            EditorGUIUtility.PingObject(la.gameObject);
+                    }
+                    EditorGUILayout.HelpBox(
+                        "Authored on a sibling \"Analytics\" object. Step analytics live on the step nodes in the " +
+                        "Scenario Graph; scene-wide analytics + objectives are on the Analytics object.",
+                        MessageType.None);
+                }
+                else
+                {
+                    EditorGUILayout.HelpBox("No Lab Analytics recorder in this lab yet (the lab is ungraded).", MessageType.None);
+                    if (GUILayout.Button("Add Lab Analytics", GUILayout.Height(22)))
+                        CreateAndAssignAnalytics(console);
+                }
+            }
+        }
+
+        // Resolve the lab's LabAnalytics anywhere under the lab ROOT (so a sibling "Analytics" object resolves).
+        static Pitech.XR.Analytics.LabAnalytics ResolveLabAnalytics(Pitech.XR.Scenario.LabConsole console)
+        {
+            if (console == null) return null;
+            GameObject labRoot = console.transform.root.gameObject;
+            return labRoot.GetComponentInChildren<Pitech.XR.Analytics.LabAnalytics>(true);
+        }
+
+        // Create the recorder on a SIBLING "Analytics" object (next to this console) + ensure a LabRuntimeContext on
+        // the lab ROOT (the common ancestor, so the shared bus resolves by parent-walk). Mirrors the graph's flow.
+        void CreateAndAssignAnalytics(Pitech.XR.Scenario.LabConsole console)
+        {
+            if (console == null) return;
+            Transform anchor = console.transform;
+            GameObject labRoot = anchor.root.gameObject;
+
+            if (labRoot.GetComponent<Pitech.XR.Core.LabRuntimeContext>() == null)
+                Undo.AddComponent<Pitech.XR.Core.LabRuntimeContext>(labRoot);
+
+            Transform parent = anchor.parent;   // sibling => same parent as the console
+            GameObject go = null;
+            if (parent != null)
+            {
+                Transform existing = parent.Find("Analytics");
+                if (existing != null) go = existing.gameObject;
+            }
+            if (go == null)
+            {
+                go = new GameObject("Analytics");
+                Undo.RegisterCreatedObjectUndo(go, "Create Analytics object");
+                go.transform.SetParent(parent, false);   // null parent => a scene-root sibling
+            }
+
+            var la = go.GetComponent<Pitech.XR.Analytics.LabAnalytics>();
+            if (la == null) la = Undo.AddComponent<Pitech.XR.Analytics.LabAnalytics>(go);
+
+            EditorSceneManager.MarkSceneDirty(go.scene);
+            Selection.activeObject = go;
+            EditorGUIUtility.PingObject(go);
         }
 
         void CreateAndAssignSelectablesManager()
@@ -505,7 +661,7 @@ namespace Pitech.XR.Scenario.Editor
                 return null;
             }
 
-            var root = s.GetRootGameObjects().FirstOrDefault(g => g.name == ManagersRootName);
+            var root = s.GetRootGameObjects().FirstOrDefault(g => g.name == ManagersRootName || g.name == LegacyManagersRootName);
             if (!root)
             {
                 root = new GameObject(ManagersRootName);

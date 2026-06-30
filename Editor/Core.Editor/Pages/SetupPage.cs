@@ -7,8 +7,8 @@ namespace Pitech.XR.Core.Editor
 {
     // Cockpit page: SETUP - project scaffolding, scene/project health, and workspace launchers.
     // The System Status + Project Setup blocks are moved verbatim from the former DashboardPage
-    // (WS A2 Step 4 re-home). Adds the Scene Categories launch tile (Step 4) and the reserved
-    // Networking module tile (Step 7 -> Setup).
+    // (WS A2 Step 4 re-home). Adds the Scene Categories launch tile (Step 4) and the Networking
+    // module tile (Step 7 -> Setup).
     public sealed class SetupPage : IDevkitPage
     {
         public string Title => "Setup";
@@ -154,26 +154,20 @@ namespace Pitech.XR.Core.Editor
                 root.Add(section);
             }
 
-            // ===== Reserved module: Networking (Step 7 -> Setup tile) =====
+            // ===== Networking module (foundation shipped; full co-op sync is post-launch) =====
             {
-                var section = DevkitTheme.Section("Reserved modules");
+                var section = DevkitTheme.Section("Networking");
                 var grid = DevkitWidgets.TileGrid();
-                grid.Add(ReservedTile(
+                grid.Add(DevkitWidgets.Card(
                     "Networking (Make Multiplayer)",
-                    "Multiplayer step-sync. Reserved slot - logic lands after launch (spec §28.2)."));
+                    "Networked parameter + state stores ship in the DevKit (Fusion-gated). Full multiplayer step-sync co-op lands after the 1.0 launch.",
+                    DevkitWidgets.Actions(),
+                    DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Warning, "Post-launch"))));
                 section.Add(grid);
                 root.Add(section);
             }
         }
 
-        // Reserved-module tile: announces a future module. No action, no behaviour (Phase A
-        // reserves the slot only). Body carries a Neutral "Reserved" pill.
-        static VisualElement ReservedTile(string title, string subtitle) =>
-            DevkitWidgets.Card(
-                title,
-                subtitle,
-                DevkitWidgets.Actions(),
-                DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Neutral, "Reserved")));
     }
 }
 #endif

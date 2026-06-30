@@ -19,7 +19,7 @@ using UIEButton = UnityEngine.UIElements.Button;
 public partial class ScenarioGraphWindow
 {
     // ======== Node (with “Edit…” button & working edge connectors) ========
-    class StepNode : Node
+    partial class StepNode : Node
     {
         readonly ScenarioGraphWindow owner;
         public readonly Scenario scenario;
@@ -46,6 +46,7 @@ public partial class ScenarioGraphWindow
         public bool IsExpanded => _foldout != null && _foldout.value;
         public bool GroupSettingsExpanded => _foldout == null ? true : _foldout.value;
         bool _resizeQueued;
+        bool _resizing;            // true while the bottom-right handle is being dragged (suppresses auto-fit)
         Label _groupSummaryLabel;
         UIEButton _groupFoldBtn;
         VisualElement _resizeHandle;
@@ -114,12 +115,16 @@ public partial class ScenarioGraphWindow
             {
                 if (UserSized)
                 {
+                    // Manual size from the drag handle: honor the WIDTH, treat the HEIGHT as a FLOOR (minHeight) and
+                    // keep height Auto. Previously height was FIXED here, which froze the node so opening Settings (or
+                    // any body growth) could no longer auto-grow it. Floor + Auto = the manual size sticks, but the
+                    // node still auto-sizes downward to fit content. (Fixes "auto-sizing stops after a manual resize".)
                     var us = UserSize;
                     style.minWidth = 120f;
                     style.maxWidth = StyleKeyword.None;
                     style.width = us.x;
-                    style.minHeight = 80f;
-                    style.height = us.y;
+                    style.minHeight = us.y;
+                    style.height = new StyleLength(StyleKeyword.Auto);
                 }
                 else
                 {
@@ -132,6 +137,9 @@ public partial class ScenarioGraphWindow
             title = TitlePrefix() + NodeSummary(s);
             var tbox = this.Q("title");
             var titleLabel = tbox?.Q<Label>();
+            // Pin the colored header so it keeps a FIXED height when the node auto-grows to fit open settings
+            // (it must not shrink/grow with the body; the body extends DOWNWARD instead - height stays Auto).
+            if (tbox != null) { tbox.style.flexShrink = 0; tbox.style.flexGrow = 0; }
 
             if (s is TimelineStep) tbox.style.backgroundColor = new Color(0.20f, 0.42f, 0.85f);
             if (s is CueCardsStep) tbox.style.backgroundColor = new Color(0.32f, 0.62f, 0.32f);
@@ -231,6 +239,12 @@ public partial class ScenarioGraphWindow
             editBtn.style.marginLeft = 6;
             titleContainer.Add(editBtn);
 
+            // In-graph StepAnalytic sidecar "brick" (WS B2.2): when this step owns a StepAnalytic, a white,
+            // collapsible block sits at the top of the node body with its metrics edited INLINE - no inspector
+            // trip (built in ScenarioGraphWindow.StepAnalyticBrick.cs). Skipped for nested tiles.
+            if (!IsNested)
+                BuildStepAnalyticBrick(s);
+
             // Bottom-right drag handle to resize the node (non-group, non-nested only).
             if (!IsNested && s is not GroupStep)
             {
@@ -273,9 +287,17 @@ public partial class ScenarioGraphWindow
 
                 // Non-group nodes: resize immediately based on deterministic height calc.
                 // Skip when the user has manually sized the node — their size wins.
-                if (step is not GroupStep && !UserSized)
+                if (step is not GroupStep)
                 {
-                    if (fold.value)
+                    if (UserSized)
+                    {
+                        // Manually-sized node: keep the user's width and auto-size height with their height as a floor,
+                        // so opening/closing Settings still grows/shrinks the node to fit (auto-sizing keeps working
+                        // after a manual resize).
+                        style.minHeight = UserSize.y;
+                        style.height = new StyleLength(StyleKeyword.Auto);
+                    }
+                    else if (fold.value)
                     {
                         // Expand width a bit for editing comfort.
                         float w = ExpandedWidthFor(step);
@@ -1272,6 +1294,19 @@ public partial class ScenarioGraphWindow
             // Attach a sticky note to this node (follows it when moved, drawn with a connector line).
             evt.menu.AppendAction("Add Attached Note", _ => owner?.AddAttachedNote(step));
 
+            // In-graph Step Analytic authoring (WS B2.2): add / edit / remove this step's analytics sidecar
+            // straight from the node (the graph is the main authoring surface). The menu reflects current state.
+            evt.menu.AppendSeparator();
+            if (owner != null && owner.StepHasAnalytic(step.guid))
+            {
+                // Editing happens inline in the node's white analytic brick; the menu only offers removal.
+                evt.menu.AppendAction("Remove Step Analytic", _ => owner?.RemoveStepAnalytic(step));
+            }
+            else
+            {
+                evt.menu.AppendAction("Add Step Analytic", _ => owner?.AddStepAnalytic(step));
+            }
+
             // When several nodes are selected, offer to wrap the whole selection in a group box.
             int selCount = graph?.selection?.OfType<StepNode>().Count() ?? 0;
             if (selCount >= 2)
@@ -1825,11 +1860,11 @@ public partial class ScenarioGraphWindow
             // Persist + relative handling is centralized in graphViewChanged to avoid double-Undo and ordering bugs.
             // When expanded, don't freeze height/width from GraphView drags; keep auto-height based on content.
             // GraphView passes a rect including the current size; applying it would make height fixed and clip later.
-            if (!IsNested && step is not GroupStep && _foldout != null && _foldout.value && !UserSized)
+            if (!IsNested && step is not GroupStep && _foldout != null && _foldout.value)
             {
                 style.left = newPos.xMin;
                 style.top = newPos.yMin;
-                // Width is fixed in our UX; height remains Auto.
+                // Width is fixed in our UX (manual width preserved for resized nodes); height remains Auto.
                 return;
             }
 
@@ -1839,13 +1874,15 @@ public partial class ScenarioGraphWindow
         public void SetPositionSilent(Rect newPos)
         {
             // Same rule as SetPosition: when expanded, keep auto-height (and fixed width) but move position silently.
-            if (!IsNested && step is not GroupStep && _foldout != null && _foldout.value && !UserSized)
+            if (!IsNested && step is not GroupStep && _foldout != null && _foldout.value)
             {
                 style.left = newPos.xMin;
                 style.top = newPos.yMin;
-                style.width = newPos.width;
-                style.minWidth = newPos.width;
-                style.maxWidth = newPos.width;
+                // Preserve the user's manual width for resized nodes; otherwise take the laid-out width. Height Auto.
+                float w = UserSized ? UserSize.x : newPos.width;
+                style.width = w;
+                style.minWidth = w;
+                style.maxWidth = w;
                 style.height = new StyleLength(StyleKeyword.Auto);
                 return;
             }
@@ -1859,9 +1896,16 @@ public partial class ScenarioGraphWindow
         public float GetHeight()
         {
             if (IsNested) return 110f; // compact tile in container
-            if (UserSized) return UserSize.y; // honor manual resize (editor-only side-table)
             bool expandedDetails = _foldout != null && _foldout.value;
             float collapsed = GetCollapsedHeight();
+            if (UserSized)
+            {
+                // Manual height is a FLOOR, not a freeze: when expanded, grow to the real laid-out content height so
+                // stacking reserves enough room; collapsed stays at the manual height.
+                float floor = UserSize.y;
+                if (expandedDetails && layout.height > 1f) return Mathf.Max(floor, layout.height);
+                return floor;
+            }
             if (!expandedDetails) return collapsed;
             float groupHeight = 0f;
             if (step is GroupStep g)
@@ -1879,6 +1923,13 @@ public partial class ScenarioGraphWindow
         }
 
         float GetCollapsedHeight()
+        {
+            // Reserve the analytic brick's height so a collapsed step that owns a StepAnalytic doesn't clip its
+            // brick (the brick sits at the top of the node body and is always visible).
+            return GetBaseCollapsedHeight() + (_hasAnalyticBrick ? AnalyticBrickHeight : 0f);
+        }
+
+        float GetBaseCollapsedHeight()
         {
             // Compact collapsed sizes (match "small nodes" UX). Expanded sizes are handled by the Details sizing logic.
             const float small = 120f;     // header + ports + a little breathing room
@@ -1914,17 +1965,19 @@ public partial class ScenarioGraphWindow
 
         void ResizeToFitDetails()
         {
-            if (UserSized) return;
+            if (_resizing) return;   // don't fight an in-progress handle drag
             if (_foldout == null || !_foldout.value) return;
             // With auto-height, we just ensure height is Auto and let UIElements measure actual content.
             if (step is GroupStep) return;
-            style.minHeight = GetCollapsedHeight();
+            // Manual height acts as a floor; otherwise reserve the collapsed height. Height stays Auto either way so
+            // the node grows to fit open Settings - including for manually-resized nodes.
+            style.minHeight = UserSized ? UserSize.y : GetCollapsedHeight();
             style.height = new StyleLength(StyleKeyword.Auto);
         }
 
         void QueueResizeToFitDetails()
         {
-            if (UserSized) return;
+            if (_resizing) return;   // don't fight an in-progress handle drag
             if (_foldout == null || !_foldout.value) return;
             if (_resizeQueued) return;
             _resizeQueued = true;
@@ -1965,6 +2018,7 @@ public partial class ScenarioGraphWindow
                 }
 
                 resizing = true;
+                _resizing = true;
                 startMouse = e.mousePosition;
                 startSize = new Vector2(resolvedStyle.width, resolvedStyle.height);
                 if (startSize.x < 1f || float.IsNaN(startSize.x)) startSize.x = layout.width;
@@ -1999,11 +2053,15 @@ public partial class ScenarioGraphWindow
             {
                 if (!resizing) return;
                 resizing = false;
+                _resizing = false;
                 _resizeHandle.ReleaseMouse();
                 // Click-without-drag leaves a default entry behind - drop it.
                 scenario.PruneStepGraphDisplay(step.guid);
                 sizeEntry = null;
                 e.StopPropagation();
+                // Re-apply auto-fit now the drag is done: the dragged height becomes the floor and the node
+                // auto-sizes to fit taller content (so auto-sizing keeps working after the resize).
+                EditorApplication.delayCall += () => { if (this != null) ResizeToFitDetails(); };
             });
         }
 

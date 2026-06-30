@@ -28,7 +28,7 @@ namespace Pitech.XR.Core.Editor
         public List<string> tags = new();
 
         [Header("Suggested dependencies (prompted on Add)")]
-        [Tooltip("If these component types are missing in the active scene, Dev Blocks will suggest creating them under --- SCENE MANAGERS ---.\nUse full type names, e.g. 'Pitech.XR.Interactables.SelectablesManager'.")]
+        [Tooltip("If these component types are missing in the active scene, Dev Blocks will suggest creating them under --- SCENE SETUP ---.\nUse full type names, e.g. 'Pitech.XR.Interactables.SelectablesManager'.")]
         public List<string> suggestedManagerComponentTypes = new();
 
         public string EffectiveName

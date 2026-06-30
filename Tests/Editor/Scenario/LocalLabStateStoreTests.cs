@@ -82,5 +82,34 @@ namespace Pitech.XR.Scenario.Editor.Tests
             _store.Toggle("valve");
             Assert.That(_store.GetState("valve"), Is.False);
         }
+
+        // --- #1 unification: the bool-view and the runner share ONE store ---
+
+        [Test]
+        public void SharedStore_StateWriteIsVisibleToTheBackingStore()
+        {
+            // The store LabConsole hands the runner as Params is the SAME store backing the bool-view.
+            var shared = new LocalParamStore();
+            _store.Initialize(shared);
+
+            _store.SetState("WaterFlowing", true);   // a trigger (writer) sets the state
+
+            // A ConditionsStep / effect reads via LabConsole.Params == this store. Before the fix it read a
+            // DIFFERENT store and saw false; now it must see the trigger's write.
+            Assert.That(shared.GetBool("WaterFlowing"), Is.True);
+        }
+
+        [Test]
+        public void SharedStore_StoreWriteSurfacesViaGetState_AndForwardsStateChanged()
+        {
+            var shared = new LocalParamStore();
+            _store.Initialize(shared);
+
+            shared.SetBool("WaterFlowing", true);   // an effect writes the param directly
+
+            Assert.That(_store.GetState("WaterFlowing"), Is.True);   // the bool-view reflects it
+            Assert.That(_changedCount, Is.EqualTo(1));               // StateChanged forwarded the store change
+            Assert.That(_lastChangedId, Is.EqualTo("WaterFlowing"));
+        }
     }
 }

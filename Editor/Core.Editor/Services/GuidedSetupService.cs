@@ -15,7 +15,7 @@ namespace Pitech.XR.Core.Editor
     /// </summary>
     internal sealed class GuidedSetupService
     {
-        const string ManagersRootName = "--- SCENE MANAGERS ---";
+        const string ManagersRootName = SceneRootNames.ManagersRoot;   // canonical name for CREATE
         static readonly Dictionary<string, Type> TypeCache = new Dictionary<string, Type>();
 
         readonly Dictionary<string, Component> firstSceneComponentByType = new Dictionary<string, Component>();
@@ -42,7 +42,7 @@ namespace Pitech.XR.Core.Editor
             var s = ActiveScene;
             if (!s.IsValid() || !s.isLoaded) return null;
 
-            var root = s.GetRootGameObjects().FirstOrDefault(g => g.name == ManagersRootName);
+            var root = s.GetRootGameObjects().FirstOrDefault(g => SceneRootNames.IsManagersRoot(g.name));
             return root ? root.transform : null;
         }
 

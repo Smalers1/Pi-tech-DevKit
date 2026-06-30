@@ -1,0 +1,19 @@
+{
+    "name": "Pitech.XR.Localization.Editor",
+    "rootNamespace": "Pitech.XR.Localization.Editor",
+    "references": [
+        "Pitech.XR.Localization",
+        "Pitech.XR.Core"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

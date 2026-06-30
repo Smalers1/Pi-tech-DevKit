@@ -8,7 +8,9 @@ namespace Pitech.XR.Core
     /// listeners) unifies into this - a "WaterFlowing" bool is a networked boolean param, a trigger
     /// is a writer, a listener subscribes to <see cref="StateChanged"/>. Scene-authored: one store
     /// per lab on the scene-managers root, resolved via <c>GetComponentInParent&lt;ILabStateStore&gt;()</c>
-    /// (never a static Instance). Local impl: <c>LocalLabStateStore</c> (always compiled, this package).
+    /// (never a static Instance). Primary impl (P5): <c>LabConsole</c> implements this directly over its one
+    /// param store, so a lab needs NO separate component (the root LabConsole IS the store). The optional
+    /// <c>LocalLabStateStore</c> remains as a standalone bool-view for a console-less scene or a sub-tree.
     ///
     /// The NETWORKED impl GRADUATES INTO THIS PACKAGE (decision B1.3 S5, 2026-06-29 - (b)):
     /// <c>NetworkedLabStateStore : NetworkBehaviour</c> (<c>#if PITECH_HAS_FUSION</c>, in

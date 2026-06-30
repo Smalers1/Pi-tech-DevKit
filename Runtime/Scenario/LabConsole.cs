@@ -18,7 +18,7 @@ using UnityEngine.InputSystem;
 namespace Pitech.XR.Scenario
 {
     [AddComponentMenu("Pi tech/Scenario/Lab Console")]
-    public class LabConsole : MonoBehaviour, Pitech.XR.Core.ISceneRunnerControl
+    public class LabConsole : MonoBehaviour, Pitech.XR.Core.ISceneRunnerControl, Pitech.XR.Core.ILabStateStore
     {
         /// <summary>The scenario graph this manager runs (the ordered <c>[SerializeReference]</c> step list). Required for step flow.</summary>
         [Header("Scenario")]
@@ -82,14 +82,23 @@ namespace Pitech.XR.Scenario
         /// <summary>The extracted run-engine this console owns and directly drives (WS B1.7, decision 34).</summary>
         ScenarioRunner _runner;
 
-        /// <summary>WS B1.2 Step 4 (map sec-8): the runtime typed parameter store - the SOURCE OF TRUTH
-        /// that supersedes the Stats system. Seeded from <see cref="parameters"/> (and, for back-compat,
-        /// any legacy <see cref="statsConfig"/> entry not already declared) in <see cref="Awake"/>; the
-        /// legacy <see cref="runtime"/> is kept only as a display mirror via the ParamChanged bridge.</summary>
+        /// <summary>WS B1.2 Step 4 (map sec-8): the per-client local parameter store. The runtime SOURCE OF
+        /// TRUTH on single-player labs, and the Local-scope half on networked labs. Seeded from
+        /// <see cref="parameters"/> (and, for back-compat, any legacy <see cref="statsConfig"/> entry not
+        /// already declared) in <see cref="Awake"/>; the legacy <see cref="runtime"/> is kept only as a
+        /// display mirror via the ParamChanged bridge.</summary>
         Pitech.XR.Core.LocalParamStore _params;
-        /// <summary>Read-only view of the runtime param store (<see cref="_params"/>). Internal: read by
-        /// the same-assembly runner; the public-API surface is unchanged.</summary>
-        internal Pitech.XR.Core.IParamStore Params => _params;
+        /// <summary>WS B2.4 Step 4: the param store the runner actually reads/writes. EQUALS
+        /// <see cref="_params"/> on single-player / no-Fusion labs (byte-identical to B.1). On a lab that
+        /// carries a networked param store component it is a <see cref="RoutedParamStore"/> that sends
+        /// Networked-scope ids to the replicated store and Local-scope ids to <see cref="_params"/>.</summary>
+        Pitech.XR.Core.IParamStore _paramStore;
+        /// <summary>The scope router - non-null only when a networked param store was resolved; kept so
+        /// <see cref="OnDestroy"/> can detach its forwarders.</summary>
+        RoutedParamStore _routed;
+        /// <summary>Read-only view of the active runtime param store (<see cref="_paramStore"/>). Internal:
+        /// read by the same-assembly runner; the public-API surface is unchanged.</summary>
+        internal Pitech.XR.Core.IParamStore Params => _paramStore;
         /// <summary>True when this lab has any stats/param feature wired (UI, legacy config, or declared
         /// parameters). The runner gates effect application on this - preserving the legacy "no stats
         /// feature -> skip" behaviour (additive for the new declared-parameters case).</summary>
@@ -106,6 +115,33 @@ namespace Pitech.XR.Scenario
         /// <summary>Forwards <see cref="autoStart"/> for the <see cref="Pitech.XR.Core.ISceneRunnerControl"/> seam.</summary>
         public bool AutoStart { get => autoStart; set => autoStart = value; }
 
+        // --- ILabStateStore (P5 / review H4): LabConsole IS the lab's one bool-view state store, so a lab
+        // needs NO separate LocalLabStateStore component. Triggers/listeners resolve the store via
+        // GetComponentInParent<ILabStateStore>() and walk up to this root. The bool-view is sugar over the
+        // SAME _paramStore the runner reads conditions/effects from, so a trigger's SetState("WaterFlowing",
+        // true) is immediately visible to a ConditionsStep. StateChanged forwards _paramStore.ParamChanged
+        // (the store fans out change-only), covering both local writes and replicated changes from a
+        // networked backing store - one uniform path. ---
+        /// <summary>Raised with the state id whenever a named boolean (in fact any parameter) changes;
+        /// forwards the param store's <c>ParamChanged</c>. Subscribe instead of polling.</summary>
+        public event Action<string> StateChanged;
+        /// <summary>Current value of a named boolean state (false if unset, or before <see cref="Awake"/>
+        /// builds the store).</summary>
+        public bool GetState(string id) => _paramStore != null && _paramStore.GetBool(id);
+        /// <summary>Set a named boolean state on the lab's shared store. The store fans out change-only, so a
+        /// no-op write stays silent. No-op for an empty id or before <see cref="Awake"/> builds the store.</summary>
+        public void SetState(string id, bool value)
+        {
+            if (_paramStore == null || string.IsNullOrEmpty(id)) return;
+            _paramStore.SetBool(id, value);
+        }
+        /// <summary>Flip a named boolean state on the lab's shared store.</summary>
+        public void Toggle(string id)
+        {
+            if (_paramStore == null || string.IsNullOrEmpty(id)) return;
+            _paramStore.SetBool(id, !_paramStore.GetBool(id));
+        }
+
 
         void Awake()
         {
@@ -113,19 +149,42 @@ namespace Pitech.XR.Scenario
             _runner = new ScenarioRunner(this);
 
             // WS B1.2 Step 4 (map sec-8): build the typed param store (the Stats successor) - the runtime
-            // source of truth for parameters/effects/conditions. Declare authored parameters, then (for
-            // back-compat) any legacy StatsConfig entry not already declared, so an un-upgraded lab keeps
-            // working AND gains range clamp (min/max ENFORCED). Seeded ONCE here - Restart() never
-            // re-seeds, matching the legacy StatsRuntime (seeded in Awake, not per-run).
+            // source of truth for parameters/effects/conditions. The local store is always built; B2.4
+            // (below) may front it with a scope router when a networked store is present.
             _params = new Pitech.XR.Core.LocalParamStore();
+
+            // WS B2.4 Step 4 (map sec-8): if this lab carries a networked param store component (a
+            // NetworkedParamStore - present only on a Fusion lab; it is the only component IParamStore and
+            // is itself Fusion-gated), route Networked-scope parameters through it (replicated +
+            // authority-sequenced) while Local-scope parameters stay client-local in _params. Resolved
+            // within this lab instance (self + children; no FindObjectsOfType); IParamStore lives in Core
+            // so this needs no Pitech.XR.Networking asmdef reference and compiles with Fusion absent. On
+            // single-player / no-Fusion labs no such component exists, so the active store IS the
+            // LocalParamStore and the run is byte-identical to B.1 (one extra GetComponentInChildren at
+            // Awake, never in the per-frame trace).
+            var networkedParams = GetComponentInChildren<Pitech.XR.Core.IParamStore>(true);
+            if (networkedParams != null && !ReferenceEquals(networkedParams, _params))
+            {
+                _routed = new RoutedParamStore(_params, networkedParams);
+                _paramStore = _routed;
+            }
+            else
+            {
+                _paramStore = _params;
+            }
+
+            // Declare into the active store: the router splits each declaration by scope; the plain local
+            // store takes them all. Then (for back-compat) any legacy StatsConfig entry not already
+            // declared, so an un-upgraded lab keeps working AND gains range clamp (min/max ENFORCED).
+            // Seeded ONCE here - Restart() never re-seeds, matching the legacy StatsRuntime.
             if (parameters != null)
                 foreach (var p in parameters)
-                    _params.Declare(p);
+                    _paramStore.Declare(p);
             if (statsConfig != null)
                 foreach (var kv in statsConfig.All())
                 {
-                    if (_params.IsDeclared(kv.Key)) continue;
-                    _params.Declare(new Pitech.XR.Core.ConsoleParameter
+                    if (_paramStore.IsDeclared(kv.Key)) continue;
+                    _paramStore.Declare(new Pitech.XR.Core.ConsoleParameter
                     {
                         id = kv.Key,
                         type = Pitech.XR.Core.ParamType.Float,
@@ -153,8 +212,9 @@ namespace Pitech.XR.Scenario
 
             // WS B1.2 Step 4: bridge the param store (source of truth) into the legacy StatsRuntime so the
             // stats UI (which subscribes to StatsRuntime.OnChanged) keeps animating. One-way (store ->
-            // runtime); no cycle, since runtime writes never feed back into the store.
-            _params.ParamChanged += OnParamChangedMirror;
+            // runtime); no cycle, since runtime writes never feed back into the store. Subscribing to
+            // _paramStore (the router, when routed) so Networked-scope changes also reach the UI.
+            _paramStore.ParamChanged += OnParamChangedMirror;
 
             if (selectionLists != null)
             {
@@ -194,6 +254,26 @@ namespace Pitech.XR.Scenario
 
         void Start()
         {
+            // WS B2.4: bind the scenario flow store if a networked lab provides one. A FusionScenarioPath
+            // (a NetworkBehaviour on a networked lab's root, resolved here AS the internal
+            // IScenarioFlowStore) makes the runner multiplayer-aware; single-player labs have none, so
+            // the runner stays bound to nothing and runs byte-identically to B.1 (the strongest trace-
+            // safe guarantee). Resolved within this lab instance (no FindObjectsOfType).
+            var flow = GetComponentInChildren<Pitech.XR.Core.IScenarioFlowStore>(true);
+            if (flow != null) _runner.BindFlowStore(flow);
+
+            // Back any SEPARATE bool-view stores with the SAME param store the runner reads conditions/effects
+            // from, so writers (triggers) and readers (ConditionsStep/effects) share ONE source of truth.
+            // P5 (review H4): LabConsole ITSELF now implements ILabStateStore over its own _paramStore, so a
+            // separate component is no longer required - triggers resolve THIS root via
+            // GetComponentInParent<ILabStateStore>(). LabConsole is deliberately NOT in the list below (it does
+            // not implement IParamStoreBackedState - it owns _paramStore directly and is already backed). Any
+            // extra param-store-backed views still present (e.g. a sub-tree's own LocalLabStateStore) are wired
+            // to the shared store here so they cannot diverge. A store that owns its own replicated state
+            // (NetworkedLabStateStore) does not implement the seam and is left untouched.
+            foreach (var backed in GetComponentsInChildren<Pitech.XR.Core.IParamStoreBackedState>(true))
+                backed.Initialize(Params);
+
             if (autoStart) Restart();
         }
 
@@ -220,14 +300,19 @@ namespace Pitech.XR.Scenario
         }
 
         // WS B1.2 Step 4: mirror a param-store change into the legacy StatsRuntime so the stats UI updates.
+        // Reads through _paramStore so the value is correct whether the id is Local- or Networked-scope.
         void OnParamChangedMirror(string id)
         {
-            if (runtime != null) runtime[id] = _params.GetFloat(id);
+            if (runtime != null) runtime[id] = _paramStore.GetFloat(id);
+            // P5 (review H4): LabConsole is the lab's ILabStateStore bool-view - forward the store's change to
+            // state listeners (EventStateListener / TimelineStateListener etc.), which filter by id their side.
+            StateChanged?.Invoke(id);
         }
 
         void OnDestroy()
         {
-            if (_params != null) _params.ParamChanged -= OnParamChangedMirror;
+            if (_paramStore != null) _paramStore.ParamChanged -= OnParamChangedMirror;
+            if (_routed != null) _routed.Dispose();   // detach the router's forwarders from both stores
         }
 
 

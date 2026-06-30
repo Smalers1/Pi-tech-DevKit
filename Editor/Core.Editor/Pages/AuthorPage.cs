@@ -51,7 +51,7 @@ namespace Pitech.XR.Core.Editor
                 var grid = DevkitWidgets.TileGrid();
                 grid.Add(DevkitWidgets.Card(
                     "Add Scenario to Scene",
-                    "Create a Scenario GameObject under the '--- SCENE MANAGERS ---' root and select it.",
+                    "Create a Scenario GameObject under the '--- SCENE SETUP ---' root and select it.",
                     DevkitWidgets.Actions(DevkitTheme.Primary("Add Scenario to Scene", scen.AddScenarioToScene))));
                 section.Add(grid);
                 root.Add(section);
@@ -100,12 +100,16 @@ namespace Pitech.XR.Core.Editor
                 }
             }
 
-            // ===== Reserved module: Vitals (Step 7 -> Author tile). Localization was promoted to
-            // its own top-level Hub page (see LocalizationPage), so it is no longer a tile here. =====
+            // ===== Vitals module (shipped Phase B - WS B8). Localization was promoted to its own
+            // top-level Hub page (see LocalizationPage), so it is no longer a tile here. =====
             {
-                var section = DevkitTheme.Section("Reserved modules");
+                var section = DevkitTheme.Section("Vitals");
                 var grid = DevkitWidgets.TileGrid();
-                grid.Add(ReservedTile("Vitals", "Typed vitals foundation. Reserved slot - logic lands Phase B WS B8 (spec §28.4)."));
+                grid.Add(DevkitWidgets.Card(
+                    "Vitals",
+                    "Typed vitals foundation. Add a PatientVitals component and drive values at runtime (see SampleBreathingVital).",
+                    DevkitWidgets.Actions(),
+                    DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Success, "Available"))));
                 section.Add(grid);
                 root.Add(section);
             }
@@ -120,7 +124,7 @@ namespace Pitech.XR.Core.Editor
 
             var pills = DevkitWidgets.PillsRow(
                 (ok ? DevkitWidgets.PillKind.Success : DevkitWidgets.PillKind.Warning, ok ? "Ready" : "Missing"),
-                (DevkitWidgets.PillKind.Neutral, "--- SCENE MANAGERS ---")
+                (DevkitWidgets.PillKind.Neutral, "--- SCENE SETUP ---")
             );
 
             return DevkitWidgets.Card(
@@ -332,14 +336,6 @@ namespace Pitech.XR.Core.Editor
             );
         }
 
-        // Reserved-module tile: announces a future module. No action, no behaviour (Phase A
-        // reserves the slot only). Body carries a Neutral "Reserved" pill.
-        static VisualElement ReservedTile(string title, string subtitle) =>
-            DevkitWidgets.Card(
-                title,
-                subtitle,
-                DevkitWidgets.Actions(),
-                DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Neutral, "Reserved")));
     }
 }
 #endif

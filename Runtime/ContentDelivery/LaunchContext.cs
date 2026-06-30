@@ -39,6 +39,14 @@ namespace Pitech.XR.ContentDelivery
         // Per-client UI locale (map sec-12, WS B1.5 Step 1): NEVER networked - each client renders in
         // its own language. Resolved from the host/device at launch; empty = host default.
         public string locale = string.Empty;
+
+        // Consent receipt (P8 / map sec-11.5): the host stamps this from the tenant's recorded consent
+        // (Web Portal / enrolment) at launch. LabAnalytics emits the session report ONLY when the receipt
+        // IsGranted, and attaches it for the cloud audit trail; absent -> fail-closed (no report emitted).
+        // CROSS-SURFACE: freezes at G2 with the Web Portal - bump contractVersion to 1.2.0 once this is
+        // populated by the host AND the Web Portal / cloud aligns. Default empty (inert) so B.1 payloads
+        // round-trip and existing launches stay byte-equivalent.
+        public Pitech.XR.Core.ConsentReceipt consent = new Pitech.XR.Core.ConsentReceipt();
     }
 
     public static class LaunchContextFactory
@@ -63,6 +71,10 @@ namespace Pitech.XR.ContentDelivery
                 allowOfflineCacheLaunch = config == null || config.allowOfflineCacheLaunch,
                 allowOlderCachedSameLab = config == null || config.allowOlderCachedSameLab,
                 networkRequiredIfCacheMiss = config == null || config.networkRequiredIfCacheMiss,
+                // P8: dev/menu launches self-grant a clearly-marked DEV consent so the in-editor analytics
+                // loop (readout + dev sink) works without a host. PRODUCTION launches come from the RN/VR
+                // host (source=ReactNativeBridge) which stamps the real receipt - they never use this factory.
+                consent = DevConsent(),
             };
         }
 
@@ -80,6 +92,20 @@ namespace Pitech.XR.ContentDelivery
                 allowOfflineCacheLaunch = config == null || config.allowOfflineCacheLaunch,
                 allowOlderCachedSameLab = config == null || config.allowOlderCachedSameLab,
                 networkRequiredIfCacheMiss = config == null || config.networkRequiredIfCacheMiss,
+                consent = DevConsent(),   // P8: dev/direct launch self-grants DEV consent (see CreateUnityMenuContext)
+            };
+        }
+
+        // P8: a clearly-marked DEV consent for editor/menu/direct launches (NEVER production). policyVersion
+        // "dev" so any audit can see this came from a developer machine, not a real enrolment. Production
+        // launches (RN/VR host) build their own LaunchContext and stamp the real receipt instead.
+        private static Pitech.XR.Core.ConsentReceipt DevConsent()
+        {
+            return new Pitech.XR.Core.ConsentReceipt
+            {
+                consentId = "dev-local",
+                policyVersion = "dev",
+                grantedAtUtc = Timestamp.UtcNowIso8601(),
             };
         }
 

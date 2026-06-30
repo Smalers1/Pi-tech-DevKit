@@ -1,0 +1,21 @@
+{
+    "name": "Pitech.XR.Analytics.Editor",
+    "rootNamespace": "Pitech.XR.Analytics.Editor",
+    "references": [
+        "Pitech.XR.Analytics",
+        "Pitech.XR.Scenario",
+        "Pitech.XR.Interactables",
+        "Pitech.XR.Core"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

@@ -81,11 +81,16 @@ namespace Pitech.XR.Scenario
                 number: Pitech.XR.Core.LabEvent.NoNumber, text: stepGuid));
         }
 
-        // Ignition: LabConsole.Restart()/Start() forward here (body identical to the old Restart()).
+        // Ignition: LabConsole.Restart()/Start() forward here.
+        // WS B2.4: in a networked session a flow store is bound (LabConsole.Start). The STATE AUTHORITY
+        // drives the shared path (Run, unchanged); a NON-authority peer FOLLOWS the frontier (RunFollower)
+        // instead of independently resolving steps. Single-player binds no store (_flow == null), so this
+        // always runs the unchanged Run() - byte-identical to B.1.
         public void Restart()
         {
             if (_run != null) StopCoroutine(_run);
-            _run = StartCoroutine(Run());
+            bool follower = _flow != null && !_flow.IsDriver;
+            _run = StartCoroutine(follower ? RunFollower() : Run());
         }
 
         // ===== engine state + methods below are MOVED VERBATIM from the host (only `this` ->
@@ -192,15 +197,18 @@ namespace Pitech.XR.Scenario
                 else if (step is SessionStartStep sss)
                 {
                     // WS B1.4 graded-bracket marker (open). Linear: honour nextGuid so graph routing off
-                    // this node works. The generic StepEntered/StepCompleted facts already bracket it on
-                    // the bus; the session-started fact + report assembly are B.2 (bus has no subscribers
-                    // at launch -> inert today). No coroutine: nothing to play.
+                    // this node works. No coroutine: nothing to play. WS B2.1: emit the session-started
+                    // fact - LabAnalytics begins capture here (this fact's tick is the bracket start for
+                    // TotalDuration). Inert with no LabAnalytics present (the bus drops it).
+                    EmitStepFact(Pitech.XR.Core.ScenarioFactKeys.SessionStarted, sss.guid);
                     branchGuid = sss.nextGuid;
                 }
                 else if (step is SessionStopStep sssp)
                 {
-                    // WS B1.4 graded-bracket marker (close). Linear; B.2 wires the session-completed fact
-                    // + report emit. Inert at launch.
+                    // WS B1.4 graded-bracket marker (close). Linear. WS B2.1: emit the session-completed
+                    // fact - LabAnalytics finalizes the report + the on-device readout here (this fact's
+                    // tick closes TotalDuration). Inert with no LabAnalytics present.
+                    EmitStepFact(Pitech.XR.Core.ScenarioFactKeys.SessionStopped, sssp.guid);
                     branchGuid = sssp.nextGuid;
                 }
                 else
@@ -246,6 +254,84 @@ namespace Pitech.XR.Scenario
                 if (scenario.steps[i] != null && scenario.steps[i].guid == guid)
                     return i;
             return -1;
+        }
+
+        // ---------------- WS B2.4 FOLLOWER MIRROR (multiplayer non-authority peer) ----------------
+        // Mirrors the AUTHORITY's shared path (IScenarioFlowStore) instead of resolving steps locally:
+        // for each newly-appended entered guid it jumps StepIndex, emits the same step facts (so the
+        // follower's analytics/telemetry match), and plays display-only / coherence side effects. It
+        // NEVER re-decides a branch, waits on a condition, or blocks on local input - the authority owns
+        // resolution (map sec-10: branch + loop ride the path-list; followers track the frontier).
+        //
+        // ISOLATION: only Restart() selects this, and only when a store is bound AND this peer is not the
+        // authority - so single-player / AR never enters here and Run() stays byte-identical.
+        //
+        // SCOPE (post-B2 on-device): this delivers frontier sync + AV/coherence. FULL interactive co-op
+        // (every peer runs each interactive step, first-completion-wins via an authority RPC, abort-on-
+        // frontier for the racing peers) + mid-session authority migration are the 2-client on-device
+        // design/validation task (the [HUMAN] proof window) - they cannot be validated headless.
+        IEnumerator RunFollower()
+        {
+            if (scenario == null || scenario.steps == null || scenario.steps.Count == 0)
+                yield break;
+
+            _ctx = Pitech.XR.Core.LabRuntimeContext.Find(_console);
+            int shown = 0;
+
+            while (true)
+            {
+                // If authority migrated to this peer, become the driver (no mid-session handoff polish yet).
+                if (_flow == null || _flow.IsDriver)
+                {
+                    _run = StartCoroutine(Run());
+                    yield break;
+                }
+
+                int count = _flow.Count;
+                while (shown < count)
+                {
+                    string guid = _flow.GetEntered(shown);
+                    shown++;
+                    int idx = FindIndexByGuid(guid);
+                    if (idx < 0) continue;
+
+                    var step = scenario.steps[idx];
+                    if (step == null) continue;
+
+                    StepIndex = idx;
+                    DeactivateAllVisuals();
+                    EmitStepFact(Pitech.XR.Core.ScenarioFactKeys.StepEntered, step.guid);
+                    DisplayOnlyForFollower(step);
+                    EmitStepFact(Pitech.XR.Core.ScenarioFactKeys.StepCompleted, step.guid);
+                }
+
+                yield return null;
+            }
+        }
+
+        // Display-only / side-effect-coherence playback on a follower (the authority owns resolution).
+        // Timeline: play for AV sync (no wait). Event: fire onEnter (so coherent side effects run). Session
+        // markers: emit the bracket facts so the follower's analytics also bracket. Everything else is a
+        // no-op here (full per-step follower display is the post-B2 on-device task).
+        void DisplayOnlyForFollower(Step step)
+        {
+            if (step is TimelineStep tl && tl.director != null)
+            {
+                if (tl.rewindOnEnter) { tl.director.time = 0; tl.director.Evaluate(); }
+                tl.director.Play();
+            }
+            else if (step is EventStep ev)
+            {
+                ev.onEnter?.Invoke();
+            }
+            else if (step is SessionStartStep)
+            {
+                EmitStepFact(Pitech.XR.Core.ScenarioFactKeys.SessionStarted, step.guid);
+            }
+            else if (step is SessionStopStep)
+            {
+                EmitStepFact(Pitech.XR.Core.ScenarioFactKeys.SessionStopped, step.guid);
+            }
         }
 
         // ---------------- TIMELINE ----------------

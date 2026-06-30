@@ -1,18 +1,22 @@
-// RESERVED MODULE - Analytics. Phase A WS A2 Step 7 reserves the assembly (+ a
-// Deliver-group Hub tile) ONLY. This slot is intentionally EMPTY and emits nothing - the
-// behaviour-neutral boundary forbids any emission, ledger, or scoring here in Phase A.
+// Analytics module marker. Phase A reserved the assembly; Phase B.1 landed the INERT serialized
+// schema (AnalyticsMetric / Analytic / ScoringBand / Objective / TrackedSubject / SessionRole /
+// SessionRoleCapacities / LabRubric). WS B2.1 (2026-06-29) landed the BEHAVIOUR on top:
+//   - AnalyticsGradeEngine  - the canonical reducer (events + rubric -> grade, map sec-11.8)
+//   - AnalyticsEvent / SessionEventStream - the captured timed stream
+//   - GradeResult           - the on-device readout model
+//   - SessionReport / SessionReportJson / ISessionReportSink - the ONE session report + outbox seam
+//   - LabAnalytics          - the in-scene recorder (subscribe -> capture -> gate by role -> emit)
+//   - SessionRoleSelector   - the in-scene per-attempt role pick (UI built by the consumer)
+//   - AnalyticsEquivalenceFixture - the (rubric+events)->grade golden the cloud mirror must match
 //
-// Logic lands in PHASE B (WS B1-B6): the action tracker, emission, scoring, and the portal
-// data path. Additive (no optional-package gate). Spec sec-28.5 + the Phase B plan.
-// The step-fact string vocabulary it will key against already exists, frozen, in
-// Pitech.XR.Core.ScenarioFactKeys (WS A2 Step 8) - build keys from there, never hand-typed.
-//
-// NOTE: distinct from the existing runtime telemetry under Runtime/ContentDelivery/Analytics/
-// (RuntimeTelemetryAdapter / TelemetryAutoWirer) - that ships today and stays put; this is the
-// Phase B destination module.
-//
-// Reference direction: this module may reference Pitech.XR.Core / Pitech.XR.Scenario,
-// NEVER the reverse.
+// REFERENCE DIRECTION (corrected): this assembly references Pitech.XR.Core ONLY. It must NOT reference
+// Pitech.XR.Scenario - Scenario ALREADY references Analytics (for SessionStart/StopStep + the rubric
+// types), so an Analytics->Scenario edge would be a cycle. The runtime glue that needs both lives in
+// Scenario (LabConsole) and reaches Analytics one-way; the report identity (tenant/user/lab/version)
+// is read from Pitech.XR.Core.LabRuntimeContext (populated by ContentDelivery), NOT from a
+// ContentDelivery reference. The step-fact vocabulary is Pitech.XR.Core.ScenarioFactKeys (never
+// hand-typed). Distinct from the runtime telemetry under Runtime/ContentDelivery/Analytics/
+// (RuntimeTelemetryAdapter - the Vicky-ingestion trace), which ships separately.
 namespace Pitech.XR.Analytics
 {
 }

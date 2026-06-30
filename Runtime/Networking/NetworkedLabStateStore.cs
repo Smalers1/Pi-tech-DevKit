@@ -27,6 +27,19 @@ namespace Pitech.XR.Networking
     /// NO static Instance (the map's "kill the static Instance"; the VR <c>[Obsolete]</c> facade keeps
     /// an Instance forwarding here for hand-wired callers during migration). INERT at launch
     /// (multiplayer turns on in B.2).
+    ///
+    /// UNIFICATION NOTE (B.2): this is the STANDALONE networked switchboard - it owns its replicated
+    /// <see cref="GameStates"/> dictionary and is the VR NetworkStateManager drop-in. It deliberately does
+    /// NOT implement <see cref="IParamStoreBackedState"/>, so <c>LabConsole</c> never re-backs it (which
+    /// would downgrade its replicated state to client-local). The RECOMMENDED unified path for a new
+    /// networked lab is the param-store-backed bool-view (<see cref="LocalLabStateStore"/>) over a
+    /// <c>NetworkedParamStore</c> (via LabConsole's routed Params) - then named bools live in the SAME store
+    /// the runner reads conditions/effects from. Reconciling/retiring this standalone store onto that path
+    /// is part of the post-B2 VR migration. CO-LOCATION CAUTION (P5): since LabConsole now implements
+    /// ILabStateStore itself, do NOT place this component on (or above) the LabConsole root - two
+    /// ILabStateStore on one parent chain make <c>GetComponentInParent&lt;ILabStateStore&gt;()</c> resolution
+    /// ambiguous. Until the migration, keep this store on its own console-less networked root (its own
+    /// NetworkObject), not the LabConsole object.
     /// </summary>
     [DisallowMultipleComponent]
     public sealed class NetworkedLabStateStore : NetworkBehaviour, ILabStateStore

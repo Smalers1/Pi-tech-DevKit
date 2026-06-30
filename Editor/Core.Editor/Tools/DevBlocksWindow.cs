@@ -550,7 +550,7 @@ namespace Pitech.XR.Core.Editor
             if (key.Contains("ENVIRONMENT")) return TryIcon("TerrainInspector.TerrainToolRaise");
             if (key.Contains("INTERACTABLES")) return TryIcon("d_MoveTool");
             if (key.Contains("LIGHTING")) return TryIcon("Light Icon");
-            if (key.Contains("SCENE MANAGERS")) return TryIcon("GameManager Icon");
+            if (key.Contains("SCENE MANAGERS") || key.Contains("SCENE SETUP")) return TryIcon("GameManager Icon");
             if (key.Contains("TIMELINES")) return TryIcon("TimelineAsset Icon");
             if (key.Contains("UI")) return TryIcon("Canvas Icon");
             if (key.Contains("VFX")) return TryIcon("ParticleSystem Icon");

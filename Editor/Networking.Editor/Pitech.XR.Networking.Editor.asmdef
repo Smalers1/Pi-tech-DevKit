@@ -1,0 +1,20 @@
+{
+    "name": "Pitech.XR.Networking.Editor",
+    "rootNamespace": "Pitech.XR.Networking.Editor",
+    "references": [
+        "Pitech.XR.Networking",
+        "Pitech.XR.Scenario",
+        "Pitech.XR.Core"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

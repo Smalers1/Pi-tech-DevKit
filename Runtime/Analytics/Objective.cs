@@ -28,8 +28,8 @@ namespace Pitech.XR.Analytics
         [Tooltip("Id of the analytic feeding this objective (matches an Analytic.id in the rubric).")]
         public string analyticId;
 
-        [Tooltip("Relative sub-weight of this analytic within the objective (relative, not a percentage).")]
-        public float subWeight = 1f;
+        [Tooltip("Relative sub-weight (0-1) of this analytic within the objective (relative, not a percentage).")]
+        [Range(0f, 1f)] public float subWeight = 1f;
     }
 
     /// <summary>
@@ -45,8 +45,8 @@ namespace Pitech.XR.Analytics
         [Tooltip("Human-readable label shown in LabConsole and on the readout (e.g. \"Procedure Correctness\").")]
         public string label;
 
-        [Tooltip("This objective's share of the final grade (relative weight across objectives - the 70/20/10).")]
-        public float weight = 1f;
+        [Tooltip("This objective's share of the final grade (relative weight 0-1 across objectives - the 70/20/10).")]
+        [Range(0f, 1f)] public float weight = 1f;
 
         [Tooltip("Pass-bar LABEL only: the score at/above which this objective is 'passed' (X_o >= target). Not a grade divisor.")]
         [Range(0f, 1f)] public float target = 0.9f;

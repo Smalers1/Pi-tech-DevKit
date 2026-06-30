@@ -24,8 +24,10 @@ namespace Pitech.XR.Analytics
     [Serializable]
     public sealed class LabRubric
     {
+        // Infrastructure for the portable JSON contract / forward migration. Hidden from the inspector for
+        // now (the dev never sets it) - the field + default stay so the wire contract is unaffected.
         [Tooltip("Schema version of this rubric (for the portable JSON contract / forward migration).")]
-        public int schemaVersion = 1;
+        [HideInInspector] public int schemaVersion = 1;
 
         [Header("Measurement layer (author-authored, fixed)")]
         [Tooltip("Scored groupings of metrics - step sidecars + scene-wide categories.")]

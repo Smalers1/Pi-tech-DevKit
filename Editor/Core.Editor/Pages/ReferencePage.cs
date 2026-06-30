@@ -65,7 +65,7 @@ namespace Pitech.XR.Core.Editor
                 ),
                 HowTo(
                     "Open a scene (e.g. `Assets/Scenes/Testing`).",
-                    "Create `--- SCENE MANAGERS ---` root.",
+                    "Create `--- SCENE SETUP ---` root.",
                     "Create Lab Console and Scenario, then assign Scenario in the LabConsole inspector.",
                     "Open Scenario Graph and author steps.",
                     "Press Play to test flow."

@@ -10,13 +10,13 @@ namespace Pitech.XR.Core.Editor
 {
     internal sealed class ScenarioService
     {
-        const string ManagersRootName = "--- SCENE MANAGERS ---";
+        const string ManagersRootName = SceneRootNames.ManagersRoot;   // canonical name for CREATE
 
         static Transform EnsureManagersRoot()
         {
             var s = SceneManager.GetActiveScene();
             if (!s.IsValid() || !s.isLoaded) return null;
-            var root = s.GetRootGameObjects().FirstOrDefault(g => g.name == ManagersRootName);
+            var root = s.GetRootGameObjects().FirstOrDefault(g => SceneRootNames.IsManagersRoot(g.name));
             if (!root)
             {
                 root = new GameObject(ManagersRootName);

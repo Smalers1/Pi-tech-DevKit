@@ -253,6 +253,8 @@ public partial class ScenarioGraphWindow : EditorWindow
         SaveViewTransform();
 
         scenario = sc;
+        // In-graph analytics: refresh which step guids own a StepAnalytic, so step nodes can badge them (WS B2.2).
+        RefreshAnalyticsIndex();
         // Persist selection across playmode/domain reload.
         try
         {

@@ -620,7 +620,20 @@ namespace Pitech.XR.ContentDelivery
             {
                 var labContext = spawnedInstance.GetComponent<Pitech.XR.Core.LabRuntimeContext>()
                                  ?? spawnedInstance.AddComponent<Pitech.XR.Core.LabRuntimeContext>();
-                labContext.Initialize(context.attemptId, System.Guid.NewGuid().ToString("N"));
+                // WS B2.1: stamp the session-report identity (tenant / user / lab / version) from the
+                // LaunchContext too, so LabAnalytics can assemble the report without referencing
+                // ContentDelivery. sessionId left null -> SessionId falls back to the attempt id in
+                // single-player; multiplayer shares one id across peers (B2.4). GetComponent-or-Add is
+                // idempotent if LabAnalytics already created a local context on this root.
+                labContext.Initialize(
+                    context.attemptId,
+                    System.Guid.NewGuid().ToString("N"),
+                    context.tenantId,
+                    context.userId,
+                    context.labId,
+                    context.resolvedVersionId,
+                    null,
+                    context.consent);   // P8: carry the consent receipt so LabAnalytics can gate emission
             }
 
             MonoBehaviour labSceneManager = sceneManager;

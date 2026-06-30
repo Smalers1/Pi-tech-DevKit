@@ -11,7 +11,7 @@ namespace Pitech.XR.Core.Editor
     // Cockpit page: DELIVER - Addressables / content publishing. Addressables Builder launch tile,
     // the GuidedSetup Addressables card (verbatim), the "Addressables (Project)" config editor moved
     // verbatim as a cohesive STATEFUL unit from the former SettingsPage (instance fields + bind/save
-    // lifecycle preserved), and the reserved Analytics module tile (WS A2 Step 4/7).
+    // lifecycle preserved), and the Analytics module tile (shipped Phase B; WS A2 Step 4/7).
     public sealed class DeliverPage : IDevkitPage
     {
         readonly AddressablesService addressablesService = new AddressablesService();
@@ -50,13 +50,15 @@ namespace Pitech.XR.Core.Editor
             // ===== Addressables (Project) config editor (verbatim stateful unit from SettingsPage) =====
             root.Add(AddrSection("Addressables (Project)", BuildAddressablesSettingsSection));
 
-            // ===== Reserved module: Analytics (Step 7 -> Deliver tile) =====
+            // ===== Analytics module (shipped Phase B - WS B1-B6) =====
             {
-                var section = DevkitTheme.Section("Reserved modules");
+                var section = DevkitTheme.Section("Analytics");
                 var grid = DevkitWidgets.TileGrid();
-                grid.Add(ReservedTile(
+                grid.Add(DevkitWidgets.Card(
                     "Analytics",
-                    "Action tracking, scoring and portal data. Reserved slot - logic lands Phase B WS B1-B6 (spec §28.5)."));
+                    "Action tracking, scoring and portal data. Add a Lab Analytics component to a graded lab (next to LabConsole), then right-click steps in the Scenario Graph to add Step Analytics.",
+                    DevkitWidgets.Actions(),
+                    DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Success, "Available"))));
                 section.Add(grid);
                 root.Add(section);
             }
@@ -281,14 +283,6 @@ namespace Pitech.XR.Core.Editor
             return button;
         }
 
-        // Reserved-module tile: announces a future module. No action, no behaviour (Phase A
-        // reserves the slot only). Body carries a Neutral "Reserved" pill.
-        static VisualElement ReservedTile(string title, string subtitle) =>
-            DevkitWidgets.Card(
-                title,
-                subtitle,
-                DevkitWidgets.Actions(),
-                DevkitWidgets.PillsRow((DevkitWidgets.PillKind.Neutral, "Reserved")));
     }
 }
 #endif
