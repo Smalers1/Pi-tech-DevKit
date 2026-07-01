@@ -4,7 +4,10 @@ using UnityEngine.UIElements;
 
 namespace Pitech.XR.Core.Editor
 {
-    internal static class DevkitTheme
+    // Promoted internal -> public (2026-06-30) so sibling editor assemblies (e.g. Pitech.XR.Scenario.Editor's
+    // Lab Console window) reuse ONE shared DevKit visual vocabulary instead of duplicating it. Editor-only
+    // (#if UNITY_EDITOR); additive to the public surface (Proof-B baseline regen captures it).
+    public static class DevkitTheme
     {
         public static readonly Color Bg       = new(0.11f, 0.13f, 0.16f, 1);
         public static readonly Color Panel    = new(0.14f, 0.17f, 0.21f, 1);

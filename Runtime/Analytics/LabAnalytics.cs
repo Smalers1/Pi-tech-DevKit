@@ -78,6 +78,15 @@ namespace Pitech.XR.Analytics
         [Tooltip("Raised live when a warning/error band fires (notifyInScene) - bind your in-scene toast here.")]
         public AnalyticsNotificationEvent onNotification = new AnalyticsNotificationEvent();
 
+#if UNITY_EDITOR
+        [Header("Editor testing (never ships)")]
+        [Tooltip("EDITOR ONLY: emit the session report even without a host-stamped consent receipt, so you can test " +
+                 "the local report + sink in a hand-built scene (which has no ContentDelivery launch to dev-grant " +
+                 "consent). Compiled OUT of player builds, so the production fail-closed gate is untouched. The dev " +
+                 "report carries no consent receipt. Leave OFF for anything but local testing.")]
+        public bool editorEmitWithoutConsent = false;
+#endif
+
         // --- runtime state ---
         LabRuntimeContext _ctx;
         IDisposable _subscription;
@@ -234,6 +243,16 @@ namespace Pitech.XR.Analytics
             // granted receipt -> the report is NOT emitted (loud, not silent) - high-risk PII never leaves the
             // device without a recorded lawful basis. The on-device readout (local, no PII off-device) still shows.
             bool consentGranted = _ctx != null && _ctx.Consent != null && _ctx.Consent.IsGranted;
+#if UNITY_EDITOR
+            // EDITOR-ONLY test override (compiled out of player builds): a hand-built test scene has no
+            // ContentDelivery launch to dev-grant consent, so the fail-closed gate would block the local report.
+            // This lets you eyeball it anyway. The production gate is UNCHANGED - this branch does not exist in a build.
+            if (!consentGranted && editorEmitWithoutConsent)
+            {
+                Debug.LogWarning("[Analytics] EDITOR TEST: emitting the session report WITHOUT a host consent receipt (editorEmitWithoutConsent = true). This override does not exist in player builds.", this);
+                consentGranted = true;
+            }
+#endif
 
             if (role == SessionRole.Professor)
             {

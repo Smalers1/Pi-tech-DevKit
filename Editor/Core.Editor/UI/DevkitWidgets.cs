@@ -8,7 +8,9 @@ namespace Pitech.XR.Core.Editor
     /// Small UI helpers layered on top of DevkitTheme.
     /// Keep this minimal and reusable for Dashboard/Tools.
     /// </summary>
-    internal static class DevkitWidgets
+    // Promoted internal -> public (2026-06-30) alongside DevkitTheme so the Lab Console window (in
+    // Pitech.XR.Scenario.Editor) shares the same cards/pills/chips. Editor-only; additive to the API.
+    public static class DevkitWidgets
     {
         // ---------- Status chip ----------
         public static VisualElement StatusChip(bool ok, string label)
