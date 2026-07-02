@@ -12,16 +12,16 @@
 **Frozen today (cross-surface, the cloud must align to these shapes):**
 1. `LaunchContext` - the launch envelope (tenant / user / locale + lineage).
 2. `LaunchLifecyclePayload` - the emitted launch lifecycle event JSON.
-3. The **session-report schema** = `LabRubric` and its parts (bundled RAW into the eventual report so the cloud can re-compute grades). The shapes freeze; the report ENVELOPE that carries them is B.2.
+3. The **session-report schema** = `LabConfig` and its parts (bundled RAW into the eventual report so the cloud can re-compute grades). The shapes freeze; the report ENVELOPE that carries them is B.2.
 4. The tenant-isolation assertion the cloud enforces (section 4).
 
 **Explicitly NOT frozen today (deferred, do not treat as final):**
 - The **session-report envelope / payload** type (the thing emitted to cloud on SessionStop) - **Phase B.2** ("on SessionStop the emitter assembles the session report -> outbox -> cloud", `SessionStopStep.cs:8-9`). It does not exist in code yet.
 - The **reducer** (events -> rawValue -> score) and any **emit** path - **Phase B.2**.
-- The broader **DevKit SDK emit-API surface** (rubric + bus fact shape + SessionStart/Stop + effect-scope + ConsoleParameter) - separate freeze **2026-07-07**.
+- The broader **DevKit SDK emit-API surface** (config + bus fact shape + SessionStart/Stop + effect-scope + ConsoleParameter) - separate freeze **2026-07-07**.
 - **Consent** has no field in the report schema yet - it is an **open decision** (section 5).
 
-> Honesty note: at B.1 all of the rubric/bracket types are INERT serialized schema - nothing references them at runtime yet, so untouched labs are zero-diff (Proof C). We are freezing the *shape the cloud will receive later*, captured now so the cloud can build against a stable contract.
+> Honesty note: at B.1 all of the config/bracket types are INERT serialized schema - nothing references them at runtime yet, so untouched labs are zero-diff (Proof C). We are freezing the *shape the cloud will receive later*, captured now so the cloud can build against a stable contract.
 
 ---
 
@@ -67,12 +67,12 @@ Emission requires lineage validation + (online) a `runtimeUrl` (`LaunchContextRe
 
 ---
 
-## 3. Session-report schema (LabRubric, bundled RAW)
+## 3. Session-report schema (LabConfig, bundled RAW)
 
-Source: `Runtime/Analytics/`. All `[Serializable]`. Bundled raw (not pre-scored) so editing grading re-grades every stored session (`LabRubric.cs:10-11`).
+Source: `Runtime/Analytics/`. All `[Serializable]`. Bundled raw (not pre-scored) so editing grading re-grades every stored session (`LabConfig.cs:10-11`).
 
-### 3.1 LabRubric (`LabRubric.cs:24-44`)
-- `schemaVersion` int = **1** (the rubric's own forward-migration version, distinct from `contractVersion`).
+### 3.1 LabConfig (`LabConfig.cs:24-44`)
+- `schemaVersion` int = **1** (the config's own forward-migration version, distinct from `contractVersion`).
 - `analytics` : `[SerializeReference] List<Analytic>` - measurement layer (author-owned, fixed).
 - `subjects` : `List<TrackedSubject>` - the subjects registry.
 - `objectives` : `List<Objective>` - grading layer (teacher-owned, Web-Portal-tunable post-launch).
@@ -113,7 +113,7 @@ The DevKit is the **canonical reducer**; the cloud is a **mirror** that must com
 ### 3.8 Graded bracket step types (`Runtime/Scenario/Steps/`)
 `SessionStartStep` (`Kind => "Session Start"`) and `SessionStopStep` (`Kind => "Session Stop"`), each with `nextGuid`. Delimit the graded part; emit session-started / session-completed bus facts in B.2.
 
-> **Discriminator decision RESOLVED (WS B1.6 Step 2, ratified 2026-06-26, implemented commit `d49bb64`):** the portable JSON `kind` keys on the **CLR short type name** (e.g. `"StepDurationMetric"`, `"SessionStartStep"`), NOT the mutable `Kind`/`KindId` display string - the `SessionStart -> "Session Start"` rename proved `Kind` is display copy. The scenario-step DTO already implements this (`ScenarioJsonDto`, `schemaVersion=1`); the **analytics-rubric emit serializer is B.2** and MUST follow the same convention. The `Kind`/`KindId` strings in sections 3.2-3.3 are display tags, carried as an optional `label`. **Cloud: key on the CLR short type name.**
+> **Discriminator decision RESOLVED (WS B1.6 Step 2, ratified 2026-06-26, implemented commit `d49bb64`):** the portable JSON `kind` keys on the **CLR short type name** (e.g. `"StepDurationMetric"`, `"SessionStartStep"`), NOT the mutable `Kind`/`KindId` display string - the `SessionStart -> "Session Start"` rename proved `Kind` is display copy. The scenario-step DTO already implements this (`ScenarioJsonDto`, `schemaVersion=1`); the **analytics-config emit serializer is B.2** and MUST follow the same convention. The `Kind`/`KindId` strings in sections 3.2-3.3 are display tags, carried as an optional `label`. **Cloud: key on the CLR short type name.**
 
 ---
 
@@ -145,7 +145,7 @@ The session-report / analytics path has **no consent field** in any frozen type 
 |---|---|
 | Session-report envelope/payload type | Phase B.2 |
 | Reducer (events -> rawValue -> score) + emit/outbox | Phase B.2 |
-| DevKit SDK emit-API surface freeze (rubric, bus fact shape, SessionStart/Stop, effect-scope, ConsoleParameter) | 2026-07-07 |
+| DevKit SDK emit-API surface freeze (config, bus fact shape, SessionStart/Stop, effect-scope, ConsoleParameter) | 2026-07-07 |
 | JSON `kind` discriminator | **RESOLVED** - CLR short type name (sec 3.8, B1.6 Step 2) |
 | Consent mechanism | section 5 |
 
@@ -154,7 +154,7 @@ The session-report / analytics path has **no consent field** in any frozen type 
 ## 8. Hand-off checklist to Web Portal / cloud (the human G2 action)
 
 - [ ] Send sections 1-4 of this doc to the Web Portal / cloud owner.
-- [ ] Cloud confirms it can store `LaunchContext` (incl. `tenantId`/`userId`/`locale`) and the raw `LabRubric` shape, and re-compute grades with the section 3.5 formula (canonical-reducer parity).
+- [ ] Cloud confirms it can store `LaunchContext` (incl. `tenantId`/`userId`/`locale`) and the raw `LabConfig` shape, and re-compute grades with the section 3.5 formula (canonical-reducer parity).
 - [ ] Cloud confirms the tenant-isolation reject rule (section 4) is implemented.
 - [ ] Resolve the consent decision (section 5) with compliance.
 - [ ] Record the cloud's alignment acknowledgement (date + owner) in the B.1 plan Status Log.

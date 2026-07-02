@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Pitech.XR.Analytics
 {
-    // ---------- The lab rubric: the whole analytics config (map sec-11) ----------
+    // ---------- The lab config: the whole analytics config (map sec-11) ----------
     // The two ownership halves in one container: the MEASUREMENT layer (analytics + subjects,
     // author/dev-authored, fixed) and the GRADING layer (objectives, teacher-owned, Web-Portal-
     // tunable post-launch). Bundled RAW (not pre-scored) into the session report so every stored
@@ -17,16 +17,16 @@ namespace Pitech.XR.Analytics
     // labs are zero-diff (Proof C). The serialized surface freezes 2026-07-07 (additive-only after).
 
     /// <summary>
-    /// The complete analytics rubric for one lab: the measurement layer (<see cref="analytics"/> +
+    /// The complete analytics config for one lab: the measurement layer (<see cref="analytics"/> +
     /// <see cref="subjects"/>), the grading layer (<see cref="objectives"/>), and the per-lab
     /// <see cref="roleCapacities"/>. Authored in LabConsole; bundled raw into the session report.
     /// </summary>
     [Serializable]
-    public sealed class LabRubric
+    public sealed class LabConfig
     {
         // Infrastructure for the portable JSON contract / forward migration. Hidden from the inspector for
         // now (the dev never sets it) - the field + default stay so the wire contract is unaffected.
-        [Tooltip("Schema version of this rubric (for the portable JSON contract / forward migration).")]
+        [Tooltip("Schema version of this config (for the portable JSON contract / forward migration).")]
         [HideInInspector] public int schemaVersion = 1;
 
         [Header("Measurement layer (author-authored, fixed)")]

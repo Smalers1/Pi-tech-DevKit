@@ -13,7 +13,7 @@ namespace Pitech.XR.Analytics
     // applicable in {0,1}, violations[]). The reducer (events -> rawValue) is a pure function over
     // the LabEventBus stream, so the Web Portal can recompute identically (DevKit = canonical
     // reducer, cloud = mirror). The drop/wrong/order kinds consult the lab's TrackedSubject registry
-    // (see LabRubric.subjects) at compute time to derive per-occurrence severity.
+    // (see LabConfig.subjects) at compute time to derive per-occurrence severity.
 
     /// <summary>
     /// Abstract base for an analytics metric - an atomic measurement plus its scoring bands.
@@ -25,7 +25,7 @@ namespace Pitech.XR.Analytics
     [Serializable]
     public abstract class AnalyticsMetric
     {
-        [Tooltip("Stable id for this metric within the rubric (referenced by analytics/objectives, and by the JSON contract).")]
+        [Tooltip("Stable id for this metric within the config (referenced by analytics/objectives, and by the JSON contract).")]
         public string id;
 
         [Tooltip("Human-readable label shown in LabConsole and on the lab-end readout.")]

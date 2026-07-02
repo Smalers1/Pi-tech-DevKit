@@ -6,7 +6,7 @@ using UnityEngine;
 
 // =================== STEP ANALYTIC EDIT WINDOW (opened from the white "ANALYTIC" brick on a step) ===================
 // Mirrors StepEditWindow (which opens from a step's "Edit..." button), but edits a StepAnalytic's metrics on the
-// lab's LabAnalytics.rubric rather than a Scenario step. This REPLACES the brick's old inline metrics dropdown:
+// lab's LabAnalytics.config rather than a Scenario step. This REPLACES the brick's old inline metrics dropdown:
 // the brick is now a compact indicator; its metrics are authored here, in a window, like every other step editor.
 // Edits go through a SerializedObject of the LabAnalytics (free Undo + prefab-override correctness); the
 // [SerializeReference] metrics list uses the same managed-ref add/remove idiom as the inspector builder.
@@ -48,8 +48,8 @@ sealed class StepAnalyticEditWindow : EditorWindow
     {
         so.Update();
 
-        SerializedProperty rubricP = so.FindProperty("rubric");
-        SerializedProperty analyticsP = rubricP != null ? rubricP.FindPropertyRelative("analytics") : null;
+        SerializedProperty configP = so.FindProperty("config");
+        SerializedProperty analyticsP = configP != null ? configP.FindPropertyRelative("analytics") : null;
         SerializedProperty analyticP = FindStepAnalyticProp(analyticsP, stepGuid);
         if (analyticP == null) { EditorGUILayout.HelpBox("Step analytic not found (it may have been removed).", MessageType.Info); return; }
 
@@ -127,8 +127,8 @@ sealed class StepAnalyticEditWindow : EditorWindow
     {
         if (so == null || so.targetObject == null) return;
         so.Update();
-        SerializedProperty rubricP = so.FindProperty("rubric");
-        SerializedProperty analyticsP = rubricP != null ? rubricP.FindPropertyRelative("analytics") : null;
+        SerializedProperty configP = so.FindProperty("config");
+        SerializedProperty analyticsP = configP != null ? configP.FindPropertyRelative("analytics") : null;
         SerializedProperty analyticP = FindStepAnalyticProp(analyticsP, stepGuid);
         SerializedProperty metricsP = analyticP != null ? analyticP.FindPropertyRelative("metrics") : null;
         if (metricsP == null) return;

@@ -6,7 +6,7 @@ namespace Pitech.XR.Analytics
 {
     // ---------- The tracked-subject runtime agent (map sec-11.2 / sec-11.4) ----------
     // WS B2.2. Placed on a subject's scene object (the editor auto-wirer adds it + fills subjectId from
-    // the rubric). Emits the RAW item/interaction facts; the recorder (LabAnalytics) classifies them.
+    // the config). Emits the RAW item/interaction facts; the recorder (LabAnalytics) classifies them.
     // No hard Meta-Interaction dependency: the grab/drop/use entry points are PUBLIC and UnityEvent-
     // callable, so the auto-wirer (or the author) hooks them to whatever interaction layer is present
     // (Meta Select, the RespawnOnDrop sample, a button, etc.). An OPTIONAL below-Y check gives drop
@@ -18,7 +18,7 @@ namespace Pitech.XR.Analytics
     [DisallowMultipleComponent]
     public sealed class AnalyticsSubject : MonoBehaviour
     {
-        [Tooltip("The rubric subject id this object IS (matches a TrackedSubject.id). The editor auto-wirer fills this.")]
+        [Tooltip("The config subject id this object IS (matches a TrackedSubject.id). The editor auto-wirer fills this.")]
         public string subjectId = string.Empty;
 
         [Header("Drop detection (optional, dependency-free)")]

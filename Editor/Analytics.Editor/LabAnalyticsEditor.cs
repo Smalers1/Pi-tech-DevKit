@@ -28,10 +28,10 @@ namespace Pitech.XR.Analytics.Editor
     {
         public override void OnInspectorGUI()
         {
-            // Draw the wiring fields (role selector, sink, output events) but NOT the raw 'rubric' - the rubric has
-            // its own purpose-built builder below (DrawRubricBuilder), so drawing it raw too is duplicate clutter.
+            // Draw the wiring fields (role selector, sink, output events) but NOT the raw 'config' - the config has
+            // its own purpose-built builder below (DrawConfigBuilder), so drawing it raw too is duplicate clutter.
             serializedObject.Update();
-            DrawPropertiesExcluding(serializedObject, "m_Script", "rubric");
+            DrawPropertiesExcluding(serializedObject, "m_Script", "config");
             serializedObject.ApplyModifiedProperties();
 
             var la = (LabAnalytics)target;
@@ -41,8 +41,8 @@ namespace Pitech.XR.Analytics.Editor
 
             using (new EditorGUILayout.HorizontalScope())
             {
-                if (GUILayout.Button(new GUIContent("Auto-detect subjects",
-                    "Pre-fill the subjects registry from the lab's Scenario (InsertStep items + SelectionStep correct targets).")))
+                if (GUILayout.Button(new GUIContent("Auto-detect Tracked Objects",
+                    "Pre-fill the Tracked Objects from the lab's Scenario (InsertStep items + SelectionStep correct targets).")))
                 {
                     AutoDetect(la);
                 }
@@ -55,16 +55,21 @@ namespace Pitech.XR.Analytics.Editor
             }
 
             EditorGUILayout.HelpBox(
-                "Auto-detect adds InsertStep items and SelectionStep correct targets as relevant subjects (owner = that step). Add distractors / free grabbables by hand, then Auto-wire.",
+                "Auto-detect adds InsertStep items and SelectionStep correct targets as relevant Tracked Objects (owner = that step). Add distractors / free grabbables by hand, then Auto-wire.",
                 MessageType.Info);
 
-            DrawRubricBuilder();
+            DrawConfigBuilder();
         }
 
         static Scenario ResolveScenario(LabAnalytics la)
         {
+            if (la == null) return null;
+            // LabAnalytics now lives on a dedicated "Analytics" object that is a SIBLING of the LabConsole
+            // (next to it, NOT a child), so self/parent lookups miss it. After the cheap co-located / ancestor
+            // cases, resolve the console anywhere under the lab ROOT - the common ancestor of the two siblings.
             var console = la.GetComponent<LabConsole>();
             if (console == null) console = la.GetComponentInParent<LabConsole>(true);
+            if (console == null) console = la.transform.root.gameObject.GetComponentInChildren<LabConsole>(true);
             return console != null ? console.scenario : null;
         }
 
@@ -74,17 +79,18 @@ namespace Pitech.XR.Analytics.Editor
             if (scenario == null || scenario.steps == null)
             {
                 EditorUtility.DisplayDialog("Auto-detect subjects",
-                    "No Scenario found on this object (or its LabConsole). Assign a Scenario first.", "OK");
+                    "No Scenario found for this lab (searched the LabConsole on this object, its parents, and the lab root). " +
+                    "Assign a Scenario on the lab's LabConsole first.", "OK");
                 return;
             }
-            if (la.rubric == null) la.rubric = new LabRubric();
+            if (la.config == null) la.config = new LabConfig();
 
             // Index existing subjects by target + by id so re-runs are idempotent.
             var byTarget = new HashSet<GameObject>();
             var ids = new HashSet<string>();
-            for (int i = 0; i < la.rubric.subjects.Count; i++)
+            for (int i = 0; i < la.config.subjects.Count; i++)
             {
-                TrackedSubject s = la.rubric.subjects[i];
+                TrackedSubject s = la.config.subjects[i];
                 if (s == null) continue;
                 if (s.target != null) byTarget.Add(s.target);
                 if (!string.IsNullOrEmpty(s.id)) ids.Add(s.id);
@@ -130,7 +136,7 @@ namespace Pitech.XR.Analytics.Editor
         {
             if (go == null || byTarget.Contains(go)) return false;
             string id = UniqueId(go.name, ids);
-            la.rubric.subjects.Add(new TrackedSubject
+            la.config.subjects.Add(new TrackedSubject
             {
                 id = id,
                 label = go.name,
@@ -157,12 +163,12 @@ namespace Pitech.XR.Analytics.Editor
 
         static void AutoWire(LabAnalytics la)
         {
-            if (la.rubric == null || la.rubric.subjects == null) return;
+            if (la.config == null || la.config.subjects == null) return;
 
             int wired = 0;
-            for (int i = 0; i < la.rubric.subjects.Count; i++)
+            for (int i = 0; i < la.config.subjects.Count; i++)
             {
-                TrackedSubject s = la.rubric.subjects[i];
+                TrackedSubject s = la.config.subjects[i];
                 if (s == null || s.target == null || string.IsNullOrEmpty(s.id)) continue;
 
                 AnalyticsSubject agent = s.target.GetComponent<AnalyticsSubject>();

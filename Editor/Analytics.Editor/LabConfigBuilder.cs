@@ -11,7 +11,7 @@ namespace Pitech.XR.Analytics.Editor
     // live inside the namespace block to win over that enclosing-namespace match. (CS0118 fix, per file.)
     using Scenario = Pitech.XR.Scenario.Scenario;
 
-    // ---------- LabAnalytics inspector: the rubric builder, top-down OBJECTIVES -> ANALYTICS -> METRICS ----------
+    // ---------- LabAnalytics inspector: the config builder, top-down OBJECTIVES -> ANALYTICS -> METRICS ----------
     // Second partial of LabAnalyticsEditor (the first, LabAnalyticsEditor.cs, holds Auto-detect / Auto-wire +
     // ResolveScenario, preserved verbatim). This file is the serializedObject-driven authoring UI.
     //
@@ -33,12 +33,10 @@ namespace Pitech.XR.Analytics.Editor
         const string FoldKeyObjectives = "pitech.xr.analytics.fold.objectives";
         const string FoldKeyAnalytics  = "pitech.xr.analytics.fold.analytics";
         const string FoldKeySubjects   = "pitech.xr.analytics.fold.subjects";
-        const string FoldKeyRoles      = "pitech.xr.analytics.fold.roles";
 
         bool foldObjectives;
         bool foldAnalytics;
         bool foldSubjects;
-        bool foldRoles;
         bool _foldsLoaded;
 
         void EnsureFolds()
@@ -47,31 +45,74 @@ namespace Pitech.XR.Analytics.Editor
             foldObjectives = EditorPrefs.GetBool(FoldKeyObjectives, true);
             foldAnalytics  = EditorPrefs.GetBool(FoldKeyAnalytics, true);
             foldSubjects   = EditorPrefs.GetBool(FoldKeySubjects, false);
-            foldRoles      = EditorPrefs.GetBool(FoldKeyRoles, false);
             _foldsLoaded = true;
+        }
+
+        // ---------- Section accent palette (small color touches, per the "add colors" ask) ----------
+        // A card gets a 3px accent bar on its left edge so each layer reads at a glance without heavy chrome.
+        static readonly Color AccentObjective = new Color(0.95f, 0.72f, 0.26f, 1f);   // amber  = the grade
+        static readonly Color AccentScene     = new Color(0.27f, 0.56f, 0.99f, 1f);   // blue   = scene analytic (Brand)
+        static readonly Color AccentMetric    = new Color(0.55f, 0.62f, 0.78f, 1f);   // slate  = a metric
+        static readonly Color AccentFeed      = new Color(0.45f, 0.72f, 0.55f, 1f);   // green  = an analytic feed
+
+        /// <summary>Draw a 3px accent bar on the left edge of a card rect (Repaint only; the rect is valid then).
+        /// Pass the VerticalScope.rect. A tiny visual cue that costs no layout space.</summary>
+        static void AccentBar(Rect card, Color c)
+        {
+            if (Event.current.type == EventType.Repaint && card.height > 1f)
+                EditorGUI.DrawRect(new Rect(card.x + 1f, card.y + 1f, 5f, card.height - 2f), c);
+        }
+
+        /// <summary>A bold label tinted <paramref name="c"/> (fresh style each call - never cache EditorStyles).</summary>
+        static void ColoredBold(string text, Color c)
+        {
+            var st = new GUIStyle(EditorStyles.boldLabel);
+            st.normal.textColor = c;
+            EditorGUILayout.LabelField(text, st);
+        }
+
+        /// <summary>The Scenario-Graph node colour for a step type, borrowed so a step analytic carries the same
+        /// visual identity as its node. Mirrors ScenarioGraphWindow.StepNode's palette (editor-only, cosmetic).</summary>
+        static Color ColorForStep(Pitech.XR.Scenario.Step s)
+        {
+            switch (s)
+            {
+                case Pitech.XR.Scenario.TimelineStep _:    return new Color(0.20f, 0.42f, 0.85f);
+                case Pitech.XR.Scenario.CueCardsStep _:    return new Color(0.32f, 0.62f, 0.32f);
+                case Pitech.XR.Scenario.QuestionStep _:    return new Color(0.76f, 0.45f, 0.22f);
+                case Pitech.XR.Scenario.MiniQuizStep _:    return new Color(0.62f, 0.34f, 0.16f);
+                case Pitech.XR.Scenario.QuizStep _:        return new Color(0.78f, 0.20f, 0.20f);
+                case Pitech.XR.Scenario.QuizResultsStep _: return new Color(0.62f, 0.16f, 0.16f);
+                case Pitech.XR.Scenario.SelectionStep _:   return new Color(0.58f, 0.38f, 0.78f);
+                case Pitech.XR.Scenario.InsertStep _:      return new Color(0.90f, 0.75f, 0.25f);
+                case Pitech.XR.Scenario.EventStep _:       return new Color(0.25f, 0.70f, 0.70f);
+                case Pitech.XR.Scenario.GroupStep _:       return new Color(0.55f, 0.55f, 0.60f);
+                case Pitech.XR.Scenario.ConditionsStep _:  return new Color(0.70f, 0.38f, 0.08f);
+                default:                                    return new Color(0.60f, 0.62f, 0.68f);   // incl. Session Start/Stop
+            }
         }
 
         /// <summary>
         /// Section orchestrator. Opens the serializedObject Update()/Apply() bracket (free Undo + prefab-override
-        /// correctness), null-guards the rubric root, resolves the linked Scenario once, then draws the validation
+        /// correctness), null-guards the config root, resolves the linked Scenario once, then draws the validation
         /// summary followed by the four sections, top-down: 1 Objectives, 2 Analytics, 3 Tracked Objects, 4 Roles.
         /// </summary>
-        void DrawRubricBuilder()
+        void DrawConfigBuilder()
         {
             EnsureFolds();
             serializedObject.Update();
 
-            SerializedProperty rubricP = serializedObject.FindProperty("rubric");
-            if (rubricP == null)
+            SerializedProperty configP = serializedObject.FindProperty("config");
+            if (configP == null)
             {
                 EditorGUILayout.HelpBox(
-                    "Could not find the 'rubric' serialized property. Recompile scripts and reopen this inspector.",
+                    "Could not find the 'config' serialized property. Recompile scripts and reopen this inspector.",
                     MessageType.Warning);
                 return;
             }
 
             EditorGUILayout.Space();
-            EditorGUILayout.LabelField("Analytics config (WS B2.2)", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField("Analytics configuration", EditorStyles.boldLabel);
             EditorGUILayout.HelpBox(
                 "Grade = the Objectives below (each a share). Each Objective is fed by Analytics (sub-weighted); " +
                 "each Analytic is a set of Metrics. Step analytics are authored on step nodes in the Scenario " +
@@ -82,59 +123,73 @@ namespace Pitech.XR.Analytics.Editor
             Scenario scenario = ResolveScenario((LabAnalytics)target);
 
             // Top-of-builder validation summary (read-only; reflects unsaved edits).
-            DrawValidationSummary(rubricP);
+            DrawValidationSummary(configP);
 
-            SerializedProperty analyticsP = rubricP.FindPropertyRelative("analytics");
-            SerializedProperty objectivesP = rubricP.FindPropertyRelative("objectives");
-            SerializedProperty subjectsP = rubricP.FindPropertyRelative("subjects");
-            SerializedProperty roleCapsP = rubricP.FindPropertyRelative("roleCapacities");
+            // Orphaned step analytics (their step was deleted) - surfaced + one-click removable.
+            DrawOrphanStepAnalytics(configP, scenario);
+
+            SerializedProperty analyticsP = configP.FindPropertyRelative("analytics");
+            SerializedProperty objectivesP = configP.FindPropertyRelative("objectives");
+            SerializedProperty subjectsP = configP.FindPropertyRelative("subjects");
 
             // SECTION 1 - OBJECTIVES (grading), on top.
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                bool open = EditorGUILayout.Foldout(foldObjectives, "1. Objectives (grading)", true);
-                if (open != foldObjectives) { foldObjectives = open; EditorPrefs.SetBool(FoldKeyObjectives, open); }
-                if (foldObjectives && objectivesP != null)
-                    DrawObjectivesSection(objectivesP, analyticsP);
+                if (DrawSection("1.  Objectives  (the grade)", ref foldObjectives, FoldKeyObjectives,
+                        "The grade is a weighted sum of objectives. Each sets a Share of the grade + a Pass bar, " +
+                        "and is fed by one or more analytics.")
+                    && objectivesP != null)
+                    DrawObjectivesSection(objectivesP, analyticsP, scenario);
             }
 
             // SECTION 2 - ANALYTICS (measurement), under objectives.
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                bool open = EditorGUILayout.Foldout(foldAnalytics, "2. Analytics (measurement)", true);
-                if (open != foldAnalytics) { foldAnalytics = open; EditorPrefs.SetBool(FoldKeyAnalytics, open); }
-                if (foldAnalytics && analyticsP != null)
+                if (DrawSection("2.  Analytics  (what is measured)", ref foldAnalytics, FoldKeyAnalytics,
+                        "Each analytic is a set of metrics (warning/error bands). Step analytics are authored on the " +
+                        "step nodes in the Scenario Graph (read-only here); add scene-wide analytics here.")
+                    && analyticsP != null)
                     DrawAnalyticsSection(analyticsP, scenario);
             }
 
             // SECTION 3 - TRACKED OBJECTS (the registry powering drops / wrong-interaction / order).
             using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
-                bool open = EditorGUILayout.Foldout(foldSubjects, "3. Tracked Objects", true);
-                if (open != foldSubjects) { foldSubjects = open; EditorPrefs.SetBool(FoldKeySubjects, open); }
-                if (foldSubjects && subjectsP != null)
+                if (DrawSection("3.  Tracked Objects  (the props)", ref foldSubjects, FoldKeySubjects,
+                        "The objects the learner handles - the registry powering Drop, Wrong-interaction and Order. " +
+                        "Use Auto-detect (top) to fill these from the scenario; add distractors by hand.")
+                    && subjectsP != null)
                 {
-                    EditorGUILayout.HelpBox(
-                        "The objects the learner handles - powers Drop, Wrong-interaction and Order. Use the " +
-                        "Auto-detect button above to fill these from the scenario; add distractors by hand.",
-                        MessageType.None);
-                    EditorGUILayout.PropertyField(subjectsP, new GUIContent("Tracked Objects"), true);
+                    // Draw the list body WITHOUT a second "Tracked Objects" title (the section header is the title).
+                    // The array's own foldout label would duplicate it, so we relabel the inner list neutrally.
+                    EditorGUILayout.PropertyField(subjectsP, new GUIContent("List", "The tracked-object entries."), true);
                 }
             }
 
-            // SECTION 4 - role capacities (single nested object).
-            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
-            {
-                bool open = EditorGUILayout.Foldout(foldRoles, "4. Session role capacities", true);
-                if (open != foldRoles) { foldRoles = open; EditorPrefs.SetBool(FoldKeyRoles, open); }
-                if (foldRoles && roleCapsP != null)
-                {
-                    EditorGUILayout.PropertyField(roleCapsP, true);
-                    EditorGUILayout.HelpBox("-1 = unlimited (on any max).", MessageType.None);
-                }
-            }
+            // Session-role capacities are authored ONCE, on the SessionRoleSelector component (the "Session Roles"
+            // object) - NOT here. They were removed from this inspector on 2026-07-01 so there is a single source
+            // of truth; LabAnalytics mirrors the selector's values into the report at runtime.
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        // ---------- Section header helper ----------
+
+        // Fresh each call (never cache EditorStyles in a static field - it NREs on domain reload).
+        static GUIStyle BoldFoldout => new GUIStyle(EditorStyles.foldout) { fontStyle = FontStyle.Bold, fontSize = 12 };
+
+        /// <summary>Draws a bold collapsible section header + a dim wrapped help line (when open) and persists the
+        /// fold state. Returns whether the section is open. Standardizes the config sections so each reads clearly.</summary>
+        bool DrawSection(string title, ref bool fold, string prefKey, string help)
+        {
+            bool open = EditorGUILayout.Foldout(fold, title, true, BoldFoldout);
+            if (open != fold) { fold = open; EditorPrefs.SetBool(prefKey, open); }
+            if (open && !string.IsNullOrEmpty(help))
+            {
+                EditorGUILayout.LabelField(help, EditorStyles.wordWrappedMiniLabel);
+                EditorGUILayout.Space(2);
+            }
+            return open;
         }
 
         // ---------- SECTION 1: Objectives (grading) ----------
@@ -142,65 +197,83 @@ namespace Pitech.XR.Analytics.Editor
         /// <summary>Draws the objectives, each as a help-box: share-of-grade + pass-bar sliders and its analytic
         /// feeds (analytic dropdown by human name + sub-weight). Under each feed, the analytic's metrics are shown
         /// read-only so the Objective -> Analytic -> Metric hierarchy is visible. Ids/labels are hidden (auto).</summary>
-        void DrawObjectivesSection(SerializedProperty objectivesP, SerializedProperty analyticsP)
+        void DrawObjectivesSection(SerializedProperty objectivesP, SerializedProperty analyticsP, Scenario scenario)
         {
             EditorGUILayout.LabelField("Each objective is a share of the grade, fed by analytics.", EditorStyles.miniLabel);
 
             for (int i = 0; i < objectivesP.arraySize; i++)
             {
                 SerializedProperty obj = objectivesP.GetArrayElementAtIndex(i);
-                using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+                using (var card = new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                 {
+                    AccentBar(card.rect, AccentObjective);
                     using (new EditorGUILayout.HorizontalScope())
                     {
-                        EditorGUILayout.LabelField("Objective " + (i + 1), EditorStyles.boldLabel);
+                        ColoredBold("Objective " + (i + 1), AccentObjective);
                         GUILayout.FlexibleSpace();
                         if (GUILayout.Button(new GUIContent("X", "Remove this objective"), GUILayout.Width(24)))
                         {
                             objectivesP.DeleteArrayElementAtIndex(i);
-                            break;
+                            serializedObject.ApplyModifiedProperties();
+                            GUIUtility.ExitGUI();
                         }
                     }
 
-                    // id + label hidden: teachers name + tune objectives in the Web Portal; the dev wires structure.
+                    // Name is the human label (shown on the readout + tuned in the Web Portal). Id stays hidden (auto).
+                    EditorGUILayout.PropertyField(obj.FindPropertyRelative("label"),
+                        new GUIContent("Name", "Shown on the readout and in LabConsole (e.g. \"Procedure correctness\")."));
                     EditorGUILayout.PropertyField(obj.FindPropertyRelative("weight"), new GUIContent("Share of grade"));
-                    EditorGUILayout.PropertyField(obj.FindPropertyRelative("target"), new GUIContent("Pass bar (score >= target)"));
+                    EditorGUILayout.PropertyField(obj.FindPropertyRelative("target"),
+                        new GUIContent("Pass bar (0-1 score)", "The normalized 0-1 score at/above which this objective is 'passed'."));
                     EditorGUILayout.LabelField(
-                        "Time limits live on the Total Duration metric's bands (seconds); this pass bar stays 0-1.",
-                        EditorStyles.miniLabel);
+                        "The score is normalized 0-1 across this objective's analytics, so the pass bar is 0-1. " +
+                        "Real units (seconds, counts) are set on each metric's bands - not here.",
+                        EditorStyles.wordWrappedMiniLabel);
 
+                    EditorGUILayout.Space(2);
                     SerializedProperty inputsP = obj.FindPropertyRelative("inputs");
                     if (inputsP != null)
                     {
-                        using (new EditorGUI.IndentLevelScope())
-                        {
-                            EditorGUILayout.LabelField("Fed by these analytics", EditorStyles.boldLabel);
+                        EditorGUILayout.LabelField("Fed by these analytics", EditorStyles.boldLabel);
 
-                            for (int j = 0; j < inputsP.arraySize; j++)
+                        for (int j = 0; j < inputsP.arraySize; j++)
+                        {
+                            SerializedProperty input = inputsP.GetArrayElementAtIndex(j);
+                            SerializedProperty aidP = input.FindPropertyRelative("analyticId");
+                            using (var feed = new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
                             {
-                                SerializedProperty input = inputsP.GetArrayElementAtIndex(j);
-                                SerializedProperty aidP = input.FindPropertyRelative("analyticId");
+                                AccentBar(feed.rect, AccentFeed);
+                                // Row 1: which analytic (dropdown fills the width) + remove. The sub-weight is kept
+                                // OFF this row so the field + X never overflow the card on the right.
                                 using (new EditorGUILayout.HorizontalScope())
                                 {
-                                    DrawAnalyticDropdown(aidP, analyticsP);
-                                    EditorGUILayout.PropertyField(input.FindPropertyRelative("subWeight"), new GUIContent("Sub-weight"));
-                                    if (GUILayout.Button(new GUIContent("X", "Remove this feed"), GUILayout.Width(24)))
+                                    DrawAnalyticDropdown(aidP, analyticsP, scenario);
+                                    if (GUILayout.Button(new GUIContent("X", "Remove this feed"), GUILayout.Width(22)))
                                     {
                                         inputsP.DeleteArrayElementAtIndex(j);
-                                        break;
+                                        serializedObject.ApplyModifiedProperties();
+                                        GUIUtility.ExitGUI();
                                     }
                                 }
-                                // The analytic's metrics, read-only - makes the Objective -> Analytic -> Metric tree visible.
-                                string summary = AnalyticMetricsSummary(analyticsP, aidP != null ? aidP.stringValue : null);
-                                if (!string.IsNullOrEmpty(summary))
-                                    EditorGUILayout.LabelField("      metrics: " + summary, EditorStyles.miniLabel);
+                                // Row 2: sub-weight on its own line (a [Range] slider needs the room).
+                                EditorGUILayout.PropertyField(input.FindPropertyRelative("subWeight"), new GUIContent("Sub-weight"));
+                                // Show WHICH analytic feeds this objective (its name) + its metrics, read-only.
+                                string aid = aidP != null ? aidP.stringValue : null;
+                                string disp = AnalyticDisplayById(analyticsP, aid, scenario);
+                                string summary = AnalyticMetricsSummary(analyticsP, aid);
+                                if (!string.IsNullOrEmpty(disp) || !string.IsNullOrEmpty(summary))
+                                    EditorGUILayout.LabelField(
+                                        (disp ?? string.Empty) +
+                                        (string.IsNullOrEmpty(summary) ? string.Empty : "   metrics: " + summary),
+                                        EditorStyles.miniLabel);
                             }
-
-                            if (GUILayout.Button("+ Analytic feed"))
-                                AddObjectiveInput(inputsP);
                         }
+
+                        if (GUILayout.Button("+ Analytic feed"))
+                            AddObjectiveInput(inputsP);
                     }
                 }
+                EditorGUILayout.Space(3);
                 if (i >= objectivesP.arraySize) break;
             }
 
@@ -218,36 +291,61 @@ namespace Pitech.XR.Analytics.Editor
                 "Step analytics come from step nodes in the Scenario Graph. Add scene-wide analytics here.",
                 EditorStyles.miniLabel);
 
+            // Group by kind so ALL step analytics stay together (then all scene analytics), regardless of the
+            // order they were created in. Operations still use the real list index. Any add/remove below calls
+            // ExitGUI, so these precomputed indices stay valid for the current frame's draw.
+            var stepIdx = new List<int>();
+            var sceneIdx = new List<int>();
+            var nullIdx = new List<int>();
             for (int i = 0; i < analyticsP.arraySize; i++)
             {
                 SerializedProperty el = analyticsP.GetArrayElementAtIndex(i);
-
-                // [SerializeReference] null-slot guard - never strip nulls automatically (mirror ScenarioEditor).
                 if (el.propertyType == SerializedPropertyType.ManagedReference && el.managedReferenceValue == null)
-                {
-                    using (new EditorGUILayout.HorizontalScope())
-                    {
-                        EditorGUILayout.LabelField("<missing analytic>", EditorStyles.miniLabel);
-                        if (GUILayout.Button("Remove null entry", GUILayout.Width(140)))
-                            RemoveManagedElement(analyticsP, i);
-                    }
-                    if (i >= analyticsP.arraySize) break;
-                    continue;
-                }
-
-                object av = el.managedReferenceValue;
-                if (av is StepAnalytic)
-                    DrawStepAnalyticReadOnly(el, scenario);
+                    nullIdx.Add(i);
+                else if (el.managedReferenceValue is StepAnalytic)
+                    stepIdx.Add(i);
                 else
-                    DrawSceneAnalyticCard(el, analyticsP, i);
-
-                if (i >= analyticsP.arraySize) break;
+                    sceneIdx.Add(i);
             }
 
+            // Null slots first (surfaced + removable; never auto-stripped, mirroring ScenarioEditor).
+            for (int k = 0; k < nullIdx.Count; k++)
+            {
+                using (new EditorGUILayout.HorizontalScope())
+                {
+                    EditorGUILayout.LabelField("<missing analytic>", EditorStyles.miniLabel);
+                    if (GUILayout.Button("Remove null entry", GUILayout.Width(140)))
+                    {
+                        RemoveManagedElement(analyticsP, nullIdx[k]);
+                        serializedObject.ApplyModifiedProperties();
+                        GUIUtility.ExitGUI();
+                    }
+                }
+            }
+
+            if (stepIdx.Count > 0)
+            {
+                EditorGUILayout.LabelField("From the Scenario Graph", EditorStyles.miniBoldLabel);
+                for (int k = 0; k < stepIdx.Count; k++)
+                    DrawStepAnalyticReadOnly(analyticsP.GetArrayElementAtIndex(stepIdx[k]), scenario);
+            }
+
+            if (sceneIdx.Count > 0)
+            {
+                EditorGUILayout.Space(2);
+                EditorGUILayout.LabelField("Scene-wide", EditorStyles.miniBoldLabel);
+                for (int k = 0; k < sceneIdx.Count; k++)
+                    DrawSceneAnalyticCard(analyticsP.GetArrayElementAtIndex(sceneIdx[k]), analyticsP, sceneIdx[k]);
+            }
+
+            EditorGUILayout.Space(2);
             using (new EditorGUILayout.HorizontalScope())
             {
                 if (GUILayout.Button(new GUIContent("Add Scene Analytic", "Add a scene-wide analytic (time, safety, ...).")))
+                {
                     AddAnalyticElement(analyticsP, typeof(SceneAnalytic));
+                    GUIUtility.ExitGUI();
+                }
             }
         }
 
@@ -255,8 +353,18 @@ namespace Pitech.XR.Analytics.Editor
         /// can still reference it, with its metrics summarised.</summary>
         void DrawStepAnalyticReadOnly(SerializedProperty el, Scenario scenario)
         {
-            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+            using (var card = new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
+                // Borrow the step node's colour so this reads as "the brick for that step".
+                Color accent = new Color(0.60f, 0.62f, 0.68f);
+                SerializedProperty guidP = el.FindPropertyRelative("stepGuid");
+                if (scenario != null && guidP != null)
+                {
+                    var step = FindStepByGuid(scenario.steps, guidP.stringValue);
+                    if (step != null) accent = ColorForStep(step);
+                }
+                AccentBar(card.rect, accent);
+
                 using (new EditorGUILayout.HorizontalScope())
                 {
                     EditorGUILayout.LabelField("[Step] " + StepAnalyticDisplay(el, scenario), EditorStyles.boldLabel);
@@ -268,25 +376,29 @@ namespace Pitech.XR.Analytics.Editor
             }
         }
 
-        /// <summary>Draws one SceneAnalytic as an editable card: category (the human name; id/label hidden), the
-        /// metrics sub-list, and a remove button.</summary>
+        /// <summary>Draws one SceneAnalytic as an editable card: Name (the human label; id hidden), the metrics
+        /// sub-list, and a remove button. (The legacy free-form "category" is no longer authored.)</summary>
         void DrawSceneAnalyticCard(SerializedProperty el, SerializedProperty analyticsP, int i)
         {
-            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+            using (var card = new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
+                AccentBar(card.rect, AccentScene);
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    EditorGUILayout.LabelField("[Scene] Analytic", EditorStyles.boldLabel);
+                    ColoredBold("[Scene] Analytic", AccentScene);
                     GUILayout.FlexibleSpace();
                     if (GUILayout.Button(new GUIContent("X", "Remove this analytic"), GUILayout.Width(24)))
                     {
                         RemoveManagedElement(analyticsP, i);
-                        return;
+                        serializedObject.ApplyModifiedProperties();
+                        GUIUtility.ExitGUI();
                     }
                 }
 
-                // Category is the human name (id + label hidden, auto-managed).
-                EditorGUILayout.PropertyField(el.FindPropertyRelative("category"), new GUIContent("Category"));
+                // Name is the human label (id hidden, auto). Replaces the old free-form "category" (which duplicated
+                // the name concept); label is already what the report + objective feeds show.
+                EditorGUILayout.PropertyField(el.FindPropertyRelative("label"),
+                    new GUIContent("Name", "Shown on the readout and in objective feeds (e.g. \"Time\", \"Safety\")."));
 
                 SerializedProperty metricsP = el.FindPropertyRelative("metrics");
                 if (metricsP != null)
@@ -320,7 +432,7 @@ namespace Pitech.XR.Analytics.Editor
         /// band editor, an inline scope-validation HelpBox, and a remove button. Ids/labels are hidden (auto).</summary>
         void DrawMetricCard(SerializedProperty el2, SerializedProperty metricsP, int j, object owningAnalytic)
         {
-            using (new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
+            using (var card = new EditorGUILayout.VerticalScope(EditorStyles.helpBox))
             {
                 if (el2.propertyType == SerializedPropertyType.ManagedReference && el2.managedReferenceValue == null)
                 {
@@ -328,21 +440,27 @@ namespace Pitech.XR.Analytics.Editor
                     {
                         EditorGUILayout.LabelField("<missing metric>", EditorStyles.miniLabel);
                         if (GUILayout.Button("Remove null entry", GUILayout.Width(140)))
+                        {
                             RemoveManagedElement(metricsP, j);
+                            serializedObject.ApplyModifiedProperties();
+                            GUIUtility.ExitGUI();
+                        }
                     }
                     return;
                 }
 
                 object mv = el2.managedReferenceValue;
+                AccentBar(card.rect, AccentMetric);
 
                 using (new EditorGUILayout.HorizontalScope())
                 {
-                    EditorGUILayout.LabelField(MetricKindLabel(mv), EditorStyles.boldLabel);
+                    ColoredBold(MetricKindLabel(mv), AccentMetric);
                     GUILayout.FlexibleSpace();
                     if (GUILayout.Button(new GUIContent("X", "Remove this metric"), GUILayout.Width(24)))
                     {
                         RemoveManagedElement(metricsP, j);
-                        return;
+                        serializedObject.ApplyModifiedProperties();
+                        GUIUtility.ExitGUI();
                     }
                 }
 
@@ -364,7 +482,11 @@ namespace Pitech.XR.Analytics.Editor
                     EditorGUILayout.PropertyField(el2.FindPropertyRelative("id"),
                         new GUIContent("Signal id", "Must match the id your AnalyticsSignalEmitter emits."));
 
-                EditorGUILayout.PropertyField(el2.FindPropertyRelative("weight"), new GUIContent("Weight"));
+                // Weight only matters RELATIVE to sibling metrics - hide it when this analytic has just one metric
+                // (a single metric is always 100% of its analytic, so the number is noise).
+                if (metricsP.arraySize > 1)
+                    EditorGUILayout.PropertyField(el2.FindPropertyRelative("weight"),
+                        new GUIContent("Weight", "Relative weight versus the other metrics in this analytic."));
 
                 SerializedProperty bandsP = el2.FindPropertyRelative("bands");
                 if (bandsP != null)
@@ -377,13 +499,14 @@ namespace Pitech.XR.Analytics.Editor
         /// <summary>Draws the analytic dropdown for one ObjectiveInput, listing analytics by their human display
         /// ("[Step] name" / "[Scene] category"); "(none)" at 0; a stale id surfaces as "&lt;missing: id&gt;".
         /// The stored value is always the analytic id (never silently blanked).</summary>
-        void DrawAnalyticDropdown(SerializedProperty analyticIdProp, SerializedProperty analyticsP)
+        void DrawAnalyticDropdown(SerializedProperty analyticIdProp, SerializedProperty analyticsP, Scenario scenario)
         {
             if (analyticIdProp == null) return;
 
             var ids = new List<string>();
             var displays = new List<string>();
-            CollectAnalyticOptions(analyticsP, ids, displays);
+            CollectAnalyticOptions(analyticsP, ids, displays, scenario);
+            MakeUnique(displays);   // EditorGUILayout.Popup MERGES identical labels, so distinct analytics can vanish.
 
             var labels = new List<string> { "(none)" };
             var values = new List<string> { string.Empty };
@@ -643,26 +766,53 @@ namespace Pitech.XR.Analytics.Editor
             return null;
         }
 
-        /// <summary>Human display for a StepAnalytic: its auto label (= the step name), else the step's graph
-        /// display name, else a generic fallback. Never shows the raw id/guid.</summary>
+        /// <summary>Human display for a StepAnalytic, WITHOUT the "[Step] " prefix (callers add it): "Name Type"
+        /// when the step has a graph display name, else just "Type", resolved LIVE from the step. Falls back to the
+        /// step's name / the stored label / a generic word when the step is gone (orphan). Never shows id/guid.</summary>
         static string StepAnalyticDisplay(SerializedProperty el, Scenario scenario)
         {
-            SerializedProperty labelP = el.FindPropertyRelative("label");
-            string label = labelP != null ? labelP.stringValue : null;
-            if (!string.IsNullOrEmpty(label)) return label;
-
             SerializedProperty guidP = el.FindPropertyRelative("stepGuid");
             string guid = guidP != null ? guidP.stringValue : null;
+
+            string name = null, type = null;
             if (scenario != null && !string.IsNullOrEmpty(guid))
             {
                 var disp = scenario.FindStepGraphDisplay(guid);
-                if (disp != null && !string.IsNullOrEmpty(disp.displayName)) return disp.displayName;
+                if (disp != null && !string.IsNullOrEmpty(disp.displayName)) name = disp.displayName;
+                Pitech.XR.Scenario.Step step = FindStepByGuid(scenario.steps, guid);
+                if (step != null) type = step.Kind;
             }
-            return "Step analytic";
+
+            if (!string.IsNullOrEmpty(type))
+                return string.IsNullOrEmpty(name) ? ("(" + type + ")") : (name + " (" + type + ")");   // "Name (Type)" / "(Type)"
+
+            // Step not resolvable (e.g. deleted): name, then the stored label, then a generic word.
+            if (!string.IsNullOrEmpty(name)) return name;
+            SerializedProperty labelP = el.FindPropertyRelative("label");
+            string label = labelP != null ? labelP.stringValue : null;
+            return !string.IsNullOrEmpty(label) ? label : "step analytic";
+        }
+
+        /// <summary>Recursively find a Step by guid in a step list (descends into GroupSteps). Null if absent.</summary>
+        static Pitech.XR.Scenario.Step FindStepByGuid(List<Pitech.XR.Scenario.Step> steps, string guid)
+        {
+            if (steps == null || string.IsNullOrEmpty(guid)) return null;
+            for (int i = 0; i < steps.Count; i++)
+            {
+                Pitech.XR.Scenario.Step s = steps[i];
+                if (s == null) continue;
+                if (s.guid == guid) return s;
+                if (s is Pitech.XR.Scenario.GroupStep g)
+                {
+                    Pitech.XR.Scenario.Step nested = FindStepByGuid(g.steps, guid);
+                    if (nested != null) return nested;
+                }
+            }
+            return null;
         }
 
         /// <summary>Collects parallel (id, display) lists for the analytic dropdown (skips null/idless analytics).</summary>
-        static void CollectAnalyticOptions(SerializedProperty analyticsP, List<string> ids, List<string> displays)
+        static void CollectAnalyticOptions(SerializedProperty analyticsP, List<string> ids, List<string> displays, Scenario scenario)
         {
             if (analyticsP == null) return;
             for (int i = 0; i < analyticsP.arraySize; i++)
@@ -673,23 +823,51 @@ namespace Pitech.XR.Analytics.Editor
                 string id = idP != null ? idP.stringValue : null;
                 if (string.IsNullOrWhiteSpace(id)) continue;
                 ids.Add(id);
-                displays.Add(AnalyticDisplayShort(el));
+                displays.Add(AnalyticDisplayShort(el, scenario));
             }
         }
 
-        static string AnalyticDisplayShort(SerializedProperty el)
+        /// <summary>Append " (2)", " (3)" ... to duplicate display strings so a plain EditorGUILayout.Popup
+        /// (which merges identical labels into one entry) shows every option distinctly.</summary>
+        static void MakeUnique(List<string> displays)
+        {
+            var seen = new Dictionary<string, int>();
+            for (int i = 0; i < displays.Count; i++)
+            {
+                string d = displays[i] ?? string.Empty;
+                if (seen.TryGetValue(d, out int n)) { n++; seen[d] = n; displays[i] = d + " (" + n + ")"; }
+                else seen[d] = 1;
+            }
+        }
+
+        static string AnalyticDisplayShort(SerializedProperty el, Scenario scenario)
         {
             object av = el.managedReferenceValue;
-            SerializedProperty labelP = el.FindPropertyRelative("label");
-            string label = labelP != null ? labelP.stringValue : null;
             if (av is SceneAnalytic)
             {
+                SerializedProperty labelP = el.FindPropertyRelative("label");
+                string label = labelP != null ? labelP.stringValue : null;
                 SerializedProperty catP = el.FindPropertyRelative("category");
                 string cat = catP != null ? catP.stringValue : null;
-                string nm = !string.IsNullOrEmpty(cat) ? cat : (!string.IsNullOrEmpty(label) ? label : "scene");
+                // Name (label) is now the authored surface; fall back to the legacy category, then a generic word.
+                string nm = !string.IsNullOrEmpty(label) ? label : (!string.IsNullOrEmpty(cat) ? cat : "scene");
                 return "[Scene] " + nm;
             }
-            return "[Step] " + (!string.IsNullOrEmpty(label) ? label : "step");
+            return "[Step] " + StepAnalyticDisplay(el, scenario);
+        }
+
+        /// <summary>The display string for the analytic with id <paramref name="id"/> (for the objectives tree).</summary>
+        static string AnalyticDisplayById(SerializedProperty analyticsP, string id, Scenario scenario)
+        {
+            if (analyticsP == null || string.IsNullOrEmpty(id)) return null;
+            for (int i = 0; i < analyticsP.arraySize; i++)
+            {
+                SerializedProperty el = analyticsP.GetArrayElementAtIndex(i);
+                if (el.propertyType == SerializedPropertyType.ManagedReference && el.managedReferenceValue == null) continue;
+                SerializedProperty idP = el.FindPropertyRelative("id");
+                if (idP != null && idP.stringValue == id) return AnalyticDisplayShort(el, scenario);
+            }
+            return null;
         }
 
         /// <summary>Collects the current (non-empty) analytic ids in author order.</summary>
@@ -726,8 +904,8 @@ namespace Pitech.XR.Analytics.Editor
         List<string> CollectAllMetricIds()
         {
             var ids = new List<string>();
-            SerializedProperty rubricP = serializedObject.FindProperty("rubric");
-            SerializedProperty analyticsP = rubricP != null ? rubricP.FindPropertyRelative("analytics") : null;
+            SerializedProperty configP = serializedObject.FindProperty("config");
+            SerializedProperty analyticsP = configP != null ? configP.FindPropertyRelative("analytics") : null;
             if (analyticsP == null) return ids;
             for (int i = 0; i < analyticsP.arraySize; i++)
             {
@@ -770,18 +948,78 @@ namespace Pitech.XR.Analytics.Editor
             return sb.ToString();
         }
 
+        // ---------- Orphan cleanup: step analytics whose step was deleted ----------
+
+        /// <summary>Surfaces StepAnalytics whose stepGuid no longer exists in the linked Scenario (the step was
+        /// deleted) and offers a one-click removal. Complements the graph's cascade-purge on delete; also catches
+        /// orphans created before that fix or by edits outside the graph. Read-only until the button is pressed.</summary>
+        void DrawOrphanStepAnalytics(SerializedProperty configP, Scenario scenario)
+        {
+            if (scenario == null || configP == null) return;
+            SerializedProperty analyticsP = configP.FindPropertyRelative("analytics");
+            if (analyticsP == null || analyticsP.arraySize == 0) return;
+
+            var valid = new HashSet<string>();
+            CollectScenarioStepGuids(scenario.steps, valid);
+
+            var orphanIdx = new List<int>();
+            var orphanLabels = new List<string>();
+            for (int i = 0; i < analyticsP.arraySize; i++)
+            {
+                SerializedProperty el = analyticsP.GetArrayElementAtIndex(i);
+                if (el.propertyType == SerializedPropertyType.ManagedReference && el.managedReferenceValue == null) continue;
+                if (!(el.managedReferenceValue is StepAnalytic)) continue;
+
+                SerializedProperty gP = el.FindPropertyRelative("stepGuid");
+                string g = gP != null ? gP.stringValue : null;
+                if (string.IsNullOrEmpty(g) || valid.Contains(g)) continue;   // unbound or still-valid = not an orphan
+
+                orphanIdx.Add(i);
+                SerializedProperty lP = el.FindPropertyRelative("label");
+                SerializedProperty idP = el.FindPropertyRelative("id");
+                orphanLabels.Add(lP != null && !string.IsNullOrEmpty(lP.stringValue) ? lP.stringValue
+                    : (idP != null && !string.IsNullOrEmpty(idP.stringValue) ? idP.stringValue : "step analytic"));
+            }
+
+            if (orphanIdx.Count == 0) return;
+
+            EditorGUILayout.HelpBox(
+                orphanIdx.Count + " step analytic(s) point to a step that no longer exists (" +
+                string.Join(", ", orphanLabels) + "). They score nothing - remove them.",
+                MessageType.Warning);
+            if (GUILayout.Button("Remove " + orphanIdx.Count + " orphaned step analytic(s)"))
+            {
+                for (int k = orphanIdx.Count - 1; k >= 0; k--)
+                    RemoveManagedElement(analyticsP, orphanIdx[k]);
+                serializedObject.ApplyModifiedProperties();
+                GUIUtility.ExitGUI();   // the list changed mid-layout; bail this GUI pass cleanly
+            }
+        }
+
+        static void CollectScenarioStepGuids(List<Pitech.XR.Scenario.Step> steps, HashSet<string> into)
+        {
+            if (steps == null) return;
+            for (int i = 0; i < steps.Count; i++)
+            {
+                Pitech.XR.Scenario.Step s = steps[i];
+                if (s == null) continue;
+                if (!string.IsNullOrEmpty(s.guid)) into.Add(s.guid);
+                if (s is Pitech.XR.Scenario.GroupStep g) CollectScenarioStepGuids(g.steps, into);
+            }
+        }
+
         // ---------- Validation (read-only; renders HelpBoxes from serialized values each GUI pass) ----------
 
-        /// <summary>Computes and renders the rubric validation summary at the top of the builder: empty ids,
+        /// <summary>Computes and renders the config validation summary at the top of the builder: empty ids,
         /// duplicate ids (per scope), zero weight sums, metric-scope mismatches, and inputless objectives.
         /// Never mutates - read-only over the serialized props (so it reflects unsaved edits).</summary>
-        void DrawValidationSummary(SerializedProperty rubricP)
+        void DrawValidationSummary(SerializedProperty configP)
         {
             var errors = new List<string>();
             var warnings = new List<string>();
 
-            SerializedProperty analyticsP = rubricP.FindPropertyRelative("analytics");
-            SerializedProperty objectivesP = rubricP.FindPropertyRelative("objectives");
+            SerializedProperty analyticsP = configP.FindPropertyRelative("analytics");
+            SerializedProperty objectivesP = configP.FindPropertyRelative("objectives");
 
             // --- Analytics: empty/duplicate ids; per-analytic metric weight sum; metric scope; metric ids global.
             var analyticIdSeen = new HashSet<string>();

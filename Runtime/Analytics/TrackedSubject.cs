@@ -18,7 +18,7 @@ namespace Pitech.XR.Analytics
     [Serializable]
     public sealed class TrackedSubject
     {
-        [Tooltip("Stable id for this subject within the rubric (referenced by the JSON contract and the auto-wiring).")]
+        [Tooltip("Stable id for this subject within the config (referenced by the JSON contract and the auto-wiring).")]
         public string id;
 
         [Tooltip("Human-readable label shown in LabConsole and on the readout.")]

@@ -5,13 +5,13 @@ using Pitech.XR.Analytics;
 namespace Pitech.XR.Scenario.Editor.Tests
 {
     /// <summary>
-    /// EditMode coverage for the inert analytics rubric schema (map sec-11): the default scoring band
+    /// EditMode coverage for the inert analytics config schema (map sec-11): the default scoring band
     /// set, the per-kind <c>Kind</c> tags, the default-band seeding on a fresh metric, and the
-    /// <see cref="LabRubric"/> / <see cref="SessionRoleCapacities"/> defaults. Pure value-object tests -
+    /// <see cref="LabConfig"/> / <see cref="SessionRoleCapacities"/> defaults. Pure value-object tests -
     /// no GameObjects, no scene state.
     /// </summary>
     [TestFixture]
-    public sealed class AnalyticsRubricTests
+    public sealed class AnalyticsConfigTests
     {
         // ---------- ScoringBand.DefaultBands ----------
 
@@ -111,12 +111,12 @@ namespace Pitech.XR.Scenario.Editor.Tests
             Assert.That(new SceneAnalytic().Kind, Is.EqualTo(SceneAnalytic.KindId));
         }
 
-        // ---------- LabRubric defaults ----------
+        // ---------- LabConfig defaults ----------
 
         [Test]
-        public void LabRubric_DefaultSchemaVersionIsOne()
+        public void LabConfig_DefaultSchemaVersionIsOne()
         {
-            Assert.That(new LabRubric().schemaVersion, Is.EqualTo(1));
+            Assert.That(new LabConfig().schemaVersion, Is.EqualTo(1));
         }
 
         // ---------- SessionRoleCapacities defaults ----------

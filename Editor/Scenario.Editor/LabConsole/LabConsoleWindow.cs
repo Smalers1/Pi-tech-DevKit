@@ -11,7 +11,7 @@ namespace Pitech.XR.Scenario.Editor
     /// <summary>
     /// The Lab Console window: the rich, current-lab authoring surface (DevKit surface-separation schema,
     /// section 4). It is the Timeline-for-a-lab - a VIEW over the same data as the (now thin) LabConsole
-    /// inspector (the LabConsole component + its Scenario + the rubric), never a parallel store. It reuses
+    /// inspector (the LabConsole component + its Scenario + the config), never a parallel store. It reuses
     /// the Hub's page model and the shared DevkitTheme/DevkitWidgets vocabulary; pages grey in the nav when
     /// their feature is absent but stay open so you can add it from the page.
     /// </summary>

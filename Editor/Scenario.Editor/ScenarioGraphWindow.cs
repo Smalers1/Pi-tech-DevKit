@@ -1704,6 +1704,9 @@ public partial class ScenarioGraphWindow : EditorWindow
 
         // Editor-only display overrides die with the step (incl. a group's nested steps).
         scenario.RemoveStepGraphDisplayRecursive(s);
+
+        // Cascade: drop this step's Step Analytic so it does not orphan in the lab config.
+        PurgeStepAnalyticFor(s.guid);
     }
 
     void ScheduleGraphReloadAfterScenarioMutation()

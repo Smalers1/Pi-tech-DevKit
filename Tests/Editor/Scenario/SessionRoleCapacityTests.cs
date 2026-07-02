@@ -6,7 +6,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
 {
     /// <summary>
     /// EditMode coverage for the P7 local capacity guard: the per-lab role capacities (pushed from the
-    /// rubric by LabAnalytics at Start) forbid a role whose max is 0 and leave others selectable. Locks the
+    /// config by LabAnalytics at Start) forbid a role whose max is 0 and leave others selectable. Locks the
     /// LOCAL single-peer guard (SessionRoleSelector.IsSelectable); cross-peer headcount is B2.4 (MP). Pure
     /// component logic - no Awake/Start lifecycle needed.
     /// </summary>

@@ -13,13 +13,13 @@ namespace Pitech.XR.Analytics
 
     /// <summary>
     /// Abstract base for a scored grouping of metrics. Held in a polymorphic
-    /// <c>[SerializeReference] List&lt;Analytic&gt;</c> on the <see cref="LabRubric"/> (the
+    /// <c>[SerializeReference] List&lt;Analytic&gt;</c> on the <see cref="LabConfig"/> (the
     /// measurement layer). Objectives reference an analytic by <see cref="id"/> (the grading layer).
     /// </summary>
     [Serializable]
     public abstract class Analytic
     {
-        [Tooltip("Stable id for this analytic within the rubric. Objectives reference it by this id.")]
+        [Tooltip("Stable id for this analytic within the config. Objectives reference it by this id.")]
         public string id;
 
         [Tooltip("Human-readable label shown in LabConsole and on the readout.")]

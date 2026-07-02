@@ -33,19 +33,19 @@ wrong-interaction / order) auto-detected + auto-wired; (3) the **cloud + portal*
 foundation** (slip-eligible). End-to-end green in one real lab on AR + VR is the analytics exit bar.
 
 **Architecture stance.** Behaviour-ADDITIVE, gated on the Evaluate-Changes net. Each feature rides a **B.1** seam (the bus,
-the param store, the path-store, the frozen rubric schema) - turning it on, not re-architecting it. The launch grade is
+the param store, the path-store, the frozen config schema) - turning it on, not re-architecting it. The launch grade is
 **author-defined and reproducible** (no model in the scoring loop); AI-judging is post-launch. **Analytics is fully authored
 in-lab via the DevKit at launch; Web-Portal tuning (pick from a dropdown; set weight + target) is post-launch** (decision 35).
 
 **Authority / spec reference.** `devkit-architecture-map-phase-b.md` - §11 (the analytics hierarchy + the ratified §11.8
 grade math + the report), §10 (multiplayer turn-on + the DRIVE/FOLLOW table), §12 (localization content), §8 (the `Vital`
-primitive). B.1 provides the frozen schema (rubric types, `SessionStart/Stop`, roles, tenant+user id) every WS consumes.
+primitive). B.1 provides the frozen schema (config types, `SessionStart/Stop`, roles, tenant+user id) every WS consumes.
 
 **Duration / window.** B.2 runs after the B.1 surface freezes (**07-07**); the **cloud + portal lane runs in parallel from
 the G2 schema freeze (06-29)**. On-device end-to-end smoke folds into the Phase C integration window before the store gate.
 
 **Exit criteria (measurable).**
-- End-to-end analytics green in ONE real lab on **VR (Quest) + AR (mobile UaaL)** from the same scenario: author the rubric -> run -> **on-device lab-end readout renders** -> session report ingests -> portal shows the readout.
+- End-to-end analytics green in ONE real lab on **VR (Quest) + AR (mobile UaaL)** from the same scenario: author the config -> run -> **on-device lab-end readout renders** -> session report ingests -> portal shows the readout.
 - The **analytics equivalence golden fixture** (events -> grade) produces **identical** results in Unity (EditMode) and the portal reducer.
 - Drops / wrong-interaction / order are captured from the subjects registry; the **default bands `none 0 / warning 0.5 / error 1.0`** apply; warnings/errors fire the in-scene notification.
 - **Role gating** works: Participant = full graded report, Professor = presence only, Spectator = none; per-lab capacities enforced.
@@ -103,7 +103,7 @@ the G2 schema freeze (06-29)**. On-device end-to-end smoke folds into the Phase 
 
 ## WS B2.1 - Analytics behaviour (observers + grade + report)
 
-**Goal.** Turn the B.1 rubric schema into a running analytics path: observers -> raw events on the bus -> the ratified grade
+**Goal.** Turn the B.1 config schema into a running analytics path: observers -> raw events on the bus -> the ratified grade
 math -> an **on-device lab-end readout** -> the **session report** at `SessionStop`. (map §11)
 
 **Scope / files.** `Runtime/Analytics/` (observers + the reducer/grade engine + the report assembler); the role-pick runtime
@@ -112,10 +112,10 @@ UI; the offline outbox (host-owned, verified).
 **Steps (progress tracking):** *(code 2026-06-29; verification = Stergios' Unity pass)*
 - [x] Step 1: per-kind reducers (StepDuration / TotalDuration / Drop / WrongInteraction / Order) over the captured bus stream - `AnalyticsGradeEngine.ComputeMetric/ComputeCount` + `AnalyticsEvent`/`SessionEventStream`.
 - [x] Step 2: the §11.8 grade engine - `AnalyticsGradeEngine` (ceiling=highest band crossed w/ threshold<=0 inactive; count=per-occurrence sum; weighted means; applicability mask; "incomplete" if all-masked OR unclosed bracket; target=pass-bar). Hand-verified to 0.25 on the fixture.
-- [x] Step 3: on-device readout - `GradeResult` from (events + rubric), raised via `LabAnalytics.onReadout`, no cloud round-trip.
+- [x] Step 3: on-device readout - `GradeResult` from (events + config), raised via `LabAnalytics.onReadout`, no cloud round-trip.
 - [x] Step 4: bands -> in-scene notification - `LabAnalytics.NotifyForCount/NotifyForSignal` -> `onNotification` (per `notifyInScene`). *(duration-band notify fires at step-complete; live mid-step nudge = noted refinement.)*
 - [x] Step 5: role gating - `SessionRoleSelector` (in-scene pick) + `Finalize` (Participant full / Professor presence / Spectator none).
-- [x] Step 6: the ONE session report (`SessionReport` + `SessionReportJson`) shipped at SessionStop with users+roles+timed stream+bundled raw rubric. *(SP done; cross-peer MERGE + flush-on-reconnect = host/post-B2.)*
+- [x] Step 6: the ONE session report (`SessionReport` + `SessionReportJson`) shipped at SessionStop with users+roles+timed stream+bundled raw config. *(SP done; cross-peer MERGE + flush-on-reconnect = host/post-B2.)*
 - [ ] Step 7: offline durability - **DevKit seam done** (`ISessionReportSink`; submit-at-stop + submit-incomplete-on-disable; "incomplete never passed"). **[HUMAN/host]** the disk-backed outbox impl + survives-restart/retries verification is HOST-OWNED (VR Shell / mobile).
 - [x] Step 8: equivalence golden fixture (`AnalyticsEquivalenceFixture`) green in EditMode (`AnalyticsGradeEngineTests`, 5 tests). *(portal mirror is B2.3.)*
 
@@ -154,11 +154,11 @@ UI; the offline outbox (host-owned, verified).
 portal readout/render; the org-level consent flag.
 
 **Steps (progress tracking):** *(NOT BUILT - intentionally gated; the DevKit emit shape `SessionReport`/`SessionReportJson` is ready to hand over. Blocked on: (a) Stergios' G2 schema confirm; (b) cloud-lane ownership. Do not build against an unconfirmed wire format. See open-decisions doc A1/A4.)*
-- [ ] Step 1: **[G2 - 2026-06-29]** Lock the session-report wire schema from B2.1 (users + roles + timed events + bundled rubric + tenant/session/lab/version envelope). This is the **cross-surface freeze** - do it FIRST.
+- [ ] Step 1: **[G2 - 2026-06-29]** Lock the session-report wire schema from B2.1 (users + roles + timed events + bundled config + tenant/session/lab/version envelope). This is the **cross-surface freeze** - do it FIRST.
 - [ ] Step 2: `session_reports` DDL (tenant-scoped) + RLS; the report is **stored once per session** (group/session-level, not per-participant docs).
 - [ ] Step 3: `session-report-ingest` edge fn: validate uuid / size / surface / **consent**; assert **report tenant == auth tenant** (RLS); reject paths covered.
 - [ ] Step 4: **[HUMAN]** define + wire the launch **consent state** - org-level analytics consent set at enrollment, carried in the launch context the apps already receive; the consent **UI** lives in the VR Shell / mobile app; the DevKit only **reads** host-provided consent state. (The ingest rejects events without consent.)
-- [ ] Step 5: Portal **renders** the readout by re-computing the grade from the bundled raw `(rubric + events)` - the **mirror** of the DevKit engine. Wire the **equivalence golden fixture** here too (must match Unity).
+- [ ] Step 5: Portal **renders** the readout by re-computing the grade from the bundled raw `(config + events)` - the **mirror** of the DevKit engine. Wire the **equivalence golden fixture** here too (must match Unity).
 - [ ] Step 6: Verify real VR + AR session reports persist + render tenant-scoped under RLS, with consent supplied.
 
 **Acceptance.** Session reports ingest + persist tenant-scoped; the portal renders the readout by re-computing from raw; the portal reducer matches the Unity reducer on the golden fixture; consent enforced.
@@ -193,7 +193,7 @@ portal readout/render; the org-level consent flag.
 **Scope / files.** The DevKit Localization module (B1.5); the baked StringTables.
 
 **Steps (progress tracking):** *(RUNTIME built 2026-06-29; running the pipeline ON REAL LABS = post-B2, per Stergios.)*
-- [~] Step 1: keying - the `[Localize]` **scan tool is built** (`LocalizeScan`, menu item, recurses data-asset fields). **post-B2:** running it on the real lab strings (rubric labels / `notifyInScene` text) + de-hardcoding `SelectionLists`. (Quiz strings already keyed in B1.5.)
+- [~] Step 1: keying - the `[Localize]` **scan tool is built** (`LocalizeScan`, menu item, recurses data-asset fields). **post-B2:** running it on the real lab strings (config labels / `notifyInScene` text) + de-hardcoding `SelectionLists`. (Quiz strings already keyed in B1.5.)
 - [~] Step 2: Greek + English - **sample EN/EL provided** (`SampleLocalizationStrings`) to verify rendering now. **post-B2:** authoring the full content through the translate round-trip.
 - [ ] Step 3: build-bake StringTables - **resolver built** (`StringTableLocalizationLookup`, gated `PITECH_HAS_LOCALIZATION`, reads the baked tables). **post-B2:** baking the actual tables (the pipeline-on-labs).
 - [~] Step 4: verify render - verifiable NOW via the sample (`LocalizationServices.Install(new DictionaryLocalizationLookup(SampleLocalizationStrings.Greek))` -> Quiz renders Greek). Full VR+AR from baked tables = post-B2.
@@ -249,14 +249,14 @@ portal readout/render; the org-level consent flag.
 
 The launch wire format is **one session report** (supersedes per-event `AnalyticsEventV1` + Flow-A/B). Frozen at G2 so the
 cloud lane (B2.3) can build against it. Envelope: `{ tenant, session, lab, version, users[{userId, role}], events[ timed:
-session-started/ended, step-entered, errors ], rubric (raw, bundled) }`. Stored **once** per session, tenant-scoped (RLS);
-the grade is **re-computed** from `(rubric + events)` - never shipped pre-scored. **Per-individual scoring is out of scope**
+session-started/ended, step-entered, errors ], config (raw, bundled) }`. Stored **once** per session, tenant-scoped (RLS);
+the grade is **re-computed** from `(config + events)` - never shipped pre-scored. **Per-individual scoring is out of scope**
 (the lever exists if ever needed). LMS interop (xAPI/SCORM/cmi5/LTI) is deferred - VICKY is the system of record.
 
 ## Delivery-chain alignment + critical path
 
 - **06-29 (G2):** freeze the session-report schema (B2.3 Step 1) - **the most time-critical item**; the cloud lane starts here.
-- **07-07:** the B.1 rubric/emit surface freezes; B2.1/B2.2 build against it.
+- **07-07:** the B.1 config/emit surface freezes; B2.1/B2.2 build against it.
 - **Cloud lane (B2.3)** runs in parallel from G2; **DevKit analytics (B2.1/B2.2)** after 07-07; they meet at the equivalence fixture.
 - **On-device end-to-end + the 2-client MP proof** fold into the **Phase C** integration window before the store gate.
 
@@ -265,7 +265,7 @@ the grade is **re-computed** from `(rubric + events)` - never shipped pre-scored
 Per Stergios (2026-06-29): the **full HealthOn VR migration happens ONCE, after B1+B2** - not piecemeal. Until then VR consumes the DevKit but keeps its own components; B1/B2 are verified by test. The migration is **ask-first** (VR repo), in a Unity loop:
 - **Networked state:** replace VR `NetworkStateManager` with a thin `[Obsolete]` facade forwarding to the resolved DevKit store; re-point the 4 networked scenes (AMEA / MoMt / Ioanninon / DIPAE) to `NetworkedLabStateStore` + re-enter `defaultStates`; re-wire triggers/listeners to the graduated B2.7 components. (closes B1.3 S5)
 - **Localization:** GUID-carry the VR `Editor/Localization` pipeline + `LanguageSwitcher` / `DoNotLocalize` into the DevKit module; delete the VR copies; run the `[Localize]` scan. (closes B1.5 S2)
-- **Params / analytics:** run the StatsConfig upgrader on the launch labs + author the rubric; wire labs onto the new systems.
+- **Params / analytics:** run the StatsConfig upgrader on the launch labs + author the config; wire labs onto the new systems.
 - Confirm Fusion's weaver covers `Pitech.XR.Networking` on device.
 
 ## Deferred to post-launch
@@ -321,5 +321,5 @@ run `Evaluate Changes` before every commit.
 | Date | WS | Event | By |
 |---|---|---|---|
 | 2026-06-29 | B2.1/B2.2/B2.4/B2.5/B2.6/B2.7 | **B.2 CODE IMPLEMENTED (Stergios: "implement all of b2, loop till done").** All DevKit-repo workstreams authored + adversarially reviewed (5-dimension workflow + verify pass: 0 confirmed blockers/majors; §11.8 math hand-verified to 0.25; SP byte-identical; asmdef topology sound). **B2.1:** AnalyticsGradeEngine (§11.8) + AnalyticsEvent/SessionEventStream + GradeResult readout + SessionReport/SessionReportJson + ISessionReportSink outbox + LabAnalytics recorder (opt-in component, NOT a LabConsole field -> Proof C safe) + in-scene notifications + AnalyticsEquivalenceFixture + EditMode test. Bracket facts (session.started/stopped) wired in the runner; report identity added to LabRuntimeContext (Core, additive) + stamped by the spawner. **Roles:** SessionRoleSelector (UI by Stergios). **B2.2:** AnalyticsSubject + AnalyticsSignalEmitter (raw facts) + recorder classification (interaction.used -> correct/wrong/order) + LabAnalyticsEditor auto-detect/auto-wire. **B2.4:** FusionScenarioPath + NetworkedParamStore (Fusion-gated, proven NetworkedLabStateStore patterns) + LabConsole flow-store bind (SP-safe) + RunFollower mirror (full interactive co-op = post-B2 on-device). **B2.7:** 4 graduated state components (resolve ILabStateStore, no static Instance) + dropdown inspectors + ConsoleParameter drawer (S2 live-values deferred). **B2.5:** StringTableLocalizationLookup (gated) + DictionaryLocalizationLookup + sample EN/EL + [Localize] scan (pipeline-on-labs = post-B2). **B2.6:** Vital + PatientVitals + IAgentStateSource. **NOT done:** B2.3 cloud (gated on G2 confirm + ownership); telemetry-on-bus carry-over left OFF (Vicky-ingestion sign-off). Verification = Stergios' Unity pass (guides/2026-06-29-B2-unity-testing-guide.md); open calls in guides/2026-06-29-B2-open-decisions.md. | Claude Code |
-| 2026-06-29 | scope | **B.1 deferrals + visual-authoring folded into B.2 (Stergios).** Added the "Carried over from B.1" list (telemetry-on-bus B1.1 S3 + B1.8 S4 -> B2.1; Networked param store B1.2 -> B2.4; `FusionScenarioPath` must be BUILT B1.3 -> B2.4; Fusion weaver coverage; localization runtime/scan B1.5 -> B2.5). Added **WS B2.7 - Authoring UX** (visual params editor + live values; graduate the networked-state trigger/listener components with dropdown inspectors; work in SP via the Local store + networked via the Fusion store). Added the **Post-B2 HealthOn VR migration** section (the deferred one-shot switch: NetworkStateManager facade + 4-scene re-point, localization GUID-carry, lab param/rubric authoring, weaver check). | Claude Code |
+| 2026-06-29 | scope | **B.1 deferrals + visual-authoring folded into B.2 (Stergios).** Added the "Carried over from B.1" list (telemetry-on-bus B1.1 S3 + B1.8 S4 -> B2.1; Networked param store B1.2 -> B2.4; `FusionScenarioPath` must be BUILT B1.3 -> B2.4; Fusion weaver coverage; localization runtime/scan B1.5 -> B2.5). Added **WS B2.7 - Authoring UX** (visual params editor + live values; graduate the networked-state trigger/listener components with dropdown inspectors; work in SP via the Local store + networked via the Fusion store). Added the **Post-B2 HealthOn VR migration** section (the deferred one-shot switch: NetworkStateManager facade + 4-scene re-point, localization GUID-carry, lab param/config authoring, weaver check). | Claude Code |
 | 2026-06-26 | - | Plan authored from the architecture map (decision log -> 2026-06-26b); B.2 column projected to WS B2.1-B2.6; the session-report schema is the G2 cross-surface freeze; built on the B.1 foundation. | Claude Code |

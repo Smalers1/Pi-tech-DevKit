@@ -32,7 +32,7 @@ namespace Pitech.XR.Analytics
         [SerializeField, Tooltip("The role this attempt starts as (default Participant - the graded attempt).")]
         SessionRole role = SessionRole.Participant;
 
-        [SerializeField, Tooltip("Per-lab capacities used by the LOCAL selectability guard. LabAnalytics overrides this from the rubric at start if a rubric is present.")]
+        [SerializeField, Tooltip("Per-lab capacities used by the LOCAL selectability guard. Authored HERE (the single source of truth, 2026-07-01); LabAnalytics mirrors these into the session report at start.")]
         SessionRoleCapacities capacities = new SessionRoleCapacities();
 
         [Tooltip("Raised whenever the role changes (wire UI / highlighting here).")]
@@ -44,7 +44,8 @@ namespace Pitech.XR.Analytics
         /// <summary>The per-lab capacities the local selectability guard uses.</summary>
         public SessionRoleCapacities Capacities => capacities;
 
-        /// <summary>LabAnalytics calls this to push the rubric's capacities into the selector at start.</summary>
+        /// <summary>Optional runtime override of the authored capacities (e.g. a host that computes per-session
+        /// limits). No longer called by LabAnalytics - capacities are authored on this component directly.</summary>
         public void SetCapacities(SessionRoleCapacities caps)
         {
             if (caps != null) capacities = caps;

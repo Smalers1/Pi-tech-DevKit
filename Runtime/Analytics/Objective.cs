@@ -20,12 +20,12 @@ namespace Pitech.XR.Analytics
     // target_o is a PASS-BAR LABEL (X_o >= target_o), never a divisor.
 
     /// <summary>One analytic feeding an objective, with its relative sub-weight. References the
-    /// analytic by id (the measurement layer is owned by <see cref="LabRubric.analytics"/>; the
+    /// analytic by id (the measurement layer is owned by <see cref="LabConfig.analytics"/>; the
     /// grading layer only points at it) so editing grading never mutates measurement.</summary>
     [Serializable]
     public sealed class ObjectiveInput
     {
-        [Tooltip("Id of the analytic feeding this objective (matches an Analytic.id in the rubric).")]
+        [Tooltip("Id of the analytic feeding this objective (matches an Analytic.id in the config).")]
         public string analyticId;
 
         [Tooltip("Relative sub-weight (0-1) of this analytic within the objective (relative, not a percentage).")]
@@ -39,7 +39,7 @@ namespace Pitech.XR.Analytics
     [Serializable]
     public sealed class Objective
     {
-        [Tooltip("Stable id for this objective within the rubric (and the JSON contract).")]
+        [Tooltip("Stable id for this objective within the config (and the JSON contract).")]
         public string id;
 
         [Tooltip("Human-readable label shown in LabConsole and on the readout (e.g. \"Procedure Correctness\").")]

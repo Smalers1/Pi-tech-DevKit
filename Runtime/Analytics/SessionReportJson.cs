@@ -5,7 +5,7 @@ namespace Pitech.XR.Analytics
 {
     // ---------- Session report -> JSON (write-only; the G2 wire payload) ----------
     // WS B2.1. A small, dependency-free serializer (no Newtonsoft - the DevKit must compile on AR with
-    // no extra packages). WRITE-ONLY: the DevKit emits; the cloud (B2.3) parses. The polymorphic rubric
+    // no extra packages). WRITE-ONLY: the DevKit emits; the cloud (B2.3) parses. The polymorphic config
     // (Analytic / AnalyticsMetric subclasses) is keyed by a "type" discriminator = the CLR SHORT TYPE
     // NAME (e.g. "StepAnalytic", "StepDurationMetric") - the ratified convention (WS B1.6 S2, commit
     // d49bb64; the freeze doc sec 3.8), the same one ScenarioJsonExporter uses for steps. Explicit
@@ -55,8 +55,8 @@ namespace Pitech.XR.Analytics
                 }
             sb.Append("],");
 
-            Key(sb, "rubric");
-            WriteRubric(sb, r.rubric);
+            Key(sb, "config");
+            WriteConfig(sb, r.config);
 
             sb.Append('}');
             return sb.ToString();
@@ -84,7 +84,7 @@ namespace Pitech.XR.Analytics
             sb.Append('}');
         }
 
-        static void WriteRubric(StringBuilder sb, LabRubric rb)
+        static void WriteConfig(StringBuilder sb, LabConfig rb)
         {
             if (rb == null) { sb.Append("null"); return; }
             sb.Append('{');

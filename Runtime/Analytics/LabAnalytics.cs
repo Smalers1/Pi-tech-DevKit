@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 using Pitech.XR.Core;
 using Debug = UnityEngine.Debug;
 
@@ -10,7 +11,7 @@ namespace Pitech.XR.Analytics
 {
     // ---------- LabAnalytics: the in-scene analytics recorder (map sec-11) ----------
     // WS B2.1. The ONE opt-in component an author adds to a GRADED lab (next to LabConsole, on the lab
-    // ROOT). It hosts the LabRubric (authoring surface), subscribes to the lab's LabEventBus, captures
+    // ROOT). It hosts the LabConfig (authoring surface), subscribes to the lab's LabEventBus, captures
     // the timed stream between the session.started / session.stopped bracket facts, gates by the in-scene
     // role, and on SessionStop: computes the on-device readout (AnalyticsGradeEngine, no cloud round-
     // trip) AND assembles + submits the ONE self-contained session report to the host outbox.
@@ -61,8 +62,11 @@ namespace Pitech.XR.Analytics
     public sealed class LabAnalytics : MonoBehaviour
     {
         [Header("Analytics config")]
-        [Tooltip("The measurement + grading rubric for this lab. Bundled raw into the session report so the cloud re-computes. Empty rubric = nothing to grade (still records presence/bracket).")]
-        public LabRubric rubric = new LabRubric();
+        [Tooltip("The measurement + grading config for this lab. Bundled raw into the session report so the cloud re-computes. Empty config = nothing to grade (still records presence/bracket).")]
+        // Renamed from 'rubric' -> 'config' (2026-07-01, GUI/domain rename). FormerlySerializedAs keeps
+        // already-authored labs from losing their data on reserialize.
+        [FormerlySerializedAs("rubric")]
+        public LabConfig config = new LabConfig();
 
         [Header("Wiring (optional - auto-resolved if left empty)")]
         [Tooltip("The in-scene role pick. If empty, resolved by parent-walk; if none found, defaults to Participant.")]
@@ -94,6 +98,10 @@ namespace Pitech.XR.Analytics
         bool _capturing;
         long _startTick;
         string _currentStepGuid = string.Empty;
+        long _currentStepStartTick;
+        // Live duration nudge (map sec-11.x): highest ceiling-band threshold already notified per metric
+        // id, so a crossing fires ONCE per escalation instead of every frame it stays crossed.
+        readonly Dictionary<string, float> _durationNotified = new Dictionary<string, float>();
         ISessionReportSink _sink;
         bool _submitted;
 
@@ -113,13 +121,17 @@ namespace Pitech.XR.Analytics
 
         void Start()
         {
-            // P7: push the rubric's role capacities into the in-scene role selector so the LOCAL pick guard
+            // P7: push the config's role capacities into the in-scene role selector so the LOCAL pick guard
             // (SessionRoleSelector.IsSelectable) enforces the per-lab min/max before the learner picks. Done
             // at Start (all Awakes complete, the authored selector exists). Cross-peer headcount (min counts
             // across peers) is inherently multiplayer -> B2.4.
             if (roleSelector == null) roleSelector = SessionRoleSelector.Find(this);
-            if (roleSelector != null && rubric != null && rubric.roleCapacities != null)
-                roleSelector.SetCapacities(rubric.roleCapacities);
+            // Capacities are authored on the SessionRoleSelector (the SINGLE surface, 2026-07-01) - no longer
+            // duplicated on the analytics config. Mirror the selector's authored capacities INTO the config at
+            // runtime so the session report still carries them (SessionReportJson reads config.roleCapacities).
+            // (Was the reverse push before; consolidated to one authoring surface.)
+            if (roleSelector != null && config != null && roleSelector.Capacities != null)
+                config.roleCapacities = roleSelector.Capacities;
         }
 
         void OnEnable()
@@ -141,6 +153,15 @@ namespace Pitech.XR.Analytics
             }
         }
 
+        void Update()
+        {
+            // Live duration nudge: while capturing, a step (or the whole session) that runs past a
+            // notifying ceiling band fires the in-scene toast AS IT HAPPENS. The grade still applies the
+            // same penalty at SessionStop (AnalyticsGradeEngine) - this is only the live warning, so a
+            // student sees "you're taking too long" mid-step, not just at the readout.
+            if (_capturing) CheckDurationNotifications();
+        }
+
         void OnFact(in LabEvent fact)
         {
             string key = fact.Key;
@@ -158,6 +179,8 @@ namespace Pitech.XR.Analytics
             if (string.Equals(key, ScenarioFactKeys.StepEntered, StringComparison.Ordinal))
             {
                 _currentStepGuid = fact.Text ?? string.Empty;
+                _currentStepStartTick = fact.Tick;              // baseline for the live StepDuration nudge
+                ResetStepDurationNotified(_currentStepGuid);    // re-arm this step's bands so a looped step re-notifies
                 _stream.Add(new AnalyticsEvent(AnalyticsEventKind.StepEntered, tMs, _currentStepGuid));
             }
             else if (string.Equals(key, ScenarioFactKeys.StepCompleted, StringComparison.Ordinal))
@@ -196,6 +219,8 @@ namespace Pitech.XR.Analytics
             _capturing = true;
             _submitted = false;
             _currentStepGuid = string.Empty;
+            _currentStepStartTick = startTick;
+            _durationNotified.Clear();
             _stream.Add(new AnalyticsEvent(AnalyticsEventKind.SessionStarted, 0.0));
         }
 
@@ -256,7 +281,7 @@ namespace Pitech.XR.Analytics
 
             if (role == SessionRole.Professor)
             {
-                // Presence-only: identity + role + bracket, no event stream, no rubric grading.
+                // Presence-only: identity + role + bracket, no event stream, no config grading.
                 onReadout.Invoke(new GradeResult { role = role, isComplete = false });
                 if (!consentGranted) { WarnConsentBlocked(role); return; }
                 SessionReport presence = BuildReport(role, userId, withGradedPayload: false, complete);
@@ -265,7 +290,7 @@ namespace Pitech.XR.Analytics
             }
 
             // Participant: full graded report + on-device readout.
-            GradeResult grade = AnalyticsGradeEngine.Compute(rubric, _stream, role);
+            GradeResult grade = AnalyticsGradeEngine.Compute(config, _stream, role);
             // An unfinished bracket is never "complete" regardless of the engine's objective math.
             if (!complete) grade.isComplete = false;
             onReadout.Invoke(grade);
@@ -313,7 +338,7 @@ namespace Pitech.XR.Analytics
                 // Defensive copy: the recorder reuses _stream across re-runs (BeginCapture clears it), so
                 // the report must own its own list rather than alias the live buffer.
                 report.events = new List<AnalyticsEvent>(_stream.events);
-                report.rubric = rubric;
+                report.config = config;
             }
             return report;
         }
@@ -354,6 +379,87 @@ namespace Pitech.XR.Analytics
                 onNotification.Invoke(new AnalyticsNotification(m.id, m.label, BandSeverity.Error, e.subjectId));
         }
 
+        // --- live duration notifications (the notifyInScene bool on StepDuration / TotalDuration bands) ---
+        // Count / signal metrics notify off a discrete fact (NotifyForCount / NotifyForSignal). Duration is
+        // a CEILING kind with no discrete fact - the elapsed value only grows - so it is polled each frame
+        // while capturing (Update). When the current step's elapsed (StepDuration) or the whole bracket's
+        // elapsed (TotalDuration) crosses a notifying band, the toast fires ONCE per escalation. Uses the
+        // SAME ceiling rule as grading (AnalyticsGradeEngine.CeilingPenalty: highest ACTIVE band whose
+        // threshold <= elapsed) so the live warning matches the penalty the readout will show.
+        void CheckDurationNotifications()
+        {
+            if (config == null || config.analytics == null) return;
+            long freq = Stopwatch.Frequency;
+            if (freq <= 0) return;
+            long now = Stopwatch.GetTimestamp();
+            float totalSec = (float)((now - _startTick) / (double)freq);
+            bool haveStep = !string.IsNullOrEmpty(_currentStepGuid);
+            float stepSec = haveStep ? (float)((now - _currentStepStartTick) / (double)freq) : 0f;
+
+            for (int i = 0; i < config.analytics.Count; i++)
+            {
+                Analytic a = config.analytics[i];
+                if (a == null || a.metrics == null) continue;
+                string aStepGuid = (a is StepAnalytic sa) ? sa.stepGuid : null;
+                for (int j = 0; j < a.metrics.Count; j++)
+                {
+                    AnalyticsMetric m = a.metrics[j];
+                    if (m == null) continue;
+                    if (m.Kind == StepDurationMetric.KindId)
+                    {
+                        // Step-scoped: only the analytic sidecar-ed to the CURRENT step measures now.
+                        if (haveStep && aStepGuid == _currentStepGuid) EvaluateDurationBand(m, stepSec);
+                    }
+                    else if (m.Kind == TotalDurationMetric.KindId)
+                    {
+                        EvaluateDurationBand(m, totalSec);
+                    }
+                }
+            }
+        }
+
+        // Fire the toast once per escalation for a duration metric: find the highest NOTIFYING active
+        // ceiling band the elapsed value has crossed, and raise it only if it is a worse band than the
+        // last one already notified for this metric (so it does not re-fire every frame it stays crossed).
+        void EvaluateDurationBand(AnalyticsMetric m, float elapsedSeconds)
+        {
+            if (m.bands == null) return;
+            float crossed = -1f;
+            BandSeverity sev = BandSeverity.None;
+            for (int i = 0; i < m.bands.Count; i++)
+            {
+                ScoringBand b = m.bands[i];
+                if (b == null || !b.notifyInScene) continue;
+                if (b.penaltyWeight <= 0f || b.threshold <= 0f) continue;   // None / unset threshold = inactive (matches CeilingPenalty)
+                if (elapsedSeconds >= b.threshold && b.threshold > crossed)
+                {
+                    crossed = b.threshold;
+                    sev = b.name;
+                }
+            }
+            if (crossed < 0f) return;   // no notifying band crossed yet
+
+            if (_durationNotified.TryGetValue(m.id, out float last) && crossed <= last) return;   // already notified at this / a worse band
+            _durationNotified[m.id] = crossed;
+            onNotification.Invoke(new AnalyticsNotification(m.id, m.label, sev, null));
+        }
+
+        // Re-arm a step's duration bands when it is (re)entered so a looped step notifies again on its next
+        // visit. TotalDuration is monotonic across the bracket, so it is never reset here.
+        void ResetStepDurationNotified(string stepGuid)
+        {
+            if (config == null || config.analytics == null || string.IsNullOrEmpty(stepGuid) || _durationNotified.Count == 0) return;
+            for (int i = 0; i < config.analytics.Count; i++)
+            {
+                if (!(config.analytics[i] is StepAnalytic sa) || sa.stepGuid != stepGuid || sa.metrics == null) continue;
+                for (int j = 0; j < sa.metrics.Count; j++)
+                {
+                    AnalyticsMetric m = sa.metrics[j];
+                    if (m != null && m.Kind == StepDurationMetric.KindId) _durationNotified.Remove(m.id);
+                }
+            }
+        }
+
         // --- helpers ---
 
         SessionRole ResolveRole()
@@ -390,10 +496,10 @@ namespace Pitech.XR.Analytics
 
         TrackedSubject FindSubject(string id)
         {
-            if (rubric == null || rubric.subjects == null || string.IsNullOrEmpty(id)) return null;
-            for (int i = 0; i < rubric.subjects.Count; i++)
+            if (config == null || config.subjects == null || string.IsNullOrEmpty(id)) return null;
+            for (int i = 0; i < config.subjects.Count; i++)
             {
-                TrackedSubject s = rubric.subjects[i];
+                TrackedSubject s = config.subjects[i];
                 if (s != null && s.id == id) return s;
             }
             return null;
@@ -412,10 +518,10 @@ namespace Pitech.XR.Analytics
 
         AnalyticsMetric FirstNotifyingMetricOfKind(string kindId, BandSeverity sev)
         {
-            if (kindId == null || rubric == null || rubric.analytics == null) return null;
-            for (int i = 0; i < rubric.analytics.Count; i++)
+            if (kindId == null || config == null || config.analytics == null) return null;
+            for (int i = 0; i < config.analytics.Count; i++)
             {
-                Analytic a = rubric.analytics[i];
+                Analytic a = config.analytics[i];
                 if (a == null || a.metrics == null) continue;
                 for (int j = 0; j < a.metrics.Count; j++)
                 {
@@ -428,10 +534,10 @@ namespace Pitech.XR.Analytics
 
         AnalyticsMetric FindMetricById(string id)
         {
-            if (string.IsNullOrEmpty(id) || rubric == null || rubric.analytics == null) return null;
-            for (int i = 0; i < rubric.analytics.Count; i++)
+            if (string.IsNullOrEmpty(id) || config == null || config.analytics == null) return null;
+            for (int i = 0; i < config.analytics.Count; i++)
             {
-                Analytic a = rubric.analytics[i];
+                Analytic a = config.analytics[i];
                 if (a == null || a.metrics == null) continue;
                 for (int j = 0; j < a.metrics.Count; j++)
                 {

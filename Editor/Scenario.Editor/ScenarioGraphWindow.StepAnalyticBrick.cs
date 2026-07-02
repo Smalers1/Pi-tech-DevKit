@@ -26,12 +26,6 @@ public partial class ScenarioGraphWindow
         void BuildStepAnalyticBrick(Step s)
         {
             if (owner == null || s == null || !owner.StepHasAnalytic(s.guid)) return;
-            LabAnalytics la = owner.ResolveLabAnalytics(false);
-            if (la == null) return;
-
-            string guid = s.guid;
-            string stepLabel = scenario != null ? scenario.FindStepGraphDisplay(guid)?.displayName : null;
-            if (string.IsNullOrEmpty(stepLabel)) stepLabel = s.Kind;
 
             var brick = new VisualElement();
             brick.style.backgroundColor = new Color(0.93f, 0.93f, 0.96f);   // white, like SessionStart/SessionStop
@@ -56,8 +50,8 @@ public partial class ScenarioGraphWindow
             titleLabel.style.flexGrow = 1;
             brick.Add(titleLabel);
 
-            // "Edit..." opens the metrics window (mirrors the step's own Edit... -> StepEditWindow).
-            var editBtn = new Button(() => StepAnalyticEditWindow.Open(la, guid, stepLabel)) { text = "Edit..." };
+            // "Edit..." opens the metrics window (resolves the recorder live; self-heals a stale marker).
+            var editBtn = new Button(() => owner?.EditStepAnalytic(step)) { text = "Edit..." };
             editBtn.tooltip = "Edit this step's analytic metrics in a window.";
             editBtn.style.height = 18;
             editBtn.style.marginRight = 4;

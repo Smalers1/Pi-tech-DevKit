@@ -166,49 +166,70 @@ namespace Pitech.XR.Scenario.Editor
             sec.Add(BoundField(ctx, "parameters", "Declared parameters"));
             sec.Add(VSpace(6));
             sec.Add(Note("Typed parameters seed the runtime store; bool parameters double as lab states for " +
-                         "triggers/listeners and ConditionsStep. LabConsole itself is this lab's state store - no " +
-                         "separate state-store component is needed."));
+                         "triggers/listeners and ConditionsStep. LabConsole itself is this lab's state store."));
             root.Add(sec);
 
-            var live = Section("Live values");
+            var map = Section("State map");
+            map.Add(Body("Each parameter and its scope. Networked-scope parameters replicate across peers at runtime " +
+                         "on a Fusion lab (RoutedParamStore -> NetworkedParamStore, B2.4); Local-scope stay client-local. " +
+                         "Live values appear in Play mode.", dim: true));
+            map.Add(VSpace(8));
             var host = new VisualElement();
-            live.Add(host);
-            root.Add(live);
-            BuildLiveValues(host, ctx);
-            // Refresh the live readout a few times a second while playing (auto-stops when the page detaches).
-            host.schedule.Execute(() => BuildLiveValues(host, ctx)).Every(250);
-
-            root.Add(PostB2Card("Networked state & wiring map",
-                "Networked-scope values, listeners/triggers, and the writer-reader debug map are runtime seams " +
-                "today; the inspector-side debug map view is post-B2."));
+            map.Add(host);
+            root.Add(map);
+            BuildStateMap(host, ctx);
+            // Refresh live values a few times a second while playing (auto-stops when the page detaches).
+            host.schedule.Execute(() => BuildStateMap(host, ctx)).Every(250);
         }
 
-        void BuildLiveValues(VisualElement host, LabConsoleContext ctx)
+        void BuildStateMap(VisualElement host, LabConsoleContext ctx)
         {
             host.Clear();
-            if (!Application.isPlaying) { host.Add(Body("Enter Play mode to see each parameter's live runtime value.", dim: true)); return; }
-
-            var c = ctx.Console;
-            Pitech.XR.Core.IParamStore store = c != null ? c.Params : null;
-            if (store == null) { host.Add(Body("(store not built yet)", dim: true)); return; }
-
             var arr = ctx.SerializedObject != null ? ctx.SerializedObject.FindProperty("parameters") : null;
             if (arr == null || arr.arraySize == 0) { host.Add(Body("(no parameters declared)", dim: true)); return; }
 
+            bool playing = Application.isPlaying;
+            Pitech.XR.Core.IParamStore store = (playing && ctx.Console != null) ? ctx.Console.Params : null;
+
+            var head = Row();
+            head.Add(Col("Parameter", 200));
+            head.Add(Col("Type", 70));
+            head.Add(Col("Scope", 96));
+            head.Add(Col(playing ? "Live value" : "(play for live)", 130));
+            host.Add(head);
+
             for (int i = 0; i < arr.arraySize; i++)
             {
-                var idProp = arr.GetArrayElementAtIndex(i).FindPropertyRelative("id");
-                string id = idProp != null ? idProp.stringValue : null;
+                var elem = arr.GetArrayElementAtIndex(i);
+                var idP = elem.FindPropertyRelative("id");
+                var typeP = elem.FindPropertyRelative("type");
+                var scopeP = elem.FindPropertyRelative("scope");
+                string id = idP != null ? idP.stringValue : null;
                 if (string.IsNullOrEmpty(id)) continue;
-                string shown = store.TryGet(id, out Pitech.XR.Core.ParamValue v) ? Format(v) : "(unset)";
+
+                string type = (typeP != null && typeP.propertyType == SerializedPropertyType.Enum
+                    && typeP.enumValueIndex >= 0 && typeP.enumValueIndex < typeP.enumDisplayNames.Length)
+                    ? typeP.enumDisplayNames[typeP.enumValueIndex] : "";
+                bool networked = scopeP != null && scopeP.propertyType == SerializedPropertyType.Enum && scopeP.enumValueIndex == 1;
+                string val = (playing && store != null)
+                    ? (store.TryGet(id, out Pitech.XR.Core.ParamValue v) ? Format(v) : "(unset)")
+                    : "";
 
                 var row = Row();
-                var k = new Label(id) { style = { color = DevkitTheme.SubText, fontSize = 11, width = 220 } };
-                var val = new Label(shown) { style = { color = DevkitTheme.Text, fontSize = 11 } };
-                row.Add(k); row.Add(val);
+                row.style.marginBottom = 2;
+                row.Add(Col(id, 200));
+                row.Add(Col(type, 70));
+                var scopeCell = new VisualElement { style = { width = 96, flexDirection = FlexDirection.Row } };
+                scopeCell.Add(DevkitWidgets.Pill(networked ? "Networked" : "Local",
+                    networked ? DevkitWidgets.PillKind.Success : DevkitWidgets.PillKind.Neutral));
+                row.Add(scopeCell);
+                row.Add(new Label(val) { style = { color = DevkitTheme.Text, fontSize = 11, width = 130 } });
                 host.Add(row);
             }
         }
+
+        static Label Col(string text, float w)
+            => new Label(text) { style = { color = DevkitTheme.SubText, fontSize = 11, width = w } };
 
         static string Format(in Pitech.XR.Core.ParamValue v)
         {
@@ -283,8 +304,8 @@ namespace Pitech.XR.Scenario.Editor
             root.Add(stats);
 
             // Analytics subjects (scene-side wiring lives on Content per schema 6.1)
-            var subj = Section("Analytics subjects (scene wiring)");
-            subj.Add(Body("The subject REGISTRY (ids/labels/targets) is authored on the Analytics page. Scene-side " +
+            var subj = Section("Tracked objects (scene wiring)");
+            subj.Add(Body("The Tracked Objects registry (ids/labels/targets) is authored on the Analytics page. Scene-side " +
                           "AnalyticsSubject wiring / auto-wire lives on the Analytics recorder.", dim: true));
             var subjActions = DevkitWidgets.Actions(
                 DevkitTheme.Secondary("Go to Analytics", () => ctx.GoTo("Analytics")));
@@ -325,11 +346,11 @@ namespace Pitech.XR.Scenario.Editor
                          "Scenario Graph; scene-wide analytics + the grading objectives are on the recorder."));
             root.Add(rec);
 
-            var rubric = Section("Rubric");
-            var r = la.rubric;
+            var config = Section("Config");
+            var r = la.config;
             if (r == null)
             {
-                rubric.Add(Body("No rubric yet.", dim: true));
+                config.Add(Body("No config yet.", dim: true));
             }
             else
             {
@@ -341,17 +362,17 @@ namespace Pitech.XR.Scenario.Editor
                         if (r.analytics[i] is Pitech.XR.Analytics.StepAnalytic) steps++;
                 int subjects = r.subjects != null ? r.subjects.Count : 0;
 
-                rubric.Add(DevkitWidgets.PillsRow(
+                config.Add(DevkitWidgets.PillsRow(
                     (DevkitWidgets.PillKind.Neutral, objectives + " objective(s)"),
                     (DevkitWidgets.PillKind.Neutral, analytics + " analytic(s)"),
                     (DevkitWidgets.PillKind.Neutral, steps + " step"),
-                    (DevkitWidgets.PillKind.Neutral, subjects + " subject(s)")));
+                    (DevkitWidgets.PillKind.Neutral, subjects + " tracked object(s)")));
             }
-            rubric.Add(VSpace(8));
-            rubric.Add(DevkitWidgets.Actions(
-                DevkitTheme.Primary("Edit rubric", () => { Selection.activeObject = la.gameObject; EditorGUIUtility.PingObject(la.gameObject); }),
+            config.Add(VSpace(8));
+            config.Add(DevkitWidgets.Actions(
+                DevkitTheme.Primary("Edit config", () => { Selection.activeObject = la.gameObject; EditorGUIUtility.PingObject(la.gameObject); }),
                 OpenGraphButton()));
-            root.Add(rubric);
+            root.Add(config);
 
             root.Add(PostB2Card("Report sink binding",
                 "ISessionReportSink has no in-package implementation; the durable report outbox is host-owned. The " +
@@ -392,8 +413,9 @@ namespace Pitech.XR.Scenario.Editor
             root.Add(s);
 
             root.Add(PostB2Card("Capacity enforcement",
-                "Foundation only: the rubric's role capacities are not pushed into the selector (SetCapacities is " +
-                "never called), so only a max of 0 blocks a role. Minimums and cross-peer headcount are post-B2."));
+                "Capacities are authored here on the Session Role Selector (the single source of truth; LabAnalytics " +
+                "mirrors them into the report at runtime). Foundation only: currently only a max of 0 blocks a role - " +
+                "minimums and cross-peer headcount are post-B2."));
         }
 
         static string Cap(int v) => v < 0 ? "unlimited" : (v == 0 ? "blocked" : v.ToString());

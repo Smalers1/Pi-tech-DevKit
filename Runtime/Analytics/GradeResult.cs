@@ -4,9 +4,9 @@ using System.Collections.Generic;
 namespace Pitech.XR.Analytics
 {
     // ---------- The computed grade (the on-device readout, map sec-11.5 / sec-11.8) ----------
-    // WS B2.1. The output of AnalyticsGradeEngine.Compute(rubric, stream). The lab-end readout renders
+    // WS B2.1. The output of AnalyticsGradeEngine.Compute(config, stream). The lab-end readout renders
     // straight from this (no cloud round-trip - the DevKit is the canonical reducer, decision 38). It is
-    // NOT bundled into the session report: the report ships the RAW (rubric + events) so the cloud
+    // NOT bundled into the session report: the report ships the RAW (config + events) so the cloud
     // re-computes an identical GradeResult (the equivalence fixture keeps both reducers in lockstep).
     //
     // Applicability: an item with Applicable == false is MASKED (dropped from its parent's weighted

@@ -16,9 +16,9 @@ namespace Pitech.XR.Scenario.Editor.Tests
         const float Eps = 1e-4f;
 
         // One analytic -> one objective (weight 1, pass-bar 0.9) so the grade mirrors the metric score.
-        static LabRubric RubricWith(Analytic analytic)
+        static LabConfig ConfigWith(Analytic analytic)
         {
-            var r = new LabRubric { schemaVersion = 1 };
+            var r = new LabConfig { schemaVersion = 1 };
             r.analytics.Add(analytic);
             r.objectives.Add(new Objective
             {
@@ -46,7 +46,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
         {
             var a = new SceneAnalytic { id = "A", label = "Failures", category = "Failures" };
             a.metrics.Add(new SignalMetric { id = "wrongCut", label = "Wrong cut", weight = 1f });
-            GradeResult g = AnalyticsGradeEngine.Compute(RubricWith(a), Bracket(Signal("wrongCut")), SessionRole.Participant);
+            GradeResult g = AnalyticsGradeEngine.Compute(ConfigWith(a), Bracket(Signal("wrongCut")), SessionRole.Participant);
 
             Assert.That(g.isComplete, Is.True);
             Assert.That(g.grade, Is.EqualTo(0f).Within(Eps),
@@ -60,7 +60,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
             // signal into it (scoring 0); the decoupled engine must ignore it - no drops -> score 1.
             var a = new SceneAnalytic { id = "A", label = "Safety", category = "Safety" };
             a.metrics.Add(new DropMetric { id = "wrongCut", label = "Drops", weight = 1f });
-            GradeResult g = AnalyticsGradeEngine.Compute(RubricWith(a), Bracket(Signal("wrongCut")), SessionRole.Participant);
+            GradeResult g = AnalyticsGradeEngine.Compute(ConfigWith(a), Bracket(Signal("wrongCut")), SessionRole.Participant);
 
             Assert.That(g.grade, Is.EqualTo(1f).Within(Eps),
                 "a Signal must NOT count as a Drop occurrence, even when the DropMetric id equals the signalId");
@@ -71,7 +71,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
         {
             var a = new SceneAnalytic { id = "A", label = "Failures", category = "Failures" };
             a.metrics.Add(new SignalMetric { id = "wrongCut", label = "Wrong cut", weight = 1f });
-            GradeResult g = AnalyticsGradeEngine.Compute(RubricWith(a), Bracket(Signal("somethingElse")), SessionRole.Participant);
+            GradeResult g = AnalyticsGradeEngine.Compute(ConfigWith(a), Bracket(Signal("somethingElse")), SessionRole.Participant);
 
             Assert.That(g.grade, Is.EqualTo(1f).Within(Eps),
                 "no signal matches this metric's id -> 0 occurrences -> score 1");
@@ -89,7 +89,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
                 Signal("sig", "s2", 200.0),
                 new AnalyticsEvent(AnalyticsEventKind.StepCompleted, 300.0, "s1"));
 
-            GradeResult g = AnalyticsGradeEngine.Compute(RubricWith(a), stream, SessionRole.Participant);
+            GradeResult g = AnalyticsGradeEngine.Compute(ConfigWith(a), stream, SessionRole.Participant);
 
             Assert.That(g.grade, Is.EqualTo(1f).Within(Eps),
                 "a signal raised in another step must not count for this step-scoped SignalMetric");

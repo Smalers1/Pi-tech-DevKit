@@ -3,10 +3,10 @@ using System.Collections.Generic;
 namespace Pitech.XR.Analytics
 {
     // ---------- The grade engine: the canonical reducer (map sec-11.8, RATIFIED 2026-06-26) ----------
-    // WS B2.1. Pure function: (LabRubric + captured SessionEventStream) -> GradeResult. NO Unity scene
+    // WS B2.1. Pure function: (LabConfig + captured SessionEventStream) -> GradeResult. NO Unity scene
     // refs, NO Stopwatch (the stream is already portable ms), NO allocation concerns (runs ONCE at
     // session stop, never per-frame). This is the DevKit-CANONICAL reducer (decision 38); the Web Portal
-    // (B2.3) is a MIRROR that must compute an identical GradeResult from the same raw (rubric + events).
+    // (B2.3) is a MIRROR that must compute an identical GradeResult from the same raw (config + events).
     // The equivalence golden fixture (AnalyticsEquivalenceFixture) keeps the two in lockstep.
     //
     // The ratified formula (Objective.cs:14-20):
@@ -37,20 +37,20 @@ namespace Pitech.XR.Analytics
     /// <summary>The canonical analytics reducer (map sec-11.8). Stateless; call <see cref="Compute"/>.</summary>
     public static class AnalyticsGradeEngine
     {
-        /// <summary>Compute the grade for one Participant attempt from the rubric + captured stream.
+        /// <summary>Compute the grade for one Participant attempt from the config + captured stream.
         /// Pure and deterministic - the same inputs always produce the same GradeResult (the cloud
         /// mirror must match). <paramref name="role"/> only stamps the result; gating (whether to grade
         /// at all) is the recorder's job.</summary>
-        public static GradeResult Compute(LabRubric rubric, SessionEventStream stream, SessionRole role)
+        public static GradeResult Compute(LabConfig config, SessionEventStream stream, SessionRole role)
         {
             var result = new GradeResult { role = role, isComplete = false, grade = 0f };
-            if (rubric == null || stream == null) return result;
+            if (config == null || stream == null) return result;
 
-            var ctx = new ReduceContext(rubric, stream);
+            var ctx = new ReduceContext(config, stream);
 
             float gradeNum = 0f, gradeDen = 0f;
 
-            var objectives = rubric.objectives;
+            var objectives = config.objectives;
             if (objectives != null)
             {
                 for (int i = 0; i < objectives.Count; i++)
@@ -331,22 +331,22 @@ namespace Pitech.XR.Analytics
             readonly Dictionary<string, Analytic> _analyticsById = new Dictionary<string, Analytic>();
             readonly Dictionary<string, TrackedSubject> _subjectsById = new Dictionary<string, TrackedSubject>();
 
-            public ReduceContext(LabRubric rubric, SessionEventStream stream)
+            public ReduceContext(LabConfig config, SessionEventStream stream)
             {
                 Stream = stream;
 
-                if (rubric.analytics != null)
-                    for (int i = 0; i < rubric.analytics.Count; i++)
+                if (config.analytics != null)
+                    for (int i = 0; i < config.analytics.Count; i++)
                     {
-                        Analytic a = rubric.analytics[i];
+                        Analytic a = config.analytics[i];
                         if (a != null && !string.IsNullOrEmpty(a.id) && !_analyticsById.ContainsKey(a.id))
                             _analyticsById[a.id] = a;
                     }
 
-                if (rubric.subjects != null)
-                    for (int i = 0; i < rubric.subjects.Count; i++)
+                if (config.subjects != null)
+                    for (int i = 0; i < config.subjects.Count; i++)
                     {
-                        TrackedSubject s = rubric.subjects[i];
+                        TrackedSubject s = config.subjects[i];
                         if (s != null && !string.IsNullOrEmpty(s.id) && !_subjectsById.ContainsKey(s.id))
                             _subjectsById[s.id] = s;
                     }

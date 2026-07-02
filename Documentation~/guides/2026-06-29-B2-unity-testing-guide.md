@@ -84,7 +84,7 @@ Run **Pi tech ▸ Tools ▸ Evaluate Changes** again and read the three proofs:
    The new **`SignalMetricTests`** (4 tests) must pass - authored signals score on a SignalMetric (matched by
    id) and never leak into a Drop/Wrong/Order metric. The `LocalLabStateStoreTests` now also prove the
    bool-view shares one store with the runner (a SetState write is visible via the backing store, and vice
-   versa). The existing `AnalyticsRubricTests` / `ParamStoreTests` must still pass.
+   versa). The existing `AnalyticsConfigTests` / `ParamStoreTests` must still pass.
 
 ---
 
@@ -97,7 +97,7 @@ Do these in the DevKit dev project (or VR). Each is a small opt-in setup.
    **Session Stop** step (these are the graded bracket).
 2. On the **lab root** (the same GameObject as `LabConsole`) add a **`Lab Analytics`** component
    (Add Component ▸ Pi tech ▸ Analytics ▸ Lab Analytics).
-3. In its **rubric**, add one Objective ▸ one Step Analytic (set its `stepGuid` to a step in the bracket) ▸
+3. In its **config**, add one Objective ▸ one Step Analytic (set its `stepGuid` to a step in the bracket) ▸
    one **StepDuration** metric with a Warning band (threshold e.g. 5s) and an Error band (e.g. 10s).
 4. Wire **`onReadout`** to a small UI panel of yours (or just add a debug listener that logs the grade).
 5. Play, walk the bracket, hit Session Stop. You should get the **readout** (grade + per-objective pass/fail)
@@ -115,13 +115,13 @@ Do these in the DevKit dev project (or VR). Each is a small opt-in setup.
 ### 5c - B2.2 Subjects + signals
 1. On a grabbable object add **`Analytics Subject`**, set its `subjectId`, and either turn on
    "auto-detect drop below Y" or hook your grab/drop/use events to `ReportGrabbed/ReportDropped/ReportUsed`.
-2. Add that subject to the `LabAnalytics` rubric's **subjects** list (or use the **Auto-detect / Auto-wire**
+2. Add that subject to the `LabAnalytics` config's **subjects** list (or use the **Auto-detect / Auto-wire**
    buttons on the LabAnalytics inspector - Auto-detect pulls in **InsertStep items AND each SelectionStep's
    correct targets**, owner = that step; the resolved list is by `listIndex`, else `listKey`). Distractors /
    free grabbables you still add by hand.
-3. Add a **Drop** metric (Scene Analytic) to the rubric. Drop the item during a run - it should score.
+3. Add a **Drop** metric (Scene Analytic) to the config. Drop the item during a run - it should score.
 4. For an authored failure (e.g. wrong cut), add **`Analytics Signal Emitter`**, set its `defaultSignalId`,
-   add a **`SignalMetric`** to the rubric whose **id == that `defaultSignalId`**, and call `Emit()` from your
+   add a **`SignalMetric`** to the config whose **id == that `defaultSignalId`**, and call `Emit()` from your
    wrong-action UnityEvent. (Signals now score ONLY on a `SignalMetric` matched by id - they no longer
    piggy-back on a Drop/Wrong/Order metric.)
 

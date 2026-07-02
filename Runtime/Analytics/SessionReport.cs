@@ -6,7 +6,7 @@ namespace Pitech.XR.Analytics
     // ---------- The session report: the ONE self-contained wire document (map sec-11.5) ----------
     // WS B2.1. Supersedes the per-event AnalyticsEventV1 + Flow-A/B model. ONE report per session
     // (group/session-level, NOT per-participant docs): users+roles, the timed event stream, and the lab
-    // rubric BUNDLED RAW (not pre-scored) so the cloud re-computes the grade if scoring changes. Stored
+    // config BUNDLED RAW (not pre-scored) so the cloud re-computes the grade if scoring changes. Stored
     // once, tenant-scoped (RLS); the cloud asserts report.tenantId == auth tenant, else reject.
     //
     // CROSS-SURFACE: the field shape here is the G2 wire contract handed to the Web Portal (B2.3). It is
@@ -31,7 +31,7 @@ namespace Pitech.XR.Analytics
 
     /// <summary>
     /// The complete session report. Envelope (tenant/session/lab/version) + users[] + the timed
-    /// <see cref="events"/> stream + the bundled raw <see cref="rubric"/>. <see cref="isComplete"/>
+    /// <see cref="events"/> stream + the bundled raw <see cref="config"/>. <see cref="isComplete"/>
     /// false = an unfinished session: stored as "incomplete", never lost, never "passed".
     /// </summary>
     [Serializable]
@@ -63,8 +63,8 @@ namespace Pitech.XR.Analytics
         /// (Professor-only) report.</summary>
         public List<AnalyticsEvent> events = new List<AnalyticsEvent>();
 
-        /// <summary>The lab rubric bundled RAW (not pre-scored) so the cloud re-computes. Null for a
+        /// <summary>The lab config bundled RAW (not pre-scored) so the cloud re-computes. Null for a
         /// presence-only report.</summary>
-        public LabRubric rubric;
+        public LabConfig config;
     }
 }

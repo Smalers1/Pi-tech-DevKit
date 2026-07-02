@@ -5,7 +5,7 @@ namespace Pitech.XR.Scenario.Editor.Tests
 {
     /// <summary>
     /// EditMode coverage for the WS B2.1 grade engine (map sec-11.8) via the shared equivalence golden
-    /// fixture (<see cref="AnalyticsEquivalenceFixture"/>) - the SAME (rubric + events) the Web Portal
+    /// fixture (<see cref="AnalyticsEquivalenceFixture"/>) - the SAME (config + events) the Web Portal
     /// mirror (B2.3) runs, so the two reducers stay in lockstep. Pure value-object tests (no scene).
     ///
     /// Hand-verified expected values for the complete stream (7s in step1 -> Warning 0.5; one relevant
@@ -24,10 +24,10 @@ namespace Pitech.XR.Scenario.Editor.Tests
         [Test]
         public void CompleteStream_MatchesEquivalenceFixtureGrade()
         {
-            LabRubric rubric = AnalyticsEquivalenceFixture.BuildRubric();
+            LabConfig config = AnalyticsEquivalenceFixture.BuildConfig();
             SessionEventStream stream = AnalyticsEquivalenceFixture.BuildCompleteStream();
 
-            GradeResult g = AnalyticsGradeEngine.Compute(rubric, stream, SessionRole.Participant);
+            GradeResult g = AnalyticsGradeEngine.Compute(config, stream, SessionRole.Participant);
 
             Assert.That(g.isComplete, Is.True, "complete bracket should grade as complete");
             Assert.That(g.grade, Is.EqualTo(AnalyticsEquivalenceFixture.ExpectedGrade).Within(Eps),
@@ -37,10 +37,10 @@ namespace Pitech.XR.Scenario.Editor.Tests
         [Test]
         public void CompleteStream_ObjectiveScoresAndPassBars()
         {
-            LabRubric rubric = AnalyticsEquivalenceFixture.BuildRubric();
+            LabConfig config = AnalyticsEquivalenceFixture.BuildConfig();
             SessionEventStream stream = AnalyticsEquivalenceFixture.BuildCompleteStream();
 
-            GradeResult g = AnalyticsGradeEngine.Compute(rubric, stream, SessionRole.Participant);
+            GradeResult g = AnalyticsGradeEngine.Compute(config, stream, SessionRole.Participant);
 
             ObjectiveScoreResult timing = Find(g, "O_time");
             ObjectiveScoreResult safety = Find(g, "O_safety");
@@ -57,10 +57,10 @@ namespace Pitech.XR.Scenario.Editor.Tests
         [Test]
         public void CompleteStream_MetricSeverities()
         {
-            LabRubric rubric = AnalyticsEquivalenceFixture.BuildRubric();
+            LabConfig config = AnalyticsEquivalenceFixture.BuildConfig();
             SessionEventStream stream = AnalyticsEquivalenceFixture.BuildCompleteStream();
 
-            GradeResult g = AnalyticsGradeEngine.Compute(rubric, stream, SessionRole.Participant);
+            GradeResult g = AnalyticsGradeEngine.Compute(config, stream, SessionRole.Participant);
 
             MetricScoreResult dur = FindMetric(g, "m_dur");
             MetricScoreResult drop = FindMetric(g, "m_drop");
@@ -74,10 +74,10 @@ namespace Pitech.XR.Scenario.Editor.Tests
         [Test]
         public void IncompleteStream_GradesAsIncomplete()
         {
-            LabRubric rubric = AnalyticsEquivalenceFixture.BuildRubric();
+            LabConfig config = AnalyticsEquivalenceFixture.BuildConfig();
             SessionEventStream stream = AnalyticsEquivalenceFixture.BuildIncompleteStream();
 
-            GradeResult g = AnalyticsGradeEngine.Compute(rubric, stream, SessionRole.Participant);
+            GradeResult g = AnalyticsGradeEngine.Compute(config, stream, SessionRole.Participant);
 
             Assert.That(g.isComplete, Is.False, "an unclosed bracket must be 'incomplete', never a grade");
             Assert.That(g.grade, Is.EqualTo(0f).Within(Eps));
@@ -86,17 +86,17 @@ namespace Pitech.XR.Scenario.Editor.Tests
         [Test]
         public void UnenteredStep_DurationMetricIsMasked()
         {
-            // A rubric whose step analytic targets a step the stream never enters -> that metric is
+            // A config whose step analytic targets a step the stream never enters -> that metric is
             // masked, the objective referencing only it is masked, and (since the other objective is the
             // scene drop with zero drops -> score 1) the grade is 1.0 from the applicable objective only.
-            LabRubric rubric = AnalyticsEquivalenceFixture.BuildRubric();
+            LabConfig config = AnalyticsEquivalenceFixture.BuildConfig();
             var stream = new SessionEventStream();
             stream.Add(new AnalyticsEvent(AnalyticsEventKind.SessionStarted, 0.0));
             stream.Add(new AnalyticsEvent(AnalyticsEventKind.StepEntered, 0.0, "some_other_step"));
             stream.Add(new AnalyticsEvent(AnalyticsEventKind.StepCompleted, 1000.0, "some_other_step"));
             stream.Add(new AnalyticsEvent(AnalyticsEventKind.SessionStopped, 2000.0));
 
-            GradeResult g = AnalyticsGradeEngine.Compute(rubric, stream, SessionRole.Participant);
+            GradeResult g = AnalyticsGradeEngine.Compute(config, stream, SessionRole.Participant);
 
             ObjectiveScoreResult timing = Find(g, "O_time");
             ObjectiveScoreResult safety = Find(g, "O_safety");

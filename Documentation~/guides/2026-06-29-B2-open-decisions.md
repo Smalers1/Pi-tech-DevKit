@@ -16,12 +16,12 @@ and may produce small refinements.
 1. **G2 session-report wire schema (your personal review).** The concrete shape now exists in
    `Runtime/Analytics/SessionReport.cs` + `SessionReportJson.cs`. Confirm the envelope:
    `{ schemaVersion, tenantId, sessionId, labId, labVersion, isComplete, users[{userId, role}], events[],
-   rubric (raw) }`. Three things inside it to confirm:
+   config (raw) }`. Three things inside it to confirm:
    - **Event fidelity:** step durations are **derived** from `step.entered`/`step.completed` timestamps
      (ms). There is **no explicit dwell/exit event**. Fine for linear/branched flow; if you ever want true
      dwell (re-entered loop steps, idle-vs-active), an explicit exit event must be added **before the 07-07
      freeze** (it's un-removable after).
-   - **Rubric bundled raw in every report** (so the cloud re-computes). Conscious storage cost.
+   - **Config bundled raw in every report** (so the cloud re-computes). Conscious storage cost.
    - **Discriminator = CLR short type name** (`GetType().Name`, e.g. "StepDurationMetric") - matches the
      ratified WS B1.6 convention. The cloud (B2.3) must key on the same.
 
@@ -65,7 +65,7 @@ These were implicit in the spec; I picked the defensible reading and documented 
    **out-of-order → Warning**; authored **Signal → Error**.
 6. **Interaction classification.** I changed the fact model: components emit a raw **`interaction.used`**
    fact (subject id) and the **recorder is the single classifier** (in-registry? relevant? ownerStep ==
-   current? → correct / wrong / order). This keeps the registry logic in one place (where the rubric +
+   current? → correct / wrong / order). This keeps the registry logic in one place (where the config +
    current step already live), instead of pre-classified facts.
 
 ## C. Deferred to post-B2 (the on-device / Phase C window) - by design
@@ -161,3 +161,72 @@ The actual VR lab migration is post-B1+B2 (your earlier decision), and these nee
    -> carried to `LabRuntimeContext` -> `LabAnalytics` fail-closes emission unless `IsGranted` and attaches the
    receipt to `SessionReport` for audit. Single analytics consent; receipt = consentId + policyVersion +
    grantedAtUtc. See the 2026-06-30 hardening plan P8 for full detail + the dev-consent convenience call.
+
+## G. Analytics GRADING MODEL - open decisions BEFORE the logic is reimplemented (2026-07-01)
+
+Raised by Stergios 2026-07-01 while authoring a real 3-objective config. **None of these are decided.** The
+current grade engine (continuous weighted score + a *cosmetic* pass-bar) may be replaced. **Answer all of G1-G6
+before touching `AnalyticsGradeEngine` / the config schema / the report again** - they change the model, the
+serialized schema, the report contract, and the cloud re-compute. G1 is the parent; the rest hang off it.
+
+**Reference example (the config that surfaced these):**
+- **Objective 1 - 60% of grade:** pass all fed step analytics with **over 70% total success**.
+- **Objective 2 - 20% of grade:** **total duration under 30 s** (even if the Total Duration metric's own band is, say, 50 s).
+- **Objective 3 - 20% of grade:** **fewer than 2** dropped items total.
+
+Notice each objective wants a **different unit** (a score %, seconds, a count), and two of them are pass/fail that
+should *earn the share* - not a partial-credit blend with a cosmetic badge.
+
+### G1. Grading model: continuous score vs threshold rubric (Option D) - PARENT DECISION
+Today: each objective yields a 0-1 score from metric bands (partial credit); grade = weighted mean; `Objective.target`
+ONLY flips a cosmetic `passed` badge - it does **not** gate credit (`AnalyticsGradeEngine.cs:125`,
+`passed = score >= target`). The example instead reads as **pass/fail that earns a share** ("20% if under 30 s").
+- **Option D (threshold rubric):** each objective has ONE pass condition in its natural unit (Obj1 score >= 70%,
+  Obj2 seconds < 30, Obj3 count < 2); passing earns its share; grade = SUM(share x pass). Optionally scaled (partial).
+- **Sub-point (Obj2 subtlety):** "under 30 s even if the band is 50 s" is only expressible if the objective's pass
+  line is read from the **raw value** (seconds), independent of the metric's scoring band. That needs per-objective,
+  per-unit target logic - OR a dedicated 30 s band (which couples the pass line to the band). Decide which.
+- **QUESTION:** keep continuous partial-credit, switch to a pass/fail rubric, or support **both** per objective
+  (a "scored" vs "threshold" objective type)?  [blast radius: grade engine, `GradeResult`, `SessionReportJson`, cloud re-compute.]
+
+### G2. Why does sub-weight exist on objective inputs?
+`ObjectiveInput.subWeight` weights each analytic **within** an objective (objective score = weighted mean of its
+analytics' scores). It only matters when an objective is fed by 2+ analytics of differing importance.
+- **QUESTION:** is per-feed sub-weighting actually wanted, or is an objective always an equal / single blend? If we
+  go threshold-rubric (G1), does sub-weight still mean anything? Keep / drop / "advanced only (Web Portal)".
+
+### G3. Can a single step error lose the WHOLE scenario?
+Today: **no.** A failed metric bottoms out its own metric only; other objectives still score; the grade is a
+weighted mean, so one failure can't zero everything. The knife example (G6) suggests we may *want* a hard-fail path.
+- **QUESTION:** should there be a scenario-level **critical failure** (a gating metric fails -> whole scenario =
+  fail / 0), and at what scope can an author set it (metric / step / objective)? Default today = no hard fail.
+
+### G4. Per-analytic feeds vs one unified "scenario %"
+Today: objectives are fed by **specific** analytics you pick (granular wiring). Alternative: collapse all step
+analytics into ONE aggregate "scenario completion %" that objectives (or the grade) consume, so the author doesn't
+wire each step. Obj1 ("all fed step analytics >= 70%") hints you want the aggregate.
+- **QUESTION:** keep granular per-analytic feeds, offer a one-click "all steps -> one %" aggregate, or both?
+
+### G5. Step weight vs metric weight - one weight per STEP?
+Today: weight lives on each **metric** (`AnalyticsMetric.weight`), balancing metrics within an analytic. A
+`StepAnalytic` has **no weight of its own**, so "the step's weight" only equals the metric weight when there is
+exactly ONE metric (we now hide metric weight in the single-metric case - it's confusing otherwise). What does a
+lone metric's weight even represent then? Nothing useful.
+- **Stergios' proposal:** ONE global weight per **step** (the step analytic); its metrics are then divided
+  **equally** (or by an explicit within-step split).
+- **QUESTION:** move weight up to the step-analytic level? If yes: do a step's metrics split **equally**, or keep
+  per-metric weights nested UNDER the step weight (two-level)?  [schema: add `StepAnalytic.weight`; grade engine
+  analytic-level weighting; the inspector's per-metric weight goes away or becomes secondary.]
+
+### G6. Required / "critical" metrics - a metric as a hard pass-gate (true/false)
+Today: a metric only subtracts a **penalty** (partial credit). But some metrics are **pass-required**. Example: a
+"cut" step with Duration + Drop + **Wrong-interaction** metrics - if the user cuts the WRONG thing, that isn't
+"minus a few %", it should **fail the whole step**, and possibly the **whole scenario**. That metric is a
+**requirement**, not a weighted contributor.
+- **QUESTION:** add a per-metric (or per-band) **"required / critical"** flag meaning "failing this fails the step
+  (and optionally the scenario)"? Define the escalation ladder: metric-fail -> step-fail -> scenario-fail, and which
+  levels the author may choose.  [interacts with G1 (rubric) + G3 (hard-fail scope).]
+
+> These six gate the analytics-logic reimplementation. G1 first (it decides the shape); G5+G6 change the schema;
+> everything here touches the report contract, so settle them **before** the 2026-07-07 analytics freeze if the
+> model is changing.

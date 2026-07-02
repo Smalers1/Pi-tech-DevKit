@@ -66,14 +66,14 @@ references:
 > **manual import + export** at launch; in-scene canonical (§14 #7). **(23)** offline durability = **host-owned outbox,
 > verified as a tested contract** (§11). **(24)** bus = **sync in-process, snapshot facts** (local delivery; emitter
 > batches + ships at end — §11). **(25) b6 RESOLVED:** analytics = **ONE self-contained session report** (users+roles +
-> timed events + bundled rubric, merged on-device, shipped at `SessionStop`, stored once tenant-scoped) — **session/group-level**,
+> timed events + bundled config, merged on-device, shipped at `SessionStop`, stored once tenant-scoped) — **session/group-level**,
 > not per-participant docs; **tenant + user id** in `LaunchContext` + report envelope; role/attempt in-scene; cloud
 > wire-format = session-report schema (supersedes per-event `AnalyticsEventV1` — align Web-Portal before G2) — §11.
 
 > **Decision log (2026-06-25, analytics architecture session):** **(26)** analytics = a **four-layer hierarchy** —
 > **Objectives → Analytics (step + scene-wide) → Metrics → bus facts** — with the grade a **nested normalized weighted
 > mean + applicability mask** (§11.3). **(27)** analytics config is **NOT fields on `Step`** (this **supersedes** the old §11
-> "serialized `bool` + inspector analytics options" model): it's a **sidecar rubric keyed by `step.guid`, shown as a brick
+> "serialized `bool` + inspector analytics options" model): it's a **sidecar config keyed by `step.guid`, shown as a brick
 > tied to the step** in the scene graph. Load-bearing split = **measurement layer** (metrics, authored in Unity, fixed) vs
 > **grading layer** (objectives, teacher-tunable, **re-computable in the portal** from the bundled raw report). **(28)** a
 > metric = polymorphic **`AnalyticsMetric`** (duration/drops/wrongInteraction/order) with **scoring bands**
@@ -95,7 +95,7 @@ references:
 > needs** (dependency points runner→store, not runner→whole-console). `ISceneRunnerControl` (3 members) stays the
 > **cross-assembly ignition boundary only** (ContentDelivery → lab), **implemented by LabConsole, NOT widened** — internal
 > direct calls remove any pressure to add flow verbs to the seam (§9.1). **(35)** **Analytics authoring = in-lab via the
-> DevKit at launch; Web-Portal tuning post-launch** — launch authors the full rubric (metrics + objectives) in-lab; later the
+> DevKit at launch; Web-Portal tuning post-launch** — launch authors the full config (metrics + objectives) in-lab; later the
 > Web Portal lets professors **pick from a DevKit-defined dropdown** and set **only weight + target** (no new metric types).
 > The grading layer becomes portal-editable; the bundled raw report keeps it re-computable (§11.0). **(36)** ported
 > gap-closures from the divergent 06-24 branch: **follower-suppression hook built INERT in B.1** (flip-on in B.2 — §10.1);
@@ -109,7 +109,7 @@ references:
 
 > **Decision log (2026-06-26b, Stergios — open-decision close-out + freezes):** **(38)** **Analytics wire = the session
 > report** (Q1) — retire `AnalyticsEventV1`; cloud ingest/DDL/RLS/portal rebuild to the session-report schema before G2.
-> **Plus: the scoring engine (events + rubric → grade) lives in the DevKit** so the **lab-end screen renders on-device with
+> **Plus: the scoring engine (events + config → grade) lives in the DevKit** so the **lab-end screen renders on-device with
 > no cloud round-trip**; the same bundled raw goes up and the cloud **re-computes identically** (DevKit = canonical reducer,
 > cloud = mirror) — §11.0/§11.4. **(39)** **§11.8 grade math RATIFIED** (Q4): metric `x = clamp01(1 − Penalty)` · normalized
 > weighted mean at every level · applicability mask (skipped/non-participant drop from the denominator; all-masked →
@@ -121,7 +121,7 @@ references:
 > (`Assets/Scripts/Interactions/Managers/ControlOptionManager.cs`, PUN) is the **concrete professor-panel / outside-in-door /
 > vitals-control prototype** — its PUN→Fusion + reflection→typed-param convergence is post-launch (§8/§13). **(42)** **freeze
 > hygiene:** scrubbed the stale "Step Action-config / serialized Action bool" residues (the frozen analytics surface = the
-> **rubric schema** `AnalyticsMetric`/bands/`TrackedSubject`/`Objective` + `SessionStart/Stop` + role enum, NOT a Step bool);
+> **config schema** `AnalyticsMetric`/bands/`TrackedSubject`/`Objective` + `SessionStart/Stop` + role enum, NOT a Step bool);
 > `AddressablesRemoteUrlRewriter` global-clobber given a concrete fix + acceptance (§13). **Old 2026-06-09 analytics plan =
 > SUPERSEDED** on wire-format, runner-extraction, MP, LabConsole, analytics model (kept only: cloud-lane structure,
 > transports, consent [HUMAN] step, loc, exit-criteria format).
@@ -708,7 +708,7 @@ role** (instructor force-advance/override is post-launch with instructor tooling
 ## 11. Analytics — the measurement → grading hierarchy
 
 > **Supersession (2026-06-25):** analytics config is **NOT** fields on `Step`. The earlier "serialized `bool` + inspector
-> analytics options on `Step`" model is **replaced** by the **sidecar rubric** below (keyed by `step.guid`, shown as a
+> analytics options on `Step`" model is **replaced** by the **sidecar config** below (keyed by `step.guid`, shown as a
 > **brick tied to the step**). Decision-log (26)–(32).
 
 ### 11.0 The model — four layers, two ownership halves
@@ -723,13 +723,13 @@ The load-bearing idea is the split between the **measurement layer** (authored i
 | **Metrics** | atomic measurement + scoring bands | author / dev | scene authoring |
 | **Mechanism / facts** | raw events on the `LabEventBus` | runtime | at play |
 
-Because the whole chain is **pure arithmetic over (raw events + rubric)**, the **scoring engine lives in the DevKit** — it
+Because the whole chain is **pure arithmetic over (raw events + config)**, the **scoring engine lives in the DevKit** — it
 computes the grade **on-device** so the **lab-end screen renders results with no cloud round-trip** (RESOLVED 2026-06-26,
-decision-log (38)). The **same bundled raw** (events + rubric) is shipped, and the cloud **re-computes identically** (for the
+decision-log (38)). The **same bundled raw** (events + config) is shipped, and the cloud **re-computes identically** (for the
 portal + post-hoc re-grading): **DevKit = the canonical reducer, cloud = the mirror.** This is *why* the report bundles raw,
 not pre-scored.
 
-**Authoring: in-lab now, Web-Portal-tunable later (decided 2026-06-26, decision-log (35)).** At launch the full rubric —
+**Authoring: in-lab now, Web-Portal-tunable later (decided 2026-06-26, decision-log (35)).** At launch the full config —
 metrics *and* objectives — is authored **in-lab via the DevKit / LabConsole** (Unity). **Post-launch**, the Web Portal
 exposes the **grading layer** to professors: pick a metric/objective from a **DevKit-defined dropdown** and set **only its
 weight + target** — they cannot define new metric *types* (those stay the fixed DevKit vocabulary). The measurement layer is
@@ -905,9 +905,9 @@ classDiagram
   analytics metric** (the attempt/session). These emit **session-started / session-completed** facts on the bus
   (confirming the earlier "include attempt start/finish" decision).
 - **Runtime:** the runner emits step + session lifecycle facts on the bus; the **analytics emitter subscribes** (not
-  reflection-poll) and assembles the **session report** (see "The report" below) — the Flow-A rubric + Flow-B events are
+  reflection-poll) and assembles the **session report** (see "The report" below) — the Flow-A config + Flow-B events are
   merged **on-device** into one document, not joined separately in the cloud.
-- **Binding:** structural hooks = the bus (§7) + the **metric rubric** (§11.1) + the `SessionStart/Stop` step types (both
+- **Binding:** structural hooks = the bus (§7) + the **metric config** (§11.1) + the `SessionStart/Stop` step types (both
   serialized-graph changes → Proof C / freeze at the DevKit SDK emit-API gate, 2026-07-07 — §13). The observers/scoring/transport
   is the feature (the **session-report schema**, which supersedes per-event `AnalyticsEventV1`, freezes cross-surface at G2, 2026-06-29).
 - **Session roles gate analytics (NEW, decided 2026-06-23) — Professor / Participant / Spectator.** **Chosen in-scene, per
@@ -920,10 +920,10 @@ classDiagram
   doesn't run (beyond presence) on non-participant headsets; an *attempt* is per-participant.
 - **The report — RESOLVED (b6, 2026-06-23): ONE self-contained session report.** The emitter assembles **one session-level
   document** = **users + roles**, the **timed event stream** (session started/ended, steps entered w/ timestamps, errors),
-  and the **lab rubric bundled in** (the per-step Action config) — merged **on-device** and sent to the cloud as one report.
+  and the **lab config bundled in** (the per-step Action config) — merged **on-device** and sent to the cloud as one report.
   **Session/group-level, NOT per-participant documents:** events are the *shared* flow + a user list with roles; the portal
   derives per-participant views (Participant = graded · Professor = presence · Spectator = excluded). The cloud **stores it
-  once** (tenant-scoped, RLS) and **renders/scores** — bundle the **raw** rubric + events (*not* a pre-baked score) so
+  once** (tenant-scoped, RLS) and **renders/scores** — bundle the **raw** config + events (*not* a pre-baked score) so
   reports **re-compute** if scoring changes. Built **incrementally to the outbox**, shipped at **`SessionStop`** (+ flush on
   reconnect / next-launch); an unfinished session stores as **incomplete** — never lost, never "passed." **Contract impact:**
   the cloud wire-format becomes a **session-report schema**, *not* a per-event `AnalyticsEventV1` stream — a **cross-surface
@@ -960,7 +960,7 @@ classDiagram
 4. **Wiring is mostly automatic:** runner step/session facts auto-emit; registry subjects auto-wire to grab/drop; one-off
    authored failures via `EmitSignal` on the existing UnityEvent.
 5. **Play-test:** bricks show live counts; the console warns on order / wrong-interaction (the in-scene notification). On
-   `SessionStop` / abandon → assemble the report → outbox → cloud → the portal joins rubric × events and applies the
+   `SessionStop` / abandon → assemble the report → outbox → cloud → the portal joins config × events and applies the
    (static) weights.
 
 ### 11.7 Borrowed / rejected — ORamaVR MAGES
@@ -968,7 +968,7 @@ classDiagram
 MAGES (ORamaVR; **its core is already a VR-app dependency**) builds analytics into **Action prototypes** — networking +
 analytics baked into each action — capturing *hundreds of events/sec* for psychomotor surgical assessment, optionally to a
 cloud ML analytics server. **Borrow:** the *typed-signal* + *analytics-is-authored* philosophy (our `EmitSignal` vocabulary
-+ the LabConsole rubric). **Reject:** analytics baked *into* the action (that's the settings-on-`Step` coupling we removed —
++ the LabConsole config). **Reject:** analytics baked *into* the action (that's the settings-on-`Step` coupling we removed —
 our sidecar keeps authoring code-free); and the hundreds-of-events/sec + server-side ML (psychomotor-surgery fidelity, wrong
 fit for **discrete medical-education** labs — our discrete event stream is the right grain).
 
@@ -1042,7 +1042,7 @@ on (belongs in B.2). The dedup of the divergent linear/group twins is **not** ne
 **Sequencing & the TWO freeze gates** (per `VICKY_1_0_LAUNCH.md` §2 — verified): B.1 freezes across **two** gates, not
 one. **G2 (2026-06-29)** = *cross-surface* contracts: the analytics **session-report schema** (supersedes per-event
 `AnalyticsEventV1` — Web-Portal must align), consent, and `LaunchContext` (incl. `.locale`). **DevKit SDK emit-API freeze
-(2026-07-07)** = the DevKit's own serialized/SDK surface consumers code against: bus fact shape, the **analytics rubric
+(2026-07-07)** = the DevKit's own serialized/SDK surface consumers code against: bus fact shape, the **analytics config
 schema** (`AnalyticsMetric` + bands + `TrackedSubject` + `Objective`, NOT a Step bool), `SessionStart/Stop`, effect-scope
 shapes (`AllClients`/`AuthorityOnly`, §10.4), `ConsoleParameter`.
 (Per-shape gate assignment to confirm against the launch plan when authoring B.1.) B.2 builds on the frozen,
@@ -1064,7 +1064,7 @@ intended — consumers code against the frozen surface from each gate).
 - **Pre-launch forwarding reverses ratified canon** (§S4 of the forwarding draft) → conscious Petros override.
 - **Cross-repo:** NetworkStateManager relocation + the VR-side bridge touch the VR repo (ask-first) and add Fusion to the
   DevKit.
-- **Serialized changes** (the analytics rubric schema — `AnalyticsMetric`/bands/`TrackedSubject`/`Objective` — `SessionStart/Stop`, effect-scope shapes, typed params) must clear Proof C + freeze at the
+- **Serialized changes** (the analytics config schema — `AnalyticsMetric`/bands/`TrackedSubject`/`Objective` — `SessionStart/Stop`, effect-scope shapes, typed params) must clear Proof C + freeze at the
   **DevKit SDK emit-API gate (2026-07-07)**; cross-surface contracts (analytics emit, consent, `LaunchContext`) freeze at
   **G2 (2026-06-29)** — §13.
 - **On-device proofs:** two-client sync + branch + loop + late-join + authority-drop; AR no-Fusion trace-identity.
