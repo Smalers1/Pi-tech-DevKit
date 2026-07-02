@@ -1,6 +1,7 @@
-// Analytics module marker. Phase A reserved the assembly; Phase B.1 landed the INERT serialized
-// schema (AnalyticsMetric / Analytic / ScoringBand / Objective / TrackedSubject / SessionRole /
-// SessionRoleCapacities / LabConfig). WS B2.1 (2026-06-29) landed the BEHAVIOUR on top:
+// Analytics module marker. Phase A reserved the assembly; Phase B landed the serialized schema; the v3
+// grading model (2026-07-02) is base - penalties + bonus: schema = AnalyticsMetric / Analytic (StepAnalytic)
+// / ScoringBand / PenaltyRule / Goal / TrackedSubject / SessionRole / SessionRoleCapacities / LabConfig.
+// WS B2.1 landed the BEHAVIOUR on top:
 //   - AnalyticsGradeEngine  - the canonical reducer (events + config -> grade, map sec-11.8)
 //   - AnalyticsEvent / SessionEventStream - the captured timed stream
 //   - GradeResult           - the on-device readout model

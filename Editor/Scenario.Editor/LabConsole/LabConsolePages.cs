@@ -343,7 +343,7 @@ namespace Pitech.XR.Scenario.Editor
             rec.Add(ObjectLinkRow("Lab Analytics recorder", la));
             rec.Add(VSpace(4));
             rec.Add(Note("Authored on a sibling \"Analytics\" object. Step analytics live on the step nodes in the " +
-                         "Scenario Graph; scene-wide analytics + the grading objectives are on the recorder."));
+                         "Scenario Graph; penalties + goals are on the recorder. Grade = base - penalties + bonus."));
             root.Add(rec);
 
             var config = Section("Config");
@@ -354,8 +354,8 @@ namespace Pitech.XR.Scenario.Editor
             }
             else
             {
-                int objectives = r.objectives != null ? r.objectives.Count : 0;
-                int analytics = r.analytics != null ? r.analytics.Count : 0;
+                int penalties = r.penalties != null ? r.penalties.Count : 0;
+                int goals = r.goals != null ? r.goals.Count : 0;
                 int steps = 0;
                 if (r.analytics != null)
                     for (int i = 0; i < r.analytics.Count; i++)
@@ -363,9 +363,9 @@ namespace Pitech.XR.Scenario.Editor
                 int subjects = r.subjects != null ? r.subjects.Count : 0;
 
                 config.Add(DevkitWidgets.PillsRow(
-                    (DevkitWidgets.PillKind.Neutral, objectives + " objective(s)"),
-                    (DevkitWidgets.PillKind.Neutral, analytics + " analytic(s)"),
-                    (DevkitWidgets.PillKind.Neutral, steps + " step"),
+                    (DevkitWidgets.PillKind.Neutral, steps + " step" + (steps == 1 ? "" : "s")),
+                    (DevkitWidgets.PillKind.Neutral, penalties + " penalt" + (penalties == 1 ? "y" : "ies")),
+                    (DevkitWidgets.PillKind.Neutral, goals + " goal(s)"),
                     (DevkitWidgets.PillKind.Neutral, subjects + " tracked object(s)")));
             }
             config.Add(VSpace(8));

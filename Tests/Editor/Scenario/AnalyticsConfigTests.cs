@@ -59,9 +59,9 @@ namespace Pitech.XR.Scenario.Editor.Tests
         }
 
         [Test]
-        public void TotalDurationMetric_KindMatchesKindId()
+        public void SignalMetric_KindMatchesKindId()
         {
-            Assert.That(new TotalDurationMetric().Kind, Is.EqualTo(TotalDurationMetric.KindId));
+            Assert.That(new SignalMetric().Kind, Is.EqualTo(SignalMetric.KindId));
         }
 
         [Test]
@@ -97,6 +97,14 @@ namespace Pitech.XR.Scenario.Editor.Tests
             Assert.That(metric.bands[2].penaltyWeight, Is.EqualTo(1.0f));
         }
 
+        [Test]
+        public void FreshMetric_CriticalAndNotifyOnlyDefaultFalse()
+        {
+            var metric = new StepDurationMetric();
+            Assert.That(metric.critical, Is.False);
+            Assert.That(metric.notifyOnly, Is.False);
+        }
+
         // ---------- Analytic subclasses: Kind == KindId ----------
 
         [Test]
@@ -106,17 +114,42 @@ namespace Pitech.XR.Scenario.Editor.Tests
         }
 
         [Test]
-        public void SceneAnalytic_KindMatchesKindId()
+        public void StepAnalytic_DefaultsImportanceThreeAndNoScenarioFail()
         {
-            Assert.That(new SceneAnalytic().Kind, Is.EqualTo(SceneAnalytic.KindId));
+            var sa = new StepAnalytic();
+            Assert.That(sa.weight, Is.EqualTo(3f));   // v3: importance is a 1-5 scale, default 3 (normal)
+            Assert.That(sa.failsScenario, Is.False);
+        }
+
+        // ---------- v3 PenaltyRule + Goal defaults ----------
+
+        [Test]
+        public void PenaltyRule_Defaults()
+        {
+            var p = new PenaltyRule();
+            Assert.That(p.kind, Is.EqualTo(PenaltyKind.Drop));
+            Assert.That(p.pointsPerWarning, Is.EqualTo(2));
+            Assert.That(p.pointsPerError, Is.EqualTo(5));
+            Assert.That(p.maxDeduction, Is.EqualTo(20));
+            Assert.That(p.failScenario, Is.False);
+            Assert.That(p.notifyInScene, Is.True);
+        }
+
+        [Test]
+        public void Goal_Defaults()
+        {
+            var g = new Goal();
+            Assert.That(g.kind, Is.EqualTo(GoalKind.StepsScore));
+            Assert.That(g.bonusPoints, Is.EqualTo(10));
+            Assert.That(g.threshold, Is.EqualTo(70f));
         }
 
         // ---------- LabConfig defaults ----------
 
         [Test]
-        public void LabConfig_DefaultSchemaVersionIsOne()
+        public void LabConfig_DefaultSchemaVersionIsTwo()
         {
-            Assert.That(new LabConfig().schemaVersion, Is.EqualTo(1));
+            Assert.That(new LabConfig().schemaVersion, Is.EqualTo(2));
         }
 
         // ---------- SessionRoleCapacities defaults ----------

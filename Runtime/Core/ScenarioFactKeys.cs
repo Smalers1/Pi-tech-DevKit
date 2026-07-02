@@ -63,6 +63,12 @@ namespace Pitech.XR.Core
         /// (map sec-11.4, AnalyticsSignalEmitter).</summary>
         public const string AnalyticsSignal = "analytics.signal";
 
+        /// <summary>The scenario was FAILED by a critical gate (v3 grading, 2026-07-02). The recorder emits this
+        /// the moment a scenario-fail gate trips (Text = the cause metric/penalty id) so both the on-device and
+        /// cloud reducers derive grade 0 / failed / cause from the raw stream - even when the failing step never
+        /// completes. Grading-terminal, NOT run-terminal: the scenario keeps running (Restart / Continue).</summary>
+        public const string ScenarioFailed = "scenario.failed";
+
         // WS B1.1 Step 4 (2026-06-26): the dead per-step-bool keys were removed here -
         // "scenario.step.<guid>.{done,outcome,completedBy,completedAtTick}" and the MP step-sync
         // bridge prefix "flow.step.<guid>". They had ZERO consumers in the codebase (verified by

@@ -9,45 +9,68 @@ using Debug = UnityEngine.Debug;
 
 namespace Pitech.XR.Analytics
 {
-    // ---------- LabAnalytics: the in-scene analytics recorder (map sec-11) ----------
-    // WS B2.1. The ONE opt-in component an author adds to a GRADED lab (next to LabConsole, on the lab
-    // ROOT). It hosts the LabConfig (authoring surface), subscribes to the lab's LabEventBus, captures
-    // the timed stream between the session.started / session.stopped bracket facts, gates by the in-scene
-    // role, and on SessionStop: computes the on-device readout (AnalyticsGradeEngine, no cloud round-
-    // trip) AND assembles + submits the ONE self-contained session report to the host outbox.
+    // ---------- LabAnalytics: the in-scene analytics recorder (map sec-11; v3 model 2026-07-02) ----------
+    // The ONE opt-in component an author adds to a GRADED lab. It hosts the LabConfig, subscribes to the lab's
+    // LabEventBus, captures the timed stream between session.started / session.stopped, gates by the in-scene
+    // role, and at the session end computes the on-device readout (AnalyticsGradeEngine) + submits the ONE
+    // self-contained session report to the host outbox.
     //
-    // OPT-IN BY DESIGN: existing labs have no LabAnalytics, so nothing reserializes and the recorder is
-    // absent (Proof C clean). A graded lab adds this + a SessionStart/SessionStop bracket in its
-    // scenario. With no bracket, no capture ever begins (inert).
+    // v3 CRITICAL GATES: the recorder detects a scenario-fail LIVE (a critical step metric on a
+    // failsScenario step, or a failScenario penalty, tripping) and (1) emits a scenario.failed fact into the
+    // stream so both reducers derive the fail from raw data, (2) raises onScenarioFailed so the author can show
+    // a Restart / Continue dialog. The scenario KEEPS RUNNING (grading-terminal, not run-terminal). A restart
+    // (a fresh session.started while still capturing) FINALIZES + SHIPS the failed attempt before clearing.
     //
-    // PLACEMENT: the graph's "Add Step Analytic" flow puts this on a dedicated "Analytics" GameObject that is a
-    // SIBLING of the LabConsole (next to it, NOT a child of it) and ensures a LabRuntimeContext on the lab ROOT.
-    // The shared lab bus (LabRuntimeContext) MUST live on the lab ROOT - the COMMON ANCESTOR of the console and
-    // this sibling: the runner resolves it by parent-walk from the LabConsole, and this recorder resolves the SAME
-    // one by parent-walk from the sibling up to that root. (A context on the LabConsole GO would NOT be reachable
-    // from a sibling, splitting the bus.) ContentDelivery GetOrAdds + stamps the root context at spawn. Co-locating
-    // this on the LabConsole GO also works. (See LabRuntimeContext.Find = parent-walk.)
-    //
-    // ROLES: the role is read from a SessionRoleSelector (Stergios builds the pick UI on that). Default
-    // Participant. Participant = full graded report + readout; Professor = presence-only report; Spectator
-    // = nothing emitted (map sec-11.5).
+    // PLACEMENT / ROLES / CONSENT: unchanged from B2.1 (see LabRuntimeContext + SessionRoleSelector +
+    // ConsentReceipt). Participant = graded report + readout; Professor = presence only; Spectator = nothing.
 
-    /// <summary>A crossed warning/error band, for the in-scene notification (the toast Stergios wires).</summary>
+    /// <summary>The three in-scene notification variants, in ascending gravity. Drives which toast card the
+    /// author's <see cref="SessionNotificationView"/> shows. NOT hardcoded per event: the recorder derives it
+    /// (<see cref="AnalyticsSeverity"/> band severity + whether a critical gate / scenario-fail fired).</summary>
+    public enum NotificationLevel
+    {
+        /// <summary>A soft nudge (a warning-severity band / distractor slip). No gate.</summary>
+        Warning = 0,
+        /// <summary>An error-severity occurrence that costs grade points but isn't a gate.</summary>
+        Error = 1,
+        /// <summary>A critical gate fired (a critical metric fails the step, or a fail-scenario rule tripped).</summary>
+        Critical = 2
+    }
+
+    /// <summary>A live in-scene notification (the toast the author wires). <see cref="level"/> selects the variant;
+    /// <see cref="metricLabel"/>/<see cref="subjectId"/> are the dynamic detail the toast renders.</summary>
     [Serializable]
     public sealed class AnalyticsNotification
     {
+        public NotificationLevel level;
         public string metricId;
         public string metricLabel;
         public BandSeverity severity;
         public string subjectId;
 
         public AnalyticsNotification() { }
-        public AnalyticsNotification(string metricId, string metricLabel, BandSeverity severity, string subjectId)
+        public AnalyticsNotification(NotificationLevel level, string metricId, string metricLabel, BandSeverity severity, string subjectId)
         {
+            this.level = level;
             this.metricId = metricId;
             this.metricLabel = metricLabel;
             this.severity = severity;
             this.subjectId = subjectId;
+        }
+    }
+
+    /// <summary>A live scenario-fail, for the Restart / Continue dialog the author wires to onScenarioFailed.</summary>
+    [Serializable]
+    public sealed class AnalyticsFailure
+    {
+        public string causeId;
+        public string causeLabel;
+
+        public AnalyticsFailure() { }
+        public AnalyticsFailure(string causeId, string causeLabel)
+        {
+            this.causeId = causeId;
+            this.causeLabel = causeLabel;
         }
     }
 
@@ -57,14 +80,15 @@ namespace Pitech.XR.Analytics
     /// <summary>UnityEvent carrying an in-scene <see cref="AnalyticsNotification"/>.</summary>
     [Serializable] public sealed class AnalyticsNotificationEvent : UnityEvent<AnalyticsNotification> { }
 
+    /// <summary>UnityEvent carrying a live <see cref="AnalyticsFailure"/> (scenario-fail).</summary>
+    [Serializable] public sealed class AnalyticsFailureEvent : UnityEvent<AnalyticsFailure> { }
+
     [AddComponentMenu("Pi tech/Analytics/Lab Analytics")]
     [DisallowMultipleComponent]
     public sealed class LabAnalytics : MonoBehaviour
     {
         [Header("Analytics config")]
-        [Tooltip("The measurement + grading config for this lab. Bundled raw into the session report so the cloud re-computes. Empty config = nothing to grade (still records presence/bracket).")]
-        // Renamed from 'rubric' -> 'config' (2026-07-01, GUI/domain rename). FormerlySerializedAs keeps
-        // already-authored labs from losing their data on reserialize.
+        [Tooltip("The measurement + grading config for this lab. Bundled raw into the session report so the cloud re-computes. Empty config = base 100 (nothing to grade).")]
         [FormerlySerializedAs("rubric")]
         public LabConfig config = new LabConfig();
 
@@ -76,18 +100,19 @@ namespace Pitech.XR.Analytics
         public MonoBehaviour reportSink;   // must implement ISessionReportSink
 
         [Header("Output (wire your UI here)")]
-        [Tooltip("Raised at SessionStop with the computed grade - bind your lab-end readout panel here.")]
+        [Tooltip("Raised at session end with the computed grade - bind your lab-end readout panel here.")]
         public GradeResultEvent onReadout = new GradeResultEvent();
 
-        [Tooltip("Raised live when a warning/error band fires (notifyInScene) - bind your in-scene toast here.")]
+        [Tooltip("Raised live when a warning/error penalty or gate fires (notifyInScene) - bind your in-scene toast here.")]
         public AnalyticsNotificationEvent onNotification = new AnalyticsNotificationEvent();
+
+        [Tooltip("Raised the moment a CRITICAL gate fails the scenario (grade 0). Bind a 'You failed - Restart / Continue' dialog here. The scenario keeps running; grade stays 0 unless the learner restarts.")]
+        public AnalyticsFailureEvent onScenarioFailed = new AnalyticsFailureEvent();
 
 #if UNITY_EDITOR
         [Header("Editor testing (never ships)")]
         [Tooltip("EDITOR ONLY: emit the session report even without a host-stamped consent receipt, so you can test " +
-                 "the local report + sink in a hand-built scene (which has no ContentDelivery launch to dev-grant " +
-                 "consent). Compiled OUT of player builds, so the production fail-closed gate is untouched. The dev " +
-                 "report carries no consent receipt. Leave OFF for anything but local testing.")]
+                 "the local report + sink in a hand-built scene. Compiled OUT of player builds. Leave OFF except for local testing.")]
         public bool editorEmitWithoutConsent = false;
 #endif
 
@@ -96,21 +121,18 @@ namespace Pitech.XR.Analytics
         IDisposable _subscription;
         readonly SessionEventStream _stream = new SessionEventStream();
         bool _capturing;
+        bool _scenarioFailed;
         long _startTick;
         string _currentStepGuid = string.Empty;
         long _currentStepStartTick;
-        // Live duration nudge (map sec-11.x): highest ceiling-band threshold already notified per metric
-        // id, so a crossing fires ONCE per escalation instead of every frame it stays crossed.
+        // Live duration nudge: highest ceiling-band threshold already notified per metric/penalty id, so a
+        // crossing fires ONCE per escalation instead of every frame it stays crossed.
         readonly Dictionary<string, float> _durationNotified = new Dictionary<string, float>();
         ISessionReportSink _sink;
         bool _submitted;
 
         void Awake()
         {
-            // Resolve the lab context (the bus + the report identity). If none exists (dev/menu lab),
-            // create a local one ON THIS object so the recorder is testable; the runner (under the same
-            // root) then shares it. ContentDelivery attaches the context on the spawned root before its
-            // post-spawn Restart, so the production path resolves that one (with identity stamped).
             _ctx = LabRuntimeContext.Find(this);
             if (_ctx == null)
             {
@@ -121,15 +143,9 @@ namespace Pitech.XR.Analytics
 
         void Start()
         {
-            // P7: push the config's role capacities into the in-scene role selector so the LOCAL pick guard
-            // (SessionRoleSelector.IsSelectable) enforces the per-lab min/max before the learner picks. Done
-            // at Start (all Awakes complete, the authored selector exists). Cross-peer headcount (min counts
-            // across peers) is inherently multiplayer -> B2.4.
             if (roleSelector == null) roleSelector = SessionRoleSelector.Find(this);
-            // Capacities are authored on the SessionRoleSelector (the SINGLE surface, 2026-07-01) - no longer
-            // duplicated on the analytics config. Mirror the selector's authored capacities INTO the config at
-            // runtime so the session report still carries them (SessionReportJson reads config.roleCapacities).
-            // (Was the reverse push before; consolidated to one authoring surface.)
+            // Capacities are authored on the SessionRoleSelector (the single surface). Mirror them into the config
+            // so the report still carries them (SessionReportJson reads config.roleCapacities).
             if (roleSelector != null && config != null && roleSelector.Capacities != null)
                 config.roleCapacities = roleSelector.Capacities;
         }
@@ -143,9 +159,7 @@ namespace Pitech.XR.Analytics
         void OnDisable()
         {
             if (_subscription != null) { _subscription.Dispose(); _subscription = null; }
-
-            // Graceful teardown mid-bracket (e.g. quit before SessionStop): store as INCOMPLETE, never
-            // lost. (True power-loss durability is the host outbox's incremental job - flagged for B2.1.)
+            // Graceful teardown mid-bracket (quit before SessionStop, or after a fail): ship as INCOMPLETE, never lost.
             if (_capturing && !_submitted)
             {
                 _capturing = false;
@@ -155,11 +169,7 @@ namespace Pitech.XR.Analytics
 
         void Update()
         {
-            // Live duration nudge: while capturing, a step (or the whole session) that runs past a
-            // notifying ceiling band fires the in-scene toast AS IT HAPPENS. The grade still applies the
-            // same penalty at SessionStop (AnalyticsGradeEngine) - this is only the live warning, so a
-            // student sees "you're taking too long" mid-step, not just at the readout.
-            if (_capturing) CheckDurationNotifications();
+            if (_capturing) CheckDurationLive();
         }
 
         void OnFact(in LabEvent fact)
@@ -179,13 +189,13 @@ namespace Pitech.XR.Analytics
             if (string.Equals(key, ScenarioFactKeys.StepEntered, StringComparison.Ordinal))
             {
                 _currentStepGuid = fact.Text ?? string.Empty;
-                _currentStepStartTick = fact.Tick;              // baseline for the live StepDuration nudge
-                ResetStepDurationNotified(_currentStepGuid);    // re-arm this step's bands so a looped step re-notifies
-                _stream.Add(new AnalyticsEvent(AnalyticsEventKind.StepEntered, tMs, _currentStepGuid));
+                _currentStepStartTick = fact.Tick;
+                ResetStepDurationNotified(_currentStepGuid);
+                _stream.Add(new AnalyticsEvent(AnalyticsEventKind.StepEntered, tMs, _currentStepGuid, userId: Uid()));
             }
             else if (string.Equals(key, ScenarioFactKeys.StepCompleted, StringComparison.Ordinal))
             {
-                _stream.Add(new AnalyticsEvent(AnalyticsEventKind.StepCompleted, tMs, fact.Text ?? string.Empty));
+                _stream.Add(new AnalyticsEvent(AnalyticsEventKind.StepCompleted, tMs, fact.Text ?? string.Empty, userId: Uid()));
             }
             else if (string.Equals(key, ScenarioFactKeys.ItemDropped, StringComparison.Ordinal))
             {
@@ -193,19 +203,17 @@ namespace Pitech.XR.Analytics
             }
             else if (string.Equals(key, ScenarioFactKeys.InteractionUsed, StringComparison.Ordinal))
             {
-                // The recorder is the single classifier (map sec-11.2): in-registry? relevant?
-                // ownerStep == current? -> wrong-interaction / order violation / correct (no fact).
                 ClassifyUse(tMs, fact.Text);
             }
             else if (string.Equals(key, ScenarioFactKeys.AnalyticsSignal, StringComparison.Ordinal))
             {
-                var e = new AnalyticsEvent(AnalyticsEventKind.Signal, tMs, _currentStepGuid, null, fact.Text);
+                var e = new AnalyticsEvent(AnalyticsEventKind.Signal, tMs, _currentStepGuid, null, fact.Text, Uid());
                 _stream.Add(e);
-                NotifyForSignal(e);
+                NotifyAndGate(e);
             }
             else if (string.Equals(key, ScenarioFactKeys.SessionStopped, StringComparison.Ordinal))
             {
-                _stream.Add(new AnalyticsEvent(AnalyticsEventKind.SessionStopped, tMs));
+                _stream.Add(new AnalyticsEvent(AnalyticsEventKind.SessionStopped, tMs, userId: Uid()));
                 _capturing = false;
                 Finalize(true);
             }
@@ -214,26 +222,33 @@ namespace Pitech.XR.Analytics
 
         void BeginCapture(long startTick)
         {
+            // Restart mid-bracket (e.g. after a scenario-fail): FINALIZE + SHIP the prior unsubmitted attempt
+            // BEFORE clearing the stream, so the failed attempt still leaves the device (v3 requirement).
+            if (_capturing && !_submitted)
+            {
+                _capturing = false;
+                Finalize(false);
+            }
+
             _stream.events.Clear();
             _startTick = startTick;
             _capturing = true;
             _submitted = false;
+            _scenarioFailed = false;
             _currentStepGuid = string.Empty;
             _currentStepStartTick = startTick;
             _durationNotified.Clear();
-            _stream.Add(new AnalyticsEvent(AnalyticsEventKind.SessionStarted, 0.0));
+            _stream.Add(new AnalyticsEvent(AnalyticsEventKind.SessionStarted, 0.0, userId: Uid()));
         }
 
         void RecordCount(AnalyticsEventKind kind, double tMs, string subjectId)
         {
-            var e = new AnalyticsEvent(kind, tMs, _currentStepGuid, subjectId);
+            var e = new AnalyticsEvent(kind, tMs, _currentStepGuid, subjectId, null, Uid());
             _stream.Add(e);
-            NotifyForCount(e);
+            NotifyAndGate(e);
         }
 
-        /// <summary>Classify a raw subject use into wrong-interaction / order-violation / correct
-        /// (map sec-11.2). A subject not in the registry or a distractor -> wrong; a relevant subject
-        /// used while its owner step is not the current step -> order; otherwise correct (no fact).</summary>
+        /// <summary>Classify a raw subject use into wrong-interaction / order-violation / correct (map sec-11.2).</summary>
         void ClassifyUse(double tMs, string subjectId)
         {
             TrackedSubject s = FindSubject(subjectId);
@@ -247,7 +262,7 @@ namespace Pitech.XR.Analytics
                 RecordCount(AnalyticsEventKind.OrderViolation, tMs, subjectId);
                 return;
             }
-            // relevant subject, no owner step or used in its owner step -> correct: nothing scored.
+            // relevant subject used in its owner step -> correct: nothing scored.
         }
 
         void Finalize(bool complete)
@@ -257,21 +272,13 @@ namespace Pitech.XR.Analytics
 
             SessionRole role = ResolveRole();
             ResolveSink();
-
             string userId = _ctx != null ? _ctx.UserId : string.Empty;
 
             if (role == SessionRole.Spectator)
                 return;   // no analytics emitted (map sec-11.5)
 
-            // P8: consent gate (fail-closed). Consent is recorded upstream (Web Portal / enrolment); the host
-            // stamps the receipt onto the LaunchContext at launch and it rides here via LabRuntimeContext. No
-            // granted receipt -> the report is NOT emitted (loud, not silent) - high-risk PII never leaves the
-            // device without a recorded lawful basis. The on-device readout (local, no PII off-device) still shows.
             bool consentGranted = _ctx != null && _ctx.Consent != null && _ctx.Consent.IsGranted;
 #if UNITY_EDITOR
-            // EDITOR-ONLY test override (compiled out of player builds): a hand-built test scene has no
-            // ContentDelivery launch to dev-grant consent, so the fail-closed gate would block the local report.
-            // This lets you eyeball it anyway. The production gate is UNCHANGED - this branch does not exist in a build.
             if (!consentGranted && editorEmitWithoutConsent)
             {
                 Debug.LogWarning("[Analytics] EDITOR TEST: emitting the session report WITHOUT a host consent receipt (editorEmitWithoutConsent = true). This override does not exist in player builds.", this);
@@ -281,7 +288,6 @@ namespace Pitech.XR.Analytics
 
             if (role == SessionRole.Professor)
             {
-                // Presence-only: identity + role + bracket, no event stream, no config grading.
                 onReadout.Invoke(new GradeResult { role = role, isComplete = false });
                 if (!consentGranted) { WarnConsentBlocked(role); return; }
                 SessionReport presence = BuildReport(role, userId, withGradedPayload: false, complete);
@@ -291,34 +297,26 @@ namespace Pitech.XR.Analytics
 
             // Participant: full graded report + on-device readout.
             GradeResult grade = AnalyticsGradeEngine.Compute(config, _stream, role);
-            // An unfinished bracket is never "complete" regardless of the engine's objective math.
-            if (!complete) grade.isComplete = false;
+            // An unfinished bracket is never "complete" - UNLESS the scenario was failed (a fail is a complete
+            // outcome, engine already sets isComplete=true for that case).
+            if (!complete && !grade.failed) grade.isComplete = false;
             onReadout.Invoke(grade);
 
-            // P6: only the driver/authority submits the graded report. A follower's frontier-mirrored step
-            // facts have unreliable durations, so its grade would be wrong - skip its SUBMISSION (the driver
-            // ships the authoritative one); the local readout above still shows the follower its own view.
-            // Inert single-player (no flow store / IsDriver true). Shared sessionId + presence-merge across
-            // peers is the post-B2 MP turn-on.
             if (_ctx != null && !_ctx.IsDriver) { WarnFollowerSkipped(role); return; }
-
             if (!consentGranted) { WarnConsentBlocked(role); return; }
+
             SessionReport report = BuildReport(role, userId, withGradedPayload: true, complete);
             Submit(report);
         }
 
-        // P8: fail-closed consent block - loud, not silent (the no-silent-bail rule). The readout was shown
-        // locally; no report is shipped because no granted consent receipt is present for this session.
         void WarnConsentBlocked(SessionRole role)
         {
-            Debug.LogWarning($"[Analytics] Consent not granted (no granted consent receipt on the launch context): the {role} session report was computed locally but NOT emitted (fail-closed). The host must stamp LaunchContext.consent from the tenant's recorded consent before reports can ship.", this);
+            Debug.LogWarning($"[Analytics] Consent not granted: the {role} session report was computed locally but NOT emitted (fail-closed). The host must stamp LaunchContext.consent before reports can ship.", this);
         }
 
-        // P6: a follower correctly defers to the driver (expected MP behaviour, not a misconfig) -> Log, not
-        // Warning. Inert single-player (always the driver).
         void WarnFollowerSkipped(SessionRole role)
         {
-            Debug.Log($"[Analytics] This peer is a follower (not the run authority); the {role} graded report was computed locally but NOT submitted - the driver ships the authoritative session report.", this);
+            Debug.Log($"[Analytics] This peer is a follower; the {role} graded report was computed locally but NOT submitted - the driver ships the authoritative session report.", this);
         }
 
         SessionReport BuildReport(SessionRole role, string userId, bool withGradedPayload, bool complete)
@@ -329,14 +327,12 @@ namespace Pitech.XR.Analytics
                 sessionId = _ctx != null ? _ctx.SessionId : string.Empty,
                 labId = _ctx != null ? _ctx.LabId : string.Empty,
                 labVersion = _ctx != null ? _ctx.LabVersion : string.Empty,
-                isComplete = complete,
-                consent = _ctx != null ? _ctx.Consent : null   // P8: lawful-basis audit trail (granted on every emitted report)
+                isComplete = complete,   // RAW bracket fact - NOT the grade verdict (the cloud derives failed itself)
+                consent = _ctx != null ? _ctx.Consent : null
             };
             report.users.Add(new SessionReportUser(userId, role));
             if (withGradedPayload)
             {
-                // Defensive copy: the recorder reuses _stream across re-runs (BeginCapture clears it), so
-                // the report must own its own list rather than alias the live buffer.
                 report.events = new List<AnalyticsEvent>(_stream.events);
                 report.config = config;
             }
@@ -346,106 +342,148 @@ namespace Pitech.XR.Analytics
         void Submit(SessionReport report)
         {
             string json = SessionReportJson.Serialize(report);
-            if (_sink != null)
+            if (_sink != null) _sink.Submit(report, json);
+            else Debug.LogWarning("[Analytics] No ISessionReportSink registered. The session report was computed but not persisted/shipped.", this);
+        }
+
+        // ---- live notifications + gates ----
+
+        /// <summary>On a captured count/signal event: fire the toast for a matching notifying penalty or critical
+        /// step gate, and trip a scenario-fail (emit the fact + raise onScenarioFailed) when a failScenario penalty
+        /// or a failsScenario step's critical gate hits an error-severity occurrence.</summary>
+        void NotifyAndGate(AnalyticsEvent e)
+        {
+            BandSeverity sev = AnalyticsSeverity.Derive(e.kind, IsRelevant(e.subjectId), IsKnownDistractor(e.subjectId));
+
+            // Scene penalties (run-wide).
+            if (config != null && config.penalties != null)
             {
-                _sink.Submit(report, json);
+                for (int i = 0; i < config.penalties.Count; i++)
+                {
+                    PenaltyRule p = config.penalties[i];
+                    if (p == null || !PenaltyMatches(p, e)) continue;
+                    bool penFails = p.failScenario && sev == BandSeverity.Error;
+                    if (p.notifyInScene && sev != BandSeverity.None)
+                        onNotification.Invoke(new AnalyticsNotification(LevelFor(sev, penFails), p.id, p.label, sev, e.subjectId));
+                    if (penFails)
+                        EmitScenarioFail(p.id, string.IsNullOrEmpty(p.label) ? "Critical penalty" : p.label, e.tMs);
+                }
             }
-            else
+
+            // Critical gate on the CURRENT step.
+            StepAnalytic sa = FindCurrentStepAnalytic();
+            if (sa != null && sev == BandSeverity.Error)
             {
-                // No outbox wired: loud, not silent (per the no-silent-bail rule). The readout still shows;
-                // the report is not persisted until the host registers an ISessionReportSink.
-                Debug.LogWarning("[Analytics] No ISessionReportSink registered (XRServices or the reportSink field). The session report was computed but not persisted/shipped.", this);
+                AnalyticsMetric gate = FindCriticalMetricForEvent(sa, e);
+                if (gate != null)
+                {
+                    // A critical gate is always the top variant (it zeroes the step, maybe the scenario).
+                    onNotification.Invoke(new AnalyticsNotification(NotificationLevel.Critical, gate.id, gate.label, BandSeverity.Error, e.subjectId));
+                    if (sa.failsScenario)
+                        EmitScenarioFail(gate.id, GateLabel(gate, sa), e.tMs);
+                }
             }
         }
 
-        // --- in-scene notifications (the warning/error nudge; map sec-11.x) ---
-
-        void NotifyForCount(AnalyticsEvent e)
+        /// <summary>Per-frame duration watch: step-duration notifying bands (current step) + total-duration penalty
+        /// tiers, plus their gates (critical step-duration on a failsScenario step; a failScenario duration penalty).</summary>
+        void CheckDurationLive()
         {
-            BandSeverity sev = e.kind == AnalyticsEventKind.OrderViolation ? BandSeverity.Warning
-                : e.kind == AnalyticsEventKind.Drop ? (IsRelevant(e.subjectId) ? BandSeverity.Error : BandSeverity.Warning)
-                : /* WrongInteraction */ (IsKnownDistractor(e.subjectId) ? BandSeverity.Warning : BandSeverity.Error);
-
-            AnalyticsMetric m = FirstNotifyingMetricOfKind(KindIdFor(e.kind), sev);
-            if (m != null)
-                onNotification.Invoke(new AnalyticsNotification(m.id, m.label, sev, e.subjectId));
-        }
-
-        void NotifyForSignal(AnalyticsEvent e)
-        {
-            AnalyticsMetric m = FindMetricById(e.signalId);
-            if (m == null) return;
-            if (HasNotifyingBand(m, BandSeverity.Error))
-                onNotification.Invoke(new AnalyticsNotification(m.id, m.label, BandSeverity.Error, e.subjectId));
-        }
-
-        // --- live duration notifications (the notifyInScene bool on StepDuration / TotalDuration bands) ---
-        // Count / signal metrics notify off a discrete fact (NotifyForCount / NotifyForSignal). Duration is
-        // a CEILING kind with no discrete fact - the elapsed value only grows - so it is polled each frame
-        // while capturing (Update). When the current step's elapsed (StepDuration) or the whole bracket's
-        // elapsed (TotalDuration) crosses a notifying band, the toast fires ONCE per escalation. Uses the
-        // SAME ceiling rule as grading (AnalyticsGradeEngine.CeilingPenalty: highest ACTIVE band whose
-        // threshold <= elapsed) so the live warning matches the penalty the readout will show.
-        void CheckDurationNotifications()
-        {
-            if (config == null || config.analytics == null) return;
+            if (config == null) return;
             long freq = Stopwatch.Frequency;
             if (freq <= 0) return;
             long now = Stopwatch.GetTimestamp();
             float totalSec = (float)((now - _startTick) / (double)freq);
             bool haveStep = !string.IsNullOrEmpty(_currentStepGuid);
             float stepSec = haveStep ? (float)((now - _currentStepStartTick) / (double)freq) : 0f;
+            double nowMs = ToMs(now);
 
-            for (int i = 0; i < config.analytics.Count; i++)
+            // Step-duration metrics on the current step.
+            StepAnalytic sa = haveStep ? FindCurrentStepAnalytic() : null;
+            if (sa != null && sa.metrics != null)
             {
-                Analytic a = config.analytics[i];
-                if (a == null || a.metrics == null) continue;
-                string aStepGuid = (a is StepAnalytic sa) ? sa.stepGuid : null;
-                for (int j = 0; j < a.metrics.Count; j++)
+                for (int j = 0; j < sa.metrics.Count; j++)
                 {
-                    AnalyticsMetric m = a.metrics[j];
-                    if (m == null) continue;
-                    if (m.Kind == StepDurationMetric.KindId)
-                    {
-                        // Step-scoped: only the analytic sidecar-ed to the CURRENT step measures now.
-                        if (haveStep && aStepGuid == _currentStepGuid) EvaluateDurationBand(m, stepSec);
-                    }
-                    else if (m.Kind == TotalDurationMetric.KindId)
-                    {
-                        EvaluateDurationBand(m, totalSec);
-                    }
+                    AnalyticsMetric m = sa.metrics[j];
+                    if (m == null || m.Kind != StepDurationMetric.KindId) continue;
+                    NotifyDurationBands(m, stepSec);
+                    if (m.critical && sa.failsScenario && AnalyticsSeverity.DurationGateTrips(m, stepSec))
+                        EmitScenarioFail(m.id, GateLabel(m, sa), nowMs);
+                }
+            }
+
+            // Total-duration penalties (run-wide).
+            if (config.penalties != null)
+            {
+                for (int i = 0; i < config.penalties.Count; i++)
+                {
+                    PenaltyRule p = config.penalties[i];
+                    if (p == null || p.kind != PenaltyKind.TotalDuration || p.tiers == null) continue;
+                    NotifyPenaltyTiers(p, totalSec);
+                    if (p.failScenario && HighestCrossedTier(p, totalSec) != null)
+                        EmitScenarioFail(p.id, string.IsNullOrEmpty(p.label) ? "Over time" : p.label, nowMs);
                 }
             }
         }
 
-        // Fire the toast once per escalation for a duration metric: find the highest NOTIFYING active
-        // ceiling band the elapsed value has crossed, and raise it only if it is a worse band than the
-        // last one already notified for this metric (so it does not re-fire every frame it stays crossed).
-        void EvaluateDurationBand(AnalyticsMetric m, float elapsedSeconds)
+        // Map a band severity (+ whether a critical gate/scenario-fail is in play) to a toast variant.
+        static NotificationLevel LevelFor(BandSeverity sev, bool critical)
+        {
+            if (critical) return NotificationLevel.Critical;
+            return sev == BandSeverity.Error ? NotificationLevel.Error : NotificationLevel.Warning;
+        }
+
+        void EmitScenarioFail(string causeId, string causeLabel, double tMs)
+        {
+            if (_scenarioFailed) return;   // once per bracket
+            _scenarioFailed = true;
+            _stream.Add(new AnalyticsEvent(AnalyticsEventKind.ScenarioFailed, tMs, _currentStepGuid, null, causeId ?? string.Empty, Uid()));
+            onScenarioFailed.Invoke(new AnalyticsFailure(causeId, causeLabel));
+        }
+
+        // Fire a duration metric's notifying bands once per escalation (the step-duration live nudge).
+        void NotifyDurationBands(AnalyticsMetric m, float elapsedSeconds)
         {
             if (m.bands == null) return;
-            float crossed = -1f;
-            BandSeverity sev = BandSeverity.None;
+            float crossed = -1f; BandSeverity sev = BandSeverity.None;
             for (int i = 0; i < m.bands.Count; i++)
             {
                 ScoringBand b = m.bands[i];
-                if (b == null || !b.notifyInScene) continue;
-                if (b.penaltyWeight <= 0f || b.threshold <= 0f) continue;   // None / unset threshold = inactive (matches CeilingPenalty)
-                if (elapsedSeconds >= b.threshold && b.threshold > crossed)
-                {
-                    crossed = b.threshold;
-                    sev = b.name;
-                }
+                if (b == null || !b.notifyInScene || b.penaltyWeight <= 0f || b.threshold <= 0f) continue;
+                if (elapsedSeconds >= b.threshold && b.threshold > crossed) { crossed = b.threshold; sev = b.name; }
             }
-            if (crossed < 0f) return;   // no notifying band crossed yet
-
-            if (_durationNotified.TryGetValue(m.id, out float last) && crossed <= last) return;   // already notified at this / a worse band
+            if (crossed < 0f) return;
+            if (_durationNotified.TryGetValue(m.id, out float last) && crossed <= last) return;
             _durationNotified[m.id] = crossed;
-            onNotification.Invoke(new AnalyticsNotification(m.id, m.label, sev, null));
+            // A critical duration metric on this step reaching its Error band is a gate about to fire -> Critical.
+            onNotification.Invoke(new AnalyticsNotification(LevelFor(sev, m.critical && sev == BandSeverity.Error), m.id, m.label, sev, null));
         }
 
-        // Re-arm a step's duration bands when it is (re)entered so a looped step notifies again on its next
-        // visit. TotalDuration is monotonic across the bracket, so it is never reset here.
+        // Fire a total-duration penalty's crossed tier once per escalation (in-scene "over time" nudge).
+        void NotifyPenaltyTiers(PenaltyRule p, float elapsedSeconds)
+        {
+            if (!p.notifyInScene) return;
+            PenaltyTier t = HighestCrossedTier(p, elapsedSeconds);
+            if (t == null) return;
+            string key = "pen_" + p.id;
+            if (_durationNotified.TryGetValue(key, out float last) && t.overSeconds <= last) return;
+            _durationNotified[key] = t.overSeconds;
+            // A fail-scenario total-duration penalty crossing a tier is about to zero the run -> Critical.
+            onNotification.Invoke(new AnalyticsNotification(LevelFor(BandSeverity.Warning, p.failScenario), p.id, p.label, BandSeverity.Warning, null));
+        }
+
+        static PenaltyTier HighestCrossedTier(PenaltyRule p, float seconds)
+        {
+            PenaltyTier best = null; float bestOver = -1f;
+            for (int i = 0; i < p.tiers.Count; i++)
+            {
+                PenaltyTier t = p.tiers[i];
+                if (t == null || t.overSeconds <= 0f) continue;
+                if (seconds >= t.overSeconds && t.overSeconds > bestOver) { bestOver = t.overSeconds; best = t; }
+            }
+            return best;
+        }
+
         void ResetStepDurationNotified(string stepGuid)
         {
             if (config == null || config.analytics == null || string.IsNullOrEmpty(stepGuid) || _durationNotified.Count == 0) return;
@@ -460,7 +498,9 @@ namespace Pitech.XR.Analytics
             }
         }
 
-        // --- helpers ---
+        // ---- helpers ----
+
+        string Uid() => _ctx != null ? _ctx.UserId : string.Empty;
 
         SessionRole ResolveRole()
         {
@@ -482,17 +522,8 @@ namespace Pitech.XR.Analytics
             return (tick - _startTick) * 1000.0 / freq;
         }
 
-        bool IsRelevant(string subjectId)
-        {
-            TrackedSubject s = FindSubject(subjectId);
-            return s != null && s.scenarioRelevant;
-        }
-
-        bool IsKnownDistractor(string subjectId)
-        {
-            TrackedSubject s = FindSubject(subjectId);
-            return s != null && !s.scenarioRelevant;
-        }
+        bool IsRelevant(string subjectId) { TrackedSubject s = FindSubject(subjectId); return s != null && s.scenarioRelevant; }
+        bool IsKnownDistractor(string subjectId) { TrackedSubject s = FindSubject(subjectId); return s != null && !s.scenarioRelevant; }
 
         TrackedSubject FindSubject(string id)
         {
@@ -505,58 +536,44 @@ namespace Pitech.XR.Analytics
             return null;
         }
 
-        static string KindIdFor(AnalyticsEventKind kind)
+        StepAnalytic FindCurrentStepAnalytic()
         {
-            switch (kind)
-            {
-                case AnalyticsEventKind.Drop: return DropMetric.KindId;
-                case AnalyticsEventKind.WrongInteraction: return WrongInteractionMetric.KindId;
-                case AnalyticsEventKind.OrderViolation: return OrderMetric.KindId;
-                default: return null;
-            }
+            if (config == null || config.analytics == null || string.IsNullOrEmpty(_currentStepGuid)) return null;
+            for (int i = 0; i < config.analytics.Count; i++)
+                if (config.analytics[i] is StepAnalytic sa && sa.stepGuid == _currentStepGuid) return sa;
+            return null;
         }
 
-        AnalyticsMetric FirstNotifyingMetricOfKind(string kindId, BandSeverity sev)
+        static bool PenaltyMatches(PenaltyRule p, AnalyticsEvent e)
         {
-            if (kindId == null || config == null || config.analytics == null) return null;
-            for (int i = 0; i < config.analytics.Count; i++)
+            if (!p.TryEventKind(out AnalyticsEventKind ek)) return false;   // TotalDuration handled elsewhere
+            if (p.kind == PenaltyKind.Signal) return e.kind == AnalyticsEventKind.Signal && e.signalId == p.signalId;
+            return e.kind == ek;
+        }
+
+        static AnalyticsMetric FindCriticalMetricForEvent(StepAnalytic sa, AnalyticsEvent e)
+        {
+            if (sa.metrics == null) return null;
+            for (int j = 0; j < sa.metrics.Count; j++)
             {
-                Analytic a = config.analytics[i];
-                if (a == null || a.metrics == null) continue;
-                for (int j = 0; j < a.metrics.Count; j++)
+                AnalyticsMetric m = sa.metrics[j];
+                if (m == null || !m.critical) continue;
+                switch (e.kind)
                 {
-                    AnalyticsMetric m = a.metrics[j];
-                    if (m != null && m.Kind == kindId && HasNotifyingBand(m, sev)) return m;
+                    case AnalyticsEventKind.Drop: if (m is DropMetric) return m; break;
+                    case AnalyticsEventKind.WrongInteraction: if (m is WrongInteractionMetric) return m; break;
+                    case AnalyticsEventKind.OrderViolation: if (m is OrderMetric) return m; break;
+                    case AnalyticsEventKind.Signal: if (m is SignalMetric && m.id == e.signalId) return m; break;
                 }
             }
             return null;
         }
 
-        AnalyticsMetric FindMetricById(string id)
+        static string GateLabel(AnalyticsMetric m, StepAnalytic sa)
         {
-            if (string.IsNullOrEmpty(id) || config == null || config.analytics == null) return null;
-            for (int i = 0; i < config.analytics.Count; i++)
-            {
-                Analytic a = config.analytics[i];
-                if (a == null || a.metrics == null) continue;
-                for (int j = 0; j < a.metrics.Count; j++)
-                {
-                    AnalyticsMetric m = a.metrics[j];
-                    if (m != null && m.id == id) return m;
-                }
-            }
-            return null;
-        }
-
-        static bool HasNotifyingBand(AnalyticsMetric m, BandSeverity sev)
-        {
-            if (m.bands == null) return false;
-            for (int i = 0; i < m.bands.Count; i++)
-            {
-                ScoringBand b = m.bands[i];
-                if (b != null && b.name == sev && b.notifyInScene && b.penaltyWeight > 0f) return true;
-            }
-            return false;
+            string ml = string.IsNullOrEmpty(m.label) ? "Critical" : m.label;
+            string sl = string.IsNullOrEmpty(sa.label) ? "step" : sa.label;
+            return ml + " (" + sl + ")";
         }
     }
 }

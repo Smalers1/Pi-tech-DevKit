@@ -70,7 +70,8 @@ namespace Pitech.XR.Analytics
             Num(sb, "tMs", e.tMs); sb.Append(',');
             Str(sb, "stepGuid", e.stepGuid); sb.Append(',');
             Str(sb, "subjectId", e.subjectId); sb.Append(',');
-            Str(sb, "signalId", e.signalId);
+            Str(sb, "signalId", e.signalId); sb.Append(',');
+            Str(sb, "userId", e.userId);
             sb.Append('}');
         }
 
@@ -114,12 +115,21 @@ namespace Pitech.XR.Analytics
                 }
             sb.Append("],");
 
-            Key(sb, "objectives"); sb.Append('[');
-            if (rb.objectives != null)
-                for (int i = 0; i < rb.objectives.Count; i++)
+            Key(sb, "penalties"); sb.Append('[');
+            if (rb.penalties != null)
+                for (int i = 0; i < rb.penalties.Count; i++)
                 {
                     if (i > 0) sb.Append(',');
-                    WriteObjective(sb, rb.objectives[i]);
+                    WritePenalty(sb, rb.penalties[i]);
+                }
+            sb.Append("],");
+
+            Key(sb, "goals"); sb.Append('[');
+            if (rb.goals != null)
+                for (int i = 0; i < rb.goals.Count; i++)
+                {
+                    if (i > 0) sb.Append(',');
+                    WriteGoal(sb, rb.goals[i]);
                 }
             sb.Append("],");
 
@@ -133,11 +143,15 @@ namespace Pitech.XR.Analytics
         {
             if (a == null) { sb.Append("null"); return; }
             sb.Append('{');
-            Str(sb, "type", a.GetType().Name); sb.Append(',');   // CLR short-name discriminator
+            Str(sb, "type", a.GetType().Name); sb.Append(',');   // CLR short-name discriminator (only StepAnalytic in v3)
             Str(sb, "id", a.id); sb.Append(',');
             Str(sb, "label", a.label); sb.Append(',');
-            if (a is StepAnalytic sa) { Str(sb, "stepGuid", sa.stepGuid); sb.Append(','); }
-            else if (a is SceneAnalytic sc) { Str(sb, "category", sc.category); sb.Append(','); }
+            if (a is StepAnalytic sa)
+            {
+                Str(sb, "stepGuid", sa.stepGuid); sb.Append(',');
+                Num(sb, "weight", sa.weight); sb.Append(',');
+                Bool(sb, "failsScenario", sa.failsScenario); sb.Append(',');
+            }
 
             Key(sb, "metrics"); sb.Append('[');
             if (a.metrics != null)
@@ -157,7 +171,8 @@ namespace Pitech.XR.Analytics
             Str(sb, "type", m.GetType().Name); sb.Append(',');   // CLR short-name discriminator
             Str(sb, "id", m.id); sb.Append(',');
             Str(sb, "label", m.label); sb.Append(',');
-            Num(sb, "weight", m.weight); sb.Append(',');
+            Bool(sb, "critical", m.critical); sb.Append(',');
+            Bool(sb, "notifyOnly", m.notifyOnly); sb.Append(',');
 
             Key(sb, "bands"); sb.Append('[');
             if (m.bands != null)
@@ -176,24 +191,51 @@ namespace Pitech.XR.Analytics
             sb.Append('}');
         }
 
-        static void WriteObjective(StringBuilder sb, Objective o)
+        static void WritePenalty(StringBuilder sb, PenaltyRule p)
         {
-            if (o == null) { sb.Append("null"); return; }
+            if (p == null) { sb.Append("null"); return; }
             sb.Append('{');
-            Str(sb, "id", o.id); sb.Append(',');
-            Str(sb, "label", o.label); sb.Append(',');
-            Num(sb, "weight", o.weight); sb.Append(',');
-            Num(sb, "target", o.target); sb.Append(',');
-            Key(sb, "inputs"); sb.Append('[');
-            if (o.inputs != null)
-                for (int i = 0; i < o.inputs.Count; i++)
+            Str(sb, "id", p.id); sb.Append(',');
+            Str(sb, "label", p.label); sb.Append(',');
+            Str(sb, "kind", p.kind.ToString()); sb.Append(',');
+            Str(sb, "signalId", p.signalId); sb.Append(',');
+            Num(sb, "pointsPerWarning", p.pointsPerWarning); sb.Append(',');
+            Num(sb, "pointsPerError", p.pointsPerError); sb.Append(',');
+            Num(sb, "maxDeduction", p.maxDeduction); sb.Append(',');
+            Bool(sb, "failScenario", p.failScenario); sb.Append(',');
+            Bool(sb, "notifyInScene", p.notifyInScene); sb.Append(',');
+            Key(sb, "tiers"); sb.Append('[');
+            if (p.tiers != null)
+                for (int i = 0; i < p.tiers.Count; i++)
                 {
                     if (i > 0) sb.Append(',');
-                    ObjectiveInput inp = o.inputs[i];
+                    PenaltyTier t = p.tiers[i];
                     sb.Append('{');
-                    Str(sb, "analyticId", inp != null ? inp.analyticId : string.Empty); sb.Append(',');
-                    Num(sb, "subWeight", inp != null ? inp.subWeight : 0f);
+                    Num(sb, "overSeconds", t != null ? t.overSeconds : 0f); sb.Append(',');
+                    Num(sb, "points", t != null ? t.points : 0);
                     sb.Append('}');
+                }
+            sb.Append(']');
+            sb.Append('}');
+        }
+
+        static void WriteGoal(StringBuilder sb, Goal g)
+        {
+            if (g == null) { sb.Append("null"); return; }
+            sb.Append('{');
+            Str(sb, "id", g.id); sb.Append(',');
+            Str(sb, "label", g.label); sb.Append(',');
+            Num(sb, "bonusPoints", g.bonusPoints); sb.Append(',');
+            Str(sb, "kind", g.kind.ToString()); sb.Append(',');
+            Num(sb, "threshold", g.threshold); sb.Append(',');
+            Str(sb, "countKind", g.countKind.ToString()); sb.Append(',');
+            Str(sb, "signalId", g.signalId); sb.Append(',');
+            Key(sb, "stepAnalyticIds"); sb.Append('[');
+            if (g.stepAnalyticIds != null)
+                for (int i = 0; i < g.stepAnalyticIds.Count; i++)
+                {
+                    if (i > 0) sb.Append(',');
+                    WriteEscaped(sb, g.stepAnalyticIds[i]);
                 }
             sb.Append(']');
             sb.Append('}');

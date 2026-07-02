@@ -32,7 +32,12 @@ namespace Pitech.XR.Analytics
         /// <summary>An out-of-order interaction with a relevant subject. Feeds OrderMetric.</summary>
         OrderViolation = 6,
         /// <summary>An authored analytics signal (<see cref="AnalyticsEvent.signalId"/> set).</summary>
-        Signal = 7
+        Signal = 7,
+        /// <summary>The scenario was FAILED by a critical gate (v3): grade 0 + failed, terminal. The recorder
+        /// emits this the moment a scenario-fail gate trips so BOTH reducers derive the fail from the raw stream
+        /// even if the failing step never completes (e.g. the learner restarts). <see cref="AnalyticsEvent.signalId"/>
+        /// carries the cause metric/penalty id.</summary>
+        ScenarioFailed = 8
     }
 
     /// <summary>
@@ -55,19 +60,25 @@ namespace Pitech.XR.Analytics
         /// <summary>The tracked subject involved (drop / wrong / order). Empty when not applicable.</summary>
         public string subjectId = string.Empty;
 
-        /// <summary>The authored signal id (Signal kind), matched to a metric by id. Empty otherwise.</summary>
+        /// <summary>The authored signal id (Signal kind) or the cause id (ScenarioFailed kind), matched to a
+        /// metric/penalty by id. Empty otherwise.</summary>
         public string signalId = string.Empty;
+
+        /// <summary>The user who caused this (multi-user attribution). Empty in single-user labs / when unknown.
+        /// Additive in v3 so gates can later score Participant-caused events only (post-B2 MP turn-on).</summary>
+        public string userId = string.Empty;
 
         public AnalyticsEvent() { }
 
         public AnalyticsEvent(AnalyticsEventKind kind, double tMs, string stepGuid = null,
-            string subjectId = null, string signalId = null)
+            string subjectId = null, string signalId = null, string userId = null)
         {
             this.kind = kind;
             this.tMs = tMs;
             this.stepGuid = stepGuid ?? string.Empty;
             this.subjectId = subjectId ?? string.Empty;
             this.signalId = signalId ?? string.Empty;
+            this.userId = userId ?? string.Empty;
         }
     }
 

@@ -35,6 +35,31 @@ public partial class ScenarioGraphWindow
             && _stepsWithAnalytics.Contains(stepGuid);
     }
 
+    /// <summary>Brick display info for a step: its weight, its live share of the base (weight / sum of step
+    /// weights), whether it has a critical metric, and whether it fails the scenario. False if no analytic.</summary>
+    internal bool TryGetStepAnalyticInfo(string stepGuid, out float weight, out float share, out bool critical, out bool failsScenario)
+    {
+        weight = 0f; share = 0f; critical = false; failsScenario = false;
+        LabAnalytics la = ResolveLabAnalytics(false);
+        if (la == null || la.config == null || la.config.analytics == null) return false;
+        List<Analytic> list = la.config.analytics;
+        float sumW = 0f; StepAnalytic mine = null;
+        for (int i = 0; i < list.Count; i++)
+            if (list[i] is StepAnalytic sa)
+            {
+                sumW += sa.weight;
+                if (sa.stepGuid == stepGuid) mine = sa;
+            }
+        if (mine == null) return false;
+        weight = mine.weight;
+        share = sumW > 0f ? mine.weight / sumW : 0f;
+        failsScenario = mine.failsScenario;
+        if (mine.metrics != null)
+            for (int j = 0; j < mine.metrics.Count; j++)
+                if (mine.metrics[j] != null && mine.metrics[j].critical) { critical = true; break; }
+        return true;
+    }
+
     /// <summary>Rebuilds <see cref="_stepsWithAnalytics"/> from the lab's LabAnalytics config. Called at the
     /// top of Load() so node badges reflect the current config. Null-safe (clears the set if nothing resolves).</summary>
     void RefreshAnalyticsIndex()
@@ -82,7 +107,11 @@ public partial class ScenarioGraphWindow
         string id = UniqueAnalyticId(la, hasDisplay ? display : step.Kind);
 
         Undo.RegisterCompleteObjectUndo(la, "Add Step Analytic");
-        la.config.analytics.Add(new StepAnalytic { id = id, label = hasDisplay ? display : (step.Kind + " step"), stepGuid = step.guid });
+        var sa = new StepAnalytic { id = id, label = hasDisplay ? display : (step.Kind + " step"), stepGuid = step.guid, weight = 3f };
+        // Seed one (inactive-threshold) duration metric so a fresh brick scores 1.0 instead of masking the step -
+        // the v3 zero-fiddling promise: three untouched bricks => base 100. The author tunes/replaces it.
+        sa.metrics.Add(new StepDurationMetric { id = id + "_duration", label = "Step duration", bands = ScoringBand.DefaultBands() });
+        la.config.analytics.Add(sa);
         EditorUtility.SetDirty(la);
 
         Load(scenario);                                        // rebuild so the brick appears on the node

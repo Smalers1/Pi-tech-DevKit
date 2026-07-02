@@ -55,19 +55,40 @@ sealed class StepAnalyticEditWindow : EditorWindow
 
         EditorGUI.BeginChangeCheck();
 
-        // The analytic's id + label are auto-managed (id = unique slug, label = the step's name) and intentionally
-        // hidden - this analytic is identified by its step (the window title). Only its metrics are authored here.
-        EditorGUILayout.LabelField("Metrics", EditorStyles.boldLabel);
-        EditorGUILayout.LabelField("Each metric scores this step; Warning/Error subtract their penalty.", EditorStyles.miniLabel);
+        // ---- Step-level: importance + scenario gate (v3). The step's id/label are auto-managed + hidden. ----
+        SerializedProperty weightP = analyticP.FindPropertyRelative("weight");
+        if (weightP != null)
+        {
+            int imp = Mathf.Clamp(Mathf.RoundToInt(weightP.floatValue), 1, 5);
+            imp = EditorGUILayout.IntSlider(new GUIContent("Step importance (1-5)",
+                "How much this step counts toward the base grade, relative to the other steps. 1 = minor, 5 = critical. A 5 counts 5x a 1."), imp, 1, 5);
+            if (!Mathf.Approximately(weightP.floatValue, imp)) weightP.floatValue = imp;
+            EditorGUILayout.LabelField("   " + ImportanceWord(imp), EditorStyles.miniLabel);
+        }
+        SerializedProperty failStepP = analyticP.FindPropertyRelative("failsScenario");
+        if (failStepP != null)
+        {
+            bool fs = EditorGUILayout.ToggleLeft(new GUIContent("Failing this step fails the whole scenario",
+                "If a CRITICAL metric on this step fails, fail the entire scenario (grade 0)."), failStepP.boolValue);
+            if (fs != failStepP.boolValue) failStepP.boolValue = fs;
+            if (fs) EditorGUILayout.LabelField("   grade 0 if this step fails - use for must-not-fail steps.",
+                new GUIStyle(EditorStyles.miniLabel) { normal = { textColor = new Color(0.86f, 0.30f, 0.28f) } });
+        }
 
+        EditorGUILayout.Space(4);
         SerializedProperty metricsP = analyticP.FindPropertyRelative("metrics");
+        int scored = CountScored(metricsP);
+        EditorGUILayout.LabelField("Metrics", EditorStyles.boldLabel);
+        EditorGUILayout.LabelField(scored > 0
+            ? $"{scored} scored metric" + (scored == 1 ? "" : "s") + " - each counts 1/" + scored + " of this step's score. Gates + notify-only don't count."
+            : "No scored metrics - this step scores 1.0 unless a gate fails.", EditorStyles.miniLabel);
+
         if (metricsP != null)
         {
             for (int j = 0; j < metricsP.arraySize; j++)
             {
                 SerializedProperty m = metricsP.GetArrayElementAtIndex(j);
 
-                // [SerializeReference] null-slot guard - never auto-strip; let the user remove it.
                 if (m.propertyType == SerializedPropertyType.ManagedReference && m.managedReferenceValue == null)
                 {
                     if (GUILayout.Button("Remove null metric")) { RemoveMetric(metricsP, j); break; }
@@ -88,15 +109,42 @@ sealed class StepAnalyticEditWindow : EditorWindow
                         }
                     }
 
-                    // Id/label are hidden (auto) EXCEPT a Signal metric's id: it is the link to the emitter -
-                    // AnalyticsSignalEmitter.EmitSignal("...") counts only when its signal id equals this id.
+                    // Signal metric's id links to the emitter (AnalyticsSignalEmitter.EmitSignal must match).
                     if (mv is SignalMetric)
                         EditorGUILayout.PropertyField(m.FindPropertyRelative("id"),
                             new GUIContent("Signal id", "Must match the id your AnalyticsSignalEmitter emits."));
 
-                    EditorGUILayout.PropertyField(m.FindPropertyRelative("weight"), new GUIContent("Weight"));
-                    SerializedProperty bandsP = m.FindPropertyRelative("bands");
-                    if (bandsP != null) DrawSimplifiedBands(bandsP, IsDurationKind(mv));
+                    SerializedProperty criticalP = m.FindPropertyRelative("critical");
+                    SerializedProperty notifyOnlyP = m.FindPropertyRelative("notifyOnly");
+                    bool crit = criticalP != null && criticalP.boolValue;
+
+                    // Critical GATE: pass/fail, no partial credit.
+                    if (criticalP != null)
+                    {
+                        bool c = EditorGUILayout.ToggleLeft(new GUIContent("Critical (fails the step)",
+                            "A gate: if this criterion fails, the whole step fails (score 0). No partial credit."), crit);
+                        if (c != crit) { criticalP.boolValue = c; crit = c; }
+                    }
+
+                    if (crit)
+                    {
+                        EditorGUILayout.LabelField(DescribeGate(mv, m),
+                            new GUIStyle(EditorStyles.miniLabel) { normal = { textColor = new Color(0.86f, 0.30f, 0.28f) } });
+                        // A gate only needs the Error threshold (duration) - the penalty sliders don't apply.
+                        SerializedProperty bandsP = m.FindPropertyRelative("bands");
+                        if (bandsP != null && IsDurationKind(mv)) DrawDurationErrorOnly(bandsP);
+                    }
+                    else
+                    {
+                        if (notifyOnlyP != null)
+                        {
+                            bool n = EditorGUILayout.ToggleLeft(new GUIContent("Notify only (don't score)",
+                                "Fire the in-scene toast but don't let this metric affect the step score."), notifyOnlyP.boolValue);
+                            if (n != notifyOnlyP.boolValue) notifyOnlyP.boolValue = n;
+                        }
+                        SerializedProperty bandsP = m.FindPropertyRelative("bands");
+                        if (bandsP != null) DrawSimplifiedBands(bandsP, IsDurationKind(mv));
+                    }
                 }
 
                 if (j >= metricsP.arraySize) break;
@@ -173,12 +221,24 @@ sealed class StepAnalyticEditWindow : EditorWindow
         return null;
     }
 
+    // 1-5 importance -> a plain word, so the number isn't opaque.
+    static string ImportanceWord(int imp)
+    {
+        switch (imp)
+        {
+            case 1: return "1/5 - minor (counts least toward the grade)";
+            case 2: return "2/5 - low";
+            case 3: return "3/5 - normal";
+            case 4: return "4/5 - high";
+            default: return "5/5 - critical (counts most toward the grade)";
+        }
+    }
+
     static string MetricKindLabel(object metric)
     {
         return metric switch
         {
             StepDurationMetric _ => "Step duration",
-            TotalDurationMetric _ => "Total duration",
             DropMetric _ => "Drop",
             WrongInteractionMetric _ => "Wrong interaction",
             OrderMetric _ => "Order",
@@ -187,12 +247,52 @@ sealed class StepAnalyticEditWindow : EditorWindow
         };
     }
 
+    // Number of metrics that actually contribute to the step score (not gates, not notify-only).
+    static int CountScored(SerializedProperty metricsP)
+    {
+        if (metricsP == null) return 0;
+        int n = 0;
+        for (int j = 0; j < metricsP.arraySize; j++)
+        {
+            SerializedProperty m = metricsP.GetArrayElementAtIndex(j);
+            if (m.propertyType == SerializedPropertyType.ManagedReference && m.managedReferenceValue == null) continue;
+            SerializedProperty crit = m.FindPropertyRelative("critical");
+            SerializedProperty notify = m.FindPropertyRelative("notifyOnly");
+            if ((crit != null && crit.boolValue) || (notify != null && notify.boolValue)) continue;
+            n++;
+        }
+        return n;
+    }
+
+    // Plain-language trigger for a critical gate, so the author knows exactly when it fires.
+    static string DescribeGate(object mv, SerializedProperty m)
+    {
+        if (mv is StepDurationMetric)
+        {
+            float err = AnalyticsSeverity.DurationErrorSeconds((AnalyticsMetric)mv);
+            return err > 0f ? $"Fails when this step reaches {err:0.#}s (the Error threshold)."
+                            : "Set an Error threshold below - this gate is inactive until you do.";
+        }
+        return "Zero tolerance: fails on any error-severity occurrence (drops of relevant items, wrong targets, etc.).";
+    }
+
+    // For a gate duration metric: only the Error 'fail if over' seconds matters (no penalty slider).
+    static void DrawDurationErrorOnly(SerializedProperty bandsP)
+    {
+        int idx = FindBandIndex(bandsP, BandSeverity.Error);
+        if (idx < 0) { AddBand(bandsP, BandSeverity.Error, 1.0f); return; }
+        SerializedProperty band = bandsP.GetArrayElementAtIndex(idx);
+        SerializedProperty thr = band.FindPropertyRelative("threshold");
+        thr.floatValue = Mathf.Max(0f, EditorGUILayout.FloatField(
+            new GUIContent("Fail if over (seconds)", "The step fails when it reaches this many seconds."), thr.floatValue));
+    }
+
     // ---------- Simplified, kind-aware band editor (replaces the raw ScoringBand list) ----------
     // Two fixed tiers: Warning + Error. Each is a toggle that adds/removes its band; when on it exposes a penalty
     // (0-1 slider) + notify-in-scene, plus a seconds threshold for DURATION kinds (count kinds derive severity
     // automatically, so their threshold is unused by the engine and hidden). The None band is left untouched (the
     // grade engine still uses it; it just isn't shown - "none is useless" to the author).
-    static bool IsDurationKind(object metric) => metric is StepDurationMetric || metric is TotalDurationMetric;
+    static bool IsDurationKind(object metric) => metric is StepDurationMetric;
 
     static void DrawSimplifiedBands(SerializedProperty bandsP, bool isDurationKind)
     {

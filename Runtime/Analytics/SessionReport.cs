@@ -37,8 +37,9 @@ namespace Pitech.XR.Analytics
     [Serializable]
     public sealed class SessionReport
     {
-        /// <summary>Report schema version (forward migration / the portable contract).</summary>
-        public int schemaVersion = 1;
+        /// <summary>Report schema version (forward migration / the portable contract). 2 = the v3 grading model
+        /// (base - penalties + bonus); the cloud rejects &lt; 2.</summary>
+        public int schemaVersion = 2;
 
         // ---- Envelope (tenant isolation + attribution; map sec-11.5) ----
         public string tenantId = string.Empty;

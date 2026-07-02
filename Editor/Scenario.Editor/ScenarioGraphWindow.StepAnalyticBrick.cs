@@ -43,12 +43,37 @@ public partial class ScenarioGraphWindow
             brick.style.paddingBottom = 3;
             ApplyBrickBorder(brick);
 
-            var titleLabel = new Label("ANALYTIC");
+            // Title shows the step's importance (1-5) + live share of the base grade (v3), so the author can see
+            // "how much of the grade is this step?" at a glance without opening the editor.
+            string titleText = "ANALYTIC";
+            bool critical = false, failsScenario = false;
+            if (owner != null && owner.TryGetStepAnalyticInfo(s.guid, out float w, out float share, out critical, out failsScenario))
+                titleText = $"ANALYTIC   imp {Mathf.Clamp(Mathf.RoundToInt(w), 1, 5)}/5 - ~{Mathf.RoundToInt(share * 100f)}%";
+
+            var titleLabel = new Label(titleText);
             titleLabel.style.color = Color.black;
             titleLabel.style.unityFontStyleAndWeight = FontStyle.Bold;
             titleLabel.style.fontSize = 10;
             titleLabel.style.flexGrow = 1;
             brick.Add(titleLabel);
+
+            // A red gate badge when this step carries a critical metric / fails the scenario - the kill-switches
+            // must be visible in the graph without opening every brick (audit trail, per the v3 UX rules).
+            if (critical || failsScenario)
+            {
+                var badge = new Label(failsScenario ? "(!) FAILS" : "(!) GATE");
+                badge.tooltip = failsScenario
+                    ? "A critical metric here fails the WHOLE scenario (grade 0)."
+                    : "This step has a critical gate metric (failing it fails the step).";
+                badge.style.color = Color.white;
+                badge.style.backgroundColor = new Color(0.86f, 0.30f, 0.28f);
+                badge.style.unityFontStyleAndWeight = FontStyle.Bold;
+                badge.style.fontSize = 9;
+                badge.style.paddingLeft = 4; badge.style.paddingRight = 4;
+                badge.style.marginRight = 4;
+                badge.style.unityTextAlign = TextAnchor.MiddleCenter;
+                brick.Add(badge);
+            }
 
             // "Edit..." opens the metrics window (resolves the recorder live; self-heals a stale marker).
             var editBtn = new Button(() => owner?.EditStepAnalytic(step)) { text = "Edit..." };
